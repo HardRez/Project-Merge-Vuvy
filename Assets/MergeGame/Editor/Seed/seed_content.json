@@ -1,0 +1,232 @@
+{
+  "scoreTable": [
+    0,
+    10,
+    25,
+    60,
+    150,
+    400,
+    1000
+  ],
+  "chains": [
+    {
+      "id": "fruit",
+      "displayName": "Meyve",
+      "spawnWeight": 3,
+      "scoreMultiplier": 1.0,
+      "levels": [
+        {
+          "name": "Kiraz",
+          "emoji": "🍒"
+        },
+        {
+          "name": "Çilek",
+          "emoji": "🍓"
+        },
+        {
+          "name": "Portakal",
+          "emoji": "🍊"
+        },
+        {
+          "name": "Elma",
+          "emoji": "🍎"
+        },
+        {
+          "name": "Şeftali",
+          "emoji": "🍑"
+        },
+        {
+          "name": "Ananas",
+          "emoji": "🍍"
+        },
+        {
+          "name": "Karpuz",
+          "emoji": "🍉"
+        }
+      ]
+    },
+    {
+      "id": "flower",
+      "displayName": "Çiçek",
+      "spawnWeight": 3,
+      "scoreMultiplier": 1.0,
+      "levels": [
+        {
+          "name": "Filiz",
+          "emoji": "🌱"
+        },
+        {
+          "name": "Yonca",
+          "emoji": "🍀"
+        },
+        {
+          "name": "Lale",
+          "emoji": "🌷"
+        },
+        {
+          "name": "Papatya",
+          "emoji": "🌼"
+        },
+        {
+          "name": "Ayçiçeği",
+          "emoji": "🌻"
+        },
+        {
+          "name": "Gül",
+          "emoji": "🌹"
+        },
+        {
+          "name": "Buket",
+          "emoji": "💐"
+        }
+      ]
+    },
+    {
+      "id": "sea",
+      "displayName": "Deniz",
+      "spawnWeight": 2,
+      "scoreMultiplier": 1.2,
+      "levels": [
+        {
+          "name": "Deniz Kabuğu",
+          "emoji": "🐚"
+        },
+        {
+          "name": "Karides",
+          "emoji": "🦐"
+        },
+        {
+          "name": "Yengeç",
+          "emoji": "🦀"
+        },
+        {
+          "name": "Balık",
+          "emoji": "🐟"
+        },
+        {
+          "name": "Ahtapot",
+          "emoji": "🐙"
+        },
+        {
+          "name": "Yunus",
+          "emoji": "🐬"
+        },
+        {
+          "name": "Balina",
+          "emoji": "🐳"
+        }
+      ]
+    },
+    {
+      "id": "bakery",
+      "displayName": "Fırın",
+      "spawnWeight": 2,
+      "scoreMultiplier": 1.2,
+      "levels": [
+        {
+          "name": "Buğday",
+          "emoji": "🌾"
+        },
+        {
+          "name": "Ekmek",
+          "emoji": "🍞"
+        },
+        {
+          "name": "Kruvasan",
+          "emoji": "🥐"
+        },
+        {
+          "name": "Simit",
+          "emoji": "🥨"
+        },
+        {
+          "name": "Kek",
+          "emoji": "🧁"
+        },
+        {
+          "name": "Pasta Dilimi",
+          "emoji": "🍰"
+        },
+        {
+          "name": "Yaş Pasta",
+          "emoji": "🎂"
+        }
+      ]
+    },
+    {
+      "id": "basket",
+      "displayName": "Sepet",
+      "spawnWeight": 0,
+      "scoreMultiplier": 1.5,
+      "levels": [
+        {
+          "name": "Poşet",
+          "emoji": "🛍️"
+        },
+        {
+          "name": "Sepet",
+          "emoji": "🧺"
+        },
+        {
+          "name": "Market Arabası",
+          "emoji": "🛒"
+        }
+      ]
+    },
+    {
+      "id": "boat",
+      "displayName": "Tekne",
+      "spawnWeight": 0,
+      "scoreMultiplier": 1.5,
+      "levels": [
+        {
+          "name": "Çapa",
+          "emoji": "⚓"
+        },
+        {
+          "name": "Kano",
+          "emoji": "🛶"
+        },
+        {
+          "name": "Yelkenli",
+          "emoji": "⛵"
+        }
+      ]
+    },
+    {
+      "id": "kitchen",
+      "displayName": "Mutfak",
+      "spawnWeight": 0,
+      "scoreMultiplier": 1.5,
+      "levels": [
+        {
+          "name": "Kaşık",
+          "emoji": "🥄"
+        },
+        {
+          "name": "Kase",
+          "emoji": "🥣"
+        },
+        {
+          "name": "Tava",
+          "emoji": "🍳"
+        }
+      ]
+    }
+  ],
+  "modes": [
+    {
+      "id": "classic",
+      "displayName": "Klasik",
+      "boardWidth": 5,
+      "boardHeight": 5,
+      "chains": [
+        "fruit",
+        "flower",
+        "sea",
+        "bakery"
+      ],
+      "showSpawnButton": true
+    }
+  ]
+}
