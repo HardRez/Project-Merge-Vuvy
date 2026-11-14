@@ -14,74 +14,74 @@
   ],
   "chains": [
     {
-      "id": "fruit",
-      "displayName": "Meyve",
+      "id": "garden",
+      "displayName": "Bahçe",
       "spawnWeight": 3,
       "scoreMultiplier": 1.0,
       "levels": [
         {
-          "name": "Kiraz",
-          "emoji": "🍒"
+          "name": "Tohum",
+          "source": "OrangeTree01"
         },
         {
-          "name": "Çilek",
-          "emoji": "🍓"
+          "name": "Filiz",
+          "source": "OrangeTree02"
         },
         {
-          "name": "Portakal",
-          "emoji": "🍊"
+          "name": "Fide",
+          "source": "OrangeTree03"
         },
         {
-          "name": "Elma",
-          "emoji": "🍎"
+          "name": "Çiçekli Fidan",
+          "source": "OrangeTree05"
         },
         {
-          "name": "Şeftali",
-          "emoji": "🍑"
+          "name": "Genç Ağaç",
+          "source": "OrangeTree06"
         },
         {
-          "name": "Ananas",
-          "emoji": "🍍"
+          "name": "Portakal Ağacı",
+          "source": "OrangeTree08"
         },
         {
-          "name": "Karpuz",
-          "emoji": "🍉"
+          "name": "Bereketli Ağaç",
+          "source": "OrangeTree10"
         }
       ]
     },
     {
-      "id": "flower",
-      "displayName": "Çiçek",
+      "id": "cafe",
+      "displayName": "Kafe",
       "spawnWeight": 3,
       "scoreMultiplier": 1.0,
       "levels": [
         {
-          "name": "Filiz",
-          "emoji": "🌱"
+          "name": "Karton Bardak",
+          "source": "Coffee01"
         },
         {
-          "name": "Yonca",
-          "emoji": "🍀"
+          "name": "Sıcak Kahve",
+          "source": "Coffee03"
         },
         {
-          "name": "Lale",
-          "emoji": "🌷"
+          "name": "Fincan Kahve",
+          "source": "Coffee05"
         },
         {
-          "name": "Papatya",
-          "emoji": "🌼"
+          "name": "Şekerli Kahve",
+          "source": "Coffee07"
         },
         {
-          "name": "Ayçiçeği",
-          "emoji": "🌻"
+          "name": "Latte",
+          "source": "Coffee08"
         },
         {
-          "name": "Gül",
-          "emoji": "🌹"
+          "name": "Latte Macchiato",
+          "source": "Coffee09"
         },
         {
-          "name": "Buket",
-          "emoji": "💐"
+          "name": "Mocha",
+          "source": "Coffee10"
         }
       ]
     },
@@ -92,32 +92,32 @@
       "scoreMultiplier": 1.2,
       "levels": [
         {
-          "name": "Deniz Kabuğu",
-          "emoji": "🐚"
+          "name": "Tarak Kabuğu",
+          "source": "Seashell03"
         },
         {
-          "name": "Karides",
-          "emoji": "🦐"
+          "name": "Kauri Kabuğu",
+          "source": "Seashell04"
         },
         {
-          "name": "Yengeç",
-          "emoji": "🦀"
+          "name": "Boru Kabuğu",
+          "source": "Seashell05"
         },
         {
-          "name": "Balık",
-          "emoji": "🐟"
+          "name": "Salyangoz Kabuğu",
+          "source": "Seashell06"
         },
         {
-          "name": "Ahtapot",
-          "emoji": "🐙"
+          "name": "Dikenli Kabuk",
+          "source": "Seashell08"
         },
         {
-          "name": "Yunus",
-          "emoji": "🐬"
+          "name": "Benekli Kabuk",
+          "source": "Seashell10"
         },
         {
-          "name": "Balina",
-          "emoji": "🐳"
+          "name": "İnci",
+          "source": "Seashell12"
         }
       ]
     },
@@ -128,32 +128,32 @@
       "scoreMultiplier": 1.2,
       "levels": [
         {
-          "name": "Buğday",
-          "emoji": "🌾"
+          "name": "Un Çuvalı",
+          "source": "Flour01"
         },
         {
-          "name": "Ekmek",
-          "emoji": "🍞"
+          "name": "Hamur",
+          "source": "Flour02"
         },
         {
-          "name": "Kruvasan",
-          "emoji": "🥐"
+          "name": "Çörek",
+          "source": "Flour03"
         },
         {
-          "name": "Simit",
-          "emoji": "🥨"
+          "name": "Somun Ekmek",
+          "source": "Flour05"
         },
         {
-          "name": "Kek",
-          "emoji": "🧁"
+          "name": "Sandviç",
+          "source": "Flour07"
         },
         {
-          "name": "Pasta Dilimi",
-          "emoji": "🍰"
+          "name": "Kulüp Sandviç",
+          "source": "Flour09"
         },
         {
-          "name": "Yaş Pasta",
-          "emoji": "🎂"
+          "name": "Hamburger",
+          "source": "Flour13"
         }
       ]
     }
@@ -182,19 +182,19 @@
     ]
   },
   "initialLayout": [
-    { "x": 0, "y": 0, "chain": "fruit", "level": 2, "locked": true, "hidden": true },
-    { "x": 1, "y": 0, "chain": "fruit", "level": 1, "locked": true },
-    { "x": 3, "y": 0, "chain": "flower", "level": 1, "locked": true },
+    { "x": 0, "y": 0, "chain": "cafe", "level": 2, "locked": true, "hidden": true },
+    { "x": 1, "y": 0, "chain": "cafe", "level": 1, "locked": true },
+    { "x": 3, "y": 0, "chain": "garden", "level": 1, "locked": true },
     { "x": 4, "y": 0, "chain": "bakery", "level": 2, "locked": true, "hidden": true },
     { "x": 0, "y": 1, "chain": "sea", "level": 1, "locked": true },
-    { "x": 2, "y": 1, "chain": "fruit", "level": 1, "locked": false },
+    { "x": 2, "y": 1, "chain": "cafe", "level": 1, "locked": false },
     { "x": 4, "y": 1, "chain": "bakery", "level": 1, "locked": true },
-    { "x": 1, "y": 2, "chain": "flower", "level": 1, "locked": false },
+    { "x": 1, "y": 2, "chain": "garden", "level": 1, "locked": false },
     { "x": 3, "y": 2, "chain": "sea", "level": 1, "locked": false },
     { "x": 0, "y": 4, "chain": "sea", "level": 2, "locked": true, "hidden": true },
     { "x": 1, "y": 4, "chain": "bakery", "level": 2, "locked": true },
     { "x": 2, "y": 4, "chain": "bakery", "level": 1, "locked": false },
-    { "x": 3, "y": 4, "chain": "flower", "level": 2, "locked": true },
-    { "x": 4, "y": 4, "chain": "fruit", "level": 3, "locked": true, "hidden": true }
+    { "x": 3, "y": 4, "chain": "garden", "level": 2, "locked": true },
+    { "x": 4, "y": 4, "chain": "cafe", "level": 3, "locked": true, "hidden": true }
   ]
 }

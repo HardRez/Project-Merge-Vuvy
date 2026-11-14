@@ -194,6 +194,8 @@ def write_items(source: FluentSource, seed_path: Path, out_dir: Path) -> list[Pa
     for chain in seed["chains"]:
         chain_id = chain["id"]
         for index, level in enumerate(chain["levels"], start=1):
+            if "emoji" not in level:  # art from the asset pack; see Tools/PackArt
+                continue
             try:
                 sprite = compose_sprite(source.load(level["emoji"]))
             except ResolveError as exc:

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b646e446b22a66478ab8e61dfa4bddf, type: 3}
+  m_Name: cafe
+  m_EditorClassIdentifier: MergeGame.Data::MergeGame.Data.Authoring.ItemChainAsset
+  id: cafe
+  displayName: Kafe
+  spawnWeight: 3
+  scoreMultiplier: 1
+  levels:
+  - displayName: Karton Bardak
+    icon: {fileID: 21300000, guid: 5e1deaad2b937774f8d330782e1aa402, type: 3}
+  - displayName: "S\u0131cak Kahve"
+    icon: {fileID: 21300000, guid: afe7c683069a304429fe247c8b0a46b0, type: 3}
+  - displayName: Fincan Kahve
+    icon: {fileID: 21300000, guid: 02210ef94becc10429c72bca228b63e6, type: 3}
+  - displayName: "\u015Eekerli Kahve"
+    icon: {fileID: 21300000, guid: f5b002846c9804743929cd6ae51e836e, type: 3}
+  - displayName: Latte
+    icon: {fileID: 21300000, guid: cb3a12670bd18d2458c02c0ae0724583, type: 3}
+  - displayName: Latte Macchiato
+    icon: {fileID: 21300000, guid: 3ed472c293bd9d64fa907a1ea42253b9, type: 3}
+  - displayName: Mocha
+    icon: {fileID: 21300000, guid: 5ddc788c7359bcd4ca999db81e2dab3b, type: 3}
