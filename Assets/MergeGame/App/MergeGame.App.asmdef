@@ -1,0 +1,20 @@
+{
+    "name": "MergeGame.App",
+    "rootNamespace": "MergeGame.App",
+    "references": [
+        "MergeGame.Core",
+        "MergeGame.Presentation",
+        "MergeGame.Data",
+        "MergeGame.View",
+        "Zenject"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
