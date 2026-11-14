@@ -18,6 +18,7 @@ namespace MergeGame.Editor.Building
         public const string BoardCellPrefab = PrefabsFolder + "/BoardCell.prefab";
         public const string CellCoverPrefab = PrefabsFolder + "/CellCover.prefab";
         public const string SandGrainMaterial = "Assets/MergeGame/Content/Materials/SandGrains.mat";
+        public const string SandMaskMaterial = "Assets/MergeGame/Content/Materials/SandMask.mat";
         public const string ItemViewPrefab = PrefabsFolder + "/ItemView.prefab";
         public const string PointsPopupPrefab = PrefabsFolder + "/PointsPopup.prefab";
         public const string RequirementSlotPrefab = PrefabsFolder + "/RequirementSlot.prefab";

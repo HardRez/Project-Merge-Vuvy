@@ -298,7 +298,7 @@ Sevk edilen asset'ler [seed_content.json](Assets/MergeGame/Editor/Seed/seed_cont
 | Presentation | [Presentation.Tests](Assets/MergeGame/Presentation.Tests) | 131 | Her presenter, kayıt tutan sahte view'larla (`Support/Fake*View.cs`, `ViewLog`) **gerçek** `MergeGameSession` üzerinde; uçtan uca ekran senaryoları (`GameScreenTests`), gizli item'ların sunumu ([HiddenItemPresentationTests.cs](Assets/MergeGame/Presentation.Tests/HiddenItemPresentationTests.cs)), boşta kalma ipucu ve yineleme zamanlaması ([MergeHintPresenterTests.cs](Assets/MergeGame/Presentation.Tests/MergeHintPresenterTests.cs)), sipariş işaretleri ([OrderMatchPresenterTests.cs](Assets/MergeGame/Presentation.Tests/OrderMatchPresenterTests.cs)), dispose sonrası sessizlik |
 | Data | [Data.Tests](Assets/MergeGame/Data.Tests) | 63 | Factory eşlemesi ve hata mesajları, validator, görsel kütüphanesi; sevk edilen gerçek asset'ler üzerinde içerik testleri (5×5, ≥3 zincir ≥5 seviye, puanlar artıyor, sipariş ödülleri harcanan merge puanından büyük, açılışta en az bir birleşme mümkün, tüm kapalı hücreler açılabilir, bir birleşme ağlı bir item'ı serbest bırakıp bir kapalı hücreyi açar) ve sıfır kodla yeni zincir testi |
 | View | [View.Tests](Assets/MergeGame/View.Tests) | 7 | Kum dökülmesi ([SandPourTests.cs](Assets/MergeGame/View.Tests/SandPourTests.cs)): başlangıçta her tane kendi hücresinde durur; bırakılma zamanından önce tane tam olarak hareketsizdir; aynı tohum aynı dökülmeyi verir, farklı tohumlar farklıdır; taneler hiç yükselmez ve sürekli hareket eder; her tane bırakılma dalgası içinde bırakır ve süre sonunda hücreden çıkmıştır; canlı tane sayısı yalnızca azalır; boş hücrelerde tane yoktur |
-| PlayMode | [PlayTests](Assets/MergeGame/PlayTests) | 17 | Gerçek sahneler, installer'lar ve view'lar üzerinden ([GameSmokeTests.cs](Assets/MergeGame/PlayTests/GameSmokeTests.cs), [BoardFeedbackTests.cs](Assets/MergeGame/PlayTests/BoardFeedbackTests.cs), [OrderMatchAndSpawnShineTests.cs](Assets/MergeGame/PlayTests/OrderMatchAndSpawnShineTests.cs)), aşağıda |
+| PlayMode | [PlayTests](Assets/MergeGame/PlayTests) | 18 | Gerçek sahneler, installer'lar ve view'lar üzerinden ([GameSmokeTests.cs](Assets/MergeGame/PlayTests/GameSmokeTests.cs), [BoardFeedbackTests.cs](Assets/MergeGame/PlayTests/BoardFeedbackTests.cs), [OrderMatchAndSpawnShineTests.cs](Assets/MergeGame/PlayTests/OrderMatchAndSpawnShineTests.cs), [SandCoverFootprintTests.cs](Assets/MergeGame/PlayTests/SandCoverFootprintTests.cs)), aşağıda |
 
 EditMode toplamı 426. Görsel bir efektin mantığı bile test edilebilir tutuldu: kum dökülmesi Unity'den bağımsız düz bir sınıf (`SandPour`) ve zamanın fonksiyonu olduğu için sahnesiz, istenen herhangi bir anda sorgulanarak test edilir. Boşta kalma ipucu gerçek zaman beklenmeden test edilir: testler `MergeHintPresenter.Advance(saniye)` ile zamanı açıkça ilerletir. Sayılar NUnit test vakalarıdır (`[TestCase]` başına bir). Rastgelelik `ScriptedRandom` ile sabitlendiği için birim testleri deterministiktir.
 
@@ -329,6 +329,8 @@ EditMode toplamı 426. Görsel bir efektin mantığı bile test edilebilir tutul
 4. Açılış dizilimindeki item'lar parlamaz.
 
 İlk iki test gerekli tahta durumuna ulaşmak için [AutoPlayer](Assets/MergeGame/PlayTests/Support/AutoPlayer.cs) botunu kullanır (en düşük çifti birleştir, yoksa üret, yoksa at); 300 komutluk patlama testi de aynı botla çalışır.
+
+**PlayMode kum örtüsü kapsama testi** (`SandCoverFootprintTests`): kumla kaplı bir hücreyi yedi farklı çözünürlükte (standart dışı oranlar dahil) duran halde, dökülme öncesi beklemede ve dökülmenin ilk anında çizer; kumun kapladığı alanın duran halle %1, kenarlarının 2 piksel toleransla eşleştiğini doğrular. Taneler görselin yerini aldığında kumun hücreyi tam doldurmadığı bir hatanın tekrarını engeller.
 
 Ayrıca bir geliştirme yardımcısı olarak iki ekran görüntüsü testi ([ScreenshotCaptureTests.cs](Assets/MergeGame/PlayTests/ScreenshotCaptureTests.cs)) vardır; `MERGE_CAPTURE_DIR` ortam değişkeni ayarlanmadıkça `Ignore` edilirler.
 
@@ -377,7 +379,7 @@ Assets/MergeGame/
 │   └── Common/           SafeAreaFitter, MaxWidthLimiter, TactileButton
 ├── View.Tests/          7 EditMode testi: kum dökülmesi (Unity sahnesi gerektirmez)
 ├── App/                  Composition root: Installers/, Lifecycle/ (PresenterLifecycle, TimeDrivenTicker), Navigation/SceneNavigator
-├── PlayTests/            17 PlayMode testi + 2 opsiyonel ekran görüntüsü testi
+├── PlayTests/            18 PlayMode testi + 2 opsiyonel ekran görüntüsü testi
 ├── Editor/               ContentSeeder, seed JSON, sprite import ayarları
 │   └── Building/         SceneBuilder: sahneler, prefab'lar, ProjectContext, font preset'leri
 ├── Scenes/               MainMenu.unity, Game.unity

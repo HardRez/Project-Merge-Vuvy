@@ -16,6 +16,7 @@ namespace MergeGame.Editor.Building
     {
         private const float CellCornerScale = 0.7f;
         private const string SandGrainShader = "MergeGame/UI/Sand Grains";
+        private const string SandMaskShader = "MergeGame/UI/Sand Mask";
 
         // Where the item icon sits inside its cell (normalised).
         private static readonly Vector2 IconMin = new Vector2(0.08f, 0.08f);
@@ -35,7 +36,7 @@ namespace MergeGame.Editor.Building
         public static void Generate(UiKit ui)
         {
             BuildBoardCell(ui);
-            BuildCellCover(ui, WriteSandGrainMaterial());
+            BuildCellCover(ui, WriteMaterial(SandGrainShader, BuildPaths.SandGrainMaterial), WriteMaterial(SandMaskShader, BuildPaths.SandMaskMaterial));
             BuildItemView(ui);
             BuildPointsPopup(ui);
             BuildOrderCard(ui, BuildRequirementSlot(ui));
@@ -60,14 +61,18 @@ namespace MergeGame.Editor.Building
         }
 
         /// <summary>
-        /// Sand over a whole closed cell, masked to the cell's rounded shape so pouring grains never leave the cell. The
-        /// sand sprites are drawn at twice the cell sprite's resolution, so half the cell's corner scale gives the same
-        /// corner radius.
+        /// Sand over a whole closed cell; while it pours, its grains are masked to the sand tile's own shape so they end
+        /// exactly where the tile did and never leave the cell. The sand sprites are drawn at twice the cell sprite's
+        /// resolution, so half the cell's corner scale gives the same corner radius.
         /// </summary>
-        private static CellCover BuildCellCover(UiKit ui, Material grainMaterial)
+        private static CellCover BuildCellCover(UiKit ui, Material grainMaterial, Material maskMaterial)
         {
             var root = ui.Image("CellCover", null, ui.Sprites.Sand[0], Color.white, cornerScale: CellCornerScale / 2f);
-            root.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+            root.material = maskMaterial;
+            root.enabled = false;
+            var mask = root.gameObject.AddComponent<Mask>();
+            mask.showMaskGraphic = false;
+            mask.enabled = false;
 
             var sand = ui.Image("Sand", root.rectTransform, ui.Sprites.Sand[0], Color.white, cornerScale: CellCornerScale / 2f);
             sand.rectTransform.Stretch();
@@ -79,21 +84,22 @@ namespace MergeGame.Editor.Building
 
             root.gameObject.AddComponent<CellCover>()
                 .Wire("sand", sand)
+                .Wire("shape", root)
                 .Wire("grains", grains)
                 .Wire("variants", ui.Sprites.Sand);
             return Save<CellCover>(root.rectTransform, BuildPaths.CellCoverPrefab);
         }
 
-        /// <summary>The material the pouring sand is drawn with; an asset, so the shader ships in builds.</summary>
-        private static Material WriteSandGrainMaterial()
+        /// <summary>A material for one of the sand's own shaders; an asset, so the shader ships in builds.</summary>
+        private static Material WriteMaterial(string shaderName, string path)
         {
-            var shader = Shader.Find(SandGrainShader) ?? throw new InvalidOperationException($"Shader '{SandGrainShader}' not found.");
-            var material = AssetDatabase.LoadAssetAtPath<Material>(BuildPaths.SandGrainMaterial);
+            var shader = Shader.Find(shaderName) ?? throw new InvalidOperationException($"Shader '{shaderName}' not found.");
+            var material = AssetDatabase.LoadAssetAtPath<Material>(path);
             if (material == null)
             {
-                AssetFolders.Ensure(Path.GetDirectoryName(BuildPaths.SandGrainMaterial));
+                AssetFolders.Ensure(Path.GetDirectoryName(path));
                 material = new Material(shader);
-                AssetDatabase.CreateAsset(material, BuildPaths.SandGrainMaterial);
+                AssetDatabase.CreateAsset(material, path);
             }
 
             material.shader = shader;
