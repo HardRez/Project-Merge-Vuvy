@@ -63,7 +63,7 @@ namespace MergeGame.View.Board
         private readonly Dictionary<GridPosition, ItemView> items = new Dictionary<GridPosition, ItemView>();
         private readonly List<Image> cells = new List<Image>();
         private readonly Dictionary<GridPosition, CellCover> covers = new Dictionary<GridPosition, CellCover>();
-        private readonly Dictionary<GridPosition, CellCover> drainingCovers = new Dictionary<GridPosition, CellCover>();
+        private readonly Dictionary<GridPosition, CellCover> pouringCovers = new Dictionary<GridPosition, CellCover>();
 
         private IItemVisuals visuals;
         private ItemCatalog catalog;
@@ -132,9 +132,9 @@ namespace MergeGame.View.Board
 
         public bool TryGetItem(GridPosition position, out ItemView item) => items.TryGetValue(position, out item);
 
-        /// <summary>The cover of a closed cell, including one still draining after the cell opened.</summary>
+        /// <summary>The cover of a closed cell, including one still pouring out after the cell opened.</summary>
         public bool TryGetCover(GridPosition position, out CellCover cover) =>
-            covers.TryGetValue(position, out cover) || drainingCovers.TryGetValue(position, out cover);
+            covers.TryGetValue(position, out cover) || pouringCovers.TryGetValue(position, out cover);
 
         public Vector3 GetCellWorldCenter(GridPosition position) => grid.NormalizedToWorld(geometry.GetCell(position).Center);
 
@@ -149,10 +149,10 @@ namespace MergeGame.View.Board
             foreach (var cell in cells)
                 Destroy(cell.gameObject);
             cells.Clear();
-            foreach (var cover in covers.Values.Concat(drainingCovers.Values))
+            foreach (var cover in covers.Values.Concat(pouringCovers.Values))
                 Destroy(cover.gameObject);
             covers.Clear();
-            drainingCovers.Clear();
+            pouringCovers.Clear();
 
             for (var y = 0; y < size.Height; y++)
             {
@@ -186,16 +186,15 @@ namespace MergeGame.View.Board
 
         public void RevealItem(GridPosition position, ItemId itemId)
         {
-            var drainSeconds = 0f;
+            if (!items.TryGetValue(position, out var item))
+                return;
+
+            item.Reveal(itemId, visuals.GetIcon(itemId), catalog.IsMaxLevel(itemId), revealDelaySeconds);
             if (covers.TryGetValue(position, out var cover))
             {
                 covers.Remove(position);
-                drainSeconds = cover.DrainSeconds;
-                DrainCover(position, cover);
+                PourCover(position, cover, item);
             }
-
-            if (items.TryGetValue(position, out var item))
-                item.Reveal(itemId, visuals.GetIcon(itemId), catalog.IsMaxLevel(itemId), revealDelaySeconds, revealDelaySeconds + drainSeconds);
         }
 
         /// <summary>Unlike opening-layout items and revealed items, a spawned item pops in and shines for a moment.</summary>
@@ -262,7 +261,7 @@ namespace MergeGame.View.Board
         public void MergeItems(GridPosition from, GridPosition to, ItemId resultItemId, bool unlockedTarget)
         {
             var source = TakeItem(from);
-            FinishDrain(to);
+            FinishPour(to);
             if (!items.TryGetValue(to, out var target))
             {
                 Release(source);
@@ -345,25 +344,27 @@ namespace MergeGame.View.Board
         }
 
         /// <summary>
-        /// The sand drains above the item layer, so the item appears behind it and is uncovered as the sand sinks; the
-        /// cover is destroyed when it is empty.
+        /// The sand pours above the item layer, so the item appears behind it and is uncovered grain by grain. When the
+        /// cell is empty the cover is destroyed and the item, if it is still the one revealed here, settles.
         /// </summary>
-        private void DrainCover(GridPosition position, CellCover cover)
+        private void PourCover(GridPosition position, CellCover cover, ItemView revealed)
         {
             cover.transform.SetParent(effectLayer, worldPositionStays: false);
             FitToCell((RectTransform)cover.transform, position);
-            drainingCovers[position] = cover;
-            cover.Drain(revealDelaySeconds, () =>
+            pouringCovers[position] = cover;
+            cover.Pour(revealDelaySeconds, () =>
             {
-                drainingCovers.Remove(position);
+                pouringCovers.Remove(position);
                 Destroy(cover.gameObject);
+                if (items.TryGetValue(position, out var item) && item == revealed)
+                    item.PlaySettle();
             });
         }
 
-        /// <summary>Cuts a drain short when the cell is used before the sand is gone.</summary>
-        private void FinishDrain(GridPosition position)
+        /// <summary>Cuts a pour short when the cell is used before the sand is gone.</summary>
+        private void FinishPour(GridPosition position)
         {
-            if (drainingCovers.TryGetValue(position, out var cover))
+            if (pouringCovers.TryGetValue(position, out var cover))
                 cover.Finish();
         }
 

@@ -50,7 +50,7 @@ namespace MergeGame.View.Board
         [SerializeField] private float refuseSeconds = 0.4f;
         [SerializeField] private float mergeSeconds = 0.42f;
         [SerializeField] private float vanishSeconds = 0.24f;
-        [Tooltip("The small settle when the sand that covered the item has drained away.")]
+        [Tooltip("The small settle when the sand that covered the item has poured out.")]
         [SerializeField] private float revealSettleSeconds = 0.25f;
 
         private RectTransform rectTransform;
@@ -97,15 +97,21 @@ namespace MergeGame.View.Board
 
         /// <summary>
         /// The closed cell opens into a locked item. It appears after <paramref name="delay"/> seconds, still under the
-        /// draining sand, which uncovers it; once the sand is gone (<paramref name="settleDelay"/>) it settles a little.
-        /// Interrupting shows the item immediately.
+        /// pouring sand, which uncovers it; interrupting shows it immediately.
         /// </summary>
-        public void Reveal(ItemId itemId, Sprite sprite, bool isMaxLevel, float delay, float settleDelay)
+        public void Reveal(ItemId itemId, Sprite sprite, bool isMaxLevel, float delay)
         {
             Interrupt();
             SetIdentity(itemId, sprite, isLocked: true, isMaxLevel);
-            if (!motion.Play(PlayReveal(delay, settleDelay)))
+            if (!motion.Play(PlayReveal(delay)))
                 RevealIdentity();
+        }
+
+        /// <summary>A small, restrained settle once the sand that covered the item is gone.</summary>
+        public void PlaySettle()
+        {
+            Interrupt();
+            motion.Play(Tween.Run(revealSettleSeconds, Ease.Linear, t => body.localScale = Vector3.one * (1f + 0.05f * Ease.Bump(t))));
         }
 
         /// <summary>Snaps the item into the cell, at rest.</summary>
@@ -304,14 +310,11 @@ namespace MergeGame.View.Board
             ResetEffects();
         }
 
-        private IEnumerator PlayReveal(float delay, float settleDelay)
+        private IEnumerator PlayReveal(float delay)
         {
             // Still invisible (the identity is not revealed yet) while the merge next to it plays.
             yield return Tween.Delay(delay);
-
             RevealIdentity();
-            yield return Tween.Delay(settleDelay - delay);
-            yield return Tween.Run(revealSettleSeconds, Ease.Linear, t => body.localScale = Vector3.one * (1f + 0.05f * Ease.Bump(t)));
         }
 
         private IEnumerator PlayFlight(Vector3 worldTarget, float seconds, float delay, float endScale, Action arrived)

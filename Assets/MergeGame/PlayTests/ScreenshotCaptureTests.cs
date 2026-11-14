@@ -22,8 +22,10 @@ namespace MergeGame.PlayTests
         private const string OutputVariable = "MERGE_CAPTURE_DIR";
         private const int HighestRequestedLevel = 4;
 
-        /// <summary>Moments of the sand drain the filmstrip shows, as normalised time.</summary>
-        private static readonly float[] DrainStops = { 0f, 0.15f, 0.35f, 0.55f, 0.75f, 0.95f, 1f };
+        // The sand pour is filmed as an animation at this frame rate (assembled outside the project).
+        private const float PourFramesPerSecond = 20f;
+        private const int MaxPourFrames = 120;
+        private const int PourMagnification = 3;
 
         private string directory;
         private GameScreenDriver game;
@@ -59,7 +61,7 @@ namespace MergeGame.PlayTests
             // Each resolution re-triggers the one-shot pulse, so every capture catches it mid-pulse.
             yield return Capture("04_game_idle_hint_pulse", PulseMergeHint, 0.3f);
 
-            yield return CaptureSandDrainFilmstrip("05_game_sand_drain");
+            yield return CaptureSandPour("05_game_sand_pour");
             yield return GameScreenDriver.WaitSeconds(1f);
             yield return Capture("05b_game_sand_revealed");
 
@@ -101,21 +103,30 @@ namespace MergeGame.PlayTests
         }
 
         /// <summary>
-        /// Opens a closed cell for real, then holds its sand drain at exact moments and films the cell and its neighbours,
-        /// magnified, as single frames and as one strip.
+        /// Opens a closed cell for real, then steps its sand pour at the pace of a 20 fps animation and films the cell and
+        /// its neighbours, magnified: one frame of the resting sand first, then every frame of the pour.
         /// </summary>
-        private IEnumerator CaptureSandDrainFilmstrip(string name)
+        private IEnumerator CaptureSandPour(string name)
         {
             Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True);
             var closed = GameScreenDriver.Neighbours(to).First(game.IsCovered);
-            yield return game.DragAndDrop(from, to);
+            yield return CroppedFrames.Capture(
+                game.Camera, Snapshot.DeviceResolutions[0], directory, name + "_rest", 1, _ => false,
+                () => CellNeighbourhoodInPixels(closed), PourMagnification);
 
+            yield return game.DragAndDrop(from, to);
             // Past the reveal delay, so the item already sits behind the sand.
             yield return GameScreenDriver.WaitSeconds(0.4f);
             Assert.That(game.Board.TryGetCover(closed, out var cover), Is.True);
-            yield return Filmstrip.Capture(
-                game.Camera, Snapshot.DeviceResolutions[0], directory, name, DrainStops, cover.ShowDrainFrame,
-                () => CellNeighbourhoodInPixels(closed), magnify: 2);
+            var stepsPerFrame = cover.StepsPerSecond / PourFramesPerSecond;
+            yield return CroppedFrames.Capture(
+                game.Camera, Snapshot.DeviceResolutions[0], directory, name, MaxPourFrames,
+                frame =>
+                {
+                    cover.ShowPourStep(Mathf.RoundToInt(frame * stepsPerFrame));
+                    return cover.GrainCount > 0;
+                },
+                () => CellNeighbourhoodInPixels(closed), PourMagnification);
             cover.Finish();
         }
 

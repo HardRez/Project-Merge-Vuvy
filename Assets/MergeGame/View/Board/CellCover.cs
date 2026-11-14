@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using MergeGame.View.Animation;
+using MergeGame.View.Board.Sand;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,199 +9,192 @@ namespace MergeGame.View.Board
 {
     /// <summary>
     /// Sand burying a closed cell. It belongs to the board rather than to an item, so it fills the whole cell like the
-    /// cell tile itself and can never be mistaken for an item. When the cell opens, the sand drains down and out through
-    /// the bottom of the cell: after a short crumble the whole sand body sinks ever faster under an uneven surface, with
-    /// loose grains trickling after it, all clipped to the cell's rounded shape by the mask on this object.
+    /// cell tile itself and can never be mistaken for an item. When the cell opens, the tile turns into a
+    /// <see cref="SandSimulation"/> of individual grains that pour out through the cell's floor, drawn by the sand grain
+    /// shader and clipped to the cell's rounded shape by the mask on this object.
     /// </summary>
     [RequireComponent(typeof(RectTransform), typeof(Mask))]
     public sealed class CellCover : MonoBehaviour
     {
-        [Tooltip("The sand that sinks: the sand tile, with the surface strip on top of it.")]
-        [SerializeField] private RectTransform body;
-
+        [Tooltip("The resting sand tile; also the source of the grains' colours.")]
         [SerializeField] private Image sand;
 
-        [Tooltip("Uneven sand surface standing on the tile's top edge; out of sight (above the cell) until the sand sinks.")]
-        [SerializeField] private RectTransform surface;
+        [Tooltip("Shows the pouring grains through the sand grain material.")]
+        [SerializeField] private RawImage grains;
 
         [Tooltip("Looks picked per cell, so neighbouring covers do not look stamped.")]
         [SerializeField] private Sprite[] variants = Array.Empty<Sprite>();
 
-        [Tooltip("Loose grains and streaks falling with the sand; their number is the number of grains.")]
-        [SerializeField] private Image[] grains = Array.Empty<Image>();
+        [Header("Pour")]
+        [Tooltip("Grains across the cell; about 3 screen pixels per grain on a phone.")]
+        [Min(8)]
+        [SerializeField] private int columns = 64;
 
-        [Tooltip("A faint wisp of dust at the bottom edge as the last sand leaves.")]
-        [SerializeField] private Image dust;
+        [Tooltip("Simulation steps per second; with the pour settings this sets how long the sand takes to run out.")]
+        [Min(1f)]
+        [SerializeField] private float stepsPerSecond = 75f;
 
-        [Header("Drain")]
-        [SerializeField] private float drainSeconds = 0.85f;
+        [Tooltip("Most simulation steps run in one frame, so a long frame slows the pour instead of jumping it.")]
+        [Min(1)]
+        [SerializeField] private int maxStepsPerFrame = 4;
 
-        [Tooltip("Share of the drain spent crumbling (a shiver and a first trickle) before the sand starts to flow.")]
-        [Range(0f, 0.5f)]
-        [SerializeField] private float crumbleShare = 0.14f;
-
-        [Tooltip("How far the sand has sunk when the crumble ends, as a share of the whole way.")]
-        [Range(0f, 0.3f)]
-        [SerializeField] private float crumbleSink = 0.05f;
-
-        [Tooltip("Share of the drain at which the sand body is gone; grains still trickle out after it.")]
-        [Range(0.5f, 1f)]
-        [SerializeField] private float bodyGoneShare = 0.86f;
-
-        [SerializeField] private float shiverWidth = 2f;
-
-        [Tooltip("How fast a loose grain falls, in cell heights per second squared.")]
-        [SerializeField] private float grainGravity = 9f;
+        [SerializeField] private SandPourSettings pour = new SandPourSettings();
 
         [Header("Refuse")]
         [SerializeField] private float refuseSeconds = 0.35f;
 
         private TweenChannel motion;
-        private Action drained;
+        private Action poured;
+        private int seed;
+        private SandSimulation simulation;
+        private Color32[] grainColours;
+        private Color32[] statePixels;
+        private Texture2D state;
 
         private TweenChannel Motion => motion ??= new TweenChannel(this);
 
-        public float DrainSeconds => drainSeconds;
-        public bool IsDraining => drained != null;
+        public bool IsPouring => poured != null && simulation != null;
 
-        /// <param name="variantSeed">Any stable number for the cell, e.g. derived from its coordinates.</param>
+        /// <summary>Grains still in the cell; 0 before the pour has started.</summary>
+        public int GrainCount => simulation?.GrainCount ?? 0;
+
+        /// <summary>Pour steps done so far.</summary>
+        public int PourStep => simulation?.StepCount ?? 0;
+
+        public float StepsPerSecond => stepsPerSecond;
+
+        /// <param name="variantSeed">Any stable number for the cell, e.g. derived from its coordinates; also seeds the pour.</param>
         public void Show(int variantSeed)
         {
+            seed = variantSeed;
             if (variants.Length > 0)
                 sand.sprite = variants[Mathf.Abs(variantSeed) % variants.Length];
             Motion.Stop();
-            SetRest();
+            sand.rectTransform.anchoredPosition = Vector2.zero;
+            grains.gameObject.SetActive(false);
         }
 
         /// <summary>A short shake: the sand does not move.</summary>
         public void PlayRefuse()
         {
-            Motion.Stop();
-            SetRest();
-            Motion.Play(Tween.Run(refuseSeconds, Ease.Linear, t =>
-                body.anchoredPosition = new Vector2(Ease.Shake(t, 5) * 8f, 0f)));
+            var tile = sand.rectTransform;
+            Motion.Play(Tween.Run(refuseSeconds, Ease.Linear, t => tile.anchoredPosition = new Vector2(Ease.Shake(t, 5) * 8f, 0f)));
         }
 
         /// <summary>
-        /// After <paramref name="delay"/> the sand drains out of the cell; then, or when <see cref="Finish"/> cuts it short,
-        /// <paramref name="onDrained"/> is called once.
+        /// After <paramref name="delay"/> the sand pours out of the cell; once it is empty, or when <see cref="Finish"/>
+        /// cuts it short, <paramref name="onPoured"/> is called once.
         /// </summary>
-        public void Drain(float delay, Action onDrained)
+        public void Pour(float delay, Action onPoured)
         {
-            drained = onDrained;
-            SetRest();
-            if (!Motion.Play(PlayDrain(delay)))
+            poured = onPoured;
+            if (!Motion.Play(PlayPour(delay)))
                 Finish();
         }
 
-        /// <summary>Shows the drain at <paramref name="progress"/> (0..1) and holds it there; for previews and captures.</summary>
-        public void ShowDrainFrame(float progress)
+        /// <summary>Shows the pour exactly as it is after <paramref name="step"/> simulation steps and holds it there.</summary>
+        public void ShowPourStep(int step)
         {
             Motion.Stop();
-            ApplyDrain(Mathf.Clamp01(progress));
+            if (simulation != null && simulation.StepCount > step)
+                simulation = null;
+            BeginPour();
+            while (simulation.StepCount < step && !simulation.IsEmpty)
+                simulation.Step();
+            Upload();
         }
 
-        /// <summary>Ends the drain at once: the sand is gone.</summary>
+        /// <summary>Ends the pour at once: the sand is gone.</summary>
         public void Finish()
         {
             Motion.Stop();
-            var onDrained = drained;
-            drained = null;
-            onDrained?.Invoke();
+            var onPoured = poured;
+            poured = null;
+            onPoured?.Invoke();
         }
 
-        private IEnumerator PlayDrain(float delay)
+        private void OnDestroy()
+        {
+            if (state != null)
+                Destroy(state);
+        }
+
+        private IEnumerator PlayPour(float delay)
         {
             yield return Tween.Delay(delay);
-            yield return Tween.Run(drainSeconds, Ease.Linear, ApplyDrain);
+
+            BeginPour();
+            var pendingSteps = 0f;
+            while (!simulation.IsEmpty)
+            {
+                yield return null;
+                pendingSteps += Time.unscaledDeltaTime * stepsPerSecond;
+                var steps = Mathf.Min((int)pendingSteps, maxStepsPerFrame);
+                pendingSteps = Mathf.Min(pendingSteps - steps, 1f);
+                for (var i = 0; i < steps && !simulation.IsEmpty; i++)
+                    simulation.Step();
+                if (steps > 0)
+                    Upload();
+            }
+
             Finish();
         }
 
-        /// <summary>The whole effect as a function of normalised time, so every frame is reproducible.</summary>
-        private void ApplyDrain(float t)
+        /// <summary>Swaps the tile for its grains: same colours at the same spots, so the swap cannot be seen.</summary>
+        private void BeginPour()
         {
-            surface.gameObject.SetActive(true);
-            var sink = SinkAt(t);
-            var travel = SurfaceTop;
-            body.anchorMin = new Vector2(0f, -sink * travel);
-            body.anchorMax = new Vector2(1f, 1f - sink * travel);
-            body.anchoredPosition = new Vector2(ShiverAt(t), 0f);
-
-            for (var i = 0; i < grains.Length; i++)
-                PlaceGrain(grains[i], i, t);
-
-            var wisp = Ease.Bump(Mathf.InverseLerp(bodyGoneShare - 0.2f, 1f, t));
-            dust.gameObject.SetActive(wisp > 0f);
-            SetAlpha(dust, 0.55f * wisp);
-        }
-
-        /// <summary>The surface strip's top, in the body's normalised space: how far the body must sink to empty the cell.</summary>
-        private float SurfaceTop => surface.anchorMax.y;
-
-        /// <summary>The wavy surface line, in the body's normalised space (it sits in the strip's upper part).</summary>
-        private float SurfaceLine => Mathf.Lerp(surface.anchorMin.y, surface.anchorMax.y, 0.6f);
-
-        /// <summary>0 at rest, 1 when the sand is out of the cell: a crumble, then a gravity-like ease-in.</summary>
-        private float SinkAt(float t)
-        {
-            if (t < crumbleShare)
-                return crumbleSink * Ease.InQuad(t / crumbleShare);
-            return Mathf.Lerp(crumbleSink, 1f, Ease.InQuad(Mathf.Clamp01((t - crumbleShare) / (bodyGoneShare - crumbleShare))));
-        }
-
-        private float ShiverAt(float t) =>
-            t < crumbleShare ? Ease.Shake(t / crumbleShare, 7) * shiverWidth : 0f;
-
-        /// <summary>Where the sand surface is in the cell (0 bottom, 1 top) at normalised time <paramref name="t"/>.</summary>
-        private float SurfaceInCellAt(float t) => Mathf.Clamp01(SurfaceLine - SinkAt(t) * SurfaceTop);
-
-        /// <summary>
-        /// Grain <paramref name="index"/> breaks off the surface at its own moment and falls from there; its column and
-        /// timing come from its index, so the pattern is the same every time.
-        /// </summary>
-        private void PlaceGrain(Image grain, int index, float t)
-        {
-            var start = Mathf.Lerp(crumbleShare * 0.5f, bodyGoneShare + 0.08f, Hash(index, 1));
-            // Grains breaking off after the body is gone are the last ones clinging higher up.
-            var origin = start < bodyGoneShare ? SurfaceInCellAt(start) : Mathf.Lerp(0.4f, 0.9f, Hash(index, 3));
-            var elapsed = (t - start) * drainSeconds;
-            var height = origin - 0.5f * grainGravity * elapsed * elapsed;
-            var visible = elapsed > 0f && height > -0.1f;
-            grain.gameObject.SetActive(visible);
-            if (!visible)
+            if (simulation != null)
                 return;
 
-            var column = Mathf.Lerp(0.12f, 0.88f, Hash(index, 2));
-            grain.rectTransform.anchorMin = grain.rectTransform.anchorMax = new Vector2(column, height);
-            // Fast grains smear into streaks.
-            var speed = grainGravity * elapsed;
-            grain.rectTransform.localScale = new Vector3(1f, 1f + Mathf.Min(3f, speed * 0.6f), 1f);
-            SetAlpha(grain, Mathf.Clamp01(height * 4f + 0.4f));
+            var size = sand.rectTransform.rect.size;
+            var rows = Mathf.Max(8, Mathf.RoundToInt(columns * size.y / Mathf.Max(1f, size.x)));
+            var count = columns * rows;
+            if (grainColours == null || grainColours.Length != count)
+            {
+                grainColours = new Color32[count];
+                statePixels = new Color32[count];
+                if (state != null)
+                    Destroy(state);
+                state = new Texture2D(columns, rows, TextureFormat.RGBA32, mipChain: false)
+                {
+                    filterMode = FilterMode.Point,
+                    wrapMode = TextureWrapMode.Clamp
+                };
+            }
+
+            var occupied = new bool[count];
+            SandGrainPalette.Sample(sand, columns, rows, grainColours, occupied);
+            simulation = new SandSimulation(columns, rows, occupied, seed, pour);
+
+            grains.texture = state;
+            Upload();
+            grains.gameObject.SetActive(true);
+            sand.enabled = false;
         }
 
-        private void SetRest()
+        /// <summary>One texel per grain: its colour, and in alpha whether it is there and how fast it falls.</summary>
+        private void Upload()
         {
-            surface.gameObject.SetActive(false);
-            body.anchorMin = Vector2.zero;
-            body.anchorMax = Vector2.one;
-            body.anchoredPosition = Vector2.zero;
-            foreach (var grain in grains)
-                grain.gameObject.SetActive(false);
-            dust.gameObject.SetActive(false);
-        }
+            for (var y = 0; y < simulation.Height; y++)
+            {
+                for (var x = 0; x < simulation.Width; x++)
+                {
+                    var index = y * simulation.Width + x;
+                    var grain = simulation.GrainAt(x, y);
+                    if (grain == SandSimulation.Empty)
+                    {
+                        statePixels[index] = default;
+                        continue;
+                    }
 
-        /// <summary>A stable pseudo-random number in [0, 1) for a grain and a property.</summary>
-        private static float Hash(int index, int salt)
-        {
-            var value = Mathf.Sin(index * 12.9898f + salt * 78.233f) * 43758.5453f;
-            return value - Mathf.Floor(value);
-        }
+                    var colour = grainColours[grain - 1];
+                    colour.a = (byte)(128 + 127 * Mathf.Clamp01(simulation.SpeedAt(x, y)));
+                    statePixels[index] = colour;
+                }
+            }
 
-        private static void SetAlpha(Graphic graphic, float alpha)
-        {
-            var color = graphic.color;
-            color.a = alpha;
-            graphic.color = color;
+            state.SetPixels32(statePixels);
+            state.Apply(updateMipmaps: false);
         }
     }
 }
