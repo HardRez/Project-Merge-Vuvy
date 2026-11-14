@@ -1,0 +1,21 @@
+{
+    "name": "MergeGame.View",
+    "rootNamespace": "MergeGame.View",
+    "references": [
+        "MergeGame.Core",
+        "MergeGame.Presentation",
+        "MergeGame.Data",
+        "UnityEngine.UI",
+        "Unity.TextMeshPro",
+        "Zenject"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,307 @@
+using System;
+using System.Collections;
+using MergeGame.Core.Items;
+using MergeGame.View.Animation;
+using MergeGame.View.Common;
+using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
+
+namespace MergeGame.View.Board
+{
+    /// <summary>
+    /// One item on the board. Its identity (<see cref="ItemId"/>, lock state) changes the moment a command arrives;
+    /// animations only decide how the change looks. Every command first interrupts the running animation and reveals
+    /// the current identity, then animates from the current pose to a rest pose, so overlapping commands can never
+    /// leave the item with a stale icon, scale or position.
+    /// </summary>
+    [RequireComponent(typeof(RectTransform), typeof(CanvasGroup))]
+    public sealed class ItemView : MonoBehaviour
+    {
+        [Tooltip("Scaled and rotated by the animations; holds every visual except the lift shadow.")]
+        [SerializeField] private RectTransform body;
+
+        [SerializeField] private Image icon;
+        [SerializeField] private Image lockOverlay;
+        [SerializeField] private GameObject maxLevelBadge;
+        [SerializeField] private Image liftShadow;
+        [SerializeField] private Image burstGlow;
+        [SerializeField] private Image burstSparkles;
+
+        [Header("Look")]
+        [Tooltip("Multiplies the icon of a locked item, so it reads as inactive under the cobweb.")]
+        [SerializeField] private Color lockedIconTint = new Color(0.68f, 0.68f, 0.72f, 1f);
+
+        [SerializeField] private float liftedScale = 1.2f;
+
+        [Range(0f, 1f)]
+        [SerializeField] private float liftShadowAlpha = 0.45f;
+
+        [Header("Timing (seconds)")]
+        [SerializeField] private float spawnSeconds = 0.32f;
+        [SerializeField] private float liftSeconds = 0.14f;
+        [SerializeField] private float refuseSeconds = 0.4f;
+        [SerializeField] private float mergeSeconds = 0.42f;
+        [SerializeField] private float vanishSeconds = 0.24f;
+
+        private RectTransform rectTransform;
+        private CanvasGroup canvasGroup;
+        private TweenChannel motion;
+        private Sprite iconSprite;
+
+        public ItemId ItemId { get; private set; }
+        public bool IsLocked { get; private set; }
+        public bool IsMaxLevel { get; private set; }
+        public bool IsLifted { get; private set; }
+
+        /// <summary>The icon currently on screen; differs from the identity only while a merge is about to reveal it.</summary>
+        public Sprite DisplayedIcon => icon.sprite;
+
+        public Vector3 WorldCenter => rectTransform.TransformPoint(rectTransform.rect.center);
+
+        private void Awake()
+        {
+            rectTransform = (RectTransform)transform;
+            canvasGroup = GetComponent<CanvasGroup>();
+            motion = new TweenChannel(this);
+        }
+
+        public void Show(ItemId itemId, Sprite sprite, bool isLocked, bool isMaxLevel)
+        {
+            SetIdentity(itemId, sprite, isLocked, isMaxLevel);
+            Interrupt();
+        }
+
+        /// <summary>Snaps the item into the cell, at rest.</summary>
+        public void Place(RectTransform layer, CellRect cell)
+        {
+            Interrupt();
+            rectTransform.SetParent(layer, worldPositionStays: false);
+            rectTransform.StretchOver(cell.Min, cell.Max);
+            SetRestPose();
+        }
+
+        public void PlaySpawn()
+        {
+            Interrupt();
+            body.localScale = Vector3.zero;
+            motion.Play(Tween.Run(spawnSeconds, Ease.Linear, t =>
+            {
+                body.localScale = Vector3.one * Ease.OutBack(t);
+                SetAlpha(burstGlow, Ease.Bump(t) * 0.6f);
+            }));
+        }
+
+        /// <summary>Picks the item up: it moves to the drag layer, grows and casts a shadow.</summary>
+        public void Lift(RectTransform dragLayer)
+        {
+            Interrupt();
+            IsLifted = true;
+            rectTransform.DetachInto(dragLayer);
+
+            var startScale = body.localScale.x;
+            motion.Play(Tween.Run(liftSeconds, Ease.OutBack, t =>
+            {
+                body.localScale = Vector3.one * Mathf.LerpUnclamped(startScale, liftedScale, t);
+                SetAlpha(liftShadow, Mathf.Clamp01(t) * liftShadowAlpha);
+            }));
+        }
+
+        public void DragTo(Vector3 worldPosition) => rectTransform.position = worldPosition;
+
+        /// <summary>Glides from wherever the item is (lifted or not) into the cell and settles there.</summary>
+        public void Land(RectTransform layer, CellRect cell, float seconds)
+        {
+            Interrupt();
+            IsLifted = false;
+
+            var worldPosition = rectTransform.position;
+            rectTransform.SetParent(layer, worldPositionStays: true);
+            rectTransform.StretchOver(cell.Min, cell.Max);
+            rectTransform.position = worldPosition;
+
+            var startOffset = rectTransform.anchoredPosition;
+            var startScale = body.localScale.x;
+            var startShadow = liftShadow.color.a;
+            motion.Play(Tween.Run(seconds, Ease.Linear, t =>
+            {
+                rectTransform.anchoredPosition = Vector2.LerpUnclamped(startOffset, Vector2.zero, Ease.OutCubic(t));
+                body.localScale = Vector3.one * Mathf.LerpUnclamped(startScale, 1f, Ease.OutBack(t));
+                SetAlpha(liftShadow, Mathf.Lerp(startShadow, 0f, t));
+            }));
+        }
+
+        /// <summary>A shake that says "no" (e.g. a locked item was grabbed).</summary>
+        public void PlayRefuse()
+        {
+            Interrupt();
+            var startScale = body.localScale.x;
+            motion.Play(Tween.Run(refuseSeconds, Ease.Linear, t =>
+            {
+                var swing = Ease.Shake(t, 6);
+                body.localRotation = Quaternion.Euler(0f, 0f, swing * 12f);
+                body.anchoredPosition = new Vector2(swing * 10f, 0f);
+                body.localScale = Vector3.one * Mathf.Lerp(startScale, 1f, t);
+            }));
+        }
+
+        /// <summary>
+        /// Becomes the merge result now; the new icon is revealed with a pop once the consumed item has arrived, after
+        /// <paramref name="revealDelay"/> seconds. Interrupting reveals it immediately.
+        /// </summary>
+        public void MergeInto(ItemId resultId, Sprite resultSprite, bool isMaxLevel, bool unlocked, float revealDelay)
+        {
+            Interrupt();
+            SetIdentity(resultId, resultSprite, isLocked: false, isMaxLevel);
+            if (!motion.Play(PlayMerge(unlocked, revealDelay)))
+                RevealIdentity();
+        }
+
+        /// <summary>
+        /// Leaves the board: flies to <paramref name="worldTarget"/> above everything else in <paramref name="layer"/>,
+        /// shrinking to <paramref name="endScale"/>, then calls <paramref name="arrived"/>.
+        /// </summary>
+        public void FlyAway(RectTransform layer, Vector3 worldTarget, float seconds, float delay, float endScale, Action arrived)
+        {
+            Interrupt();
+            IsLifted = false;
+            rectTransform.DetachInto(layer);
+            if (!motion.Play(PlayFlight(worldTarget, seconds, delay, endScale, arrived)))
+                arrived?.Invoke();
+        }
+
+        /// <summary>Shrinks and fades out, then calls <paramref name="vanished"/>.</summary>
+        public void Vanish(Action vanished)
+        {
+            Interrupt();
+            IsLifted = false;
+            if (!motion.Play(PlayVanish(body.localScale.x, vanished)))
+                vanished?.Invoke();
+        }
+
+        /// <summary>Clears every trace of the previous use; called by the pool.</summary>
+        public void ResetForReuse()
+        {
+            motion.Stop();
+            IsLifted = false;
+            SetRestPose();
+            ResetEffects();
+        }
+
+        private void SetIdentity(ItemId itemId, Sprite sprite, bool isLocked, bool isMaxLevel)
+        {
+            ItemId = itemId;
+            iconSprite = sprite;
+            IsLocked = isLocked;
+            IsMaxLevel = isMaxLevel;
+        }
+
+        private void Interrupt()
+        {
+            motion.Stop();
+            RevealIdentity();
+            ResetEffects();
+            body.anchoredPosition = Vector2.zero;
+            body.localRotation = Quaternion.identity;
+            canvasGroup.alpha = 1f;
+        }
+
+        private void RevealIdentity()
+        {
+            icon.sprite = iconSprite;
+            icon.color = IsLocked ? lockedIconTint : Color.white;
+            lockOverlay.gameObject.SetActive(IsLocked);
+            maxLevelBadge.SetActive(IsMaxLevel);
+        }
+
+        private void ResetEffects()
+        {
+            SetAlpha(lockOverlay, 1f);
+            lockOverlay.rectTransform.localScale = Vector3.one;
+            SetAlpha(burstGlow, 0f);
+            burstGlow.rectTransform.localScale = Vector3.one;
+            burstSparkles.gameObject.SetActive(false);
+        }
+
+        private void SetRestPose()
+        {
+            rectTransform.anchoredPosition = Vector2.zero;
+            body.anchoredPosition = Vector2.zero;
+            body.localScale = Vector3.one;
+            body.localRotation = Quaternion.identity;
+            canvasGroup.alpha = 1f;
+            SetAlpha(liftShadow, 0f);
+        }
+
+        private IEnumerator PlayMerge(bool unlocked, float revealDelay)
+        {
+            // The previous icon (and cobweb) stay visible until the consumed item lands on them.
+            yield return Tween.Delay(revealDelay);
+
+            RevealIdentity();
+            lockOverlay.gameObject.SetActive(unlocked);
+            burstSparkles.gameObject.SetActive(true);
+            yield return Tween.Run(mergeSeconds, Ease.Linear, t =>
+            {
+                body.localScale = Vector3.one * Mathf.LerpUnclamped(0.65f, 1f, Ease.OutBack(t));
+                SetAlpha(burstGlow, Ease.Bump(t));
+                burstGlow.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.7f, 1.6f, Ease.OutQuad(t));
+                SetAlpha(burstSparkles, Ease.Bump(Mathf.Min(1f, t * 1.3f)));
+                burstSparkles.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.5f, 1.35f, Ease.OutCubic(t));
+                burstSparkles.rectTransform.localRotation = Quaternion.Euler(0f, 0f, t * 40f);
+                if (unlocked)
+                {
+                    SetAlpha(lockOverlay, 1f - Ease.OutQuad(t));
+                    lockOverlay.rectTransform.localScale = Vector3.one * Mathf.Lerp(1f, 1.5f, Ease.OutQuad(t));
+                }
+            });
+
+            RevealIdentity();
+            ResetEffects();
+        }
+
+        private IEnumerator PlayFlight(Vector3 worldTarget, float seconds, float delay, float endScale, Action arrived)
+        {
+            yield return Tween.Delay(delay);
+
+            var start = rectTransform.position;
+            var startScale = body.localScale.x;
+            var startShadow = liftShadow.color.a;
+            // A slight sideways curve reads as a throw rather than a slide.
+            var arc = Vector3.Cross(worldTarget - start, Vector3.forward) * 0.2f;
+            yield return Tween.Run(seconds, Ease.Linear, t =>
+            {
+                var travelled = Ease.InOutQuad(t);
+                rectTransform.position = Vector3.LerpUnclamped(start, worldTarget, travelled) + arc * Ease.Bump(t);
+                body.localScale = Vector3.one * Mathf.Lerp(startScale, endScale, travelled);
+                SetAlpha(liftShadow, Mathf.Lerp(startShadow, 0f, t));
+            });
+
+            arrived?.Invoke();
+        }
+
+        private IEnumerator PlayVanish(float startScale, Action vanished)
+        {
+            yield return Tween.Run(vanishSeconds, Ease.InBack, t =>
+            {
+                body.localScale = Vector3.one * Mathf.LerpUnclamped(startScale, 0f, t);
+                canvasGroup.alpha = 1f - Mathf.Clamp01(t);
+            });
+
+            vanished?.Invoke();
+        }
+
+        private static void SetAlpha(Graphic graphic, float alpha)
+        {
+            var color = graphic.color;
+            color.a = alpha;
+            graphic.color = color;
+        }
+
+        /// <summary>Board items are pooled: merges, deliveries and discards return them, spawns take them back out.</summary>
+        public sealed class Pool : MonoMemoryPool<ItemView>
+        {
+            protected override void Reinitialize(ItemView item) => item.ResetForReuse();
+        }
+    }
+}
