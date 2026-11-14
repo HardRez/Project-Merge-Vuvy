@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MergeGame.Core.Grid;
 using MergeGame.Core.Session;
 using MergeGame.View.Board;
@@ -46,7 +47,10 @@ namespace MergeGame.PlayTests.Support
         public Camera Camera { get; }
 
         /// <summary>The session behind the screen; for test set-up and assertions, never to drive the UI.</summary>
-        public MergeGameSession Session => Object.FindAnyObjectByType<SceneContext>().Container.Resolve<MergeGameSession>();
+        public MergeGameSession Session => Resolve<MergeGameSession>();
+
+        /// <summary>A binding of the game scene's container; for set-up and assertions, never to drive the UI.</summary>
+        public T Resolve<T>() => Object.FindAnyObjectByType<SceneContext>().Container.Resolve<T>();
 
         public static IEnumerator LoadScene(string sceneName)
         {
@@ -139,6 +143,46 @@ namespace MergeGame.PlayTests.Support
         }
 
         public bool TryFindMergePair(out GridPosition from, out GridPosition to) =>
-            TryFindPair((dragged, target) => dragged.ItemId == target.ItemId && !dragged.IsMaxLevel, out from, out to);
+            TryFindPair(CanMerge, out from, out to);
+
+        /// <summary>A merge onto a webbed item that has a closed box next to it, so the merge opens the box.</summary>
+        public bool TryFindBoxOpeningMerge(out GridPosition from, out GridPosition to)
+        {
+            foreach (var target in Cells())
+            {
+                if (!Board.TryGetItem(target, out var webbed) || !webbed.IsLocked || webbed.IsHidden || !Neighbours(target).Any(IsBox))
+                    continue;
+                if (TryFindPair((dragged, other) => other == webbed && CanMerge(dragged, other), out from, out to))
+                    return true;
+            }
+
+            from = to = default;
+            return false;
+        }
+
+        public bool IsBox(GridPosition cell) => Board.TryGetItem(cell, out var item) && item.IsHidden;
+
+        /// <summary>Equal, visible items below the last level: dropping one on the other merges them.</summary>
+        public static bool CanMerge(ItemView dragged, ItemView target) =>
+            !target.IsHidden && dragged.ItemId == target.ItemId && !dragged.IsMaxLevel;
+
+        public static IEnumerable<GridPosition> Neighbours(GridPosition cell)
+        {
+            yield return new GridPosition(cell.X, cell.Y - 1);
+            yield return new GridPosition(cell.X - 1, cell.Y);
+            yield return new GridPosition(cell.X + 1, cell.Y);
+            yield return new GridPosition(cell.X, cell.Y + 1);
+        }
+
+        public GridPosition FirstEmptyCell()
+        {
+            foreach (var cell in Cells())
+            {
+                if (!Board.TryGetItem(cell, out _))
+                    return cell;
+            }
+
+            throw new InvalidOperationException("The board is full.");
+        }
     }
 }

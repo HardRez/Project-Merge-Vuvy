@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using MergeGame.Core.Grid;
 using MergeGame.PlayTests.Support;
+using MergeGame.Presentation.Hints;
 using MergeGame.Presentation.Notices;
 using NUnit.Framework;
 using UnityEngine;
@@ -45,27 +47,40 @@ namespace MergeGame.PlayTests
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
             yield return GameScreenDriver.WaitSeconds(0.8f);
-            yield return Capture("02_game_opening");
+            yield return Capture("02_game_opening_boxes");
+
+            game.Tap(game.Cells().First(game.IsBox));
+            yield return GameScreenDriver.WaitSeconds(0.5f);
+            yield return Capture("03_game_box_selected");
+
+            game.Resolve<MergeHintPresenter>().Advance(game.Resolve<MergeHintSettings>().IdleSeconds);
+            yield return GameScreenDriver.WaitSeconds(0.45f);
+            yield return Capture("04_game_idle_hint");
+
+            Assert.That(game.TryFindBoxOpeningMerge(out var from, out var to), Is.True);
+            yield return game.DragAndDrop(from, to);
+            yield return GameScreenDriver.WaitSeconds(0.55f);
+            yield return Capture("05_game_box_revealed");
 
             yield return SpawnAndMergeThenSelect();
-            yield return Capture("03_game_merged_selected");
+            yield return Capture("06_game_merged_selected");
 
-            yield return CaptureDragOverMergeTarget("04_game_dragging_merge");
+            yield return CaptureDragOverMergeTarget("07_game_dragging_merge_shine");
 
-            yield return CaptureLockedItemNotice("05_game_notice_locked");
+            yield return CaptureLockedItemNotice("08_game_notice_locked");
             game.Notices.ShowNotice(Notice.MaxLevelReached);
-            yield return Capture("06_game_notice_max_level");
+            yield return Capture("09_game_notice_max_level");
 
             Assert.That(AutoPlayer.PlayUntilAnOrderIsDeliverable(game.Session, HighestRequestedLevel), Is.True, "No order became deliverable.");
             yield return GameScreenDriver.WaitSeconds(2.5f);
-            yield return Capture("07_game_order_ready");
+            yield return Capture("10_game_order_ready");
 
             GameScreenDriver.Click(FirstDeliverableCard().GetComponentInChildren<UnityEngine.UI.Button>());
             yield return GameScreenDriver.WaitSeconds(0.75f);
-            yield return Capture("08_game_order_celebration");
+            yield return Capture("11_game_order_celebration");
 
             yield return FillTheBoard();
-            yield return Capture("09_game_board_full");
+            yield return Capture("12_game_board_full");
         }
 
         private IEnumerator Capture(string name, Action beforeRender = null) =>
@@ -99,7 +114,8 @@ namespace MergeGame.PlayTests
             PointerGesture held = null;
             yield return game.DragOnto(from, to, gesture => held = gesture);
             yield return GameScreenDriver.WaitSeconds(0.3f);
-            yield return Capture(name, () => held.MoveTo(game.ScreenPointOf(to) + new Vector2(12f, 18f)));
+            // Hover near the target's top-right corner, so the lifted item leaves most of the shining target visible.
+            yield return Capture(name, () => held.MoveTo(game.ScreenPointOf(to) + CellStep(to) * new Vector2(0.4f, 0.4f)));
 
             // The screen size changed back after the capture; aim at the target again before dropping.
             yield return null;
@@ -127,11 +143,18 @@ namespace MergeGame.PlayTests
             yield return GameScreenDriver.WaitSeconds(2.5f);
         }
 
+        /// <summary>The on-screen size of one cell, measured at <paramref name="cell"/>.</summary>
+        private Vector2 CellStep(GridPosition cell)
+        {
+            var width = (game.ScreenPointOf(new GridPosition(cell.X + 1, cell.Y)) - game.ScreenPointOf(cell)).x;
+            return new Vector2(width, width);
+        }
+
         private bool TryFindLockedItem(out GridPosition position)
         {
             foreach (var cell in game.Cells())
             {
-                if (game.Board.TryGetItem(cell, out var item) && item.IsLocked)
+                if (game.Board.TryGetItem(cell, out var item) && item.IsLocked && !item.IsHidden)
                 {
                     position = cell;
                     return true;
