@@ -4,6 +4,7 @@ using System.Linq;
 using MergeGame.Core.Items;
 using MergeGame.Data.Authoring;
 using MergeGame.Data.Definitions;
+using Spine.Unity;
 using UnityEngine;
 
 namespace MergeGame.Data.Visuals
@@ -12,7 +13,7 @@ namespace MergeGame.Data.Visuals
     public sealed class ItemVisualLibrary : IItemVisuals
     {
         private readonly Dictionary<string, ItemChainAsset> chainsById = new Dictionary<string, ItemChainAsset>(StringComparer.Ordinal);
-        private readonly Sprite[] customerAvatars;
+        private readonly CustomerEntry[] customers;
 
         /// <exception cref="GameConfigException">A chain slot is empty, or a chain id is missing or used twice.</exception>
         public ItemVisualLibrary(GameConfigAsset config)
@@ -32,10 +33,10 @@ namespace MergeGame.Data.Visuals
                 chainsById.Add(chain.Id, chain);
             }
 
-            customerAvatars = config.Orders == null ? Array.Empty<Sprite>() : config.Orders.CustomerAvatars.ToArray();
+            customers = config.Orders == null ? Array.Empty<CustomerEntry>() : config.Orders.Customers.ToArray();
         }
 
-        public int CustomerCount => customerAvatars.Length;
+        public int CustomerCount => customers.Length;
 
         public Sprite GetIcon(ItemId item) => GetLevel(item).Icon;
 
@@ -43,12 +44,16 @@ namespace MergeGame.Data.Visuals
 
         public string GetChainDisplayName(string chainId) => GetChain(chainId).DisplayName;
 
-        public Sprite GetCustomerAvatar(int customerIndex)
+        public Sprite GetCustomerAvatar(int customerIndex) => GetCustomer(customerIndex)?.Avatar;
+
+        public SkeletonDataAsset GetCustomerPortrait(int customerIndex) => GetCustomer(customerIndex)?.Portrait;
+
+        private CustomerEntry GetCustomer(int customerIndex)
         {
-            if (customerIndex < 0 || customerIndex >= customerAvatars.Length)
+            if (customerIndex < 0 || customerIndex >= customers.Length)
                 throw new ArgumentOutOfRangeException(
-                    nameof(customerIndex), customerIndex, $"There are {customerAvatars.Length} customer avatars (indices 0..{customerAvatars.Length - 1}).");
-            return customerAvatars[customerIndex];
+                    nameof(customerIndex), customerIndex, $"There are {customers.Length} customers (indices 0..{customers.Length - 1}).");
+            return customers[customerIndex];
         }
 
         private ItemLevelEntry GetLevel(ItemId item)

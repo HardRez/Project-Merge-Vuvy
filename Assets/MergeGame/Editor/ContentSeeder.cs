@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using MergeGame.Data.Authoring;
 using MergeGame.Data.Validation;
 using MergeGame.Editor.Seed;
+using Spine.Unity;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,6 +29,7 @@ namespace MergeGame.Editor
         public const string BoardLayoutPath = ConfigFolder + "/BoardLayout.asset";
         public const string ItemSpritesFolder = "Assets/MergeGame/Content/Sprites/Items";
         public const string IconSpritesFolder = "Assets/MergeGame/Content/Sprites/Icons";
+        public const string CharactersFolder = "Assets/MergeGame/Content/Characters";
 
         private const string LogPrefix = "[ContentSeeder]";
 
@@ -64,19 +66,19 @@ namespace MergeGame.Editor
             }
         }
 
-        /// <summary>Normalises sprite imports, writes every config asset and validates the result.</summary>
+        /// <summary>Normalises sprite and portrait texture imports, writes every config asset and validates the result.</summary>
         /// <exception cref="InvalidOperationException">The seed is invalid, a sprite is missing or the result does not validate.</exception>
         public static GameConfigAsset Seed()
         {
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-            var reimported = SpriteImportSettings.Apply(ItemSpritesFolder, IconSpritesFolder);
+            var reimported = SpriteImportSettings.Apply(ItemSpritesFolder, IconSpritesFolder).Concat(PortraitTextureImportSettings.Apply(CharactersFolder)).ToList();
 
             var seed = ReadSeed();
             var missingSprites = new List<string>();
             var chainIcons = seed.chains.ToDictionary(chain => chain.id, chain => LoadChainIcons(chain, missingSprites));
-            var avatars = LoadCustomerAvatars(seed.orders, missingSprites);
+            var customers = LoadCustomers(seed.orders, missingSprites);
             if (missingSprites.Count > 0)
-                throw new InvalidOperationException($"{LogPrefix} Missing sprites (expected by naming convention):\n  " + string.Join("\n  ", missingSprites));
+                throw new InvalidOperationException($"{LogPrefix} Missing sprites or portraits (expected by naming convention):\n  " + string.Join("\n  ", missingSprites));
 
             EnsureFolder(ChainsFolder);
             var chains = seed.chains.Select(chain => WriteChain(chain, chainIcons[chain.id])).ToList();
@@ -85,7 +87,7 @@ namespace MergeGame.Editor
             config.BoardHeight = seed.board.height;
             config.Chains = chains;
             config.ScoreTable = WriteScoreTable(seed.scoreTable);
-            config.Orders = WriteOrderSettings(seed.orders, avatars);
+            config.Orders = WriteOrderSettings(seed.orders, customers);
             config.InitialLayout = WriteBoardLayout(seed.initialLayout, chains);
             EditorUtility.SetDirty(config);
             var deleted = DeleteStaleChains(chains);
@@ -97,7 +99,7 @@ namespace MergeGame.Editor
 
             Debug.Log($"{LogPrefix} Seeded {GameConfigPath}: {chains.Count} chains ({string.Join(", ", chains.Select(chain => chain.Id))}), " +
                       $"{config.BoardWidth}x{config.BoardHeight} board, {config.InitialLayout.Placements.Count} initial placements, " +
-                      $"{avatars.Count} customers; re-imported {reimported.Count} sprites; deleted {deleted.Count} stale chain assets" +
+                      $"{customers.Count} customers; re-imported {reimported.Count} textures; deleted {deleted.Count} stale chain assets" +
                       (deleted.Count > 0 ? $" ({string.Join(", ", deleted)})." : "."));
             return config;
         }
@@ -141,12 +143,26 @@ namespace MergeGame.Editor
             return icons;
         }
 
-        private static List<Sprite> LoadCustomerAvatars(SeedOrders orders, List<string> missing)
+        private static List<CustomerEntry> LoadCustomers(SeedOrders orders, List<string> missing)
         {
-            var avatars = new List<Sprite>(Math.Max(orders.customerCount, 0));
-            for (var customer = 1; customer <= orders.customerCount; customer++)
-                avatars.Add(LoadSprite($"{IconSpritesFolder}/customer_{customer:D2}.png", missing));
-            return avatars;
+            var customers = new List<CustomerEntry>();
+            foreach (var customer in orders.customers ?? Array.Empty<SeedCustomer>())
+            {
+                var portrait = string.IsNullOrEmpty(customer?.portrait) ? null : LoadPortrait(customer.portrait, missing);
+                var avatar = string.IsNullOrEmpty(customer?.avatar) ? null : LoadSprite($"{IconSpritesFolder}/{customer.avatar}.png", missing);
+                customers.Add(new CustomerEntry(portrait, avatar));
+            }
+
+            return customers;
+        }
+
+        private static SkeletonDataAsset LoadPortrait(string character, List<string> missing)
+        {
+            var path = $"{CharactersFolder}/{character}/{character}_SkeletonData.asset";
+            var portrait = AssetDatabase.LoadAssetAtPath<SkeletonDataAsset>(path);
+            if (portrait == null)
+                missing.Add(path);
+            return portrait;
         }
 
         private static Sprite LoadSprite(string path, List<string> missing)
@@ -177,7 +193,7 @@ namespace MergeGame.Editor
             return scoreTable;
         }
 
-        private static OrderSettingsAsset WriteOrderSettings(SeedOrders seed, IReadOnlyList<Sprite> avatars)
+        private static OrderSettingsAsset WriteOrderSettings(SeedOrders seed, IReadOnlyList<CustomerEntry> customers)
         {
             var orders = LoadOrCreate<OrderSettingsAsset>(OrderSettingsPath);
             orders.MaxActiveOrders = seed.maxActiveOrders;
@@ -186,7 +202,7 @@ namespace MergeGame.Editor
             orders.MinRequestedLevel = seed.minRequestedLevel;
             orders.MaxRequestedLevel = seed.maxRequestedLevel;
             orders.RewardPointsByLevel = seed.rewardPointsByLevel ?? Array.Empty<int>();
-            orders.CustomerAvatars = avatars;
+            orders.Customers = customers;
             EditorUtility.SetDirty(orders);
             return orders;
         }

@@ -1,0 +1,1718 @@
+fileFormatVersion: 2
+guid: 5acc5772b29a01e4aa7c0a1e7cf7720f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -899528149814515479
+    second: Kaelan_0
+  - first:
+      213: -8001261772846626281
+    second: Kaelan_1
+  - first:
+      213: 3037416642824397022
+    second: Kaelan_2
+  - first:
+      213: 2112256123188141137
+    second: Kaelan_3
+  - first:
+      213: -1743624691564897997
+    second: Kaelan_4
+  - first:
+      213: -3066070377729735048
+    second: Kaelan_5
+  - first:
+      213: -8930516801589193904
+    second: Kaelan_6
+  - first:
+      213: 2238085639058935582
+    second: Kaelan_7
+  - first:
+      213: -6877817923579636608
+    second: Kaelan_8
+  - first:
+      213: -6346439758372473039
+    second: Kaelan_9
+  - first:
+      213: 5355845443610658048
+    second: Kaelan_10
+  - first:
+      213: 2952258504886890163
+    second: Kaelan_11
+  - first:
+      213: 6982934413641543564
+    second: Kaelan_12
+  - first:
+      213: -7240206864462545303
+    second: Kaelan_13
+  - first:
+      213: 3223255002371087122
+    second: Kaelan_14
+  - first:
+      213: -8248260780788639880
+    second: Kaelan_15
+  - first:
+      213: -7370936660586541728
+    second: Kaelan_16
+  - first:
+      213: 8547320965260642969
+    second: Kaelan_17
+  - first:
+      213: 8548434501138635388
+    second: Kaelan_18
+  - first:
+      213: -6698186562064656653
+    second: Kaelan_19
+  - first:
+      213: 1954755763951130404
+    second: Kaelan_20
+  - first:
+      213: 2069247703900016175
+    second: Kaelan_21
+  - first:
+      213: 1557273260858201834
+    second: Kaelan_22
+  - first:
+      213: -7973911459630639685
+    second: Kaelan_23
+  - first:
+      213: -5163429783656792627
+    second: Kaelan_24
+  - first:
+      213: 1839662730682054870
+    second: Kaelan_25
+  - first:
+      213: 4007450566560657613
+    second: Kaelan_26
+  - first:
+      213: 6629546986060026436
+    second: Kaelan_27
+  - first:
+      213: 6073041396260943716
+    second: Kaelan_28
+  - first:
+      213: 7123848171191199511
+    second: Kaelan_29
+  - first:
+      213: 5452692714215357843
+    second: Kaelan_30
+  - first:
+      213: -6849995226417995392
+    second: Kaelan_31
+  - first:
+      213: 5554874931849942117
+    second: Kaelan_32
+  - first:
+      213: 5144565607931977699
+    second: Kaelan_33
+  - first:
+      213: -1204542788228310164
+    second: Kaelan_34
+  - first:
+      213: -4554890659499738707
+    second: Kaelan_35
+  - first:
+      213: 8896052146391143720
+    second: Kaelan_36
+  - first:
+      213: 2813731690896131291
+    second: Kaelan_37
+  - first:
+      213: 5751517769307464224
+    second: Kaelan_38
+  - first:
+      213: 3717681325463659080
+    second: Kaelan_39
+  - first:
+      213: 2960646371620662797
+    second: Kaelan_40
+  - first:
+      213: -3577526630651810186
+    second: Kaelan_41
+  - first:
+      213: 7119916163524408312
+    second: Kaelan_42
+  - first:
+      213: -1723134758642950579
+    second: Kaelan_43
+  - first:
+      213: 1684388931809787498
+    second: Kaelan_44
+  - first:
+      213: -7572816616797947927
+    second: Kaelan_45
+  - first:
+      213: -1797486167736886265
+    second: Kaelan_46
+  - first:
+      213: -2634853485591771886
+    second: Kaelan_47
+  - first:
+      213: 2361976405147508739
+    second: Kaelan_48
+  - first:
+      213: 9153807844520547858
+    second: Kaelan_49
+  - first:
+      213: -7041550190336189076
+    second: Kaelan_50
+  - first:
+      213: 1898473895256441379
+    second: Kaelan_51
+  - first:
+      213: -852080665876398047
+    second: Kaelan_52
+  - first:
+      213: -7853198223488501068
+    second: Kaelan_53
+  - first:
+      213: -4425484447941709683
+    second: Kaelan_54
+  - first:
+      213: 6870579128061037296
+    second: Kaelan_55
+  - first:
+      213: -4249958860061684713
+    second: Kaelan_56
+  - first:
+      213: 3112450971627058198
+    second: Kaelan_57
+  - first:
+      213: 8963119785566664795
+    second: Kaelan_58
+  - first:
+      213: -5884507558624512723
+    second: Kaelan_59
+  - first:
+      213: -3917156030021216658
+    second: Kaelan_60
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Kaelan_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 679
+        width: 273
+        height: 345
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e867d4e9eb3483f0800000000000000
+      internalID: -899528149814515479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_1
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 1008
+        width: 506
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71a80926fcec5f090800000000000000
+      internalID: -8001261772846626281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_2
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 999
+        width: 62
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed0686ef752172a20800000000000000
+      internalID: 3037416642824397022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_3
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 994
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15cd549b0cd305d10800000000000000
+      internalID: 2112256123188141137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_4
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 993
+        width: 119
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3399ca5c4966dc7e0800000000000000
+      internalID: -1743624691564897997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_5
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 995
+        width: 8
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87642177c312375d0800000000000000
+      internalID: -3066070377729735048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_6
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 920
+        width: 104
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0535e9ce84e601480800000000000000
+      internalID: -8930516801589193904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_7
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 1013
+        width: 80
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1fc205e7074f0f10800000000000000
+      internalID: 2238085639058935582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_8
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 921
+        width: 69
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 084983be9051d80a0800000000000000
+      internalID: -6877817923579636608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_9
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 921
+        width: 61
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137fac52aaaece7a0800000000000000
+      internalID: -6346439758372473039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_10
+      rect:
+        serializedVersion: 2
+        x: 1211
+        y: 1013
+        width: 62
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 005ce42fd09c35a40800000000000000
+      internalID: 5355845443610658048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_11
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 918
+        width: 71
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bea8ece77788f820800000000000000
+      internalID: 2952258504886890163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_12
+      rect:
+        serializedVersion: 2
+        x: 1613
+        y: 907
+        width: 97
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8f64fe1add58e060800000000000000
+      internalID: 6982934413641543564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_13
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 681
+        width: 515
+        height: 327
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96e7d5f873e958b90800000000000000
+      internalID: -7240206864462545303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_14
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 993
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21b54dcd85d4bbc20800000000000000
+      internalID: 3223255002371087122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_15
+      rect:
+        serializedVersion: 2
+        x: 1345
+        y: 920
+        width: 180
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8779e42658a488d80800000000000000
+      internalID: -8248260780788639880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_16
+      rect:
+        serializedVersion: 2
+        x: 1524
+        y: 920
+        width: 83
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06dc5dbf82c25b990800000000000000
+      internalID: -7370936660586541728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_17
+      rect:
+        serializedVersion: 2
+        x: 1709
+        y: 908
+        width: 55
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99a0c9bd12f2e9670800000000000000
+      internalID: 8547320965260642969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_18
+      rect:
+        serializedVersion: 2
+        x: 1763
+        y: 989
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7adf0223e322a670800000000000000
+      internalID: 8548434501138635388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_19
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 690
+        width: 240
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f657d07fc24b03a0800000000000000
+      internalID: -6698186562064656653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_20
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 482
+        width: 505
+        height: 437
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42754f4b200b02b10800000000000000
+      internalID: 1954755763951130404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_21
+      rect:
+        serializedVersion: 2
+        x: 1553
+        y: 906
+        width: 32
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2ec047c2d177bc10800000000000000
+      internalID: 2069247703900016175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_22
+      rect:
+        serializedVersion: 2
+        x: 1767
+        y: 909
+        width: 101
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae6daaba7cb8c9510800000000000000
+      internalID: 1557273260858201834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_23
+      rect:
+        serializedVersion: 2
+        x: 1871
+        y: 888
+        width: 104
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb59c4a66c9f65190800000000000000
+      internalID: -7973911459630639685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_24
+      rect:
+        serializedVersion: 2
+        x: 1545
+        y: 701
+        width: 307
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcdf67208ffc758b0800000000000000
+      internalID: -5163429783656792627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_25
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 887
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d834d0b18bc78910800000000000000
+      internalID: 1839662730682054870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_26
+      rect:
+        serializedVersion: 2
+        x: 1853
+        y: 798
+        width: 174
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc039c2de035d9730800000000000000
+      internalID: 4007450566560657613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_27
+      rect:
+        serializedVersion: 2
+        x: 1853
+        y: 753
+        width: 180
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4429ed5ebd1e00c50800000000000000
+      internalID: 6629546986060026436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_28
+      rect:
+        serializedVersion: 2
+        x: 1940
+        y: 701
+        width: 107
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 467306a39f6c74450800000000000000
+      internalID: 6073041396260943716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_29
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 725
+        width: 6
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 717eaadfa2efcd260800000000000000
+      internalID: 7123848171191199511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_30
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 643
+        width: 105
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39dba2c422bdbab40800000000000000
+      internalID: 5452692714215357843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_31
+      rect:
+        serializedVersion: 2
+        x: 1655
+        y: 627
+        width: 113
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 081eb3862adefe0a0800000000000000
+      internalID: -6849995226417995392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_32
+      rect:
+        serializedVersion: 2
+        x: 1768
+        y: 627
+        width: 80
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56453acc151e61d40800000000000000
+      internalID: 5554874931849942117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_33
+      rect:
+        serializedVersion: 2
+        x: 1787
+        y: 684
+        width: 56
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ef1a70d92b256740800000000000000
+      internalID: 5144565607931977699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_34
+      rect:
+        serializedVersion: 2
+        x: 1851
+        y: 681
+        width: 90
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6b94ee47ba984fe0800000000000000
+      internalID: -1204542788228310164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_35
+      rect:
+        serializedVersion: 2
+        x: 1949
+        y: 565
+        width: 93
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da9f5c9f317c9c0c0800000000000000
+      internalID: -4554890659499738707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_36
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 0
+        width: 673
+        height: 679
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 825def83b40257b70800000000000000
+      internalID: 8896052146391143720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_37
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 485
+        width: 184
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd48f19a0126c0720800000000000000
+      internalID: 2813731690896131291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_38
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 481
+        width: 168
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0222be630fe71df40800000000000000
+      internalID: 5751517769307464224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_39
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 671
+        width: 140
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8426d58e77bd79330800000000000000
+      internalID: 3717681325463659080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_40
+      rect:
+        serializedVersion: 2
+        x: 1847
+        y: 627
+        width: 98
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0eaff55034561920800000000000000
+      internalID: 2960646371620662797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_41
+      rect:
+        serializedVersion: 2
+        x: 1549
+        y: 573
+        width: 84
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67eaf75eb721a5ec0800000000000000
+      internalID: -3577526630651810186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_42
+      rect:
+        serializedVersion: 2
+        x: 1635
+        y: 396
+        width: 312
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f33f6d17060fc260800000000000000
+      internalID: 7119916163524408312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_43
+      rect:
+        serializedVersion: 2
+        x: 1937
+        y: 624
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4e55fa01123618e0800000000000000
+      internalID: -1723134758642950579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_44
+      rect:
+        serializedVersion: 2
+        x: 1549
+        y: 480
+        width: 81
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6e3f182fc6206710800000000000000
+      internalID: 1684388931809787498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_45
+      rect:
+        serializedVersion: 2
+        x: 1945
+        y: 523
+        width: 100
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e73596d863f7e690800000000000000
+      internalID: -7572816616797947927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_46
+      rect:
+        serializedVersion: 2
+        x: 1947
+        y: 461
+        width: 98
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70c5d5b9adb0e07e0800000000000000
+      internalID: -1797486167736886265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_47
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 0
+        width: 614
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2154a1407be1f6bd0800000000000000
+      internalID: -2634853485591771886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_48
+      rect:
+        serializedVersion: 2
+        x: 1293
+        y: 365
+        width: 40
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 300eba4b60d67c020800000000000000
+      internalID: 2361976405147508739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_49
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 424
+        width: 61
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 216d4d25cbbd80f70800000000000000
+      internalID: 9153807844520547858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_50
+      rect:
+        serializedVersion: 2
+        x: 1333
+        y: 366
+        width: 185
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6d5decd863674e90800000000000000
+      internalID: -7041550190336189076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_51
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 424
+        width: 59
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 322cc1ef2fbb85a10800000000000000
+      internalID: 1898473895256441379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_52
+      rect:
+        serializedVersion: 2
+        x: 1457
+        y: 425
+        width: 179
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 120857e162dcc24f0800000000000000
+      internalID: -852080665876398047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_53
+      rect:
+        serializedVersion: 2
+        x: 1946
+        y: 398
+        width: 99
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ba3d32e2d5d30390800000000000000
+      internalID: -7853198223488501068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_54
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 157
+        width: 232
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d803b6187558592c0800000000000000
+      internalID: -4425484447941709683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_55
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 157
+        width: 527
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fa8a49a053395f50800000000000000
+      internalID: 6870579128061037296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_56
+      rect:
+        serializedVersion: 2
+        x: 1541
+        y: 149
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71ccffb1fec1505c0800000000000000
+      internalID: -4249958860061684713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_57
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 0
+        width: 479
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61476a01ba5a13b20800000000000000
+      internalID: 3112450971627058198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_58
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 0
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b58f9f1d4f5636c70800000000000000
+      internalID: 8963119785566664795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_59
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 2
+        width: 243
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d25b51a8d87065ea0800000000000000
+      internalID: -5884507558624512723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kaelan_60
+      rect:
+        serializedVersion: 2
+        x: 1541
+        y: 0
+        width: 8
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e665ecc385773a9c0800000000000000
+      internalID: -3917156030021216658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Kaelan_0: -899528149814515479
+      Kaelan_1: -8001261772846626281
+      Kaelan_10: 5355845443610658048
+      Kaelan_11: 2952258504886890163
+      Kaelan_12: 6982934413641543564
+      Kaelan_13: -7240206864462545303
+      Kaelan_14: 3223255002371087122
+      Kaelan_15: -8248260780788639880
+      Kaelan_16: -7370936660586541728
+      Kaelan_17: 8547320965260642969
+      Kaelan_18: 8548434501138635388
+      Kaelan_19: -6698186562064656653
+      Kaelan_2: 3037416642824397022
+      Kaelan_20: 1954755763951130404
+      Kaelan_21: 2069247703900016175
+      Kaelan_22: 1557273260858201834
+      Kaelan_23: -7973911459630639685
+      Kaelan_24: -5163429783656792627
+      Kaelan_25: 1839662730682054870
+      Kaelan_26: 4007450566560657613
+      Kaelan_27: 6629546986060026436
+      Kaelan_28: 6073041396260943716
+      Kaelan_29: 7123848171191199511
+      Kaelan_3: 2112256123188141137
+      Kaelan_30: 5452692714215357843
+      Kaelan_31: -6849995226417995392
+      Kaelan_32: 5554874931849942117
+      Kaelan_33: 5144565607931977699
+      Kaelan_34: -1204542788228310164
+      Kaelan_35: -4554890659499738707
+      Kaelan_36: 8896052146391143720
+      Kaelan_37: 2813731690896131291
+      Kaelan_38: 5751517769307464224
+      Kaelan_39: 3717681325463659080
+      Kaelan_4: -1743624691564897997
+      Kaelan_40: 2960646371620662797
+      Kaelan_41: -3577526630651810186
+      Kaelan_42: 7119916163524408312
+      Kaelan_43: -1723134758642950579
+      Kaelan_44: 1684388931809787498
+      Kaelan_45: -7572816616797947927
+      Kaelan_46: -1797486167736886265
+      Kaelan_47: -2634853485591771886
+      Kaelan_48: 2361976405147508739
+      Kaelan_49: 9153807844520547858
+      Kaelan_5: -3066070377729735048
+      Kaelan_50: -7041550190336189076
+      Kaelan_51: 1898473895256441379
+      Kaelan_52: -852080665876398047
+      Kaelan_53: -7853198223488501068
+      Kaelan_54: -4425484447941709683
+      Kaelan_55: 6870579128061037296
+      Kaelan_56: -4249958860061684713
+      Kaelan_57: 3112450971627058198
+      Kaelan_58: 8963119785566664795
+      Kaelan_59: -5884507558624512723
+      Kaelan_6: -8930516801589193904
+      Kaelan_60: -3917156030021216658
+      Kaelan_7: 2238085639058935582
+      Kaelan_8: -6877817923579636608
+      Kaelan_9: -6346439758372473039
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

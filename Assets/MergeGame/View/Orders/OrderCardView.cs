@@ -12,14 +12,14 @@ using UnityEngine.UI;
 namespace MergeGame.View.Orders
 {
     /// <summary>
-    /// One customer's order. A completed order first celebrates (once the delivered items have arrived) and only then
-    /// shows the next order; cards that arrive meanwhile wait until the celebration is over.
+    /// One customer's order. A completed order first celebrates (once the delivered items have arrived, while the customer
+    /// leaves) and only then shows the next order and its customer; cards that arrive meanwhile wait until the celebration is over.
     /// </summary>
     public sealed class OrderCardView : MonoBehaviour
     {
         [SerializeField] private RectTransform body;
         [SerializeField] private CanvasGroup content;
-        [SerializeField] private Image avatar;
+        [SerializeField] private CustomerPortraitView customer;
         [SerializeField] private RectTransform requirementContainer;
         [SerializeField] private RequirementSlotView requirementPrefab;
         [SerializeField] private TMP_Text rewardLabel;
@@ -46,12 +46,16 @@ namespace MergeGame.View.Orders
         private TweenChannel pulse;
         private OrderCard pendingCard;
         private bool isCelebrating;
+        private bool customerLeft = true;
 
         public event Action DeliverClicked;
 
         public OrderCard Card { get; private set; }
         public bool CanDeliver => deliverButton.interactable;
-        public Vector3 DeliveryTarget => avatar.rectTransform.TransformPoint(avatar.rectTransform.rect.center);
+        public Vector3 DeliveryTarget => customer.Center;
+
+        /// <summary>The customer shown on this card.</summary>
+        public CustomerPortraitView Customer => customer;
 
         private void Awake()
         {
@@ -84,7 +88,7 @@ namespace MergeGame.View.Orders
         private void Apply(OrderCard card)
         {
             Card = card;
-            avatar.sprite = visuals.CustomerCount > 0 ? visuals.GetCustomerAvatar(card.CustomerIndex % visuals.CustomerCount) : null;
+            ShowCustomer(card);
             rewardLabel.text = string.Format(rewardFormat, card.RewardPoints);
 
             for (var i = 0; i < card.Requirements.Count; i++)
@@ -97,6 +101,25 @@ namespace MergeGame.View.Orders
                 requirementSlots[i].gameObject.SetActive(i < card.Requirements.Count);
 
             SetDeliverable(card.CanDeliver);
+        }
+
+        private void ShowCustomer(OrderCard card)
+        {
+            if (!customerLeft)
+            {
+                customer.ChangeMood(card.Mood);
+                return;
+            }
+
+            customerLeft = false;
+            if (visuals.CustomerCount == 0)
+            {
+                customer.Arrive(null, null, card.Mood);
+                return;
+            }
+
+            var index = card.CustomerIndex % visuals.CustomerCount;
+            customer.Arrive(visuals.GetCustomerPortrait(index), visuals.GetCustomerAvatar(index), card.Mood);
         }
 
         private RequirementSlotView RequirementSlot(int index)
@@ -124,6 +147,7 @@ namespace MergeGame.View.Orders
         {
             yield return Tween.Delay(celebrationDelaySeconds);
 
+            customer.Leave();
             celebrationGlow.gameObject.SetActive(true);
             celebrationLabel.gameObject.SetActive(awardedPoints > 0);
             celebrationLabel.text = string.Format(rewardFormat, awardedPoints);
@@ -154,6 +178,7 @@ namespace MergeGame.View.Orders
         private void FinishCelebration()
         {
             isCelebrating = false;
+            customerLeft = true;
             celebrationGlow.gameObject.SetActive(false);
             celebrationLabel.gameObject.SetActive(false);
             body.localScale = Vector3.one;

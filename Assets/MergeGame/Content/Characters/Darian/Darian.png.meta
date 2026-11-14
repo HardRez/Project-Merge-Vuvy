@@ -1,0 +1,756 @@
+fileFormatVersion: 2
+guid: 094e9c337587d8246b4ed3905308dc13
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8555799509831861471
+    second: Darian_0
+  - first:
+      213: 3373836631581197964
+    second: Darian_1
+  - first:
+      213: 6325297931380070008
+    second: Darian_2
+  - first:
+      213: 7380440849453128203
+    second: Darian_3
+  - first:
+      213: -5330785023116704645
+    second: Darian_4
+  - first:
+      213: -5211415894142841383
+    second: Darian_5
+  - first:
+      213: 4663261894454849468
+    second: Darian_6
+  - first:
+      213: -5546346080325698175
+    second: Darian_7
+  - first:
+      213: -98355460675011967
+    second: Darian_8
+  - first:
+      213: -1873138612587664053
+    second: Darian_9
+  - first:
+      213: 7200823811604660172
+    second: Darian_10
+  - first:
+      213: -7794644280924047174
+    second: Darian_11
+  - first:
+      213: 3883256210883785243
+    second: Darian_12
+  - first:
+      213: 2174725301632686492
+    second: Darian_13
+  - first:
+      213: -4009511684690755897
+    second: Darian_14
+  - first:
+      213: 6287373748495288902
+    second: Darian_15
+  - first:
+      213: -2345577221712266278
+    second: Darian_16
+  - first:
+      213: -3200457164903762408
+    second: Darian_17
+  - first:
+      213: 3124044469229277520
+    second: Darian_18
+  - first:
+      213: 5319605454343511389
+    second: Darian_19
+  - first:
+      213: 7782615630851825588
+    second: Darian_20
+  - first:
+      213: -3882037012980226747
+    second: Darian_21
+  - first:
+      213: 8589999889941777340
+    second: Darian_22
+  - first:
+      213: 2583234403758708667
+    second: Darian_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Darian_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 459
+        width: 93
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12bb2072da1b34980800000000000000
+      internalID: -8555799509831861471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_1
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 5
+        width: 396
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8609938a8642de20800000000000000
+      internalID: 3373836631581197964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_2
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 275
+        width: 163
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8761c6aa4f8f7c750800000000000000
+      internalID: 6325297931380070008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_3
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 413
+        width: 80
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0a9f6d69d79c6660800000000000000
+      internalID: 7380440849453128203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_4
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 481
+        width: 73
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b740823e34f3506b0800000000000000
+      internalID: -5330785023116704645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_5
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 456
+        width: 103
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dd8ac40bd45da7b0800000000000000
+      internalID: -5211415894142841383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_6
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 455
+        width: 118
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbfa8996cfb37b040800000000000000
+      internalID: 4663261894454849468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_7
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 462
+        width: 99
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18d7ec030ab6703b0800000000000000
+      internalID: -5546346080325698175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_8
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 476
+        width: 51
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18afeb8ca3292aef0800000000000000
+      internalID: -98355460675011967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_9
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 479
+        width: 40
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4de4ad2b564106e0800000000000000
+      internalID: -1873138612587664053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_10
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 437
+        width: 71
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccfbed4ea177ee360800000000000000
+      internalID: 7200823811604660172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 412
+        width: 117
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab8fdf4035cd3d390800000000000000
+      internalID: -7794644280924047174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_12
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 389
+        width: 122
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b12be8d03f814e530800000000000000
+      internalID: 3883256210883785243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_13
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 383
+        width: 62
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c99dedfb32d2e2e10800000000000000
+      internalID: 2174725301632686492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_14
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 329
+        width: 206
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ceba37bd5a5b58c0800000000000000
+      internalID: -4009511684690755897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_15
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 333
+        width: 62
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64a8d21cc1d314750800000000000000
+      internalID: 6287373748495288902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 368
+        width: 49
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adbb79ab1f5d27fd0800000000000000
+      internalID: -2345577221712266278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_17
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 287
+        width: 260
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 816be0f4a21b593d0800000000000000
+      internalID: -3200457164903762408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_18
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 0
+        width: 706
+        height: 334
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0515fe294e5da5b20800000000000000
+      internalID: 3124044469229277520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_19
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 233
+        width: 5
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5d106be9f803d940800000000000000
+      internalID: 5319605454343511389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 71
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bf5354aea7610c60800000000000000
+      internalID: 7782615630851825588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_21
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 0
+        width: 70
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 545256497eb302ac0800000000000000
+      internalID: -3882037012980226747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_22
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 0
+        width: 27
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbbcf9c536fc53770800000000000000
+      internalID: 8589999889941777340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Darian_23
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 0
+        width: 78
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb71b9fe00e79d320800000000000000
+      internalID: 2583234403758708667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Darian_0: -8555799509831861471
+      Darian_1: 3373836631581197964
+      Darian_10: 7200823811604660172
+      Darian_11: -7794644280924047174
+      Darian_12: 3883256210883785243
+      Darian_13: 2174725301632686492
+      Darian_14: -4009511684690755897
+      Darian_15: 6287373748495288902
+      Darian_16: -2345577221712266278
+      Darian_17: -3200457164903762408
+      Darian_18: 3124044469229277520
+      Darian_19: 5319605454343511389
+      Darian_2: 6325297931380070008
+      Darian_20: 7782615630851825588
+      Darian_21: -3882037012980226747
+      Darian_22: 8589999889941777340
+      Darian_23: 2583234403758708667
+      Darian_3: 7380440849453128203
+      Darian_4: -5330785023116704645
+      Darian_5: -5211415894142841383
+      Darian_6: 4663261894454849468
+      Darian_7: -5546346080325698175
+      Darian_8: -98355460675011967
+      Darian_9: -1873138612587664053
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

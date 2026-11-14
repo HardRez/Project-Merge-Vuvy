@@ -24,6 +24,23 @@ namespace MergeGame.Presentation.Orders
         public int RewardPoints { get; }
         public bool CanDeliver { get; }
 
+        /// <summary>Derived from <see cref="CanDeliver"/> and the requirements, so it never disagrees with them.</summary>
+        public CustomerMood Mood
+        {
+            get
+            {
+                if (CanDeliver)
+                    return CustomerMood.Ready;
+                foreach (var requirement in Requirements)
+                {
+                    if (requirement.IsFulfilled)
+                        return CustomerMood.Hopeful;
+                }
+
+                return CustomerMood.Waiting;
+            }
+        }
+
         public bool Equals(OrderCard other)
         {
             if (other == null)

@@ -1,0 +1,964 @@
+fileFormatVersion: 2
+guid: 89a7ae313f7ff164c821cb13fbee3959
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 743330337229169072
+    second: Zaria_0
+  - first:
+      213: -3210664902630129963
+    second: Zaria_1
+  - first:
+      213: 2750208957789381107
+    second: Zaria_2
+  - first:
+      213: 2402859279334391799
+    second: Zaria_3
+  - first:
+      213: -5978171332561886622
+    second: Zaria_4
+  - first:
+      213: 6861355241144203832
+    second: Zaria_5
+  - first:
+      213: -7586503682959338857
+    second: Zaria_6
+  - first:
+      213: -5952603620021712113
+    second: Zaria_7
+  - first:
+      213: 8556520674469838221
+    second: Zaria_8
+  - first:
+      213: 5594199027630232402
+    second: Zaria_9
+  - first:
+      213: -8275553125523620470
+    second: Zaria_10
+  - first:
+      213: 580034934387514350
+    second: Zaria_11
+  - first:
+      213: -8636672959473039004
+    second: Zaria_12
+  - first:
+      213: 6354561520392844072
+    second: Zaria_13
+  - first:
+      213: -7267864305559577310
+    second: Zaria_14
+  - first:
+      213: -4195584990712744689
+    second: Zaria_15
+  - first:
+      213: -3342314363441866460
+    second: Zaria_16
+  - first:
+      213: 1909747782565395549
+    second: Zaria_17
+  - first:
+      213: 6116550855138842143
+    second: Zaria_18
+  - first:
+      213: -6925249249701568433
+    second: Zaria_19
+  - first:
+      213: 7143805397514983462
+    second: Zaria_20
+  - first:
+      213: -9183501855212926263
+    second: Zaria_21
+  - first:
+      213: 4126499395567137629
+    second: Zaria_22
+  - first:
+      213: 8073734179247038408
+    second: Zaria_23
+  - first:
+      213: -5766905145085154885
+    second: Zaria_24
+  - first:
+      213: 7985314692746611584
+    second: Zaria_25
+  - first:
+      213: -6314479231381403421
+    second: Zaria_26
+  - first:
+      213: -1254204364426623435
+    second: Zaria_27
+  - first:
+      213: 5916400344604653426
+    second: Zaria_28
+  - first:
+      213: 8992306880360904876
+    second: Zaria_29
+  - first:
+      213: 1799955395788851199
+    second: Zaria_30
+  - first:
+      213: 5322267188142993304
+    second: Zaria_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Zaria_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1217
+        height: 511
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b1e05dd007d05a00800000000000000
+      internalID: 743330337229169072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_1
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 451
+        width: 33
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5debae9284d6173d0800000000000000
+      internalID: -3210664902630129963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_2
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 455
+        width: 6
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f12223d974ba2620800000000000000
+      internalID: 2750208957789381107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_3
+      rect:
+        serializedVersion: 2
+        x: 1255
+        y: 281
+        width: 332
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ff3afd98cba85120800000000000000
+      internalID: 2402859279334391799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_4
+      rect:
+        serializedVersion: 2
+        x: 1535
+        y: 493
+        width: 54
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 262a934c8d4490da0800000000000000
+      internalID: -5978171332561886622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_5
+      rect:
+        serializedVersion: 2
+        x: 1588
+        y: 491
+        width: 80
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83a3a222d3e683f50800000000000000
+      internalID: 6861355241144203832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_6
+      rect:
+        serializedVersion: 2
+        x: 1594
+        y: 250
+        width: 138
+        height: 243
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 792140a681357b690800000000000000
+      internalID: -7586503682959338857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_7
+      rect:
+        serializedVersion: 2
+        x: 1733
+        y: 337
+        width: 120
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0bc6ebbb8a146da0800000000000000
+      internalID: -5952603620021712113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_8
+      rect:
+        serializedVersion: 2
+        x: 1585
+        y: 455
+        width: 6
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8d7f03183edeb670800000000000000
+      internalID: 8556520674469838221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_9
+      rect:
+        serializedVersion: 2
+        x: 1853
+        y: 428
+        width: 45
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2535cb4506692ad40800000000000000
+      internalID: 5594199027630232402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_10
+      rect:
+        serializedVersion: 2
+        x: 1897
+        y: 428
+        width: 46
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d7a413744572d80800000000000000
+      internalID: -8275553125523620470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_11
+      rect:
+        serializedVersion: 2
+        x: 1941
+        y: 429
+        width: 53
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeb1c7d13b2bc0800800000000000000
+      internalID: 580034934387514350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_12
+      rect:
+        serializedVersion: 2
+        x: 1994
+        y: 426
+        width: 48
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4694361d3bf542880800000000000000
+      internalID: -8636672959473039004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_13
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 325
+        width: 42
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 823b16ee800ff2850800000000000000
+      internalID: 6354561520392844072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_14
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 411
+        width: 39
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22d516fbbeb532b90800000000000000
+      internalID: -7267864305559577310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_15
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 352
+        width: 58
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f053b9b1ea946c5c0800000000000000
+      internalID: -4195584990712744689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_16
+      rect:
+        serializedVersion: 2
+        x: 1853
+        y: 328
+        width: 170
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4299c577bc6bd91d0800000000000000
+      internalID: -3342314363441866460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_17
+      rect:
+        serializedVersion: 2
+        x: 1533
+        y: 313
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5c766e6d79c08a10800000000000000
+      internalID: 1909747782565395549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_18
+      rect:
+        serializedVersion: 2
+        x: 1732
+        y: 215
+        width: 103
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f16992b889a52e450800000000000000
+      internalID: 6116550855138842143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_19
+      rect:
+        serializedVersion: 2
+        x: 1835
+        y: 0
+        width: 213
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f406f7abf7294ef90800000000000000
+      internalID: -6925249249701568433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_20
+      rect:
+        serializedVersion: 2
+        x: 1847
+        y: 329
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6281667d825e32360800000000000000
+      internalID: 7143805397514983462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_21
+      rect:
+        serializedVersion: 2
+        x: 1883
+        y: 323
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ca84ed08b5ad8080800000000000000
+      internalID: -9183501855212926263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_22
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 323
+        width: 50
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d53b4ae4655444930800000000000000
+      internalID: 4126499395567137629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_23
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 281
+        width: 77
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cf13f4a57aab0070800000000000000
+      internalID: 8073734179247038408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_24
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 0
+        width: 302
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb9a3dd2356d7ffa0800000000000000
+      internalID: -5766905145085154885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_25
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 251
+        width: 54
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08b8ed0b76981de60800000000000000
+      internalID: 7985314692746611584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_26
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 250
+        width: 61
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e80ee738967e58a0800000000000000
+      internalID: -6314479231381403421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_27
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 233
+        width: 38
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5364b9e86cb289ee0800000000000000
+      internalID: -1254204364426623435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_28
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 0
+        width: 127
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 277b82954c64b1250800000000000000
+      internalID: 5916400344604653426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_29
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 214
+        width: 47
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca87633e6771bcc70800000000000000
+      internalID: 8992306880360904876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_30
+      rect:
+        serializedVersion: 2
+        x: 1835
+        y: 215
+        width: 8
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff7ca8955e9baf810800000000000000
+      internalID: 1799955395788851199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Zaria_31
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 0
+        width: 236
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89feafc1fcd7cd940800000000000000
+      internalID: 5322267188142993304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Zaria_0: 743330337229169072
+      Zaria_1: -3210664902630129963
+      Zaria_10: -8275553125523620470
+      Zaria_11: 580034934387514350
+      Zaria_12: -8636672959473039004
+      Zaria_13: 6354561520392844072
+      Zaria_14: -7267864305559577310
+      Zaria_15: -4195584990712744689
+      Zaria_16: -3342314363441866460
+      Zaria_17: 1909747782565395549
+      Zaria_18: 6116550855138842143
+      Zaria_19: -6925249249701568433
+      Zaria_2: 2750208957789381107
+      Zaria_20: 7143805397514983462
+      Zaria_21: -9183501855212926263
+      Zaria_22: 4126499395567137629
+      Zaria_23: 8073734179247038408
+      Zaria_24: -5766905145085154885
+      Zaria_25: 7985314692746611584
+      Zaria_26: -6314479231381403421
+      Zaria_27: -1254204364426623435
+      Zaria_28: 5916400344604653426
+      Zaria_29: 8992306880360904876
+      Zaria_3: 2402859279334391799
+      Zaria_30: 1799955395788851199
+      Zaria_31: 5322267188142993304
+      Zaria_4: -5978171332561886622
+      Zaria_5: 6861355241144203832
+      Zaria_6: -7586503682959338857
+      Zaria_7: -5952603620021712113
+      Zaria_8: 8556520674469838221
+      Zaria_9: 5594199027630232402
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

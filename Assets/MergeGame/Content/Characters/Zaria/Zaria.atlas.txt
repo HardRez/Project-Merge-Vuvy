@@ -1,0 +1,237 @@
+
+Zaria.png
+size: 3076,894
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+GK_bingjiao
+  rotate: true
+  xy: 1773, 328
+  size: 74, 115
+  orig: 74, 115
+  offset: 0, 0
+  index: -1
+GK_biyan1
+  rotate: true
+  xy: 2307, 150
+  size: 129, 83
+  orig: 129, 83
+  offset: 0, 0
+  index: -1
+GK_biyan2
+  rotate: false
+  xy: 2917, 49
+  size: 78, 96
+  orig: 78, 96
+  offset: 0, 0
+  index: -1
+GK_bizi
+  rotate: false
+  xy: 1828, 177
+  size: 60, 149
+  orig: 60, 149
+  offset: 0, 0
+  index: -1
+GK_daxianglian
+  rotate: false
+  xy: 2603, 27
+  size: 180, 276
+  orig: 180, 276
+  offset: 0, 0
+  index: -1
+GK_erdui
+  rotate: false
+  xy: 2839, 326
+  size: 115, 121
+  orig: 117, 123
+  offset: 1, 1
+  index: -1
+GK_erliutoufa
+  rotate: true
+  xy: 2767, 644
+  size: 248, 307
+  orig: 248, 315
+  offset: 0, 8
+  index: -1
+GK_erzhui1
+  rotate: false
+  xy: 1828, 2
+  size: 46, 102
+  orig: 48, 104
+  offset: 1, 1
+  index: -1
+GK_erzhui1hou
+  rotate: true
+  xy: 2306, 415
+  size: 40, 88
+  orig: 42, 90
+  offset: 1, 1
+  index: -1
+GK_falian
+  rotate: false
+  xy: 2414, 520
+  size: 351, 372
+  orig: 351, 372
+  offset: 0, 0
+  index: -1
+GK_geboer
+  rotate: false
+  xy: 2227, 457
+  size: 185, 435
+  orig: 185, 435
+  offset: 0, 0
+  index: -1
+GK_lian
+  rotate: true
+  xy: 1773, 404
+  size: 488, 452
+  orig: 488, 452
+  offset: 0, 0
+  index: -1
+GK_liuhaier
+  rotate: true
+  xy: 2785, 147
+  size: 173, 247
+  orig: 173, 247
+  offset: 0, 0
+  index: -1
+GK_mm1
+  rotate: false
+  xy: 2389, 8
+  size: 114, 25
+  orig: 116, 27
+  offset: 1, 1
+  index: -1
+GK_mm2
+  rotate: false
+  xy: 2227, 406
+  size: 77, 49
+  orig: 79, 52
+  offset: 1, 1
+  index: -1
+GK_shenti
+  rotate: true
+  xy: 1277, 4
+  size: 322, 549
+  orig: 322, 549
+  offset: 0, 0
+  index: -1
+GK_toudingtf
+  rotate: true
+  xy: 1890, 17
+  size: 385, 415
+  orig: 385, 450
+  offset: 0, 35
+  index: -1
+GK_toufahou
+  rotate: false
+  xy: 1277, 328
+  size: 494, 564
+  orig: 494, 564
+  offset: 0, 0
+  index: -1
+GK_xiaoxianglian
+  rotate: false
+  xy: 2603, 305
+  size: 153, 213
+  orig: 153, 213
+  offset: 0, 0
+  index: -1
+GK_yiliutf
+  rotate: true
+  xy: 2767, 449
+  size: 193, 304
+  orig: 193, 304
+  offset: 0, 0
+  index: -1
+GK_yjiemao
+  rotate: true
+  xy: 2758, 322
+  size: 125, 79
+  orig: 125, 79
+  offset: 0, 0
+  index: -1
+GK_yliany
+  rotate: true
+  xy: 2785, 39
+  size: 106, 64
+  orig: 108, 66
+  offset: 1, 1
+  index: -1
+GK_youshoubi
+  rotate: false
+  xy: 2396, 35
+  size: 205, 420
+  orig: 205, 420
+  offset: 0, 0
+  index: -1
+GK_yyanbai
+  rotate: true
+  xy: 2851, 39
+  size: 106, 64
+  orig: 108, 66
+  offset: 1, 1
+  index: -1
+GK_yyanzhu
+  rotate: false
+  xy: 1828, 106
+  size: 57, 69
+  orig: 60, 71
+  offset: 1, 1
+  index: -1
+GK_zjiamao
+  rotate: false
+  xy: 2307, 39
+  size: 75, 109
+  orig: 75, 109
+  offset: 0, 0
+  index: -1
+GK_zliany
+  rotate: true
+  xy: 2307, 348
+  size: 65, 85
+  orig: 67, 88
+  offset: 1, 1
+  index: -1
+GK_zuiba
+  rotate: false
+  xy: 2307, 4
+  size: 80, 29
+  orig: 80, 29
+  offset: 0, 0
+  index: -1
+GK_zuierzhui
+  rotate: false
+  xy: 2997, 51
+  size: 68, 94
+  orig: 70, 96
+  offset: 1, 1
+  index: -1
+GK_zuixiao
+  rotate: false
+  xy: 2956, 374
+  size: 106, 73
+  orig: 106, 73
+  offset: 0, 0
+  index: -1
+GK_zyanbai
+  rotate: true
+  xy: 2307, 281
+  size: 65, 85
+  orig: 67, 88
+  offset: 1, 1
+  index: -1
+GK_zyanzhu
+  rotate: true
+  xy: 2414, 465
+  size: 53, 69
+  orig: 55, 71
+  offset: 1, 1
+  index: -1
+图层 12
+  rotate: true
+  xy: 2, 7
+  size: 885, 1273
+  orig: 887, 1275
+  offset: 1, 1
+  index: -1

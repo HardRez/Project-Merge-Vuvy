@@ -29,8 +29,8 @@ namespace MergeGame.Data.Authoring
                  "Must not decrease and must reach the max requested level.")]
         [SerializeField] private List<int> rewardPointsByLevel = new List<int>();
 
-        [Tooltip("One avatar per customer; the number of customers is the length of this list.")]
-        [SerializeField] private List<Sprite> customerAvatars = new List<Sprite>();
+        [Tooltip("Customers who place orders, each with a Spine portrait and/or an avatar sprite; the number of customers is the length of this list.")]
+        [SerializeField] private List<CustomerEntry> customers = new List<CustomerEntry>();
 
         public int MaxActiveOrders
         {
@@ -69,13 +69,13 @@ namespace MergeGame.Data.Authoring
             internal set => rewardPointsByLevel = new List<int>(value);
         }
 
-        /// <summary>Index i is the avatar of customer i (see <c>Order.CustomerIndex</c>).</summary>
-        public IReadOnlyList<Sprite> CustomerAvatars
+        /// <summary>Index i is customer i (see <c>Order.CustomerIndex</c>).</summary>
+        public IReadOnlyList<CustomerEntry> Customers
         {
-            get => customerAvatars;
-            internal set => customerAvatars = new List<Sprite>(value);
+            get => customers;
+            internal set => customers = new List<CustomerEntry>(value);
         }
 
-        public int CustomerCount => customerAvatars.Count;
+        public int CustomerCount => customers.Count;
     }
 }

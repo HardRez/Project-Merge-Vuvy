@@ -1,0 +1,1068 @@
+fileFormatVersion: 2
+guid: 7231ea06f2bdbd240a3dcc0fe24b4385
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8694280071010560588
+    second: Orin_0
+  - first:
+      213: 8875672813245063571
+    second: Orin_1
+  - first:
+      213: -5599821452622986126
+    second: Orin_2
+  - first:
+      213: 182859883784189847
+    second: Orin_3
+  - first:
+      213: 6674217272913085274
+    second: Orin_4
+  - first:
+      213: -5964347062325813260
+    second: Orin_5
+  - first:
+      213: -4021722467306767119
+    second: Orin_6
+  - first:
+      213: -4042612862585487981
+    second: Orin_7
+  - first:
+      213: 4835913351383379124
+    second: Orin_8
+  - first:
+      213: -4080551445556523348
+    second: Orin_9
+  - first:
+      213: 1275723028400661982
+    second: Orin_10
+  - first:
+      213: -6874601260459337853
+    second: Orin_11
+  - first:
+      213: 4785869391018099049
+    second: Orin_12
+  - first:
+      213: -6722605836026944175
+    second: Orin_13
+  - first:
+      213: -1366734826051537959
+    second: Orin_14
+  - first:
+      213: -2490132394366239231
+    second: Orin_15
+  - first:
+      213: -1877198094195211126
+    second: Orin_16
+  - first:
+      213: -4490488637318558145
+    second: Orin_17
+  - first:
+      213: 2542908777084453123
+    second: Orin_18
+  - first:
+      213: -4211213104335640308
+    second: Orin_19
+  - first:
+      213: -8052020198860071058
+    second: Orin_20
+  - first:
+      213: 524426351306759139
+    second: Orin_21
+  - first:
+      213: 3755260365882514075
+    second: Orin_22
+  - first:
+      213: -5854317691208999877
+    second: Orin_23
+  - first:
+      213: -6323104533458564118
+    second: Orin_24
+  - first:
+      213: 953160666561638903
+    second: Orin_25
+  - first:
+      213: -2288704843281573244
+    second: Orin_26
+  - first:
+      213: 7661526080242092317
+    second: Orin_27
+  - first:
+      213: 6411327063058754392
+    second: Orin_28
+  - first:
+      213: -8059846012282094181
+    second: Orin_29
+  - first:
+      213: -7894390635055672684
+    second: Orin_30
+  - first:
+      213: -375425396599952971
+    second: Orin_31
+  - first:
+      213: -8518900198532216666
+    second: Orin_32
+  - first:
+      213: -4306734757567683782
+    second: Orin_33
+  - first:
+      213: -5938939882034867051
+    second: Orin_34
+  - first:
+      213: 9142666458533723596
+    second: Orin_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Orin_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 466
+        width: 37
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b558a5f656b75780800000000000000
+      internalID: -8694280071010560588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 201
+        width: 376
+        height: 307
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3916018f569bc2b70800000000000000
+      internalID: 8875672813245063571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_2
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 203
+        width: 285
+        height: 308
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2748bc6de007942b0800000000000000
+      internalID: -5599821452622986126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_3
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 128
+        width: 279
+        height: 375
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79730a07816a98200800000000000000
+      internalID: 182859883784189847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_4
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 436
+        width: 44
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a53c2c98f359f9c50800000000000000
+      internalID: 6674217272913085274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_5
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 340
+        width: 184
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ffdce082f16a3da0800000000000000
+      internalID: -5964347062325813260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_6
+      rect:
+        serializedVersion: 2
+        x: 1118
+        y: 332
+        width: 250
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fcf8f659b8ff28c0800000000000000
+      internalID: -4021722467306767119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_7
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 415
+        width: 103
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39dba292501c5e7c0800000000000000
+      internalID: -4042612862585487981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_8
+      rect:
+        serializedVersion: 2
+        x: 1469
+        y: 479
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bc66c1429d9c1340800000000000000
+      internalID: 4835913351383379124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_9
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 486
+        width: 43
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cae85e77418fe57c0800000000000000
+      internalID: -4080551445556523348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_10
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 415
+        width: 104
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed56b93d55744b110800000000000000
+      internalID: 1275723028400661982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_11
+      rect:
+        serializedVersion: 2
+        x: 1573
+        y: 415
+        width: 86
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3875ed9a3928890a0800000000000000
+      internalID: -6874601260459337853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_12
+      rect:
+        serializedVersion: 2
+        x: 1658
+        y: 442
+        width: 83
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9618c01cad2da6240800000000000000
+      internalID: 4785869391018099049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_13
+      rect:
+        serializedVersion: 2
+        x: 1739
+        y: 442
+        width: 81
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15565aa2c9184b2a0800000000000000
+      internalID: -6722605836026944175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_14
+      rect:
+        serializedVersion: 2
+        x: 1819
+        y: 446
+        width: 65
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d3fa0fbae1680de0800000000000000
+      internalID: -1366734826051537959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_15
+      rect:
+        serializedVersion: 2
+        x: 1883
+        y: 447
+        width: 55
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10e7b16d7c5417dd0800000000000000
+      internalID: -2490132394366239231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_16
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 479
+        width: 41
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a844476774ad2f5e0800000000000000
+      internalID: -1877198094195211126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_17
+      rect:
+        serializedVersion: 2
+        x: 1682
+        y: 333
+        width: 148
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3e03b040649ea1c0800000000000000
+      internalID: -4490488637318558145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_18
+      rect:
+        serializedVersion: 2
+        x: 1828
+        y: 333
+        width: 211
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30187525f0a3a4320800000000000000
+      internalID: 2542908777084453123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_19
+      rect:
+        serializedVersion: 2
+        x: 1998
+        y: 432
+        width: 50
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c09aa9a5ef3ce85c0800000000000000
+      internalID: -4211213104335640308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_20
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 131
+        width: 307
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6fdca26a4a714090800000000000000
+      internalID: -8052020198860071058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_21
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 321
+        width: 67
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eb5e7cecf2274700800000000000000
+      internalID: 524426351306759139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_22
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 130
+        width: 145
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9ad783186d5d1430800000000000000
+      internalID: 3755260365882514075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_23
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 0
+        width: 305
+        height: 418
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3cd33dc31941cea0800000000000000
+      internalID: -5854317691208999877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_24
+      rect:
+        serializedVersion: 2
+        x: 1606
+        y: 202
+        width: 276
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeb4a859de1df38a0800000000000000
+      internalID: -6323104533458564118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_25
+      rect:
+        serializedVersion: 2
+        x: 1877
+        y: 203
+        width: 103
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f1f740839e4a3d00800000000000000
+      internalID: 953160666561638903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_26
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 323
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48a5c743213ec30e0800000000000000
+      internalID: -2288704843281573244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_27
+      rect:
+        serializedVersion: 2
+        x: 1978
+        y: 311
+        width: 47
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d198832a065335a60800000000000000
+      internalID: 7661526080242092317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 655
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85b2774cefb99f850800000000000000
+      internalID: 6411327063058754392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_29
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 129
+        width: 85
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9db39531cca52090800000000000000
+      internalID: -8059846012282094181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_30
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 0
+        width: 231
+        height: 209
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 492165f2b8d717290800000000000000
+      internalID: -7894390635055672684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_31
+      rect:
+        serializedVersion: 2
+        x: 1913
+        y: 0
+        width: 135
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b9eff347983acaf0800000000000000
+      internalID: -375425396599952971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_32
+      rect:
+        serializedVersion: 2
+        x: 1981
+        y: 199
+        width: 61
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a88b7d8769c6c980800000000000000
+      internalID: -8518900198532216666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 31
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a33a9595e876b34c0800000000000000
+      internalID: -4306734757567683782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_34
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 0
+        width: 425
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59459e4a4a5a49da0800000000000000
+      internalID: -5938939882034867051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orin_35
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 0
+        width: 388
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccdf7c044b641ee70800000000000000
+      internalID: 9142666458533723596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Orin_0: -8694280071010560588
+      Orin_1: 8875672813245063571
+      Orin_10: 1275723028400661982
+      Orin_11: -6874601260459337853
+      Orin_12: 4785869391018099049
+      Orin_13: -6722605836026944175
+      Orin_14: -1366734826051537959
+      Orin_15: -2490132394366239231
+      Orin_16: -1877198094195211126
+      Orin_17: -4490488637318558145
+      Orin_18: 2542908777084453123
+      Orin_19: -4211213104335640308
+      Orin_2: -5599821452622986126
+      Orin_20: -8052020198860071058
+      Orin_21: 524426351306759139
+      Orin_22: 3755260365882514075
+      Orin_23: -5854317691208999877
+      Orin_24: -6323104533458564118
+      Orin_25: 953160666561638903
+      Orin_26: -2288704843281573244
+      Orin_27: 7661526080242092317
+      Orin_28: 6411327063058754392
+      Orin_29: -8059846012282094181
+      Orin_3: 182859883784189847
+      Orin_30: -7894390635055672684
+      Orin_31: -375425396599952971
+      Orin_32: -8518900198532216666
+      Orin_33: -4306734757567683782
+      Orin_34: -5938939882034867051
+      Orin_35: 9142666458533723596
+      Orin_4: 6674217272913085274
+      Orin_5: -5964347062325813260
+      Orin_6: -4021722467306767119
+      Orin_7: -4042612862585487981
+      Orin_8: 4835913351383379124
+      Orin_9: -4080551445556523348
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

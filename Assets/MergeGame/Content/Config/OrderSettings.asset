@@ -18,10 +18,30 @@ MonoBehaviour:
   minRequestedLevel: 2
   maxRequestedLevel: 4
   rewardPointsByLevel: 050000001e00000082000000c201000078050000a00f0000f82a0000i
-  customerAvatars:
-  - {fileID: 21300000, guid: 72f1094e46b4e07468dd85ede21108b5, type: 3}
-  - {fileID: 21300000, guid: 7c71d7bd2ce9d4e4a9dc568c8ea1a977, type: 3}
-  - {fileID: 21300000, guid: 9ddec06225cea774ea44f76daf58fdb5, type: 3}
-  - {fileID: 21300000, guid: e1e742dd0778d9c4fbeb6b82c56439f4, type: 3}
-  - {fileID: 21300000, guid: 48a824eeb6800124486cd2ba54279178, type: 3}
-  - {fileID: 21300000, guid: 48ef833f9e309c94aba3709062cb5fb3, type: 3}
+  customers:
+  - portrait: {fileID: 11400000, guid: 9f9844348979dbc419784f442da38ebd, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: 34323893492b5ae48ac5444de29f8ea9, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: de5764aed105f824e9169843d09a3ab7, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: 4dfb36fe2832e4c4ab9beb18c735efda, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: 431f27f9007d14247a34e4569e10f415, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: c24f84435363f3241bb3d1b14bf557db, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: 9d54938d049e023459ee54d976d35531, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: 0f41cc6ba1572b94196e6f7c0f58c113, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: c5e8ddef761f24b4f93fe47a196b8bea, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: 6be1da4edabd5dd4c95214c2037032de, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: a5e69f75235f7d54cb2418ec8904c64e, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: b693f37e7b738fe48af667396253a21b, type: 2}
+    avatar: {fileID: 0}
+  - portrait: {fileID: 11400000, guid: a483f9b0b866e2c49bdefe64320ceaa4, type: 2}
+    avatar: {fileID: 0}

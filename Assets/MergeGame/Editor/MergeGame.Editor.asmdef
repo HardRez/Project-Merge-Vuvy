@@ -11,7 +11,8 @@
         "UnityEditor.UI",
         "Unity.TextMeshPro",
         "Unity.InputSystem",
-        "Zenject"
+        "Zenject",
+        "spine-unity"
     ],
     "includePlatforms": [
         "Editor"

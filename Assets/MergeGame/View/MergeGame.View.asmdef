@@ -7,7 +7,8 @@
         "MergeGame.Data",
         "UnityEngine.UI",
         "Unity.TextMeshPro",
-        "Zenject"
+        "Zenject",
+        "spine-unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
