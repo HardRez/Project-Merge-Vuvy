@@ -1,0 +1,16 @@
+{
+    "name": "MergeGame.Presentation",
+    "rootNamespace": "MergeGame.Presentation",
+    "references": [
+        "MergeGame.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
