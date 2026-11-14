@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fb594649addb8b54c942e74f3f22fe8d
+guid: 511c97b32c4f0364b8f5d10dda618b5a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2746526129402366599
-    second: boat_03_0
+      213: -8222406987496834216
+    second: crown_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -102,13 +102,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boat_03_0
+      name: crown_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 7
-        width: 215
-        height: 237
+        x: 25
+        y: 31
+        width: 206
+        height: 188
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,8 +117,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 78a4b5586fe9d1620800000000000000
-      internalID: 2746526129402366599
+      spriteID: 85bbf87b86424ed80800000000000000
+      internalID: -8222406987496834216
       vertices: []
       indices: 
       edges: []
@@ -127,7 +127,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -137,7 +137,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      boat_03_0: 2746526129402366599
+      crown_0: -8222406987496834216
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

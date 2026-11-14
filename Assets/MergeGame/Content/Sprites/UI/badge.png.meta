@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9ecf166aa170e1242ad0003241478fed
+guid: 81f0bfc170e479a4db3952e2e2d28598
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1119132342560897152
-    second: kitchen_03_0
+      213: 546123822483701620
+    second: badge_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -102,13 +102,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: kitchen_03_0
+      name: badge_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 8
-        width: 200
-        height: 235
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,8 +117,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 087c109501b0870f0800000000000000
-      internalID: -1119132342560897152
+      spriteID: 47ff48a19b8349700800000000000000
+      internalID: 546123822483701620
       vertices: []
       indices: 
       edges: []
@@ -137,7 +137,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      kitchen_03_0: -1119132342560897152
+      badge_0: 546123822483701620
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
