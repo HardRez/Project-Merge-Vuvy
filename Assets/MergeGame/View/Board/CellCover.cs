@@ -9,9 +9,9 @@ namespace MergeGame.View.Board
 {
     /// <summary>
     /// Sand burying a closed cell. It belongs to the board rather than to an item, so it fills the whole cell like the
-    /// cell tile itself and can never be mistaken for an item. When the cell opens, the tile turns into a
-    /// <see cref="SandSimulation"/> of individual grains that pour out through the cell's floor, drawn by the sand grain
-    /// shader and clipped to the cell's rounded shape by the mask on this object.
+    /// cell tile itself and can never be mistaken for an item. When the cell opens, the tile becomes a grid of grains in
+    /// the tile's own colours that let go and pour out of the cell (<see cref="SandPour"/>), drawn by
+    /// <see cref="SandGrainGraphic"/> and clipped to the cell's rounded shape by the mask on this object.
     /// </summary>
     [RequireComponent(typeof(RectTransform), typeof(Mask))]
     public sealed class CellCover : MonoBehaviour
@@ -19,8 +19,7 @@ namespace MergeGame.View.Board
         [Tooltip("The resting sand tile; also the source of the grains' colours.")]
         [SerializeField] private Image sand;
 
-        [Tooltip("Shows the pouring grains through the sand grain material.")]
-        [SerializeField] private RawImage grains;
+        [SerializeField] private SandGrainGraphic grains;
 
         [Tooltip("Looks picked per cell, so neighbouring covers do not look stamped.")]
         [SerializeField] private Sprite[] variants = Array.Empty<Sprite>();
@@ -30,14 +29,6 @@ namespace MergeGame.View.Board
         [Min(8)]
         [SerializeField] private int columns = 42;
 
-        [Tooltip("Simulation steps per second; with the pour settings this sets how long the sand takes to run out.")]
-        [Min(1f)]
-        [SerializeField] private float stepsPerSecond = 70f;
-
-        [Tooltip("Most simulation steps run in one frame, so a long frame slows the pour instead of jumping it.")]
-        [Min(1)]
-        [SerializeField] private int maxStepsPerFrame = 4;
-
         [SerializeField] private SandPourSettings pour = new SandPourSettings();
 
         [Header("Refuse")]
@@ -46,22 +37,18 @@ namespace MergeGame.View.Board
         private TweenChannel motion;
         private Action poured;
         private int seed;
-        private SandSimulation simulation;
-        private Color32[] grainColours;
-        private Color32[] statePixels;
-        private Texture2D state;
+        private SandPour sandPour;
+        private float pourTime;
 
         private TweenChannel Motion => motion ??= new TweenChannel(this);
 
-        public bool IsPouring => poured != null && simulation != null;
+        public bool IsPouring => poured != null && sandPour != null;
 
         /// <summary>Grains still in the cell; 0 before the pour has started.</summary>
-        public int GrainCount => simulation?.GrainCount ?? 0;
+        public int GrainCount => sandPour?.LiveCount(pourTime) ?? 0;
 
-        /// <summary>Pour steps done so far.</summary>
-        public int PourStep => simulation?.StepCount ?? 0;
-
-        public float StepsPerSecond => stepsPerSecond;
+        /// <summary>Seconds the pour takes from letting go to an empty cell.</summary>
+        public float PourSeconds => pour.TotalSeconds;
 
         /// <param name="variantSeed">Any stable number for the cell, e.g. derived from its coordinates; also seeds the pour.</param>
         public void Show(int variantSeed)
@@ -92,16 +79,12 @@ namespace MergeGame.View.Board
                 Finish();
         }
 
-        /// <summary>Shows the pour exactly as it is after <paramref name="step"/> simulation steps and holds it there.</summary>
-        public void ShowPourStep(int step)
+        /// <summary>Shows the pour as it is <paramref name="seconds"/> after the sand let go, and holds it there.</summary>
+        public void ShowPourAt(float seconds)
         {
             Motion.Stop();
-            if (simulation != null && simulation.StepCount > step)
-                simulation = null;
             BeginPour();
-            while (simulation.StepCount < step && !simulation.IsEmpty)
-                simulation.Step();
-            Upload();
+            ShowTime(seconds);
         }
 
         /// <summary>Ends the pour at once: the sand is gone.</summary>
@@ -113,28 +96,15 @@ namespace MergeGame.View.Board
             onPoured?.Invoke();
         }
 
-        private void OnDestroy()
-        {
-            if (state != null)
-                Destroy(state);
-        }
-
         private IEnumerator PlayPour(float delay)
         {
             yield return Tween.Delay(delay);
 
             BeginPour();
-            var pendingSteps = 0f;
-            while (!simulation.IsEmpty)
+            for (var elapsed = 0f; elapsed < sandPour.Duration; elapsed += Time.unscaledDeltaTime)
             {
+                ShowTime(elapsed);
                 yield return null;
-                pendingSteps += Time.unscaledDeltaTime * stepsPerSecond;
-                var steps = Mathf.Min((int)pendingSteps, maxStepsPerFrame);
-                pendingSteps = Mathf.Min(pendingSteps - steps, 1f);
-                for (var i = 0; i < steps && !simulation.IsEmpty; i++)
-                    simulation.Step();
-                if (steps > 0)
-                    Upload();
             }
 
             Finish();
@@ -143,58 +113,25 @@ namespace MergeGame.View.Board
         /// <summary>Swaps the tile for its grains: same colours at the same spots, so the swap cannot be seen.</summary>
         private void BeginPour()
         {
-            if (simulation != null)
+            if (sandPour != null)
                 return;
 
             var size = sand.rectTransform.rect.size;
             var rows = Mathf.Max(8, Mathf.RoundToInt(columns * size.y / Mathf.Max(1f, size.x)));
-            var count = columns * rows;
-            if (grainColours == null || grainColours.Length != count)
-            {
-                grainColours = new Color32[count];
-                statePixels = new Color32[count];
-                if (state != null)
-                    Destroy(state);
-                state = new Texture2D(columns, rows, TextureFormat.RGBA32, mipChain: false)
-                {
-                    filterMode = FilterMode.Point,
-                    wrapMode = TextureWrapMode.Clamp
-                };
-            }
+            var colours = new Color32[columns * rows];
+            var occupied = new bool[columns * rows];
+            SandGrainPalette.Sample(sand, columns, rows, colours, occupied);
+            sandPour = new SandPour(columns, rows, occupied, seed, pour);
 
-            var occupied = new bool[count];
-            SandGrainPalette.Sample(sand, columns, rows, grainColours, occupied);
-            simulation = new SandSimulation(columns, rows, occupied, seed, pour);
-
-            grains.texture = state;
-            Upload();
+            grains.Show(sandPour, colours);
             grains.gameObject.SetActive(true);
             sand.enabled = false;
         }
 
-        /// <summary>One texel per grain: its colour, and in alpha whether it is there and how fast it falls.</summary>
-        private void Upload()
+        private void ShowTime(float seconds)
         {
-            for (var y = 0; y < simulation.Height; y++)
-            {
-                for (var x = 0; x < simulation.Width; x++)
-                {
-                    var index = y * simulation.Width + x;
-                    var grain = simulation.GrainAt(x, y);
-                    if (grain == SandSimulation.Empty)
-                    {
-                        statePixels[index] = default;
-                        continue;
-                    }
-
-                    var colour = grainColours[grain - 1];
-                    colour.a = (byte)(128 + 127 * Mathf.Clamp01(simulation.SpeedAt(x, y)));
-                    statePixels[index] = colour;
-                }
-            }
-
-            state.SetPixels32(statePixels);
-            state.Apply(updateMipmaps: false);
+            pourTime = seconds;
+            grains.ShowTime(seconds);
         }
     }
 }

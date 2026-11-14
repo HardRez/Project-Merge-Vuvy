@@ -22,12 +22,18 @@ namespace MergeGame.PlayTests
         private const string OutputVariable = "MERGE_CAPTURE_DIR";
         private const int HighestRequestedLevel = 4;
 
-        // The sand pour is filmed as an animation at this frame rate (assembled outside the project).
-        private const float PourFramesPerSecond = 20f;
-        private const int MaxPourFrames = 120;
+        private const int MaxPourFrames = 400;
 
-        /// <summary>Close-up (3× around the cell) and true on-device size (1×, a wider crop) of the same pour.</summary>
-        private static readonly (string suffix, float cells, int magnify)[] PourViews = { ("", 2f, 3), ("_1x", 3.2f, 1) };
+        /// <summary>
+        /// The same pour filmed three ways, as frames of exact pour time (assembled into animations outside the project):
+        /// a 3× close-up at 60 frames per second of pour time, the same at 200 for slow motion, and true on-device size.
+        /// </summary>
+        private static readonly (string suffix, float framesPerSecond, float cells, int magnify)[] PourViews =
+        {
+            ("", 60f, 2f, 3),
+            ("_slow", 200f, 2f, 3),
+            ("_1x", 60f, 3.2f, 1)
+        };
 
         private string directory;
         private GameScreenDriver game;
@@ -112,28 +118,28 @@ namespace MergeGame.PlayTests
         {
             Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True);
             var closed = GameScreenDriver.Neighbours(to).First(game.IsCovered);
-            foreach (var (suffix, cells, magnify) in PourViews)
+            foreach (var view in PourViews)
             {
                 yield return CroppedFrames.Capture(
-                    game.Camera, Snapshot.DeviceResolutions[0], directory, $"{name}{suffix}_rest", 1, _ => false,
-                    () => CellNeighbourhoodInPixels(closed, cells), magnify);
+                    game.Camera, Snapshot.DeviceResolutions[0], directory, $"{name}{view.suffix}_rest", 1, _ => false,
+                    () => CellNeighbourhoodInPixels(closed, view.cells), view.magnify);
             }
 
             yield return game.DragAndDrop(from, to);
             // Past the reveal delay, so the item already sits behind the sand.
             yield return GameScreenDriver.WaitSeconds(0.3f);
             Assert.That(game.Board.TryGetCover(closed, out var cover), Is.True);
-            var stepsPerFrame = cover.StepsPerSecond / PourFramesPerSecond;
-            foreach (var (suffix, cells, magnify) in PourViews)
+            foreach (var view in PourViews)
             {
                 yield return CroppedFrames.Capture(
-                    game.Camera, Snapshot.DeviceResolutions[0], directory, name + suffix, MaxPourFrames,
+                    game.Camera, Snapshot.DeviceResolutions[0], directory, name + view.suffix, MaxPourFrames,
                     frame =>
                     {
-                        cover.ShowPourStep(Mathf.RoundToInt(frame * stepsPerFrame));
-                        return cover.GrainCount > 0;
+                        var seconds = frame / view.framesPerSecond;
+                        cover.ShowPourAt(seconds);
+                        return seconds < cover.PourSeconds;
                     },
-                    () => CellNeighbourhoodInPixels(closed, cells), magnify);
+                    () => CellNeighbourhoodInPixels(closed, view.cells), view.magnify);
             }
 
             cover.Finish();
