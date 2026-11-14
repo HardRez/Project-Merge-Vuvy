@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using MergeGame.View.Board;
+using MergeGame.View.Board.Sand;
 using MergeGame.View.Orders;
 using TMPro;
 using UnityEditor;
@@ -71,7 +72,7 @@ namespace MergeGame.Editor.Building
             var sand = ui.Image("Sand", root.rectTransform, ui.Sprites.Sand[0], Color.white, cornerScale: CellCornerScale / 2f);
             sand.rectTransform.Stretch();
 
-            var grains = UiKit.Rect("Grains", root.rectTransform).Stretch().gameObject.AddComponent<RawImage>();
+            var grains = UiKit.Rect("Grains", root.rectTransform).Stretch().gameObject.AddComponent<SandGrainGraphic>();
             grains.material = grainMaterial;
             grains.raycastTarget = false;
             grains.gameObject.SetActive(false);
