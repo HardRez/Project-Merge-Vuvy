@@ -25,9 +25,9 @@ namespace MergeGame.Data.Authoring
         [Tooltip("A locked (webbed) item cannot be moved, discarded or delivered; merging a matching free item onto it frees it.")]
         [SerializeField] private bool locked;
 
-        [Tooltip("A closed box: its item stays unknown until a webbed item orthogonally next to it is freed, then it appears " +
-                 "webbed. A box is always locked, whatever the Locked box says, and must touch a webbed item (directly or " +
-                 "through other boxes).")]
+        [Tooltip("A closed cell, shown buried under sand: its item stays unknown until a webbed item orthogonally next " +
+                 "to it is freed, then it appears webbed. Always locked, whatever the Locked box says; must touch a " +
+                 "webbed item, directly or through other closed cells.")]
         [SerializeField] private bool hidden;
 
         public InitialPlacementEntry(int x, int y, ItemChainAsset chain, int level, bool locked, bool hidden = false)

@@ -16,6 +16,7 @@ namespace MergeGame.Editor.Building
 
         public const string PrefabsFolder = "Assets/MergeGame/Content/Prefabs";
         public const string BoardCellPrefab = PrefabsFolder + "/BoardCell.prefab";
+        public const string CellCoverPrefab = PrefabsFolder + "/CellCover.prefab";
         public const string ItemViewPrefab = PrefabsFolder + "/ItemView.prefab";
         public const string PointsPopupPrefab = PrefabsFolder + "/PointsPopup.prefab";
         public const string RequirementSlotPrefab = PrefabsFolder + "/RequirementSlot.prefab";

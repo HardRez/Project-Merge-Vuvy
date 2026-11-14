@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import random
 import sys
 import unicodedata
 import urllib.error
@@ -71,7 +72,6 @@ ICONS = [
     ("trash", "\U0001F5D1"),
     ("sparkles", "✨"),
     ("crown", "\U0001F451"),
-    ("box", "\U0001F4E6"),
     ("play", "▶"),
     ("customer_01", "\U0001F471‍♀️"),  # woman, blonde hair
     ("customer_02", "\U0001F9D4‍♂️"),  # man, beard
@@ -514,6 +514,73 @@ def ui_background():
     return img.convert("RGB")
 
 
+SAND_SIZE = 256           # drawn at 2x the cell sprite, so the grain stays fine on large cells
+SAND_VARIANTS = 3
+
+
+def draw_sand(variant: int) -> Image.Image:
+    """
+    A closed board cell: the whole cell buried under sand. Same footprint and corner radius as `cell.png` at twice the
+    resolution, sunk into the board by an inner rim shadow (no drop shadow: it is not an object lying on the cell).
+    Variants differ in their ripples and grain, and some carry a pebble, so neighbouring cells do not look stamped.
+    """
+    rng = random.Random(1000 + variant)
+    ss = SUPERSAMPLE
+    n = SAND_SIZE
+    size = (n, n)
+    big = n * ss
+    shape = _rr(size, (4, 4, n - 4, n - 4), 52)
+
+    # Warm sand, a touch lighter at the top.
+    sand = Image.new("RGB", (big, big))
+    top, bottom = (240, 212, 152), (226, 190, 124)
+    draw = ImageDraw.Draw(sand)
+    for y in range(big):
+        t = y / (big - 1)
+        draw.line([(0, y), (big, y)], fill=tuple(round(a + (b - a) * t) for a, b in zip(top, bottom)))
+
+    # Soft dune ripples: a light crest with a shaded trough just below it.
+    crests = Image.new("L", (big, big), 0)
+    troughs = Image.new("L", (big, big), 0)
+    crest_draw, trough_draw = ImageDraw.Draw(crests), ImageDraw.Draw(troughs)
+    for _ in range(2 + variant % 2):
+        base = rng.uniform(0.22, 0.8) * big
+        amplitude = rng.uniform(0.03, 0.06) * big
+        phase = rng.uniform(0, math.tau)
+        wavelength = rng.uniform(0.9, 1.4) * big
+        points = [(x, base + amplitude * math.sin(phase + x / wavelength * math.tau)) for x in range(0, big + 8, 8)]
+        crest_draw.line(points, fill=230, width=round(6 * ss))
+        trough_draw.line([(x, y + 8 * ss) for x, y in points], fill=190, width=round(7 * ss))
+    sand.paste((250, 228, 178), mask=_blur(crests, 3))
+    sand.paste((205, 166, 100), mask=_blur(troughs, 4))
+
+    # Fine grain: light and dark specks.
+    grain = ImageDraw.Draw(sand)
+    for _ in range(1800):
+        x, y = rng.uniform(0, big), rng.uniform(0, big)
+        r = rng.uniform(0.6, 1.5) * ss
+        shade = rng.choice(((255, 238, 200), (196, 156, 94), (214, 176, 112)))
+        grain.ellipse((x - r, y - r, x + r, y + r), fill=shade)
+
+    # A half-buried pebble or two on some variants.
+    for _ in range(variant):
+        cx, cy = rng.uniform(0.25, 0.75) * big, rng.uniform(0.3, 0.75) * big
+        rx, ry = rng.uniform(7, 11) * ss, rng.uniform(5, 7) * ss
+        grain.ellipse((cx - rx, cy - ry + 3 * ss, cx + rx, cy + ry + 3 * ss), fill=(200, 160, 100))
+        grain.ellipse((cx - rx, cy - ry, cx + rx, cy + ry), fill=(168, 150, 132))
+        grain.ellipse((cx - rx * 0.5, cy - ry * 0.7, cx, cy - ry * 0.1), fill=(204, 190, 172))
+
+    # Sunk into the board: shade the rim where the shape, shifted down and blurred, no longer covers.
+    inner = ImageChops.subtract(shape, _blur(_shift(shape, 0, 10), 9))
+    rim = ImageChops.subtract(shape, _blur(shape, 6))
+    sand.paste((176, 136, 78), mask=inner.point(lambda a: round(a * 0.75)))
+    sand.paste((196, 156, 92), mask=rim.point(lambda a: round(a * 0.5)))
+
+    img = sand.convert("RGBA")
+    img.putalpha(shape)
+    return img.convert("RGBa").resize(size, Image.LANCZOS).convert("RGBA")
+
+
 UI_SHAPES = {
     "panel": ui_panel,
     "cell": ui_cell,
@@ -536,6 +603,10 @@ def write_ui(out_dir: Path) -> list[Path]:
         path = out_dir / "UI" / f"{stem}.png"
         path.parent.mkdir(parents=True, exist_ok=True)
         build().save(path)
+        written.append(path)
+    for variant in range(SAND_VARIANTS):
+        path = out_dir / "UI" / f"sand_{variant + 1:02d}.png"
+        draw_sand(variant).save(path)
         written.append(path)
     return written
 

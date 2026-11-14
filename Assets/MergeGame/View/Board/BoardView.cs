@@ -30,6 +30,9 @@ namespace MergeGame.View.Board
 
         [SerializeField] private BoardInputSurface input;
         [SerializeField] private RectTransform cellLayer;
+
+        [Tooltip("Above the cells, below the highlights and items: sand covering closed cells.")]
+        [SerializeField] private RectTransform coverLayer;
         [SerializeField] private RectTransform itemLayer;
         [SerializeField] private RectTransform effectLayer;
 
@@ -37,6 +40,7 @@ namespace MergeGame.View.Board
         [SerializeField] private RectTransform dragLayer;
 
         [SerializeField] private Image cellPrefab;
+        [SerializeField] private CellCover coverPrefab;
 
         [Tooltip("Gap between a cell's tile and its neighbours, in canvas units.")]
         [SerializeField] private float cellInset = 5f;
@@ -52,11 +56,12 @@ namespace MergeGame.View.Board
         [SerializeField] private float deliveryFlightSeconds = 0.55f;
         [SerializeField] private float deliveryStaggerSeconds = 0.09f;
 
-        [Tooltip("A box opened by a merge waits this long, so the merge next to it reads first.")]
+        [Tooltip("A closed cell opened by a merge waits this long, so the merge next to it reads first.")]
         [SerializeField] private float revealDelaySeconds = 0.35f;
 
         private readonly Dictionary<GridPosition, ItemView> items = new Dictionary<GridPosition, ItemView>();
         private readonly List<Image> cells = new List<Image>();
+        private readonly Dictionary<GridPosition, CellCover> covers = new Dictionary<GridPosition, CellCover>();
 
         private IItemVisuals visuals;
         private ItemCatalog catalog;
@@ -125,7 +130,12 @@ namespace MergeGame.View.Board
 
         public bool TryGetItem(GridPosition position, out ItemView item) => items.TryGetValue(position, out item);
 
+        public bool TryGetCover(GridPosition position, out CellCover cover) => covers.TryGetValue(position, out cover);
+
         public Vector3 GetCellWorldCenter(GridPosition position) => grid.NormalizedToWorld(geometry.GetCell(position).Center);
+
+        /// <summary>The tile of the cell, as laid out on the board.</summary>
+        public RectTransform GetCellTile(GridPosition position) => cells[position.Y * geometry.Size.Width + position.X].rectTransform;
 
         public void CreateGrid(BoardSize size)
         {
@@ -135,6 +145,9 @@ namespace MergeGame.View.Board
             foreach (var cell in cells)
                 Destroy(cell.gameObject);
             cells.Clear();
+            foreach (var cover in covers.Values)
+                Destroy(cover.gameObject);
+            covers.Clear();
 
             for (var y = 0; y < size.Height; y++)
             {
@@ -143,10 +156,7 @@ namespace MergeGame.View.Board
                     var cell = Instantiate(cellPrefab, cellLayer);
                     cell.name = $"Cell {x},{y}";
                     cell.color = (x + y) % 2 == 0 ? theme.CellLight : theme.CellDark;
-                    var rect = geometry.GetCell(new GridPosition(x, y));
-                    cell.rectTransform.StretchOver(rect.Min, rect.Max);
-                    cell.rectTransform.offsetMin = Vector2.one * cellInset;
-                    cell.rectTransform.offsetMax = -Vector2.one * cellInset;
+                    FitToCell(cell.rectTransform, new GridPosition(x, y));
                     cells.Add(cell);
                 }
             }
@@ -155,15 +165,33 @@ namespace MergeGame.View.Board
         public void PlaceItem(GridPosition position, ItemId itemId, bool isLocked) =>
             AddItem(position, item => item.Show(itemId, visuals.GetIcon(itemId), isLocked, catalog.IsMaxLevel(itemId)));
 
-        public void PlaceHiddenItem(GridPosition position) => AddItem(position, item => item.ShowHidden());
+        /// <summary>The item is placed, invisible, and the cell is buried under sand.</summary>
+        public void PlaceHiddenItem(GridPosition position)
+        {
+            AddItem(position, item => item.ShowHidden());
+            if (covers.TryGetValue(position, out var stale))
+                Destroy(stale.gameObject);
+
+            var cover = Instantiate(coverPrefab, coverLayer);
+            cover.name = $"Cover {position.X},{position.Y}";
+            FitToCell((RectTransform)cover.transform, position);
+            cover.Show(position.X * 7 + position.Y * 3);
+            covers[position] = cover;
+        }
 
         public void RevealItem(GridPosition position, ItemId itemId)
         {
+            if (covers.TryGetValue(position, out var cover))
+            {
+                covers.Remove(position);
+                cover.BlowAway(revealDelaySeconds, () => Destroy(cover.gameObject));
+            }
+
             if (items.TryGetValue(position, out var item))
                 item.Reveal(itemId, visuals.GetIcon(itemId), catalog.IsMaxLevel(itemId), revealDelaySeconds);
         }
 
-        /// <summary>Unlike opening-layout items and opened boxes, a spawned item pops in and shines for a moment.</summary>
+        /// <summary>Unlike opening-layout items and revealed items, a spawned item pops in and shines for a moment.</summary>
         public void SpawnItem(GridPosition position, ItemId itemId)
         {
             var item = AddItem(position, spawned => spawned.Show(itemId, visuals.GetIcon(itemId), isLocked: false, catalog.IsMaxLevel(itemId)));
@@ -184,7 +212,9 @@ namespace MergeGame.View.Board
 
         public void RefuseDrag(GridPosition origin)
         {
-            if (items.TryGetValue(origin, out var item))
+            if (covers.TryGetValue(origin, out var cover))
+                cover.PlayRefuse();
+            else if (items.TryGetValue(origin, out var item))
                 item.PlayRefuse();
         }
 
@@ -304,6 +334,15 @@ namespace MergeGame.View.Board
         {
             if (item != null && item.gameObject.activeSelf)
                 itemPool.Despawn(item);
+        }
+
+        /// <summary>Lays a cell-sized element (tile or cover) over the cell, with the gap between neighbouring tiles.</summary>
+        private void FitToCell(RectTransform element, GridPosition position)
+        {
+            var rect = geometry.GetCell(position);
+            element.StretchOver(rect.Min, rect.Max);
+            element.offsetMin = Vector2.one * cellInset;
+            element.offsetMax = -Vector2.one * cellInset;
         }
 
         /// <summary>The item the dragged one would merge into lights up; only one at a time.</summary>

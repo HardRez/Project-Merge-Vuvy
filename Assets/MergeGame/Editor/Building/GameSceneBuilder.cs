@@ -171,6 +171,7 @@ namespace MergeGame.Editor.Building
             var input = grid.gameObject.AddComponent<BoardInputSurface>();
 
             var cells = UiKit.Rect("Cells", grid.rectTransform).Stretch();
+            var covers = UiKit.Rect("Covers", grid.rectTransform).Stretch();
             var highlight = DropHighlight(grid.rectTransform);
             var items = UiKit.Rect("Items", grid.rectTransform).Stretch();
             var selection = SelectionMarker(grid.rectTransform);
@@ -181,10 +182,12 @@ namespace MergeGame.Editor.Building
                 .Wire("grid", grid.rectTransform)
                 .Wire("input", input)
                 .Wire("cellLayer", cells)
+                .Wire("coverLayer", covers)
                 .Wire("itemLayer", items)
                 .Wire("effectLayer", effects)
                 .Wire("dragLayer", dragLayer)
                 .Wire("cellPrefab", prefabs.BoardCell)
+                .Wire("coverPrefab", prefabs.CellCover)
                 .Wire("dropHighlight", highlight)
                 .Wire("selectionMarker", selection)
                 .Wire("theme", ui.Theme);
@@ -273,12 +276,12 @@ namespace MergeGame.Editor.Building
             var levelRow = LevelRow(details, out var level, out var maxTag, out var lockedTag);
             var next = NextItem(details, out var nextIcon);
 
-            var boxExplanation = ui.Text("BoxExplanation", details, "Yanındaki ağ temizlenince açılır.", 36f, TextTone.Muted, TextAlignmentOptions.TopLeft);
-            boxExplanation.rectTransform.Span(Vector2.zero, new Vector2(1f, 0.5f));
-            boxExplanation.rectTransform.offsetMin = new Vector2(170f, 18f);
-            boxExplanation.rectTransform.offsetMax = new Vector2(-32f, -4f);
-            UiKit.ShrinkToFit(boxExplanation, 26f);
-            boxExplanation.gameObject.SetActive(false);
+            var coverExplanation = ui.Text("CoverExplanation", details, "Yanındaki ağ temizlenince açılır.", 36f, TextTone.Muted, TextAlignmentOptions.TopLeft);
+            coverExplanation.rectTransform.Span(Vector2.zero, new Vector2(1f, 0.5f));
+            coverExplanation.rectTransform.offsetMin = new Vector2(170f, 18f);
+            coverExplanation.rectTransform.offsetMax = new Vector2(-32f, -4f);
+            UiKit.ShrinkToFit(coverExplanation, 26f);
+            coverExplanation.gameObject.SetActive(false);
 
             var discard = ui.Button("DiscardButton", details, ui.Theme.Danger, cornerScale: 0.7f);
             discard.Rect.Pin(RectLayout.Right, new Vector2(116f, 116f), new Vector2(-22f, 0f));
@@ -297,8 +300,8 @@ namespace MergeGame.Editor.Building
                 .Wire("next", next)
                 .Wire("nextIcon", nextIcon)
                 .Wire("discardButton", discard.Button)
-                .Wire("boxIcon", ui.Sprites.Icon("box"))
-                .Wire("boxExplanation", boxExplanation.gameObject);
+                .Wire("coverIcon", ui.Sprites.Sand[0])
+                .Wire("coverExplanation", coverExplanation.gameObject);
         }
 
         private RectTransform LevelRow(RectTransform details, out TextMeshProUGUI level, out GameObject maxTag, out GameObject lockedTag)

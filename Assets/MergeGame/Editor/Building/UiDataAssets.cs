@@ -14,6 +14,15 @@ namespace MergeGame.Editor.Building
     /// </summary>
     internal static class UiDataAssets
     {
+        /// <summary>
+        /// Default wording that no longer matches the game (closed cells used to be boxes). Only an entry still holding
+        /// exactly this text is replaced, so a designer's own wording survives.
+        /// </summary>
+        private static readonly Dictionary<Notice, string> RetiredDefaults = new Dictionary<Notice, string>
+        {
+            [Notice.ItemIsHidden] = "Kutuyu açmak için yanındaki ağı temizle!"
+        };
+
         public static UiTheme LoadOrCreateTheme() => LoadOrCreate<UiTheme>(BuildPaths.Theme, _ => { });
 
         /// <summary>Also adds the default entry of any notice the asset has no text for yet; existing wording is kept.</summary>
@@ -22,7 +31,8 @@ namespace MergeGame.Editor.Building
             var defaults = DefaultNoticeTexts(sprites);
             var texts = LoadOrCreate<NoticeTexts>(BuildPaths.NoticeTexts, created => created.Entries = defaults);
             var missing = defaults.Where(entry => !texts.TryGet(entry.Notice, out _)).ToList();
-            if (missing.Count > 0)
+            var replaced = ReplaceRetiredWording(texts, defaults);
+            if (missing.Count > 0 || replaced)
             {
                 texts.Entries = texts.Entries.Concat(missing).ToList();
                 EditorUtility.SetDirty(texts);
@@ -30,6 +40,23 @@ namespace MergeGame.Editor.Building
             }
 
             return texts;
+        }
+
+        private static bool ReplaceRetiredWording(NoticeTexts texts, IReadOnlyList<NoticeText> defaults)
+        {
+            var replaced = false;
+            var entries = texts.Entries.Select(entry =>
+            {
+                if (entry == null || !RetiredDefaults.TryGetValue(entry.Notice, out var retired) || entry.Text != retired)
+                    return entry;
+
+                replaced = true;
+                return defaults.First(fresh => fresh.Notice == entry.Notice);
+            }).ToList();
+
+            if (replaced)
+                texts.Entries = entries;
+            return replaced;
         }
 
         private static IReadOnlyList<NoticeText> DefaultNoticeTexts(UiSprites sprites) => new[]
@@ -41,7 +68,7 @@ namespace MergeGame.Editor.Building
             new NoticeText(Notice.BoardFull, "Tahta dolu! Birleştir ya da bir eşyayı at."),
             new NoticeText(Notice.LockedItemCannotBeDiscarded, "Kilitli eşyalar atılamaz.", sprites.Icon("lock")),
             new NoticeText(Notice.OrderNotReady, "Bu sipariş için eşyalar henüz hazır değil."),
-            new NoticeText(Notice.ItemIsHidden, "Kutuyu açmak için yanındaki ağı temizle!", sprites.Icon("box"))
+            new NoticeText(Notice.ItemIsHidden, "Kumu açmak için yanındaki ağı temizle!", sprites.Sand[0])
         };
 
         private static T LoadOrCreate<T>(string path, System.Action<T> initialize) where T : ScriptableObject

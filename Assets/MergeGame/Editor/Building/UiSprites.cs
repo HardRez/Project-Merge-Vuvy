@@ -21,7 +21,10 @@ namespace MergeGame.Editor.Building
             ["ring"] = new Vector4(34, 34, 34, 34),
             ["board_frame"] = new Vector4(40, 40, 40, 40),
             ["badge"] = new Vector4(24, 26, 24, 22),
-            ["speech_bubble"] = new Vector4(52, 60, 36, 36)
+            ["speech_bubble"] = new Vector4(52, 60, 36, 36),
+            ["sand_01"] = new Vector4(64, 64, 64, 64),
+            ["sand_02"] = new Vector4(64, 64, 64, 64),
+            ["sand_03"] = new Vector4(64, 64, 64, 64)
         };
 
         private UiSprites()
@@ -40,6 +43,9 @@ namespace MergeGame.Editor.Building
         public Sprite SpeechBubble { get; private set; }
         public Sprite Background { get; private set; }
 
+        /// <summary>Sand covering a closed cell, in several looks; drawn at twice the cell's resolution.</summary>
+        public Sprite[] Sand { get; private set; }
+
         /// <summary>Unsliced shapes get no border; that includes the opaque background.</summary>
         public static Vector4 BorderOf(string shapeName) => Borders.TryGetValue(shapeName, out var border) ? border : Vector4.zero;
 
@@ -55,7 +61,8 @@ namespace MergeGame.Editor.Building
             Ring = LoadShape("ring"),
             BoardFrame = LoadShape("board_frame"),
             SpeechBubble = LoadShape("speech_bubble"),
-            Background = LoadShape("background")
+            Background = LoadShape("background"),
+            Sand = new[] { LoadShape("sand_01"), LoadShape("sand_02"), LoadShape("sand_03") }
         };
 
         /// <param name="name">An icon file name without extension, e.g. <c>star</c> or <c>customer_01</c>.</param>
