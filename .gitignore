@@ -38,3 +38,7 @@ Thumbs.db
 # Local tooling
 /.unity-bridge/
 /Tools/PlaceholderArt/.cache/
+
+# Temporary scene the Test Framework leaves behind after batch-mode PlayMode runs
+/Assets/InitTestScene*.unity
+/Assets/InitTestScene*.unity.meta
