@@ -3,6 +3,7 @@ using System.IO;
 using MergeGame.View.Board;
 using MergeGame.View.Board.Sand;
 using MergeGame.View.Orders;
+using Spine.Unity;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace MergeGame.Editor.Building
         private const float CellCornerScale = 0.7f;
         private const string SandGrainShader = "MergeGame/UI/Sand Grains";
         private const string SandMaskShader = "MergeGame/UI/Sand Mask";
+        private const string PortraitShader = "Spine/SkeletonGraphic";
 
         // Where the item icon sits inside its cell (normalised).
         private static readonly Vector2 IconMin = new Vector2(0.08f, 0.08f);
@@ -39,7 +41,7 @@ namespace MergeGame.Editor.Building
             BuildCellCover(ui, WriteMaterial(SandGrainShader, BuildPaths.SandGrainMaterial), WriteMaterial(SandMaskShader, BuildPaths.SandMaskMaterial));
             BuildItemView(ui);
             BuildPointsPopup(ui);
-            BuildOrderCard(ui, BuildRequirementSlot(ui));
+            BuildOrderCard(ui, BuildRequirementSlot(ui), WritePortraitMaterial());
         }
 
         public static GamePrefabs Load() => new GamePrefabs
@@ -212,7 +214,7 @@ namespace MergeGame.Editor.Building
             return Save<RequirementSlotView>(root, BuildPaths.RequirementSlotPrefab);
         }
 
-        private static OrderCardView BuildOrderCard(UiKit ui, RequirementSlotView requirementSlot)
+        private static OrderCardView BuildOrderCard(UiKit ui, RequirementSlotView requirementSlot, Material portraitMaterial)
         {
             var root = UiKit.Rect("OrderCard", null).Pin(RectLayout.Center, new Vector2(500f, LayoutMetrics.OrdersHeight));
             root.Prefer(flexibleWidth: 1f);
@@ -229,7 +231,7 @@ namespace MergeGame.Editor.Building
             var content = UiKit.Rect("Content", body).Stretch();
             var contentGroup = content.gameObject.AddComponent<CanvasGroup>();
 
-            var avatar = BuildAvatar(ui, content);
+            var customer = BuildCustomer(ui, content, portraitMaterial);
             var requirements = BuildSpeechBubble(ui, content);
             var reward = BuildRewardPill(ui, content);
             var deliver = BuildDeliverButton(ui, content, out var deliverPulse);
@@ -241,7 +243,7 @@ namespace MergeGame.Editor.Building
             root.gameObject.AddComponent<OrderCardView>()
                 .Wire("body", body)
                 .Wire("content", contentGroup)
-                .Wire("avatar", avatar)
+                .Wire("customer", customer)
                 .Wire("requirementContainer", requirements)
                 .Wire("requirementPrefab", requirementSlot)
                 .Wire("rewardLabel", reward)
@@ -252,14 +254,49 @@ namespace MergeGame.Editor.Building
             return Save<OrderCardView>(root, BuildPaths.OrderCardPrefab);
         }
 
-        private static Image BuildAvatar(UiKit ui, RectTransform card)
+        /// <summary>
+        /// The customer in a round frame: a Spine portrait masked to the disc, with a still avatar for customers without one.
+        /// The portrait's texture is straight alpha and the card fades through a CanvasGroup, so the material reads straight
+        /// alpha and is CanvasGroup compatible, and the mesh keeps its vertex colours unpremultiplied (Spine's guidance for both).
+        /// </summary>
+        private static CustomerPortraitView BuildCustomer(UiKit ui, RectTransform card, Material portraitMaterial)
         {
             var size = LayoutMetrics.AvatarSize;
             var disc = ui.Image("AvatarDisc", card, ui.Sprites.Circle, ui.Theme.CellDark);
             disc.rectTransform.Pin(RectLayout.TopLeft, new Vector2(size, size), new Vector2(20f, -22f));
-            var avatar = ui.Image("Avatar", disc.rectTransform, null, Color.white);
-            avatar.rectTransform.Inset(8f);
-            return avatar;
+
+            var frame = ui.Image("Frame", disc.rectTransform, ui.Sprites.Circle, Color.white);
+            frame.rectTransform.Inset(8f);
+            frame.raycastTarget = false;
+            frame.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+
+            var avatar = ui.Image("Avatar", frame.rectTransform, null, Color.white);
+            avatar.rectTransform.Stretch();
+            avatar.raycastTarget = false;
+
+            var portrait = UiKit.Rect("Portrait", frame.rectTransform)
+                .Pin(RectLayout.Center, Vector2.zero)
+                .gameObject.AddComponent<SkeletonGraphic>();
+            portrait.material = portraitMaterial;
+            portrait.raycastTarget = false;
+            portrait.MeshGenerator.settings.pmaVertexColors = false;
+            portrait.gameObject.SetActive(false);
+
+            return disc.gameObject.AddComponent<CustomerPortraitView>()
+                .Wire("frame", frame.rectTransform)
+                .Wire("portrait", portrait)
+                .Wire("avatar", avatar);
+        }
+
+        private static Material WritePortraitMaterial()
+        {
+            var material = WriteMaterial(PortraitShader, BuildPaths.CustomerPortraitMaterial);
+            material.SetInt("_StraightAlphaInput", 1);
+            material.EnableKeyword("_STRAIGHT_ALPHA_INPUT");
+            material.SetInt("_CanvasGroupCompatible", 1);
+            material.EnableKeyword("_CANVAS_GROUP_COMPATIBLE");
+            EditorUtility.SetDirty(material);
+            return material;
         }
 
         /// <returns>The row the requirement slots are laid out in.</returns>

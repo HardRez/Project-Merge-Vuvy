@@ -1,0 +1,1952 @@
+fileFormatVersion: 2
+guid: 39fc2ac0b2287f649ab4585fbf0cef49
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2278568781982356084
+    second: Bram_0
+  - first:
+      213: 4665304774789325164
+    second: Bram_1
+  - first:
+      213: -4377380031522681178
+    second: Bram_2
+  - first:
+      213: 6855509802476027512
+    second: Bram_3
+  - first:
+      213: -8019360780151859415
+    second: Bram_4
+  - first:
+      213: 4002799364595015487
+    second: Bram_5
+  - first:
+      213: 715757672052735526
+    second: Bram_6
+  - first:
+      213: 8407421550489118913
+    second: Bram_7
+  - first:
+      213: 7521985396485164290
+    second: Bram_8
+  - first:
+      213: -3439102490786662714
+    second: Bram_9
+  - first:
+      213: -8437608206245327800
+    second: Bram_10
+  - first:
+      213: -3170972014734572915
+    second: Bram_11
+  - first:
+      213: -7268232901406302437
+    second: Bram_12
+  - first:
+      213: -5485547542562299850
+    second: Bram_13
+  - first:
+      213: 970471871554568377
+    second: Bram_14
+  - first:
+      213: -3739833532815317425
+    second: Bram_15
+  - first:
+      213: -3856765153175248956
+    second: Bram_16
+  - first:
+      213: 1142127368608509392
+    second: Bram_17
+  - first:
+      213: -742711250206832845
+    second: Bram_18
+  - first:
+      213: 3376735728523011307
+    second: Bram_19
+  - first:
+      213: 6649891157806209334
+    second: Bram_20
+  - first:
+      213: 5767318804054097047
+    second: Bram_21
+  - first:
+      213: 812207234778516719
+    second: Bram_22
+  - first:
+      213: 7079724756777430025
+    second: Bram_23
+  - first:
+      213: -6345650350080604628
+    second: Bram_24
+  - first:
+      213: 7908261971942806436
+    second: Bram_25
+  - first:
+      213: -7417806919587182808
+    second: Bram_26
+  - first:
+      213: -2917464338817617596
+    second: Bram_27
+  - first:
+      213: -3420566574101898886
+    second: Bram_28
+  - first:
+      213: 1306038599298046883
+    second: Bram_29
+  - first:
+      213: -6351705839872106321
+    second: Bram_30
+  - first:
+      213: -8711738221479378362
+    second: Bram_31
+  - first:
+      213: 8392019482375643336
+    second: Bram_32
+  - first:
+      213: -1893626827907337782
+    second: Bram_33
+  - first:
+      213: -8444353999604495739
+    second: Bram_34
+  - first:
+      213: 6215452673765421309
+    second: Bram_35
+  - first:
+      213: 509204873533801986
+    second: Bram_36
+  - first:
+      213: 9065582158649524516
+    second: Bram_37
+  - first:
+      213: 7818993396709050173
+    second: Bram_38
+  - first:
+      213: 336695309019059781
+    second: Bram_39
+  - first:
+      213: -1741579820016932213
+    second: Bram_40
+  - first:
+      213: -1780369581185138264
+    second: Bram_41
+  - first:
+      213: -6085628978685710718
+    second: Bram_42
+  - first:
+      213: -2274037510368324174
+    second: Bram_43
+  - first:
+      213: 8166528903574792429
+    second: Bram_44
+  - first:
+      213: -7858596319237464344
+    second: Bram_45
+  - first:
+      213: -8130952592130187394
+    second: Bram_46
+  - first:
+      213: 699641602691712822
+    second: Bram_47
+  - first:
+      213: -4506399907588814708
+    second: Bram_48
+  - first:
+      213: -8336512477594422388
+    second: Bram_49
+  - first:
+      213: -1485527345031464416
+    second: Bram_50
+  - first:
+      213: -1961919895139841366
+    second: Bram_51
+  - first:
+      213: -2890487824048138870
+    second: Bram_52
+  - first:
+      213: 3550612979294072290
+    second: Bram_53
+  - first:
+      213: -6213150848836691020
+    second: Bram_54
+  - first:
+      213: 7384727947064011255
+    second: Bram_55
+  - first:
+      213: 9128667928082871737
+    second: Bram_56
+  - first:
+      213: 5660081512176270079
+    second: Bram_57
+  - first:
+      213: -3057809098261557856
+    second: Bram_58
+  - first:
+      213: 912064755841054435
+    second: Bram_59
+  - first:
+      213: -1938640101559448493
+    second: Bram_60
+  - first:
+      213: -7459538635748792853
+    second: Bram_61
+  - first:
+      213: 8363716497623280124
+    second: Bram_62
+  - first:
+      213: -2682017661438005793
+    second: Bram_63
+  - first:
+      213: -656234422960874920
+    second: Bram_64
+  - first:
+      213: -6037374908536290425
+    second: Bram_65
+  - first:
+      213: -8139851248411488773
+    second: Bram_66
+  - first:
+      213: 7568733385450660543
+    second: Bram_67
+  - first:
+      213: 4067217709985714825
+    second: Bram_68
+  - first:
+      213: -7365816942521343799
+    second: Bram_69
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bram_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 309
+        width: 230
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8da5a1e3c5e060e0800000000000000
+      internalID: -2278568781982356084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_1
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 312
+        width: 143
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c61604e89fd7eb040800000000000000
+      internalID: 4665304774789325164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_2
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 425
+        width: 85
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6aec33ebd0c6043c0800000000000000
+      internalID: -4377380031522681178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_3
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 503
+        width: 32
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87ebac2e7d9a32f50800000000000000
+      internalID: 6855509802476027512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_4
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 449
+        width: 96
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 927595ddbd185b090800000000000000
+      internalID: -8019360780151859415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_5
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 455
+        width: 51
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3f58d970dccc8730800000000000000
+      internalID: 4002799364595015487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_6
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 453
+        width: 46
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62eb6fb7fc1eee900800000000000000
+      internalID: 715757672052735526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_7
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 444
+        width: 63
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c82ed11b592da470800000000000000
+      internalID: 8407421550489118913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_8
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 503
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20d8c2b6dd5736860800000000000000
+      internalID: 7521985396485164290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_9
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 400
+        width: 113
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c6ff7a718ad540d0800000000000000
+      internalID: -3439102490786662714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_10
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 391
+        width: 37
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84c83d07a0897ea80800000000000000
+      internalID: -8437608206245327800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_11
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 450
+        width: 26
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d828a0dc0c17ef3d0800000000000000
+      internalID: -3170972014734572915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_12
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 451
+        width: 40
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1fded65fac022b90800000000000000
+      internalID: -7268232901406302437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_13
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 460
+        width: 25
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 630ae0fd29b6fd3b0800000000000000
+      internalID: -5485547542562299850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_14
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 451
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b0c480860fc77d00800000000000000
+      internalID: 970471871554568377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_15
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 450
+        width: 14
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f46e2756731791cc0800000000000000
+      internalID: -3739833532815317425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_16
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 437
+        width: 75
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cf52e6f6840a7ac0800000000000000
+      internalID: -3856765153175248956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_17
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 444
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dd692e5ac6a9df00800000000000000
+      internalID: 1142127368608509392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_18
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 303
+        width: 90
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3374cb09d0c51b5f0800000000000000
+      internalID: -742711250206832845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_19
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 428
+        width: 12
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be4ebfe11439cde20800000000000000
+      internalID: 3376735728523011307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_20
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 225
+        width: 249
+        height: 226
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 639dc0086c8294c50800000000000000
+      internalID: 6649891157806209334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_21
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 357
+        width: 104
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79c331e45e1a90050800000000000000
+      internalID: 5767318804054097047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_22
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 225
+        width: 97
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fecc9f04d2a854b00800000000000000
+      internalID: 812207234778516719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_23
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 353
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90ce143082c304260800000000000000
+      internalID: 7079724756777430025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_24
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 320
+        width: 134
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c26cc9690a8bfe7a0800000000000000
+      internalID: -6345650350080604628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_25
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 356
+        width: 113
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a3916c1d5acfbd60800000000000000
+      internalID: 7908261971942806436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_26
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 353
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 827429968e7ae0990800000000000000
+      internalID: -7417806919587182808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_27
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 353
+        width: 79
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 441f7e724a51387d0800000000000000
+      internalID: -2917464338817617596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_28
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 321
+        width: 43
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a79d414e2d4b780d0800000000000000
+      internalID: -3420566574101898886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 474
+        height: 312
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3abdb16bf2bff1210800000000000000
+      internalID: 1306038599298046883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_30
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 305
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa026a001353ad7a0800000000000000
+      internalID: -6351705839872106321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_31
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 225
+        width: 115
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 642478c8e30b91780800000000000000
+      internalID: -8711738221479378362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_32
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 223
+        width: 23
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c06823a141767470800000000000000
+      internalID: 8392019482375643336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_33
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 223
+        width: 50
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac1fe61de6c78b5e0800000000000000
+      internalID: -1893626827907337782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_34
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 303
+        width: 57
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58acce707c0afca80800000000000000
+      internalID: -8444353999604495739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_35
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 251
+        width: 40
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df03a02a649b14650800000000000000
+      internalID: 6215452673765421309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_36
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 203
+        width: 70
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20641e4722f011700800000000000000
+      internalID: 509204873533801986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_37
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 203
+        width: 64
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4218c6811fa6fcd70800000000000000
+      internalID: 9065582158649524516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_38
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 1
+        width: 133
+        height: 226
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d37c7f74115a28c60800000000000000
+      internalID: 7818993396709050173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_39
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 186
+        width: 74
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5461f93899e2ca400800000000000000
+      internalID: 336695309019059781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_40
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 181
+        width: 142
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8ae6e7816aa4d7e0800000000000000
+      internalID: -1741579820016932213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_41
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 221
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a18c887c4bda47e0800000000000000
+      internalID: -1780369581185138264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_42
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 221
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28e6d9adfa08b8ba0800000000000000
+      internalID: -6085628978685710718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_43
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 221
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b51594ceeef070e0800000000000000
+      internalID: -2274037510368324174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_44
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 182
+        width: 40
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de8298905c6555170800000000000000
+      internalID: 8166528903574792429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_45
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 1
+        width: 108
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ee98a6c848a0f290800000000000000
+      internalID: -7858596319237464344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_46
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 1
+        width: 108
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7fd98472bd092f80800000000000000
+      internalID: -8130952592130187394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_47
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 153
+        width: 52
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 637468ea450a5b900800000000000000
+      internalID: 699641602691712822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_48
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 179
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c88c054f82d0671c0800000000000000
+      internalID: -4506399907588814708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_49
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 150
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c837f530212ce4c80800000000000000
+      internalID: -8336512477594422388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_50
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 170
+        width: 49
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02a354710c8526be0800000000000000
+      internalID: -1485527345031464416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_51
+      rect:
+        serializedVersion: 2
+        x: 982
+        y: 99
+        width: 38
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaa0b64004cd5c4e0800000000000000
+      internalID: -1961919895139841366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_52
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 173
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a85d40473ace2e7d0800000000000000
+      internalID: -2890487824048138870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_53
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 149
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ede6b551bf464130800000000000000
+      internalID: 3550612979294072290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_54
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 105
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bb1c2fb83476c9a0800000000000000
+      internalID: -6213150848836691020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_55
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 121
+        width: 47
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f966af11f2db7660800000000000000
+      internalID: 7384727947064011255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_56
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 147
+        width: 43
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b571e56d1b8fae70800000000000000
+      internalID: 9128667928082871737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_57
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 121
+        width: 27
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffab50d9526ac8e40800000000000000
+      internalID: 5660081512176270079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_58
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 119
+        width: 50
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ad892b73da7095d0800000000000000
+      internalID: -3057809098261557856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_59
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 0
+        width: 88
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e63f08201e48ac00800000000000000
+      internalID: 912064755841054435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_60
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 120
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35cc83759119815e0800000000000000
+      internalID: -1938640101559448493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_61
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 68
+        width: 51
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be524e312256a7890800000000000000
+      internalID: -7459538635748792853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_62
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 55
+        width: 43
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf9e8ea77d3e11470800000000000000
+      internalID: 8363716497623280124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_63
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 67
+        width: 30
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdde9a8952f87cad0800000000000000
+      internalID: -2682017661438005793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_64
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 1
+        width: 20
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85a980ae44694e6f0800000000000000
+      internalID: -656234422960874920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_65
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 1
+        width: 35
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78386d0128fe63ca0800000000000000
+      internalID: -6037374908536290425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_66
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 1
+        width: 66
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfdc9e59a60790f80800000000000000
+      internalID: -8139851248411488773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_67
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 36
+        width: 52
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb22d67c9ea890960800000000000000
+      internalID: 7568733385450660543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_68
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 2
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98250eb45f8a17830800000000000000
+      internalID: 4067217709985714825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bram_69
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 1
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c0267c348c57c990800000000000000
+      internalID: -7365816942521343799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Bram_0: -2278568781982356084
+      Bram_1: 4665304774789325164
+      Bram_10: -8437608206245327800
+      Bram_11: -3170972014734572915
+      Bram_12: -7268232901406302437
+      Bram_13: -5485547542562299850
+      Bram_14: 970471871554568377
+      Bram_15: -3739833532815317425
+      Bram_16: -3856765153175248956
+      Bram_17: 1142127368608509392
+      Bram_18: -742711250206832845
+      Bram_19: 3376735728523011307
+      Bram_2: -4377380031522681178
+      Bram_20: 6649891157806209334
+      Bram_21: 5767318804054097047
+      Bram_22: 812207234778516719
+      Bram_23: 7079724756777430025
+      Bram_24: -6345650350080604628
+      Bram_25: 7908261971942806436
+      Bram_26: -7417806919587182808
+      Bram_27: -2917464338817617596
+      Bram_28: -3420566574101898886
+      Bram_29: 1306038599298046883
+      Bram_3: 6855509802476027512
+      Bram_30: -6351705839872106321
+      Bram_31: -8711738221479378362
+      Bram_32: 8392019482375643336
+      Bram_33: -1893626827907337782
+      Bram_34: -8444353999604495739
+      Bram_35: 6215452673765421309
+      Bram_36: 509204873533801986
+      Bram_37: 9065582158649524516
+      Bram_38: 7818993396709050173
+      Bram_39: 336695309019059781
+      Bram_4: -8019360780151859415
+      Bram_40: -1741579820016932213
+      Bram_41: -1780369581185138264
+      Bram_42: -6085628978685710718
+      Bram_43: -2274037510368324174
+      Bram_44: 8166528903574792429
+      Bram_45: -7858596319237464344
+      Bram_46: -8130952592130187394
+      Bram_47: 699641602691712822
+      Bram_48: -4506399907588814708
+      Bram_49: -8336512477594422388
+      Bram_5: 4002799364595015487
+      Bram_50: -1485527345031464416
+      Bram_51: -1961919895139841366
+      Bram_52: -2890487824048138870
+      Bram_53: 3550612979294072290
+      Bram_54: -6213150848836691020
+      Bram_55: 7384727947064011255
+      Bram_56: 9128667928082871737
+      Bram_57: 5660081512176270079
+      Bram_58: -3057809098261557856
+      Bram_59: 912064755841054435
+      Bram_6: 715757672052735526
+      Bram_60: -1938640101559448493
+      Bram_61: -7459538635748792853
+      Bram_62: 8363716497623280124
+      Bram_63: -2682017661438005793
+      Bram_64: -656234422960874920
+      Bram_65: -6037374908536290425
+      Bram_66: -8139851248411488773
+      Bram_67: 7568733385450660543
+      Bram_68: 4067217709985714825
+      Bram_69: -7365816942521343799
+      Bram_7: 8407421550489118913
+      Bram_8: 7521985396485164290
+      Bram_9: -3439102490786662714
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

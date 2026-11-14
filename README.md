@@ -7,6 +7,7 @@ Vuvy "Unity Developer Case Study — Merge game mechanics" için hazırlanmış,
 | Unity | **6000.6.6f1** ([ProjectVersion.txt](ProjectSettings/ProjectVersion.txt)) |
 | Render / UI | URP 2D, uGUI + TextMesh Pro, yeni Input System |
 | DI | Extenject (Zenject) 9.2.0, OpenUPM üzerinden ([manifest.json](Packages/manifest.json)) |
+| Animasyon | Spine 3.8 (spine-unity runtime, Unity 6 için yamalı, [Packages/com.esotericsoftware.spine.spine-unity](Packages/com.esotericsoftware.spine.spine-unity) altında gömülü paket) |
 | Test | Unity Test Framework (NUnit), EditMode + PlayMode |
 
 ## İçindekiler
@@ -104,8 +105,8 @@ flowchart TD
 |---|---|---|
 | [Core](Assets/MergeGame/Core) | Yalnızca .NET | Unity, Zenject, ScriptableObject, sprite, UI, diğer katmanlar |
 | [Presentation](Assets/MergeGame/Presentation) | Core | Unity, Zenject, Data (sprite'lar), somut view'lar |
-| [Data](Assets/MergeGame/Data) | Core, `UnityEngine` (ScriptableObject, `Sprite`) | Presentation, View, Zenject |
-| [View](Assets/MergeGame/View) | Presentation (arayüzler), Core değer tipleri (`ItemId`, `GridPosition`, `ItemCatalog`), Data (`IItemVisuals`), uGUI, TextMesh Pro, Zenject (yalnızca `[Inject]` construct metotları ve `MonoMemoryPool`) | Oyun kuralları; `MergeGameSession`'a erişimi yoktur, yalnızca olay yayar ve kendisine verilen komutları canlandırır |
+| [Data](Assets/MergeGame/Data) | Core, `UnityEngine` (ScriptableObject, `Sprite`), spine-unity (müşteri portrelerinin `SkeletonDataAsset`'i) | Presentation, View, Zenject |
+| [View](Assets/MergeGame/View) | Presentation (arayüzler), Core değer tipleri (`ItemId`, `GridPosition`, `ItemCatalog`), Data (`IItemVisuals`), uGUI, TextMesh Pro, spine-unity (`SkeletonGraphic`), Zenject (yalnızca `[Inject]` construct metotları ve `MonoMemoryPool`) | Oyun kuralları; `MergeGameSession`'a erişimi yoktur, yalnızca olay yayar ve kendisine verilen komutları canlandırır |
 | [App](Assets/MergeGame/App) | Hepsi | — (yalnızca bağlama ve sahne geçişi; oyun mantığı içermez) |
 | [Editor](Assets/MergeGame/Editor) | Tüm oyun assembly'leri, `UnityEditor` | Çalışma zamanına girmez (`includePlatforms: Editor`) |
 
@@ -218,7 +219,7 @@ Tüm asset'ler Inspector'da **Create → Merge Game → …** menüsünden oluş
 
 **[ScoreTableAsset](Assets/MergeGame/Data/Authoring/ScoreTableAsset.cs)**: `pointsByLevel` — oluşan seviyeye göre puan (eleman 0 = seviye 1). Azalmamalı ve en uzun zincirin maksimum seviyesine ulaşmalı. Sevk edilen tablo: `0, 10, 25, 60, 150, 400, 1000`.
 
-**[OrderSettingsAsset](Assets/MergeGame/Data/Authoring/OrderSettingsAsset.cs)**: `maxActiveOrders`, `minItemsPerOrder`/`maxItemsPerOrder`, `minRequestedLevel`/`maxRequestedLevel`, `rewardPointsByLevel`, `customerAvatars` (müşteri sayısı = liste uzunluğu).
+**[OrderSettingsAsset](Assets/MergeGame/Data/Authoring/OrderSettingsAsset.cs)**: `maxActiveOrders`, `minItemsPerOrder`/`maxItemsPerOrder`, `minRequestedLevel`/`maxRequestedLevel`, `rewardPointsByLevel`, `customers` (müşteri sayısı = liste uzunluğu). Her müşteri ([CustomerEntry](Assets/MergeGame/Data/Authoring/CustomerEntry.cs)) bir Spine portresi (`SkeletonDataAsset`), bir avatar sprite'ı ya da ikisini birden taşır; portre varsa o gösterilir. Validator portresi olmayan ve avatarı da olmayan müşteriyi, yüklenmeyen portreyi ve gereken animasyonlardan birini eksik olan portreyi raporlar.
 
 **[BoardLayoutAsset](Assets/MergeGame/Data/Authoring/BoardLayoutAsset.cs)**: `placements` — her biri [InitialPlacementEntry](Assets/MergeGame/Data/Authoring/InitialPlacementEntry.cs) (`x`, `y`, `chain` asset referansı, `level`, `locked`, `hidden`). Zincire metin id ile değil asset referansıyla bağlanır, böylece yazım hatası yapılamaz. `hidden` hücreyi kumla kaplı (kapalı) başlatır ve item her zaman kilitli sayılır (`Locked => locked || hidden`). Sevk edilen dizilim 14 item içerir: 4 serbest, 6 ağlı, 4 kumla kaplı.
 
@@ -264,14 +265,15 @@ Hepsi bu; kod değişikliği yok. Yeni zincir "Üret" ile çıkar, birleşir, pu
 |---|---|
 | Grid boyutu | `GameConfig` → `boardWidth`, `boardHeight`. Açılış dizilimindeki hücreler yeni tahtanın içinde kalmalı (validator kontrol eder). |
 | Merge puanları | `ScoreTable` → `pointsByLevel`; zincir bazında `scoreMultiplier` |
-| Siparişler | `OrderSettings` → aynı anda aktif sipariş, sipariş başına item sayısı, istenen seviye aralığı, ödül tablosu, müşteri avatarları. Siparişleri kapatmak için `GameConfig.orders` boş bırakılır. |
+| Siparişler | `OrderSettings` → aynı anda aktif sipariş, sipariş başına item sayısı, istenen seviye aralığı, ödül tablosu, müşteriler (Spine portresi ve/veya avatar). Siparişleri kapatmak için `GameConfig.orders` boş bırakılır. |
+| Yeni müşteri karakteri | Spine 3.8 dışa aktarımını (`<Ad>.skel.bytes`, `<Ad>.atlas.txt`, `<Ad>.png`) `Content/Characters/<Ad>/` altına koyun; spine-unity içe aktarırken `<Ad>_Atlas`, `<Ad>_Material` ve `<Ad>_SkeletonData` asset'lerini üretir. Sonra ya `OrderSettings.customers` listesine `<Ad>_SkeletonData`'yı ekleyin ya da seed JSON'a `{ "portrait": "<Ad>" }` yazıp Seed Content çalıştırın. Animasyonlar ada göre değil sonekine göre bulunur: `_appear`, `_appear_repeat`, `_progress`, `_progress_repeat`, `_finished`, `_finished_repeat`, `_leave` ([CustomerAnimationSet](Assets/MergeGame/Data/Visuals/CustomerAnimationSet.cs)); dokular düz (premultiply edilmemiş) alfa beklenir. |
 | Açılış dizilimi | `BoardLayout` → `placements` (hücre, zincir, seviye, kilitli mi, kumla kaplı mı; seed JSON'da `"hidden": true`). Boş tahta için `GameConfig.initialLayout` boş bırakılır. |
 | İpucu zamanlaması | Game sahnesindeki `GameInstaller` → `mergeHintIdleSeconds` (ilk ipucu), `mergeHintRepeatSeconds` (yineleme aralığı); nabzın süresi ve itme sayısı `ItemView` prefab'ındaki `ItemAccent`'te |
 | Spawn olasılıkları | Her zincirin `spawnWeight`'i |
 
 ### Opsiyonel toplu araç: seed JSON + seeder
 
-Sevk edilen asset'ler [seed_content.json](Assets/MergeGame/Editor/Seed/seed_content.json)'dan **Merge Game → Seed Content** menüsüyle (ya da `-executeMethod MergeGame.Editor.ContentSeeder.SeedFromCommandLine` ile) üretildi. [ContentSeeder](Assets/MergeGame/Editor/ContentSeeder.cs) idempotenttir: mevcut asset'leri yerinde günceller (GUID'ler, dolayısıyla sahne ve prefab referansları korunur), sprite'ları adlandırma kuralıyla bulur (`Sprites/Items/<chainId>/<chainId>_<LL>.png`), sonucu doğrular. İçerik eklemek için gerekmez. **Dikkat:** seeder JSON'u tek kaynak kabul eder; çalıştırılırsa Inspector'da yapılmış değişikliklerin üzerine yazar, `GameConfig.chains`'i JSON'daki listeyle değiştirir ve `Content/Config/Chains` altında JSON'da olmayan zincir asset'lerini siler. Ya Inspector ya JSON ile çalışılmalı.
+Sevk edilen asset'ler [seed_content.json](Assets/MergeGame/Editor/Seed/seed_content.json)'dan **Merge Game → Seed Content** menüsüyle (ya da `-executeMethod MergeGame.Editor.ContentSeeder.SeedFromCommandLine` ile) üretildi. [ContentSeeder](Assets/MergeGame/Editor/ContentSeeder.cs) idempotenttir: mevcut asset'leri yerinde günceller (GUID'ler, dolayısıyla sahne ve prefab referansları korunur), sprite'ları ve portreleri adlandırma kuralıyla bulur (`Sprites/Items/<chainId>/<chainId>_<LL>.png`, `Characters/<Ad>/<Ad>_SkeletonData.asset`, avatar için `Sprites/Icons/<avatar>.png`), portre dokularını mipmap'li içe aktarır (küçük çizildikleri için; yoksa kenarları tırtıklanır), sonucu doğrular. İçerik eklemek için gerekmez. **Dikkat:** seeder JSON'u tek kaynak kabul eder; çalıştırılırsa Inspector'da yapılmış değişikliklerin üzerine yazar, `GameConfig.chains`'i JSON'daki listeyle değiştirir ve `Content/Config/Chains` altında JSON'da olmayan zincir asset'lerini siler. Ya Inspector ya JSON ile çalışılmalı.
 
 ## Tasarım desenleri
 
@@ -295,12 +297,12 @@ Sevk edilen asset'ler [seed_content.json](Assets/MergeGame/Editor/Seed/seed_cont
 | Katman | Assembly | Test sayısı | Kapsam |
 |---|---|---|---|
 | Core | [Core.Tests](Assets/MergeGame/Core.Tests) | 225 | Grid, katalog, bırakma kuralları ve red nedenleri, önizleme = gerçek bırakma, özel kural ekleme, spawn ağırlıkları, skor tablosu ve çarpan yuvarlama, kilitli item'lar, gizli item'lar ve açılmaları ([HiddenItemTests.cs](Assets/MergeGame/Core.Tests/HiddenItemTests.cs)), ipucu arama ([MergeHintFinderTests.cs](Assets/MergeGame/Core.Tests/MergeHintFinderTests.cs)), item atma, açılış dizilimi, siparişler ve gereksinim başına eşleşen hücreler ([RequirementFulfilmentTests.cs](Assets/MergeGame/Core.Tests/RequirementFulfilmentTests.cs)), olay sırası |
-| Presentation | [Presentation.Tests](Assets/MergeGame/Presentation.Tests) | 131 | Her presenter, kayıt tutan sahte view'larla (`Support/Fake*View.cs`, `ViewLog`) **gerçek** `MergeGameSession` üzerinde; uçtan uca ekran senaryoları (`GameScreenTests`), gizli item'ların sunumu ([HiddenItemPresentationTests.cs](Assets/MergeGame/Presentation.Tests/HiddenItemPresentationTests.cs)), boşta kalma ipucu ve yineleme zamanlaması ([MergeHintPresenterTests.cs](Assets/MergeGame/Presentation.Tests/MergeHintPresenterTests.cs)), sipariş işaretleri ([OrderMatchPresenterTests.cs](Assets/MergeGame/Presentation.Tests/OrderMatchPresenterTests.cs)), dispose sonrası sessizlik |
-| Data | [Data.Tests](Assets/MergeGame/Data.Tests) | 63 | Factory eşlemesi ve hata mesajları, validator, görsel kütüphanesi; sevk edilen gerçek asset'ler üzerinde içerik testleri (5×5, ≥3 zincir ≥5 seviye, puanlar artıyor, sipariş ödülleri harcanan merge puanından büyük, açılışta en az bir birleşme mümkün, tüm kapalı hücreler açılabilir, bir birleşme ağlı bir item'ı serbest bırakıp bir kapalı hücreyi açar) ve sıfır kodla yeni zincir testi |
+| Presentation | [Presentation.Tests](Assets/MergeGame/Presentation.Tests) | 136 | Her presenter, kayıt tutan sahte view'larla (`Support/Fake*View.cs`, `ViewLog`) **gerçek** `MergeGameSession` üzerinde; uçtan uca ekran senaryoları (`GameScreenTests`), gizli item'ların sunumu ([HiddenItemPresentationTests.cs](Assets/MergeGame/Presentation.Tests/HiddenItemPresentationTests.cs)), boşta kalma ipucu ve yineleme zamanlaması ([MergeHintPresenterTests.cs](Assets/MergeGame/Presentation.Tests/MergeHintPresenterTests.cs)), sipariş işaretleri ([OrderMatchPresenterTests.cs](Assets/MergeGame/Presentation.Tests/OrderMatchPresenterTests.cs)), müşterinin ruh hali ([OrderCardMoodTests.cs](Assets/MergeGame/Presentation.Tests/OrderCardMoodTests.cs)), dispose sonrası sessizlik |
+| Data | [Data.Tests](Assets/MergeGame/Data.Tests) | 71 | Factory eşlemesi ve hata mesajları, validator, görsel kütüphanesi, portre animasyonlarının sonekle bulunması ([CustomerAnimationSetTests.cs](Assets/MergeGame/Data.Tests/CustomerAnimationSetTests.cs)); sevk edilen gerçek asset'ler üzerinde içerik testleri (5×5, ≥3 zincir ≥5 seviye, puanlar artıyor, sipariş ödülleri harcanan merge puanından büyük, açılışta en az bir birleşme mümkün, tüm kapalı hücreler açılabilir, bir birleşme ağlı bir item'ı serbest bırakıp bir kapalı hücreyi açar, her müşteri tüm animasyonları olan ayrı bir Spine portresi) ve sıfır kodla yeni zincir testi |
 | View | [View.Tests](Assets/MergeGame/View.Tests) | 7 | Kum dökülmesi ([SandPourTests.cs](Assets/MergeGame/View.Tests/SandPourTests.cs)): başlangıçta her tane kendi hücresinde durur; bırakılma zamanından önce tane tam olarak hareketsizdir; aynı tohum aynı dökülmeyi verir, farklı tohumlar farklıdır; taneler hiç yükselmez ve sürekli hareket eder; her tane bırakılma dalgası içinde bırakır ve süre sonunda hücreden çıkmıştır; canlı tane sayısı yalnızca azalır; boş hücrelerde tane yoktur |
-| PlayMode | [PlayTests](Assets/MergeGame/PlayTests) | 18 | Gerçek sahneler, installer'lar ve view'lar üzerinden ([GameSmokeTests.cs](Assets/MergeGame/PlayTests/GameSmokeTests.cs), [BoardFeedbackTests.cs](Assets/MergeGame/PlayTests/BoardFeedbackTests.cs), [OrderMatchAndSpawnShineTests.cs](Assets/MergeGame/PlayTests/OrderMatchAndSpawnShineTests.cs), [SandCoverFootprintTests.cs](Assets/MergeGame/PlayTests/SandCoverFootprintTests.cs)), aşağıda |
+| PlayMode | [PlayTests](Assets/MergeGame/PlayTests) | 20 | Gerçek sahneler, installer'lar ve view'lar üzerinden ([GameSmokeTests.cs](Assets/MergeGame/PlayTests/GameSmokeTests.cs), [BoardFeedbackTests.cs](Assets/MergeGame/PlayTests/BoardFeedbackTests.cs), [OrderMatchAndSpawnShineTests.cs](Assets/MergeGame/PlayTests/OrderMatchAndSpawnShineTests.cs), [SandCoverFootprintTests.cs](Assets/MergeGame/PlayTests/SandCoverFootprintTests.cs), [CustomerPortraitTests.cs](Assets/MergeGame/PlayTests/CustomerPortraitTests.cs)), aşağıda |
 
-EditMode toplamı 426. Görsel bir efektin mantığı bile test edilebilir tutuldu: kum dökülmesi Unity'den bağımsız düz bir sınıf (`SandPour`) ve zamanın fonksiyonu olduğu için sahnesiz, istenen herhangi bir anda sorgulanarak test edilir. Boşta kalma ipucu gerçek zaman beklenmeden test edilir: testler `MergeHintPresenter.Advance(saniye)` ile zamanı açıkça ilerletir. Sayılar NUnit test vakalarıdır (`[TestCase]` başına bir). Rastgelelik `ScriptedRandom` ile sabitlendiği için birim testleri deterministiktir.
+EditMode toplamı 439. Görsel bir efektin mantığı bile test edilebilir tutuldu: kum dökülmesi Unity'den bağımsız düz bir sınıf (`SandPour`) ve zamanın fonksiyonu olduğu için sahnesiz, istenen herhangi bir anda sorgulanarak test edilir. Boşta kalma ipucu gerçek zaman beklenmeden test edilir: testler `MergeHintPresenter.Advance(saniye)` ile zamanı açıkça ilerletir. Sayılar NUnit test vakalarıdır (`[TestCase]` başına bir). Rastgelelik `ScriptedRandom` ile sabitlendiği için birim testleri deterministiktir.
 
 **PlayMode smoke testleri** (`GameSmokeTests`):
 
@@ -360,37 +362,39 @@ Assets/MergeGame/
 │   └── Session/          GameDefinition, MergeGameSession (facade), DiscardResult
 ├── Core.Tests/           225 EditMode testi
 ├── Presentation/         Saf C# MVP (noEngineReferences): view arayüzleri, presenter'lar, SessionEventStream, ITimeDriven, Hints/
-├── Presentation.Tests/   131 test, sahte view'lar + gerçek oturum
+├── Presentation.Tests/   136 test, sahte view'lar + gerçek oturum
 ├── Data/
-│   ├── Authoring/        ScriptableObject'ler (GameConfig, ItemChain, ScoreTable, OrderSettings, BoardLayout)
+│   ├── Authoring/        ScriptableObject'ler (GameConfig, ItemChain, ScoreTable, OrderSettings + CustomerEntry, BoardLayout)
 │   ├── Definitions/      GameDefinitionFactory, GameConfigException
 │   ├── Validation/       GameConfigValidator, Console raporlama
-│   └── Visuals/          IItemVisuals, ItemVisualLibrary
-├── Data.Tests/           63 test, sevk edilen içerik testleri dahil
+│   └── Visuals/          IItemVisuals, ItemVisualLibrary, CustomerAnimationSet
+├── Data.Tests/           71 test, sevk edilen içerik testleri dahil
 ├── View/                 MonoBehaviour view'lar (pasif, kural yok)
 │   ├── Board/            BoardView, BoardInputSurface, BoardGeometry, ItemView (+Pool), ItemAccent, CellCover, OrderMatchMark, DropHighlightView, PointsPopup (+Pool)
 │   │   └── Sand/         SandPour (düz C#), SandPourSettings, SandGrainPalette, SandGrainGraphic
 │   ├── Shaders/          SandGrains.shader (UI kum tanesi shader'ı)
 │   ├── Hints/            MergeHintView
 │   ├── Animation/        Tween, TweenChannel, Ease (projeye ait tween yardımcısı)
-│   ├── Orders/ Score/ Spawning/ Selection/ Navigation/ MainMenu/   arayüz başına bir view (Orders/: OrdersView, OrderMatchView)
+│   ├── Orders/ Score/ Spawning/ Selection/ Navigation/ MainMenu/   arayüz başına bir view (Orders/: OrdersView, OrderCardView, CustomerPortraitView, OrderMatchView)
 │   ├── Notices/          NoticeView (toast), NoticeTexts (Notice → metin tablosu)
 │   ├── Theme/            UiTheme (renk paleti asset'i)
 │   └── Common/           SafeAreaFitter, MaxWidthLimiter, TactileButton
 ├── View.Tests/          7 EditMode testi: kum dökülmesi (Unity sahnesi gerektirmez)
 ├── App/                  Composition root: Installers/, Lifecycle/ (PresenterLifecycle, TimeDrivenTicker), Navigation/SceneNavigator
-├── PlayTests/            18 PlayMode testi + 2 opsiyonel ekran görüntüsü testi
-├── Editor/               ContentSeeder, seed JSON, sprite import ayarları
+├── PlayTests/            20 PlayMode testi + 2 opsiyonel ekran görüntüsü testi
+├── Editor/               ContentSeeder, seed JSON, sprite ve portre dokusu import ayarları, SpineSettings.asset
 │   └── Building/         SceneBuilder: sahneler, prefab'lar, ProjectContext, font preset'leri
 ├── Scenes/               MainMenu.unity, Game.unity
 └── Content/
     ├── Config/           GameConfig, ScoreTable, OrderSettings, BoardLayout, Chains/*.asset
     ├── UI/               UiTheme.asset, NoticeTexts.asset (tasarımcıya ait)
-    ├── Materials/        SandGrains.mat
+    ├── Characters/       <Ad>/: 13 Spine 3.8 müşteri karakteri (skel, atlas, doku + üretilen SkeletonData/Atlas/Material)
+    ├── Materials/        SandGrains.mat, SandMask.mat, CustomerPortrait.mat
     ├── Prefabs/          BoardCell, CellCover, ItemView, PointsPopup, OrderCard, RequirementSlot, Resources/ProjectContext
     ├── Sprites/          Items/<zincir>/, Icons/, UI/
     └── Fonts/            Baloo 2 ExtraBold + OFL lisansı
 Assets/TextMesh Pro/      TextMesh Pro essential resources
+Packages/com.esotericsoftware.spine.spine-unity/   spine-unity 3.8 runtime (gömülü paket, Unity 6 yamaları)
 Tools/PlaceholderArt/     Sprite üretici (Python)
 THIRD-PARTY-NOTICES.md
 ```
@@ -405,6 +409,7 @@ Bunlar türün beklentilerinden seçilerek, her biri mimarideki bir genişleme n
 - **Boşta kalma ipucu** — oyuncu hareketsiz kalınca birleştirilebilir bir çift bir kez nabız atar ve hareketsizlik sürdükçe aralıklarla yinelenir; kural hattını `PreviewDrop` ile sorgular, zamanı `ITimeDriven` ile dışarıdan alır ([MergeHintPresenter](Assets/MergeGame/Presentation/Hints/MergeHintPresenter.cs)).
 - **Birleşme hedefinin parlaması** — tamamen View'da: presenter `DropHighlight.Merge` bildirince hedef item parlar ([BoardView](Assets/MergeGame/View/Board/BoardView.cs), [ItemAccent](Assets/MergeGame/View/Board/ItemAccent.cs)); presenter ve Core'a dokunmadan eklendi. Aynı katman yeni üretilen item'a yaklaşık bir saniyelik bir parlama verir (`PlaySpawnShine`; açılış dizilimi ve açılan hücreler parlamaz). Aksanların önceliği vardır ([AccentKind](Assets/MergeGame/View/Board/AccentKind.cs): `None < SpawnShine < MergeHint < MergeTarget`); yüksek olan düşüğü keser, tersi olmaz.
 - **Sipariş işareti** — tahtada aktif bir siparişin alacağı item'larda yeşil onay rozeti ve hafif hale ([OrderMatchPresenter](Assets/MergeGame/Presentation/Orders/OrderMatchPresenter.cs), [OrderMatchView](Assets/MergeGame/View/Orders/OrderMatchView.cs), [OrderMatchMark](Assets/MergeGame/View/Board/OrderMatchMark.cs), renk `UiTheme`'de). Core'da yeni kural yok: işaret teslimatın eşleştirmesini (`GetRequirementMatches`) yeniden kullanır, bu yüzden işaretli item'lar tam olarak teslimin alacağı item'lardır. İşaret item görünümüne aittir, sürüklenen veya taşınan item'la birlikte gider.
+- **Canlı müşteriler (Spine)** — sipariş kartındaki müşteri, yuvarlak çerçevesine maskelenmiş bir Spine portresidir ([CustomerPortraitView](Assets/MergeGame/View/Orders/CustomerPortraitView.cs)). Yeni gelen müşteri `appear` oynar; siparişin bir kısmı tahtaya gelince `progress`, teslim edilebilir olunca `finished` oynar ve her durum kendi döngüsüne geçer; teslimde item'lar ulaşınca `leave` oynar ve kutlamadan sonra yeni müşteri gelir. Ruh hali Presentation'da karar verilir (`OrderCard.Mood`: `Waiting`, `Hopeful`, `Ready`), View yalnızca animasyona çevirir; Core değişmedi. Karakterler dinlenme pozlarına göre otomatik çerçevelenir, bu yüzden farklı ölçekte dışa aktarılmış iskeletler de aynı boyda görünür.
 - **Müşteri siparişleri** — veri odaklı ödüller, `IOrderGenerator` stratejisi, karttaki gereksinimlerin tahtada olup olmadığının canlı gösterimi ([OrdersPresenter](Assets/MergeGame/Presentation/Orders/OrdersPresenter.cs)).
 - **Item atma** — ödülsüz kaldırma; birleşmesi mümkün olmayan dolu bir tahta asla çıkmaza girmez ([MergeGameSession.Discard](Assets/MergeGame/Core/Session/MergeGameSession.cs)).
 - **Seçim ve bilgi çubuğu** — dokunulan item'ın adı, seviyesi/maks. seviyesi ve bir sonraki seviyesi ([SelectionPresenter](Assets/MergeGame/Presentation/Selection/SelectionPresenter.cs)).
@@ -413,7 +418,7 @@ Bunlar türün beklentilerinden seçilerek, her biri mimarideki bir genişleme n
 
 - **Kayıt yok.** Core'da kalıcılık yok; oyun sahnesine her girişte yeni bir oturum başlar ve skor sıfırlanır. Sonraki adım: `Board` + skor + siparişler için serileştirilebilir bir anlık görüntü (`ItemChainAsset.id` bu yüzden "kararlı" olarak tanımlandı).
 - **Stratejiler veriden seçilemiyor.** `GameDefinition` özel kural, spawn politikası, skor hesaplayıcı ve sipariş üreticisi kabul ediyor, fakat `GameDefinitionFactory` her zaman varsayılanları kullanıyor ve `GameInstaller` tanımı bu factory ile kuruyor; bir tasarımcı Inspector'dan farklı bir spawn politikası seçemez, bunun için kod gerekir.
-- **Sahneler ve prefab'lar bir editör kurucusuyla üretiliyor** ([SceneBuilder](Assets/MergeGame/Editor/Building/SceneBuilder.cs), **Merge Game → Build Scenes**). Yeniden çalıştırmak şunları sıfırdan yeniden yazar ve elle yapılmış değişiklikleri kaybeder: `MainMenu.unity` ve `Game.unity` (boş sahneden kurulur; `GameInstaller` alanları dahil her bileşen kurucunun değerlerine döner), `Content/Prefabs` altındaki altı prefab, `SandGrains.mat` (shader'ı yeniden atanır), `ProjectContext.prefab` (`ProjectInstaller.randomSeed` ve sahne adları varsayılana döner), TextMesh Pro font materyal preset'leri, `Content/Sprites/UI` import ayarları ve Build Settings'teki sahne listesi. Korunanlar: `UiTheme.asset` ve font asset'i yalnızca yoksa oluşturulur; `NoticeTexts.asset`'te mevcut metinler korunur, yalnızca metni olmayan `Notice` değerleri için varsayılan girdi eklenir; `Content/Config` asset'lerine dokunulmaz.
+- **Sahneler ve prefab'lar bir editör kurucusuyla üretiliyor** ([SceneBuilder](Assets/MergeGame/Editor/Building/SceneBuilder.cs), **Merge Game → Build Scenes**). Yeniden çalıştırmak şunları sıfırdan yeniden yazar ve elle yapılmış değişiklikleri kaybeder: `MainMenu.unity` ve `Game.unity` (boş sahneden kurulur; `GameInstaller` alanları dahil her bileşen kurucunun değerlerine döner), `Content/Prefabs` altındaki altı prefab, `SandGrains.mat`, `SandMask.mat` ve `CustomerPortrait.mat` (shader'ı ve portre materyalinin düz alfa / CanvasGroup ayarları yeniden atanır), `ProjectContext.prefab` (`ProjectInstaller.randomSeed` ve sahne adları varsayılana döner), TextMesh Pro font materyal preset'leri, `Content/Sprites/UI` import ayarları ve Build Settings'teki sahne listesi. Korunanlar: `UiTheme.asset` ve font asset'i yalnızca yoksa oluşturulur; `NoticeTexts.asset`'te mevcut metinler korunur, yalnızca metni olmayan `Notice` değerleri için varsayılan girdi eklenir; `Content/Config` asset'lerine dokunulmaz.
 - **İki içerik kaynağı riski.** Seeder JSON'u, Inspector düzenlemelerinin üzerine yazar (bkz. [seeder notu](#opsiyonel-toplu-araç-seed-json--seeder)).
 - **Sipariş teslimi otomatik eşleşir.** Tahtadaki ilk uygun kilitsiz item'lar (satır öncelikli sırayla) teslim edilir; oyuncu aynı item'ın hangi kopyasının gideceğini seçemez. Siparişlerin süresi veya zorluk eğrisi yok.
 - **Siparişler birbirinden bağımsız eşleştirilir.** İki sipariş aynı item'ı isteyebilir; tahtada tek kopya varsa ikisi de onu sayar, item bir kez işaretlenir ve iki kart da "hazır" görünebilir, ama yalnızca ilk teslimat onu tüketir.
@@ -424,7 +429,9 @@ Bunlar türün beklentilerinden seçilerek, her biri mimarideki bir genişleme n
 - **Taneler telefonda küçük.** Hücre genişliğinde 42 tane sütunu vardır (`CellCover.columns`), yani bir tane telefonda yalnızca birkaç piksel eder; düşen taneler tek tek seçilir, duran kum ise bilinçli olarak dolu bir yüzey gibi çizilir. Dökülmenin toplam süresi `SandPourSettings.totalSeconds`'tan gelir (prefab'da 0,8 sn, bırakılma dalgası 0,18 sn).
 - **Kum fiziksel bir simülasyon değil.** `SandPour` kapalı biçimli bir hareket modelidir: taneler birbirine çarpmaz, yığılmaz veya kaymaz; her tane bırakılma zamanından sonra kendi yörüngesini bağımsız izler. Gerçekçi görünüm bırakılma dalgasından ve tane başına küçük farklardan gelir.
 - **Kum dokuları Read/Write ile içe aktarılıyor.** `SandGrainPalette` tane renklerini dokudan okuduğu için `sand_01..03` dokularının CPU kopyası bellekte tutulur.
-- **Placeholder sanat.** Item ve ikonlar Microsoft Fluent Emoji 3D render'larından üretildi; özgün sanat değil.
+- **Placeholder sanat.** Item ve ikonlar Microsoft Fluent Emoji 3D render'larından üretildi; özgün sanat değil. Müşteriler artık Spine karakterleri; eski emoji müşteri avatarları (`Icons/customer_01..06.png`) hâlâ sprite üreticisinin çıktısında ve repoda duruyor ama hiçbir müşteriye bağlı değil.
+- **Spine runtime'ı 3.8 ve resmi olarak Unity 6'yı desteklemiyor.** Karakterler Spine 3.8.99 ile dışa aktarıldığı için 3.8 runtime'ı kullanılıyor; Unity 6.6'da hata veren API'ler (`GetInstanceID`, `InstanceIDToObject`, `hierarchyWindowItemOnGUI`) `EntityId` karşılıklarıyla değiştirildi ve Spine ayar dosyası `Assets/Editor` yerine `Assets/MergeGame/Editor/SpineSettings.asset`'e taşındı (değişikliklerin listesi: [UNITY6_PATCHES.md](Packages/com.esotericsoftware.spine.spine-unity/UNITY6_PATCHES.md)). Uzun vadeli yol: iskeletleri Spine Editor'de 4.2'ye yükseltip resmi spine-unity 4.2 paketine geçmek (atlas sayfaları da o zaman yeniden paketlenir; şu an ikinin kuvvetine gerilmiş durumdalar).
+- **Portre maskesinin kenarı stencil ile kesilir.** uGUI `Mask` kenarı yumuşatmaz; karakterin çerçeveden taşan yerlerinde 1 piksellik basamaklar görülebilir.
 - **Ses yok.**
 - **Yerelleştirme yok.** Türkçe item adları veride (`displayName`), bildirim metinleri `NoticeTexts.asset`'te; diğer UI metinleri (buton etiketleri, ipucu) sahne kurucusunun yazdığı serileştirilmiş alanlarda duruyor. Sonraki adım: metinleri anahtara çevirip Unity Localization.
 - **Fiziksel cihazda henüz çalıştırılmadı.** Dokunma ve çoklu dokunma davranışı, çentikli ekranlarda safe area kenar boşlukları ve `Application.Quit` yalnızca editörde/kodda doğrulandı. PlayMode testleri pointer olaylarını doğrudan tahtaya gönderir ([PointerGesture.cs](Assets/MergeGame/PlayTests/Support/PointerGesture.cs), `ExecuteEvents`); Input System UI modülü üzerinden geçen gerçek giriş yolu testlerde kapsanmıyor.
@@ -443,4 +450,4 @@ Bunlar türün beklentilerinden seçilerek, her biri mimarideki bir genişleme n
 | **Merge Game → Build Scenes** (komut satırı: `-executeMethod MergeGame.Editor.Building.SceneBuilder.BuildFromCommandLine`) | UI sprite import ayarlarını, TextMesh Pro font preset'lerini, prefab'ları, Zenject `ProjectContext` prefab'ını ve `MainMenu.unity`, `Game.unity` sahnelerini idempotent olarak üretir, sahneleri Build Settings'e menü önce gelecek şekilde kaydeder. Önce Seed Content'in çalışmış olmasını (GameConfig) bekler | [Editor/Building](Assets/MergeGame/Editor/Building) |
 | **Placeholder sprite üretici** | Fluent Emoji 3D render'larını indirip kırpar, ölçekler, gölge ekler; UI şekillerini, ağ ikonunu ve üç kum örtüsü çeşidini (`sand_01..03`) çizer (Python 3.9+, Pillow) | [Tools/PlaceholderArt](Tools/PlaceholderArt) |
 
-Üçüncü taraf varlıklar ve lisansları: Microsoft Fluent Emoji (MIT) ve Baloo 2 yazı tipi (SIL Open Font License 1.1). Ayrıntılar [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) dosyasında. Extenject (Zenject) MIT lisanslıdır ve paket olarak OpenUPM'den gelir; TextMesh Pro essential resources Unity'nin kendi paketinden içe aktarılmıştır.
+Üçüncü taraf varlıklar ve lisansları: Microsoft Fluent Emoji (MIT), Baloo 2 yazı tipi (SIL Open Font License 1.1) ve Spine Runtimes (Spine Runtimes License; kullanan herkesin Spine Editor lisansı olmalı). Ayrıntılar [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) dosyasında. Extenject (Zenject) MIT lisanslıdır ve paket olarak OpenUPM'den gelir; TextMesh Pro essential resources Unity'nin kendi paketinden içe aktarılmıştır.

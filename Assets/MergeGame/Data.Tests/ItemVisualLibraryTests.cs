@@ -1,9 +1,11 @@
 using System;
 using MergeGame.Core.Items;
+using MergeGame.Data.Authoring;
 using MergeGame.Data.Definitions;
 using MergeGame.Data.Tests.Support;
 using MergeGame.Data.Visuals;
 using NUnit.Framework;
+using Spine.Unity;
 using static MergeGame.Data.Tests.Support.TestAssets;
 
 namespace MergeGame.Data.Tests
@@ -37,13 +39,18 @@ namespace MergeGame.Data.Tests
         }
 
         [Test]
-        public void CustomerAvatars_ComeFromTheOrderSettingsInOrder()
+        public void Customers_ComeFromTheOrderSettingsInOrder()
         {
             var config = assets.FullConfig();
+            var portrait = assets.Create<SkeletonDataAsset>("Portrait");
+            config.Orders.Customers = new[] { config.Orders.Customers[0], config.Orders.Customers[1], new CustomerEntry(portrait, null) };
             var visuals = new ItemVisualLibrary(config);
 
             Assert.That(visuals.CustomerCount, Is.EqualTo(3));
-            Assert.That(visuals.GetCustomerAvatar(2), Is.SameAs(config.Orders.CustomerAvatars[2]));
+            Assert.That(visuals.GetCustomerAvatar(1), Is.SameAs(config.Orders.Customers[1].Avatar));
+            Assert.That(visuals.GetCustomerPortrait(1), Is.Null);
+            Assert.That(visuals.GetCustomerPortrait(2), Is.SameAs(portrait));
+            Assert.That(visuals.GetCustomerAvatar(2), Is.Null);
         }
 
         [Test]
@@ -62,6 +69,7 @@ namespace MergeGame.Data.Tests
             var visuals = new ItemVisualLibrary(assets.FullConfig());
 
             Assert.Throws<ArgumentOutOfRangeException>(() => visuals.GetCustomerAvatar(customerIndex));
+            Assert.Throws<ArgumentOutOfRangeException>(() => visuals.GetCustomerPortrait(customerIndex));
         }
 
         [Test]

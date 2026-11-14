@@ -10,6 +10,7 @@
         "UnityEngine.UI",
         "Unity.TextMeshPro",
         "Zenject",
+        "spine-unity",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

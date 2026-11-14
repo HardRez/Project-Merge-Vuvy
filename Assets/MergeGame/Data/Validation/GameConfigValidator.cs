@@ -3,6 +3,7 @@ using System.Linq;
 using MergeGame.Core.Grid;
 using MergeGame.Data.Authoring;
 using MergeGame.Data.Definitions;
+using MergeGame.Data.Visuals;
 
 namespace MergeGame.Data.Validation
 {
@@ -104,7 +105,7 @@ namespace MergeGame.Data.Validation
         private static void CheckOrders(OrderSettingsAsset orders, List<string> problems)
         {
             if (orders != null && orders.CustomerCount == 0)
-                problems.Add($"Order settings '{orders.name}' have no customer avatars; the number of customers is the number of avatars.");
+                problems.Add($"Order settings '{orders.name}' have no customers; the number of customers is the length of the customer list.");
         }
 
         private static void CheckLayout(GameConfigAsset config, List<string> problems)
@@ -216,11 +217,32 @@ namespace MergeGame.Data.Validation
             var orders = config.Orders;
             if (orders == null)
                 return;
-            for (var i = 0; i < orders.CustomerAvatars.Count; i++)
+            for (var i = 0; i < orders.Customers.Count; i++)
+                CheckCustomer(orders, i, problems);
+        }
+
+        private static void CheckCustomer(OrderSettingsAsset orders, int index, List<string> problems)
+        {
+            var label = $"Order settings '{orders.name}' customer {index}";
+            var customer = orders.Customers[index];
+            if (customer == null || (customer.Portrait == null && customer.Avatar == null))
             {
-                if (orders.CustomerAvatars[i] == null)
-                    problems.Add($"Order settings '{orders.name}' customer {i} has no avatar sprite.");
+                problems.Add($"{label} has neither a portrait nor an avatar sprite.");
+                return;
             }
+
+            if (customer.Portrait == null)
+                return;
+            var skeleton = customer.Portrait.GetSkeletonData(true);
+            if (skeleton == null)
+            {
+                problems.Add($"{label}: portrait '{customer.Portrait.name}' does not load.");
+                return;
+            }
+
+            var animationNames = skeleton.Animations.Items.Take(skeleton.Animations.Count).Select(animation => animation.Name);
+            if (!CustomerAnimationSet.TryResolve(animationNames, out _, out var missing))
+                problems.Add($"{label}: portrait '{customer.Portrait.name}' has no animation ending in {string.Join(", ", missing.Select(suffix => "_" + suffix))}.");
         }
 
         private static void CheckChainIcons(ItemChainAsset chain, List<string> problems)

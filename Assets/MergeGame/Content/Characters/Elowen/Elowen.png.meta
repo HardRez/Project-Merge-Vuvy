@@ -1,0 +1,1614 @@
+fileFormatVersion: 2
+guid: 20655266d603baf48b954e877dae39d3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8400580012235053234
+    second: Elowen_0
+  - first:
+      213: -7358384804705440582
+    second: Elowen_1
+  - first:
+      213: -6305559886941311628
+    second: Elowen_2
+  - first:
+      213: -7595270445113825346
+    second: Elowen_3
+  - first:
+      213: -7345830336035027202
+    second: Elowen_4
+  - first:
+      213: -6494439995896700529
+    second: Elowen_5
+  - first:
+      213: -4536561469440299165
+    second: Elowen_6
+  - first:
+      213: 2993592393072178366
+    second: Elowen_7
+  - first:
+      213: 4619087114983667523
+    second: Elowen_8
+  - first:
+      213: 7468702436621100051
+    second: Elowen_9
+  - first:
+      213: 8083894883752769510
+    second: Elowen_10
+  - first:
+      213: -5436819506302067469
+    second: Elowen_11
+  - first:
+      213: 5312483785465153967
+    second: Elowen_12
+  - first:
+      213: -5561068373324161021
+    second: Elowen_13
+  - first:
+      213: 7930866887153245752
+    second: Elowen_14
+  - first:
+      213: 9145676197265572411
+    second: Elowen_15
+  - first:
+      213: 5416703778875333110
+    second: Elowen_16
+  - first:
+      213: 6786492831110937418
+    second: Elowen_17
+  - first:
+      213: 7046696281960915223
+    second: Elowen_18
+  - first:
+      213: -5796487352968610274
+    second: Elowen_19
+  - first:
+      213: -2428062469634778258
+    second: Elowen_20
+  - first:
+      213: -1007038342601968386
+    second: Elowen_21
+  - first:
+      213: -1086423080471410046
+    second: Elowen_22
+  - first:
+      213: -7819905059072148186
+    second: Elowen_23
+  - first:
+      213: -1996138138481718197
+    second: Elowen_24
+  - first:
+      213: 7281564341219643854
+    second: Elowen_25
+  - first:
+      213: -1562845546208742026
+    second: Elowen_26
+  - first:
+      213: 533341917373772437
+    second: Elowen_27
+  - first:
+      213: -3099180130518640977
+    second: Elowen_28
+  - first:
+      213: 1131415539825966617
+    second: Elowen_29
+  - first:
+      213: -7565741424081143643
+    second: Elowen_30
+  - first:
+      213: -8165059210549245974
+    second: Elowen_31
+  - first:
+      213: 8795540326013500078
+    second: Elowen_32
+  - first:
+      213: 1039539412735940814
+    second: Elowen_33
+  - first:
+      213: -254693102768639531
+    second: Elowen_34
+  - first:
+      213: 3180111468946622978
+    second: Elowen_35
+  - first:
+      213: 8987931179457508355
+    second: Elowen_36
+  - first:
+      213: -5023756492341191943
+    second: Elowen_37
+  - first:
+      213: -5720378495188528226
+    second: Elowen_38
+  - first:
+      213: -7309696322777188577
+    second: Elowen_39
+  - first:
+      213: 4129151042963743650
+    second: Elowen_40
+  - first:
+      213: 2160345295062948502
+    second: Elowen_41
+  - first:
+      213: -8494254600813908610
+    second: Elowen_42
+  - first:
+      213: -8324563792544681341
+    second: Elowen_43
+  - first:
+      213: -7447511717569431244
+    second: Elowen_44
+  - first:
+      213: 516092906214530202
+    second: Elowen_45
+  - first:
+      213: -3228054954408979476
+    second: Elowen_46
+  - first:
+      213: 6111689978930895643
+    second: Elowen_47
+  - first:
+      213: 5756731419176788720
+    second: Elowen_48
+  - first:
+      213: -8673070692318085300
+    second: Elowen_49
+  - first:
+      213: 2520228696521728424
+    second: Elowen_50
+  - first:
+      213: 2177429936505735637
+    second: Elowen_51
+  - first:
+      213: 7427830513963394459
+    second: Elowen_52
+  - first:
+      213: -1705829388974285831
+    second: Elowen_53
+  - first:
+      213: 1135256673166262886
+    second: Elowen_54
+  - first:
+      213: 4079769482336634612
+    second: Elowen_55
+  - first:
+      213: -1187362042759566742
+    second: Elowen_56
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Elowen_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 454
+        width: 108
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e47ab7facf42b6b80800000000000000
+      internalID: -8400580012235053234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_1
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 455
+        width: 61
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abc66eaa104c1e990800000000000000
+      internalID: -7358384804705440582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_2
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 455
+        width: 37
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47d29ece0b62e78a0800000000000000
+      internalID: -6305559886941311628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_3
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 0
+        width: 408
+        height: 511
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb7a7f985cd289690800000000000000
+      internalID: -7595270445113825346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_4
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 439
+        width: 80
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef60850ba3e5e0a90800000000000000
+      internalID: -7345830336035027202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_5
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 438
+        width: 80
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f81ec759b3d1fd5a0800000000000000
+      internalID: -6494439995896700529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_6
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 439
+        width: 131
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f69481165ea01c0800000000000000
+      internalID: -4536561469440299165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_7
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 438
+        width: 87
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb4f067bb606b8920800000000000000
+      internalID: 2993592393072178366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_8
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 439
+        width: 100
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3477f23124b4a1040800000000000000
+      internalID: 4619087114983667523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_9
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 491
+        width: 38
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31425e39b4926a760800000000000000
+      internalID: 7468702436621100051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_10
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 387
+        width: 250
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e77ea30193cf2070800000000000000
+      internalID: 8083894883752769510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_11
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 386
+        width: 115
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fc53fae6798c84b0800000000000000
+      internalID: -5436819506302067469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_12
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 374
+        width: 118
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa94cab2bdbb9b940800000000000000
+      internalID: 5312483785465153967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_13
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 379
+        width: 116
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 300aa5c37cd13d2b0800000000000000
+      internalID: -5561068373324161021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_14
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 496
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83e5da11a69101e60800000000000000
+      internalID: 7930866887153245752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_15
+      rect:
+        serializedVersion: 2
+        x: 1487
+        y: 497
+        width: 61
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3282c8ab08fbee70800000000000000
+      internalID: 9145676197265572411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_16
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 324
+        width: 113
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f95161536ffb2b40800000000000000
+      internalID: 5416703778875333110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_17
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 458
+        width: 56
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4b3a1506477e2e50800000000000000
+      internalID: 6786492831110937418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_18
+      rect:
+        serializedVersion: 2
+        x: 1760
+        y: 455
+        width: 62
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 711a856fee4eac160800000000000000
+      internalID: 7046696281960915223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_19
+      rect:
+        serializedVersion: 2
+        x: 1793
+        y: 485
+        width: 38
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1ef24da67dbe8fa0800000000000000
+      internalID: -5796487352968610274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_20
+      rect:
+        serializedVersion: 2
+        x: 1922
+        y: 452
+        width: 73
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6b16fc5c0acd4ed0800000000000000
+      internalID: -2428062469634778258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_21
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 437
+        width: 49
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef4f20286f74602f0800000000000000
+      internalID: -1007038342601968386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_22
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 375
+        width: 112
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28a47b4e6ff3ce0f0800000000000000
+      internalID: -1086423080471410046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_23
+      rect:
+        serializedVersion: 2
+        x: 1566
+        y: 451
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62d79b8c7cd1a7390800000000000000
+      internalID: -7819905059072148186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_24
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 479
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4c003560fa4c44e0800000000000000
+      internalID: -1996138138481718197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_25
+      rect:
+        serializedVersion: 2
+        x: 1823
+        y: 459
+        width: 98
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec15c8f50305d0560800000000000000
+      internalID: 7281564341219643854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 361
+        height: 449
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6753d6b8148af4ae0800000000000000
+      internalID: -1562845546208742026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_27
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 449
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 592b3e8e5afc66700800000000000000
+      internalID: 533341917373772437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_28
+      rect:
+        serializedVersion: 2
+        x: 1566
+        y: 401
+        width: 22
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa6dc7967108df4d0800000000000000
+      internalID: -3099180130518640977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_29
+      rect:
+        serializedVersion: 2
+        x: 1803
+        y: 215
+        width: 122
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91efea0607893bf00800000000000000
+      internalID: 1131415539825966617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_30
+      rect:
+        serializedVersion: 2
+        x: 1922
+        y: 373
+        width: 100
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a87f238246110790800000000000000
+      internalID: -7565741424081143643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_31
+      rect:
+        serializedVersion: 2
+        x: 2021
+        y: 407
+        width: 8
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae74e2988e1efae80800000000000000
+      internalID: -8165059210549245974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_32
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 1
+        width: 149
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaa78a36359001a70800000000000000
+      internalID: 8795540326013500078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_33
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 396
+        width: 105
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec8d422969f2d6e00800000000000000
+      internalID: 1039539412735940814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_34
+      rect:
+        serializedVersion: 2
+        x: 1793
+        y: 426
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d1bbb2f8f5277cf0800000000000000
+      internalID: -254693102768639531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_35
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 1
+        width: 133
+        height: 394
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20a85b43886022c20800000000000000
+      internalID: 3180111468946622978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_36
+      rect:
+        serializedVersion: 2
+        x: 891
+        y: 1
+        width: 294
+        height: 385
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 304f831a9cb8bbc70800000000000000
+      internalID: 8987931179457508355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_37
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 384
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fad0f35618084ab0800000000000000
+      internalID: -5023756492341191943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_38
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 377
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e93118501122d90b0800000000000000
+      internalID: -5720378495188528226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_39
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 341
+        width: 42
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f17f2e04cedbe8a90800000000000000
+      internalID: -7309696322777188577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_40
+      rect:
+        serializedVersion: 2
+        x: 1744
+        y: 341
+        width: 9
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a3a9c31ff0bd4930800000000000000
+      internalID: 4129151042963743650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_41
+      rect:
+        serializedVersion: 2
+        x: 1757
+        y: 329
+        width: 45
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69ad96099961bfd10800000000000000
+      internalID: 2160345295062948502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_42
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 0
+        width: 277
+        height: 379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7d62cee1785e1a80800000000000000
+      internalID: -8494254600813908610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_43
+      rect:
+        serializedVersion: 2
+        x: 1460
+        y: 323
+        width: 131
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 382bb4b0655397c80800000000000000
+      internalID: -8324563792544681341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_44
+      rect:
+        serializedVersion: 2
+        x: 1460
+        y: 1
+        width: 343
+        height: 325
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 439f6bd2d8f15a890800000000000000
+      internalID: -7447511717569431244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_45
+      rect:
+        serializedVersion: 2
+        x: 1707
+        y: 324
+        width: 51
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9c140a83c7892700800000000000000
+      internalID: 516092906214530202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_46
+      rect:
+        serializedVersion: 2
+        x: 1921
+        y: 282
+        width: 117
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce353073f15a333d0800000000000000
+      internalID: -3228054954408979476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_47
+      rect:
+        serializedVersion: 2
+        x: 1925
+        y: 221
+        width: 122
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1b9d7b97a511d450800000000000000
+      internalID: 6111689978930895643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_48
+      rect:
+        serializedVersion: 2
+        x: 1925
+        y: 215
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f2ec5ba9b404ef40800000000000000
+      internalID: 5756731419176788720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_49
+      rect:
+        serializedVersion: 2
+        x: 1955
+        y: 215
+        width: 56
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4f7780482013a780800000000000000
+      internalID: -8673070692318085300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_50
+      rect:
+        serializedVersion: 2
+        x: 1803
+        y: 183
+        width: 42
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a16ce095a6a9f220800000000000000
+      internalID: 2520228696521728424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_51
+      rect:
+        serializedVersion: 2
+        x: 1803
+        y: 146
+        width: 118
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d9c9b0adf8c73e10800000000000000
+      internalID: 2177429936505735637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_52
+      rect:
+        serializedVersion: 2
+        x: 1923
+        y: 177
+        width: 91
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9568948f74f41760800000000000000
+      internalID: 7427830513963394459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_53
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 150
+        width: 19
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fb14c6653da358e0800000000000000
+      internalID: -1705829388974285831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_54
+      rect:
+        serializedVersion: 2
+        x: 1803
+        y: 1
+        width: 245
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66287fceded31cf00800000000000000
+      internalID: 1135256673166262886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_55
+      rect:
+        serializedVersion: 2
+        x: 1921
+        y: 146
+        width: 90
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f687288ab04e9830800000000000000
+      internalID: 4079769482336634612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Elowen_56
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 1
+        width: 33
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6aa8855384a58fe0800000000000000
+      internalID: -1187362042759566742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Elowen_0: -8400580012235053234
+      Elowen_1: -7358384804705440582
+      Elowen_10: 8083894883752769510
+      Elowen_11: -5436819506302067469
+      Elowen_12: 5312483785465153967
+      Elowen_13: -5561068373324161021
+      Elowen_14: 7930866887153245752
+      Elowen_15: 9145676197265572411
+      Elowen_16: 5416703778875333110
+      Elowen_17: 6786492831110937418
+      Elowen_18: 7046696281960915223
+      Elowen_19: -5796487352968610274
+      Elowen_2: -6305559886941311628
+      Elowen_20: -2428062469634778258
+      Elowen_21: -1007038342601968386
+      Elowen_22: -1086423080471410046
+      Elowen_23: -7819905059072148186
+      Elowen_24: -1996138138481718197
+      Elowen_25: 7281564341219643854
+      Elowen_26: -1562845546208742026
+      Elowen_27: 533341917373772437
+      Elowen_28: -3099180130518640977
+      Elowen_29: 1131415539825966617
+      Elowen_3: -7595270445113825346
+      Elowen_30: -7565741424081143643
+      Elowen_31: -8165059210549245974
+      Elowen_32: 8795540326013500078
+      Elowen_33: 1039539412735940814
+      Elowen_34: -254693102768639531
+      Elowen_35: 3180111468946622978
+      Elowen_36: 8987931179457508355
+      Elowen_37: -5023756492341191943
+      Elowen_38: -5720378495188528226
+      Elowen_39: -7309696322777188577
+      Elowen_4: -7345830336035027202
+      Elowen_40: 4129151042963743650
+      Elowen_41: 2160345295062948502
+      Elowen_42: -8494254600813908610
+      Elowen_43: -8324563792544681341
+      Elowen_44: -7447511717569431244
+      Elowen_45: 516092906214530202
+      Elowen_46: -3228054954408979476
+      Elowen_47: 6111689978930895643
+      Elowen_48: 5756731419176788720
+      Elowen_49: -8673070692318085300
+      Elowen_5: -6494439995896700529
+      Elowen_50: 2520228696521728424
+      Elowen_51: 2177429936505735637
+      Elowen_52: 7427830513963394459
+      Elowen_53: -1705829388974285831
+      Elowen_54: 1135256673166262886
+      Elowen_55: 4079769482336634612
+      Elowen_56: -1187362042759566742
+      Elowen_6: -4536561469440299165
+      Elowen_7: 2993592393072178366
+      Elowen_8: 4619087114983667523
+      Elowen_9: 7468702436621100051
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

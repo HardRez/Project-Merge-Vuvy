@@ -165,7 +165,21 @@
     "minRequestedLevel": 2,
     "maxRequestedLevel": 4,
     "rewardPointsByLevel": [5, 30, 130, 450, 1400, 4000, 11000],
-    "customerCount": 6
+    "customers": [
+      { "portrait": "Alden" },
+      { "portrait": "Bram" },
+      { "portrait": "Darian" },
+      { "portrait": "Elowen" },
+      { "portrait": "Faye" },
+      { "portrait": "Kaelan" },
+      { "portrait": "Mira" },
+      { "portrait": "Nyra" },
+      { "portrait": "Orin" },
+      { "portrait": "Riven" },
+      { "portrait": "Theron" },
+      { "portrait": "Velora" },
+      { "portrait": "Zaria" }
+    ]
   },
   "initialLayout": [
     { "x": 0, "y": 0, "chain": "fruit", "level": 2, "locked": true, "hidden": true },

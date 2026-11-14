@@ -89,6 +89,22 @@ namespace MergeGame.Data.Tests
         }
 
         [Test]
+        public void EveryCustomerIsAnAnimatedSpinePortrait_AndNoneRepeats()
+        {
+            var customers = config.Orders.Customers;
+            Assert.That(customers.Count, Is.GreaterThanOrEqualTo(config.Orders.MaxActiveOrders), "Active orders should show distinct customers.");
+            Assert.That(customers.Select(customer => customer.Portrait), Is.Unique);
+            for (var i = 0; i < customers.Count; i++)
+            {
+                var skeleton = customers[i].Portrait != null ? customers[i].Portrait.GetSkeletonData(true) : null;
+                Assert.That(skeleton, Is.Not.Null, $"customer {i} has no loadable portrait");
+                var names = skeleton.Animations.Items.Take(skeleton.Animations.Count).Select(animation => animation.Name);
+                Assert.That(CustomerAnimationSet.TryResolve(names, out _, out var missing), Is.True,
+                    $"customer {i} ({customers[i].Portrait.name}) misses {string.Join(", ", missing)}");
+            }
+        }
+
+        [Test]
         public void OpeningLayout_HasLockedItemsAndAnImmediateMerge()
         {
             var session = new MergeGameSession(new GameDefinitionFactory().Create(config), new SystemRandom(1));

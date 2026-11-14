@@ -40,3 +40,17 @@ SOFTWARE
 - Licence: SIL Open Font License, Version 1.1 (no Reserved Font Name). Full text: `Assets/MergeGame/Content/Fonts/Baloo2-OFL.txt`.
 - Used for: all UI text (TextMesh Pro font asset is built from it in Unity).
 - File: `Assets/MergeGame/Content/Fonts/Baloo2-ExtraBold.ttf` — a static ExtraBold (wght 800) instance generated from the variable `Baloo2[wght].ttf` with `fontTools.varLib.instancer`; glyph outlines are otherwise unchanged.
+
+## Spine Runtimes (spine-unity 3.8)
+
+- Source: https://github.com/EsotericSoftware/spine-runtimes, branch `3.8` (spine-csharp and spine-unity), commit 8b4844bd4b193ba9e54487ed397a777993cbad56
+- Copyright (c) 2013-2019, Esoteric Software LLC
+- Licence: Spine Runtimes License Agreement. Using the runtime requires a Spine Editor licence for each user. Full text: `Packages/com.esotericsoftware.spine.spine-unity/LICENSE.md`.
+- Used for: playing the animated customer portraits (`SkeletonGraphic`).
+- Files: `Packages/com.esotericsoftware.spine.spine-unity/**`. Modified for Unity 6.6: the APIs it rejects (`Object.GetInstanceID`, `EditorUtility.InstanceIDToObject`, `EditorApplication.hierarchyWindowItemOnGUI`) are replaced with their `EntityId` counterparts, and the Spine settings asset lives at `Assets/MergeGame/Editor/SpineSettings.asset` instead of `Assets/Editor`. Every change is listed in `Packages/com.esotericsoftware.spine.spine-unity/UNITY6_PATCHES.md`.
+
+## Customer characters
+
+- Source: supplied by the project owner, who holds the licence to use them.
+- Used for: the 13 animated customers on the order cards (Spine 3.8.99 exports: skeleton, atlas and texture).
+- Files: `Assets/MergeGame/Content/Characters/**`.

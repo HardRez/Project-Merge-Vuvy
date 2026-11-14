@@ -12,7 +12,6 @@ namespace MergeGame.Editor.Seed
         public int maxRequestedLevel;
         public int[] rewardPointsByLevel;
 
-        /// <summary>Avatars are <c>Icons/customer_01.png</c> .. <c>customer_NN.png</c>.</summary>
-        public int customerCount;
+        public SeedCustomer[] customers;
     }
 }

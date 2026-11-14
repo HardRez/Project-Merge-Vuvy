@@ -1,0 +1,1120 @@
+fileFormatVersion: 2
+guid: dffa8ab318762894c883f2e6ad24a08d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7425490484782313185
+    second: Mira_0
+  - first:
+      213: -333532397092433621
+    second: Mira_1
+  - first:
+      213: -3210800797828083685
+    second: Mira_2
+  - first:
+      213: 4515959685078656421
+    second: Mira_3
+  - first:
+      213: 6246088172921200536
+    second: Mira_4
+  - first:
+      213: 7272583847862891714
+    second: Mira_5
+  - first:
+      213: -7611721939162456671
+    second: Mira_6
+  - first:
+      213: -3916936457300372384
+    second: Mira_7
+  - first:
+      213: -8305826464878433277
+    second: Mira_8
+  - first:
+      213: -8750919401027418361
+    second: Mira_9
+  - first:
+      213: 8774888896398963141
+    second: Mira_10
+  - first:
+      213: -1825286266456297807
+    second: Mira_11
+  - first:
+      213: -5920050829588229192
+    second: Mira_12
+  - first:
+      213: -841893771160791654
+    second: Mira_13
+  - first:
+      213: 2437976092112243115
+    second: Mira_14
+  - first:
+      213: 8783791445256202151
+    second: Mira_15
+  - first:
+      213: 5608277378070537198
+    second: Mira_16
+  - first:
+      213: -8085538237928130876
+    second: Mira_17
+  - first:
+      213: 6696948319223023769
+    second: Mira_18
+  - first:
+      213: -150905146272156580
+    second: Mira_19
+  - first:
+      213: 2962939940868210193
+    second: Mira_20
+  - first:
+      213: -646050922937637138
+    second: Mira_21
+  - first:
+      213: 1083595289396555902
+    second: Mira_22
+  - first:
+      213: -3878724458759862122
+    second: Mira_23
+  - first:
+      213: -6349219377347713753
+    second: Mira_24
+  - first:
+      213: -7218280054056639123
+    second: Mira_25
+  - first:
+      213: 5208280521537901338
+    second: Mira_26
+  - first:
+      213: 4618575609124141074
+    second: Mira_27
+  - first:
+      213: -4942418774892292064
+    second: Mira_28
+  - first:
+      213: 8071177752563766823
+    second: Mira_29
+  - first:
+      213: 8091750594846915455
+    second: Mira_30
+  - first:
+      213: 7543033637915457051
+    second: Mira_31
+  - first:
+      213: -8673494691508485864
+    second: Mira_32
+  - first:
+      213: 4058270859854073438
+    second: Mira_33
+  - first:
+      213: 6558558597850570147
+    second: Mira_34
+  - first:
+      213: -1980470646433589222
+    second: Mira_35
+  - first:
+      213: 1165189828442994058
+    second: Mira_36
+  - first:
+      213: 1554192678673177021
+    second: Mira_37
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Mira_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 863
+        width: 139
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ee2e740144ac0760800000000000000
+      internalID: 7425490484782313185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_1
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 11
+        width: 471
+        height: 1010
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b21983e4d0e0f5bf0800000000000000
+      internalID: -333532397092433621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_2
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 809
+        width: 156
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b109ae89fa1f073d0800000000000000
+      internalID: -3210800797828083685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_3
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 1013
+        width: 26
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a529113869ebae30800000000000000
+      internalID: 4515959685078656421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_4
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 857
+        width: 130
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89f9cbe99109ea650800000000000000
+      internalID: 6246088172921200536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_5
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 948
+        width: 53
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c47c135a786de460800000000000000
+      internalID: 7272583847862891714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_6
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 863
+        width: 125
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ad9c27993bbd5690800000000000000
+      internalID: -7611721939162456671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_7
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 943
+        width: 60
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06495de7b0f34a9c0800000000000000
+      internalID: -3916936457300372384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_8
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 929
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30ce1ea16d6cbbc80800000000000000
+      internalID: -8305826464878433277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_9
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 886
+        width: 45
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 707cfab4b2d7e8680800000000000000
+      internalID: -8750919401027418361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_10
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 930
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c1316db5faa6c970800000000000000
+      internalID: 8774888896398963141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_11
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 818
+        width: 79
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1be297abfc74ba6e0800000000000000
+      internalID: -1825286266456297807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_12
+      rect:
+        serializedVersion: 2
+        x: 1014
+        y: 893
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b31322e221c7dda0800000000000000
+      internalID: -5920050829588229192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_13
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 687
+        width: 183
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a95d85f531ef054f0800000000000000
+      internalID: -841893771160791654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_14
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 791
+        width: 38
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba9ce3db65e65d120800000000000000
+      internalID: 2437976092112243115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_15
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 815
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a76c9be7cb46e970800000000000000
+      internalID: 8783791445256202151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_16
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 690
+        width: 80
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee3e0c9bf8a94dd40800000000000000
+      internalID: 5608277378070537198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_17
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 815
+        width: 8
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c6b476cfc56acf80800000000000000
+      internalID: -8085538237928130876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_18
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 811
+        width: 49
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 998007ea30750fc50800000000000000
+      internalID: 6696948319223023769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_19
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 471
+        width: 162
+        height: 337
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c547ba9a190e7edf0800000000000000
+      internalID: -150905146272156580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_20
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 689
+        width: 48
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11e344a8d2a7e1920800000000000000
+      internalID: 2962939940868210193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_21
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 683
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee62d77cb14c807f0800000000000000
+      internalID: -646050922937637138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_22
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 688
+        width: 67
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e70b4c0bc24b90f00800000000000000
+      internalID: 1083595289396555902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_23
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 509
+        width: 234
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 698cff5b7a00c2ac0800000000000000
+      internalID: -3878724458759862122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_24
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 507
+        width: 89
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 725a92cad9a03e7a0800000000000000
+      internalID: -6349219377347713753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_25
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 659
+        width: 6
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d65aaa0f88483db90800000000000000
+      internalID: -7218280054056639123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_26
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 549
+        width: 31
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a135ad82a87874840800000000000000
+      internalID: 5208280521537901338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_27
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 493
+        width: 32
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 218b026db0a781040800000000000000
+      internalID: 4618575609124141074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_28
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 2
+        width: 262
+        height: 468
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 028d25f6f40096bb0800000000000000
+      internalID: -4942418774892292064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_29
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 245
+        width: 178
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 726599c2765920070800000000000000
+      internalID: 8071177752563766823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_30
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 248
+        width: 77
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7bf7e84b4cab4070800000000000000
+      internalID: 8091750594846915455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_31
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 383
+        width: 27
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b16f5c4012d3ea860800000000000000
+      internalID: 7543033637915457051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_32
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 324
+        width: 25
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 811866f388e81a780800000000000000
+      internalID: -8673494691508485864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_33
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 258
+        width: 21
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5ecbeb68dfd15830800000000000000
+      internalID: 4058270859854073438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_34
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 251
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ad9777cb4ea40b50800000000000000
+      internalID: 6558558597850570147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_35
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 227
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a18dc37a074f384e0800000000000000
+      internalID: -1980470646433589222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_36
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 2
+        width: 197
+        height: 243
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a853e3cb9f59b2010800000000000000
+      internalID: 1165189828442994058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mira_37
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 3
+        width: 75
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db9d3dcb10a919510800000000000000
+      internalID: 1554192678673177021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Mira_0: 7425490484782313185
+      Mira_1: -333532397092433621
+      Mira_10: 8774888896398963141
+      Mira_11: -1825286266456297807
+      Mira_12: -5920050829588229192
+      Mira_13: -841893771160791654
+      Mira_14: 2437976092112243115
+      Mira_15: 8783791445256202151
+      Mira_16: 5608277378070537198
+      Mira_17: -8085538237928130876
+      Mira_18: 6696948319223023769
+      Mira_19: -150905146272156580
+      Mira_2: -3210800797828083685
+      Mira_20: 2962939940868210193
+      Mira_21: -646050922937637138
+      Mira_22: 1083595289396555902
+      Mira_23: -3878724458759862122
+      Mira_24: -6349219377347713753
+      Mira_25: -7218280054056639123
+      Mira_26: 5208280521537901338
+      Mira_27: 4618575609124141074
+      Mira_28: -4942418774892292064
+      Mira_29: 8071177752563766823
+      Mira_3: 4515959685078656421
+      Mira_30: 8091750594846915455
+      Mira_31: 7543033637915457051
+      Mira_32: -8673494691508485864
+      Mira_33: 4058270859854073438
+      Mira_34: 6558558597850570147
+      Mira_35: -1980470646433589222
+      Mira_36: 1165189828442994058
+      Mira_37: 1554192678673177021
+      Mira_4: 6246088172921200536
+      Mira_5: 7272583847862891714
+      Mira_6: -7611721939162456671
+      Mira_7: -3916936457300372384
+      Mira_8: -8305826464878433277
+      Mira_9: -8750919401027418361
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

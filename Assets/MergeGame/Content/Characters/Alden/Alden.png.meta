@@ -1,0 +1,1796 @@
+fileFormatVersion: 2
+guid: c348a92fb2fe4744594f8969c53c94d0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8779055611803761986
+    second: Alden_0
+  - first:
+      213: -297418171366972292
+    second: Alden_1
+  - first:
+      213: 1624049828281692183
+    second: Alden_2
+  - first:
+      213: 942506920492058070
+    second: Alden_3
+  - first:
+      213: -847764464841189470
+    second: Alden_4
+  - first:
+      213: -4338999604981198753
+    second: Alden_5
+  - first:
+      213: 5068791575892185082
+    second: Alden_6
+  - first:
+      213: 2184742002859985837
+    second: Alden_7
+  - first:
+      213: 5568171758831164541
+    second: Alden_8
+  - first:
+      213: 7899428890807977981
+    second: Alden_9
+  - first:
+      213: -8049522062073629400
+    second: Alden_10
+  - first:
+      213: 7203273104048332814
+    second: Alden_11
+  - first:
+      213: -1096638522711761147
+    second: Alden_12
+  - first:
+      213: 141262030327122671
+    second: Alden_13
+  - first:
+      213: -5258738459825377294
+    second: Alden_14
+  - first:
+      213: 9136564403715822030
+    second: Alden_15
+  - first:
+      213: -5774010172226879962
+    second: Alden_16
+  - first:
+      213: -3409383693851247961
+    second: Alden_17
+  - first:
+      213: 8229857193483727675
+    second: Alden_18
+  - first:
+      213: 2091622131620007712
+    second: Alden_19
+  - first:
+      213: 1911685133886979266
+    second: Alden_20
+  - first:
+      213: -1986393604030244854
+    second: Alden_21
+  - first:
+      213: -3081518145766570668
+    second: Alden_22
+  - first:
+      213: 3499417650451517785
+    second: Alden_23
+  - first:
+      213: 3477148921810214925
+    second: Alden_24
+  - first:
+      213: -7169619183641716732
+    second: Alden_25
+  - first:
+      213: -6344534043296313172
+    second: Alden_26
+  - first:
+      213: -6171964281565307188
+    second: Alden_27
+  - first:
+      213: -6761054835341068318
+    second: Alden_28
+  - first:
+      213: 8615242885334306829
+    second: Alden_29
+  - first:
+      213: -9026749619142230472
+    second: Alden_30
+  - first:
+      213: 3203160215286639345
+    second: Alden_31
+  - first:
+      213: -3815045478897784652
+    second: Alden_32
+  - first:
+      213: -3764443540478851231
+    second: Alden_33
+  - first:
+      213: 7584922953995886943
+    second: Alden_34
+  - first:
+      213: -3679007223680371976
+    second: Alden_35
+  - first:
+      213: -2737459990919598806
+    second: Alden_36
+  - first:
+      213: 7269335497748299703
+    second: Alden_37
+  - first:
+      213: -5431235866815052312
+    second: Alden_38
+  - first:
+      213: 1714496599636959924
+    second: Alden_39
+  - first:
+      213: 6619767470298708503
+    second: Alden_40
+  - first:
+      213: 2852304036817261685
+    second: Alden_41
+  - first:
+      213: 7223641339313513038
+    second: Alden_42
+  - first:
+      213: -2778699077499083181
+    second: Alden_43
+  - first:
+      213: -2493515483711080687
+    second: Alden_44
+  - first:
+      213: -2820814743914804792
+    second: Alden_45
+  - first:
+      213: 113000368287319070
+    second: Alden_46
+  - first:
+      213: -6910004396452555311
+    second: Alden_47
+  - first:
+      213: -3630306619378457934
+    second: Alden_48
+  - first:
+      213: 5295869104194499722
+    second: Alden_49
+  - first:
+      213: -9081508830355972589
+    second: Alden_50
+  - first:
+      213: -469388949920104904
+    second: Alden_51
+  - first:
+      213: 8823443263699776057
+    second: Alden_52
+  - first:
+      213: -12200083296989761
+    second: Alden_53
+  - first:
+      213: 6251898322040976798
+    second: Alden_54
+  - first:
+      213: 3507655655637661934
+    second: Alden_55
+  - first:
+      213: -2218719671596848124
+    second: Alden_56
+  - first:
+      213: -2589686643516549328
+    second: Alden_57
+  - first:
+      213: -8090002304166283011
+    second: Alden_58
+  - first:
+      213: -1499920347229622737
+    second: Alden_59
+  - first:
+      213: 97729001181069430
+    second: Alden_60
+  - first:
+      213: 3375903387236450386
+    second: Alden_61
+  - first:
+      213: 6618391650173049811
+    second: Alden_62
+  - first:
+      213: -4877032476738953367
+    second: Alden_63
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Alden_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 680
+        width: 273
+        height: 344
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb2890b3f678a2680800000000000000
+      internalID: -8779055611803761986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_1
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 1007
+        width: 512
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c74ece9bfbb5fdbf0800000000000000
+      internalID: -297418171366972292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_2
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 993
+        width: 28
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 710b348d6b8c98610800000000000000
+      internalID: 1624049828281692183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_3
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 998
+        width: 30
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d5c642fc05741d00800000000000000
+      internalID: 942506920492058070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_4
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 993
+        width: 119
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a711fbf5b22c34f0800000000000000
+      internalID: -847764464841189470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_5
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 995
+        width: 8
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f50198829d6c8c3c0800000000000000
+      internalID: -4338999604981198753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_6
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 918
+        width: 104
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: affcb892517f75640800000000000000
+      internalID: 5068791575892185082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_7
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 1013
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dab485eb643c15e10800000000000000
+      internalID: 2184742002859985837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_8
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 920
+        width: 69
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7c5e7596be164d40800000000000000
+      internalID: 5568171758831164541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_9
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 920
+        width: 63
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df7411529b860ad60800000000000000
+      internalID: 7899428890807977981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_10
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 681
+        width: 515
+        height: 327
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8257e6e255a5a4090800000000000000
+      internalID: -8049522062073629400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_11
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 920
+        width: 73
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e002dea39ba27f360800000000000000
+      internalID: 7203273104048332814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_12
+      rect:
+        serializedVersion: 2
+        x: 1345
+        y: 920
+        width: 177
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50f91c6e215f7c0f0800000000000000
+      internalID: -1096638522711761147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_13
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 918
+        width: 76
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fea06e1711dd5f100800000000000000
+      internalID: 141262030327122671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_14
+      rect:
+        serializedVersion: 2
+        x: 1602
+        y: 1001
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ff6c679b353507b0800000000000000
+      internalID: -5258738459825377294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_15
+      rect:
+        serializedVersion: 2
+        x: 1603
+        y: 946
+        width: 107
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec1d5f6eae89bce70800000000000000
+      internalID: 9136564403715822030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_16
+      rect:
+        serializedVersion: 2
+        x: 821
+        y: 993
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62ebce227589edfa0800000000000000
+      internalID: -5774010172226879962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_17
+      rect:
+        serializedVersion: 2
+        x: 1819
+        y: 946
+        width: 105
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7aabcf8189f6fa0d0800000000000000
+      internalID: -3409383693851247961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_18
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 689
+        width: 239
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b337ac98383563270800000000000000
+      internalID: 8229857193483727675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_19
+      rect:
+        serializedVersion: 2
+        x: 1602
+        y: 923
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02f4e8f2f3fe60d10800000000000000
+      internalID: 2091622131620007712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_20
+      rect:
+        serializedVersion: 2
+        x: 1713
+        y: 908
+        width: 104
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cc7abf208ba78a10800000000000000
+      internalID: 1911685133886979266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_21
+      rect:
+        serializedVersion: 2
+        x: 1817
+        y: 905
+        width: 8
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a085baf9a89ee64e0800000000000000
+      internalID: -1986393604030244854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_22
+      rect:
+        serializedVersion: 2
+        x: 1850
+        y: 857
+        width: 175
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 455c9a0b29f3c35d0800000000000000
+      internalID: -3081518145766570668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_23
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 482
+        width: 503
+        height: 436
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95115e7ffcd609030800000000000000
+      internalID: 3499417650451517785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_24
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 701
+        width: 303
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0061ab8580514030800000000000000
+      internalID: 3477148921810214925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_25
+      rect:
+        serializedVersion: 2
+        x: 1848
+        y: 839
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4089538b655608c90800000000000000
+      internalID: -7169619183641716732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_26
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 812
+        width: 181
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca053f307efa3f7a0800000000000000
+      internalID: -6344534043296313172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_27
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 723
+        width: 55
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce96e6bf27c85aa0800000000000000
+      internalID: -6171964281565307188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_28
+      rect:
+        serializedVersion: 2
+        x: 1901
+        y: 803
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e7fe88e278eb22a0800000000000000
+      internalID: -6761054835341068318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_29
+      rect:
+        serializedVersion: 2
+        x: 1948
+        y: 701
+        width: 100
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d00101a32cd7f8770800000000000000
+      internalID: 8615242885334306829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_30
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 642
+        width: 104
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83e72a21c0b8ab280800000000000000
+      internalID: -9026749619142230472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_31
+      rect:
+        serializedVersion: 2
+        x: 1654
+        y: 625
+        width: 193
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fae2d6ae39e37c20800000000000000
+      internalID: 3203160215286639345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_32
+      rect:
+        serializedVersion: 2
+        x: 1763
+        y: 695
+        width: 86
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b86654995c3e0bc0800000000000000
+      internalID: -3815045478897784652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_33
+      rect:
+        serializedVersion: 2
+        x: 1850
+        y: 680
+        width: 90
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1678eb87b8202cbc0800000000000000
+      internalID: -3764443540478851231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_34
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 565
+        width: 96
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f51a1a17d3f034960800000000000000
+      internalID: 7584922953995886943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_35
+      rect:
+        serializedVersion: 2
+        x: 2039
+        y: 563
+        width: 8
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f27f6a1c6a81fcc0800000000000000
+      internalID: -3679007223680371976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_36
+      rect:
+        serializedVersion: 2
+        x: 1769
+        y: 683
+        width: 80
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2da46654a6920ad0800000000000000
+      internalID: -2737459990919598806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_37
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 674
+        height: 679
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bfbc60ee1ed1e460800000000000000
+      internalID: 7269335497748299703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_38
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 484
+        width: 184
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e5c02b41cf50a4b0800000000000000
+      internalID: -5431235866815052312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_39
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 481
+        width: 164
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b2e9f5d29d1bc710800000000000000
+      internalID: 1714496599636959924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_40
+      rect:
+        serializedVersion: 2
+        x: 1843
+        y: 671
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71a37d2f0732edb50800000000000000
+      internalID: 6619767470298708503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_41
+      rect:
+        serializedVersion: 2
+        x: 1850
+        y: 626
+        width: 88
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 574d7e9c86b659720800000000000000
+      internalID: 2852304036817261685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_42
+      rect:
+        serializedVersion: 2
+        x: 1938
+        y: 659
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e42eb9e86878f3460800000000000000
+      internalID: 7223641339313513038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_43
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 572
+        width: 80
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35626f349e31079d0800000000000000
+      internalID: -2778699077499083181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_44
+      rect:
+        serializedVersion: 2
+        x: 1938
+        y: 635
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 117f677f0e0456dd0800000000000000
+      internalID: -2493515483711080687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_45
+      rect:
+        serializedVersion: 2
+        x: 1633
+        y: 396
+        width: 314
+        height: 230
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c906cb8fe37ad8d0800000000000000
+      internalID: -2820814743914804792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_46
+      rect:
+        serializedVersion: 2
+        x: 1937
+        y: 623
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e14014b7c35719100800000000000000
+      internalID: 113000368287319070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_47
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 480
+        width: 82
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d5de09bc9bba10a0800000000000000
+      internalID: -6910004396452555311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_48
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 524
+        width: 101
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b2a2362d5f8e9dc0800000000000000
+      internalID: -3630306619378457934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_49
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 0
+        width: 614
+        height: 483
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a84ba7c34e4be7940800000000000000
+      internalID: 5295869104194499722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_50
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 365
+        width: 38
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31e1f0ea5dff7f180800000000000000
+      internalID: -9081508830355972589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_51
+      rect:
+        serializedVersion: 2
+        x: 1331
+        y: 424
+        width: 62
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83eb48aac356c79f0800000000000000
+      internalID: -469388949920104904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_52
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 423
+        width: 56
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93273a456ea237a70800000000000000
+      internalID: 8823443263699776057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_53
+      rect:
+        serializedVersion: 2
+        x: 1452
+        y: 422
+        width: 181
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbd4ad0c618a4dff0800000000000000
+      internalID: -12200083296989761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_54
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 461
+        width: 99
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e95fc11666433c650800000000000000
+      internalID: 6251898322040976798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_55
+      rect:
+        serializedVersion: 2
+        x: 1331
+        y: 365
+        width: 186
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee83ca40c32bda030800000000000000
+      internalID: 3507655655637661934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_56
+      rect:
+        serializedVersion: 2
+        x: 1517
+        y: 389
+        width: 158
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40c6c46c6368531e0800000000000000
+      internalID: -2218719671596848124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_57
+      rect:
+        serializedVersion: 2
+        x: 1519
+        y: 157
+        width: 524
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0375f9de7b59f0cd0800000000000000
+      internalID: -2589686643516549328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_58
+      rect:
+        serializedVersion: 2
+        x: 1944
+        y: 396
+        width: 98
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df8b31c54c98abf80800000000000000
+      internalID: -8090002304166283011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_59
+      rect:
+        serializedVersion: 2
+        x: 1286
+        y: 157
+        width: 231
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2e6fff14663f2be0800000000000000
+      internalID: -1499920347229622737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_60
+      rect:
+        serializedVersion: 2
+        x: 1545
+        y: 1
+        width: 479
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 670c6af32043b5100800000000000000
+      internalID: 97729001181069430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_61
+      rect:
+        serializedVersion: 2
+        x: 2022
+        y: 143
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25044409e3e99de20800000000000000
+      internalID: 3375903387236450386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_62
+      rect:
+        serializedVersion: 2
+        x: 2038
+        y: 155
+        width: 9
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dbd9fcd32049db50800000000000000
+      internalID: 6618391650173049811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Alden_63
+      rect:
+        serializedVersion: 2
+        x: 1288
+        y: 2
+        width: 243
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96f5ee15dcc415cb0800000000000000
+      internalID: -4877032476738953367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Alden_0: -8779055611803761986
+      Alden_1: -297418171366972292
+      Alden_10: -8049522062073629400
+      Alden_11: 7203273104048332814
+      Alden_12: -1096638522711761147
+      Alden_13: 141262030327122671
+      Alden_14: -5258738459825377294
+      Alden_15: 9136564403715822030
+      Alden_16: -5774010172226879962
+      Alden_17: -3409383693851247961
+      Alden_18: 8229857193483727675
+      Alden_19: 2091622131620007712
+      Alden_2: 1624049828281692183
+      Alden_20: 1911685133886979266
+      Alden_21: -1986393604030244854
+      Alden_22: -3081518145766570668
+      Alden_23: 3499417650451517785
+      Alden_24: 3477148921810214925
+      Alden_25: -7169619183641716732
+      Alden_26: -6344534043296313172
+      Alden_27: -6171964281565307188
+      Alden_28: -6761054835341068318
+      Alden_29: 8615242885334306829
+      Alden_3: 942506920492058070
+      Alden_30: -9026749619142230472
+      Alden_31: 3203160215286639345
+      Alden_32: -3815045478897784652
+      Alden_33: -3764443540478851231
+      Alden_34: 7584922953995886943
+      Alden_35: -3679007223680371976
+      Alden_36: -2737459990919598806
+      Alden_37: 7269335497748299703
+      Alden_38: -5431235866815052312
+      Alden_39: 1714496599636959924
+      Alden_4: -847764464841189470
+      Alden_40: 6619767470298708503
+      Alden_41: 2852304036817261685
+      Alden_42: 7223641339313513038
+      Alden_43: -2778699077499083181
+      Alden_44: -2493515483711080687
+      Alden_45: -2820814743914804792
+      Alden_46: 113000368287319070
+      Alden_47: -6910004396452555311
+      Alden_48: -3630306619378457934
+      Alden_49: 5295869104194499722
+      Alden_5: -4338999604981198753
+      Alden_50: -9081508830355972589
+      Alden_51: -469388949920104904
+      Alden_52: 8823443263699776057
+      Alden_53: -12200083296989761
+      Alden_54: 6251898322040976798
+      Alden_55: 3507655655637661934
+      Alden_56: -2218719671596848124
+      Alden_57: -2589686643516549328
+      Alden_58: -8090002304166283011
+      Alden_59: -1499920347229622737
+      Alden_6: 5068791575892185082
+      Alden_60: 97729001181069430
+      Alden_61: 3375903387236450386
+      Alden_62: 6618391650173049811
+      Alden_63: -4877032476738953367
+      Alden_7: 2184742002859985837
+      Alden_8: 5568171758831164541
+      Alden_9: 7899428890807977981
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

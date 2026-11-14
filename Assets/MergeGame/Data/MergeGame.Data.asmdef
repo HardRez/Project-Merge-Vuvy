@@ -2,7 +2,8 @@
     "name": "MergeGame.Data",
     "rootNamespace": "MergeGame.Data",
     "references": [
-        "MergeGame.Core"
+        "MergeGame.Core",
+        "spine-unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

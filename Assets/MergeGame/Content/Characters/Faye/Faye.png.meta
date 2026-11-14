@@ -1,0 +1,1432 @@
+fileFormatVersion: 2
+guid: 5a7bffe1a56ce7446ab5fcd1baacad7e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 401833529357132873
+    second: Faye_0
+  - first:
+      213: 7044063726242003161
+    second: Faye_1
+  - first:
+      213: 2514182261538525002
+    second: Faye_2
+  - first:
+      213: -8046767539615602836
+    second: Faye_3
+  - first:
+      213: 3679841961503155775
+    second: Faye_4
+  - first:
+      213: -7788254122483834502
+    second: Faye_5
+  - first:
+      213: -1408195156788918426
+    second: Faye_6
+  - first:
+      213: -3610939456817636337
+    second: Faye_7
+  - first:
+      213: 7707932846885505491
+    second: Faye_8
+  - first:
+      213: -1329084294939749933
+    second: Faye_9
+  - first:
+      213: 275897616514466867
+    second: Faye_10
+  - first:
+      213: 6327786527953749913
+    second: Faye_11
+  - first:
+      213: 6448625257816732144
+    second: Faye_12
+  - first:
+      213: -6040166525302479476
+    second: Faye_13
+  - first:
+      213: 1739779892543909236
+    second: Faye_14
+  - first:
+      213: 1304472566131896459
+    second: Faye_15
+  - first:
+      213: -9101150081598671445
+    second: Faye_16
+  - first:
+      213: -7428766149718383747
+    second: Faye_17
+  - first:
+      213: -4413991730970967949
+    second: Faye_18
+  - first:
+      213: 493697384709591997
+    second: Faye_19
+  - first:
+      213: -5412547816659865380
+    second: Faye_20
+  - first:
+      213: 8580222297532406854
+    second: Faye_21
+  - first:
+      213: -7025431082663922593
+    second: Faye_22
+  - first:
+      213: -7171436355263608279
+    second: Faye_23
+  - first:
+      213: -1004350297204923198
+    second: Faye_24
+  - first:
+      213: 7142175260152808008
+    second: Faye_25
+  - first:
+      213: -8952861898878909248
+    second: Faye_26
+  - first:
+      213: 5926764054768311623
+    second: Faye_27
+  - first:
+      213: -1348851728989618297
+    second: Faye_28
+  - first:
+      213: 4592718625232191948
+    second: Faye_29
+  - first:
+      213: -4174063422423609149
+    second: Faye_30
+  - first:
+      213: 5644882029033401507
+    second: Faye_31
+  - first:
+      213: 946054401418887391
+    second: Faye_32
+  - first:
+      213: 485158724184160665
+    second: Faye_33
+  - first:
+      213: 5828560553629796673
+    second: Faye_34
+  - first:
+      213: 7639003365543348748
+    second: Faye_35
+  - first:
+      213: 1606929622088598411
+    second: Faye_36
+  - first:
+      213: 2813807492220654204
+    second: Faye_37
+  - first:
+      213: -296638460606857288
+    second: Faye_38
+  - first:
+      213: -1326053008820829158
+    second: Faye_39
+  - first:
+      213: -8399102405619653681
+    second: Faye_40
+  - first:
+      213: 545818208593628255
+    second: Faye_41
+  - first:
+      213: 7006390364067076247
+    second: Faye_42
+  - first:
+      213: 3740899839469390560
+    second: Faye_43
+  - first:
+      213: 4393807273919122602
+    second: Faye_44
+  - first:
+      213: 1603248518859836233
+    second: Faye_45
+  - first:
+      213: -3782363229141715122
+    second: Faye_46
+  - first:
+      213: -8424333185834227321
+    second: Faye_47
+  - first:
+      213: 143182380675749381
+    second: Faye_48
+  - first:
+      213: 654467319563869216
+    second: Faye_49
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Faye_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 971
+        width: 72
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9446c284779939500800000000000000
+      internalID: 401833529357132873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_1
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 974
+        width: 88
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d87ed153aa81c160800000000000000
+      internalID: 7044063726242003161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_2
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 971
+        width: 87
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4f8797327b24e220800000000000000
+      internalID: 2514182261538525002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_3
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 887
+        width: 104
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c67611b6e83245090800000000000000
+      internalID: -8046767539615602836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_4
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 888
+        width: 38
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f36e8f074cc611330800000000000000
+      internalID: 3679841961503155775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_5
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 965
+        width: 105
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7121e8b3209ae390800000000000000
+      internalID: -7788254122483834502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_6
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 966
+        width: 72
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 667cb2147f5157ce0800000000000000
+      internalID: -1408195156788918426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_7
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 965
+        width: 106
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0c51f212bd53edc0800000000000000
+      internalID: -3610939456817636337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_8
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 875
+        width: 85
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d90d2bf51418fa60800000000000000
+      internalID: 7707932846885505491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_9
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 964
+        width: 159
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d1d09320e42e8de0800000000000000
+      internalID: -1329084294939749933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_10
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 888
+        width: 59
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 334c8b2ab6f24d300800000000000000
+      internalID: 275897616514466867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_11
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 988
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9978f253250d0d750800000000000000
+      internalID: 6327786527953749913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 887
+        width: 255
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f137c5718e1e7950800000000000000
+      internalID: 6448625257816732144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_13
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 864
+        width: 190
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c85e3232c840d2ca0800000000000000
+      internalID: -6040166525302479476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_14
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 847
+        width: 69
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47d62723890f42810800000000000000
+      internalID: 1739779892543909236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_15
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 964
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b80b88333ea6a1210800000000000000
+      internalID: 1304472566131896459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_16
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 897
+        width: 79
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba53bc2883832b180800000000000000
+      internalID: -9101150081598671445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_17
+      rect:
+        serializedVersion: 2
+        x: 833
+        y: 893
+        width: 118
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d73e69ecb88b7e890800000000000000
+      internalID: -7428766149718383747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_18
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 911
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 370c6f138e95eb2c0800000000000000
+      internalID: -4413991730970967949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_19
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 890
+        width: 17
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db3972ad727f9d600800000000000000
+      internalID: 493697384709591997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_20
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 815
+        width: 84
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd03c2a0074c2e4b0800000000000000
+      internalID: -5412547816659865380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_21
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 803
+        width: 152
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64c1e4a38b2131770800000000000000
+      internalID: 8580222297532406854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 485
+        width: 397
+        height: 404
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5434d317a7a08e90800000000000000
+      internalID: -7025431082663922593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_23
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 875
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92ac03b71a0f97c90800000000000000
+      internalID: -7171436355263608279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_24
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 869
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c4ea09d9b4df02f0800000000000000
+      internalID: -1004350297204923198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_25
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 863
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 842cdf8ee8a1e1360800000000000000
+      internalID: 7142175260152808008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_26
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 863
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c4813a898b01c380800000000000000
+      internalID: -8952861898878909248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_27
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 748
+        width: 54
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74dd408a188104250800000000000000
+      internalID: 5926764054768311623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_28
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 851
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78ff6eebf7ae74de0800000000000000
+      internalID: -1348851728989618297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_29
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 851
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc10942a14d9cbf30800000000000000
+      internalID: 4592718625232191948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_30
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 850
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c05d74be6fb216c0800000000000000
+      internalID: -4174063422423609149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_31
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 854
+        width: 13
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aca58b2c46a65e40800000000000000
+      internalID: 5644882029033401507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_32
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 701
+        width: 328
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd084c6377f012d00800000000000000
+      internalID: 946054401418887391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_33
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 749
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 999bda60a41abb600800000000000000
+      internalID: 485158724184160665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_34
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 743
+        width: 115
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14945f641f433e050800000000000000
+      internalID: 5828560553629796673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_35
+      rect:
+        serializedVersion: 2
+        x: 891
+        y: 743
+        width: 118
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0a89397611330a60800000000000000
+      internalID: 7639003365543348748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_36
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 713
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b83c4a73af5fc4610800000000000000
+      internalID: 1606929622088598411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_37
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 635
+        width: 171
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7215288107ac0720800000000000000
+      internalID: 2813807492220654204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_38
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 695
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bf3fc844e022ebf0800000000000000
+      internalID: -296638460606857288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_39
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 701
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1485ef60d9e89de0800000000000000
+      internalID: -1326053008820829158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_40
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 587
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc369e8ccd4607b80800000000000000
+      internalID: -8399102405619653681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_41
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 377
+        width: 589
+        height: 321
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5cc923d4c2239700800000000000000
+      internalID: 545818208593628255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 399
+        height: 487
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79810f72ae2bb3160800000000000000
+      internalID: 7006390364067076247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_43
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 455
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ea83e775985ae330800000000000000
+      internalID: 3740899839469390560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_44
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 377
+        width: 35
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aac0a7daf60f9fc30800000000000000
+      internalID: 4393807273919122602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_45
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 1
+        width: 398
+        height: 408
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94bcf459802ef3610800000000000000
+      internalID: 1603248518859836233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_46
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 371
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e473283dea8528bc0800000000000000
+      internalID: -3782363229141715122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_47
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 281
+        width: 212
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 789e0dcf991c61b80800000000000000
+      internalID: -8424333185834227321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_48
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 506d54add9facf100800000000000000
+      internalID: 143182380675749381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Faye_49
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 0
+        width: 212
+        height: 286
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02cd4b34f82251900800000000000000
+      internalID: 654467319563869216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Faye_0: 401833529357132873
+      Faye_1: 7044063726242003161
+      Faye_10: 275897616514466867
+      Faye_11: 6327786527953749913
+      Faye_12: 6448625257816732144
+      Faye_13: -6040166525302479476
+      Faye_14: 1739779892543909236
+      Faye_15: 1304472566131896459
+      Faye_16: -9101150081598671445
+      Faye_17: -7428766149718383747
+      Faye_18: -4413991730970967949
+      Faye_19: 493697384709591997
+      Faye_2: 2514182261538525002
+      Faye_20: -5412547816659865380
+      Faye_21: 8580222297532406854
+      Faye_22: -7025431082663922593
+      Faye_23: -7171436355263608279
+      Faye_24: -1004350297204923198
+      Faye_25: 7142175260152808008
+      Faye_26: -8952861898878909248
+      Faye_27: 5926764054768311623
+      Faye_28: -1348851728989618297
+      Faye_29: 4592718625232191948
+      Faye_3: -8046767539615602836
+      Faye_30: -4174063422423609149
+      Faye_31: 5644882029033401507
+      Faye_32: 946054401418887391
+      Faye_33: 485158724184160665
+      Faye_34: 5828560553629796673
+      Faye_35: 7639003365543348748
+      Faye_36: 1606929622088598411
+      Faye_37: 2813807492220654204
+      Faye_38: -296638460606857288
+      Faye_39: -1326053008820829158
+      Faye_4: 3679841961503155775
+      Faye_40: -8399102405619653681
+      Faye_41: 545818208593628255
+      Faye_42: 7006390364067076247
+      Faye_43: 3740899839469390560
+      Faye_44: 4393807273919122602
+      Faye_45: 1603248518859836233
+      Faye_46: -3782363229141715122
+      Faye_47: -8424333185834227321
+      Faye_48: 143182380675749381
+      Faye_49: 654467319563869216
+      Faye_5: -7788254122483834502
+      Faye_6: -1408195156788918426
+      Faye_7: -3610939456817636337
+      Faye_8: 7707932846885505491
+      Faye_9: -1329084294939749933
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
