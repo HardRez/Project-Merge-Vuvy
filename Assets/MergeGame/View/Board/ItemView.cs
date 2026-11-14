@@ -21,8 +21,10 @@ namespace MergeGame.View.Board
         [Tooltip("Scaled and rotated by the animations; holds every visual except the lift shadow.")]
         [SerializeField] private RectTransform body;
 
-        [Tooltip("Hint and merge-target highlights; sits between the root and the body.")]
+        [Tooltip("Spawn shine, hint and merge-target highlights; sits between the root and the body.")]
         [SerializeField] private ItemAccent accent;
+
+        [SerializeField] private OrderMatchMark orderMark;
 
         [SerializeField] private Image icon;
         [SerializeField] private Image lockOverlay;
@@ -71,6 +73,7 @@ namespace MergeGame.View.Board
         public Vector3 WorldCenter => rectTransform.TransformPoint(rectTransform.rect.center);
 
         public ItemAccent Accent => accent;
+        public OrderMatchMark OrderMark => orderMark;
 
         private void Awake()
         {
@@ -221,6 +224,7 @@ namespace MergeGame.View.Board
         {
             motion.Stop();
             accent.Stop();
+            orderMark.SetRest(false);
             IsLifted = false;
             SetRestPose();
             ResetEffects();

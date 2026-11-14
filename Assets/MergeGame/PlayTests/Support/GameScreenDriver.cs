@@ -160,6 +160,23 @@ namespace MergeGame.PlayTests.Support
             return false;
         }
 
+        /// <summary>The cells whose item an active order would take, by the session's own matching.</summary>
+        public HashSet<GridPosition> OrderMatchedCells()
+        {
+            var session = Session;
+            var cells = new HashSet<GridPosition>();
+            foreach (var order in session.ActiveOrders)
+            {
+                foreach (var cell in session.GetRequirementMatches(order.Id))
+                {
+                    if (cell.HasValue)
+                        cells.Add(cell.Value);
+                }
+            }
+
+            return cells;
+        }
+
         public bool IsBox(GridPosition cell) => Board.TryGetItem(cell, out var item) && item.IsHidden;
 
         /// <summary>Equal, visible items below the last level: dropping one on the other merges them.</summary>

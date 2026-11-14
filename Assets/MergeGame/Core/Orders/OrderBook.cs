@@ -59,9 +59,19 @@ namespace MergeGame.Core.Orders
         /// <summary>Entry i tells whether requirement i is matched; all true exactly when <see cref="CanFulfil"/> is.</summary>
         public bool[] GetFulfilment(Order order, IReadOnlyBoard board)
         {
-            var fulfilment = new bool[order.Requirements.Count];
-            Match(order, board, matchBuffer, fulfilment);
+            var matchedCells = GetMatchedCells(order, board);
+            var fulfilment = new bool[matchedCells.Length];
+            for (var i = 0; i < fulfilment.Length; i++)
+                fulfilment[i] = matchedCells[i].HasValue;
             return fulfilment;
+        }
+
+        /// <summary>Entry i is the cell that would be handed over for requirement i, or null when it is missing.</summary>
+        public GridPosition?[] GetMatchedCells(Order order, IReadOnlyBoard board)
+        {
+            var matchedCells = new GridPosition?[order.Requirements.Count];
+            Match(order, board, matchBuffer, matchedCells);
+            return matchedCells;
         }
 
         /// <summary>
@@ -109,9 +119,9 @@ namespace MergeGame.Core.Orders
         /// <summary>
         /// Greedy row-major matching: each requirement in order takes the first unlocked matching item no earlier
         /// requirement took. A missing requirement takes nothing, so later picks do not depend on whether matching
-        /// stops there (<paramref name="fulfilment"/> null) or continues (<paramref name="fulfilment"/> given).
+        /// stops there (<paramref name="matchedCells"/> null) or continues (<paramref name="matchedCells"/> given).
         /// </summary>
-        private static bool Match(Order order, IReadOnlyBoard board, List<ConsumedItem> matched, bool[] fulfilment)
+        private static bool Match(Order order, IReadOnlyBoard board, List<ConsumedItem> matched, GridPosition?[] matchedCells)
         {
             matched.Clear();
             var allFound = true;
@@ -121,13 +131,13 @@ namespace MergeGame.Core.Orders
                 if (TryFindFreeItem(required, board, matched, out var position))
                 {
                     matched.Add(new ConsumedItem(position, required));
-                    if (fulfilment != null)
-                        fulfilment[i] = true;
+                    if (matchedCells != null)
+                        matchedCells[i] = position;
                 }
                 else
                 {
                     allFound = false;
-                    if (fulfilment == null)
+                    if (matchedCells == null)
                         return false;
                 }
             }

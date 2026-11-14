@@ -43,6 +43,7 @@ namespace MergeGame.App.Installers
         [SerializeField] private NoticeView noticeView;
         [SerializeField] private GameMenuView gameMenuView;
         [SerializeField] private MergeHintView mergeHintView;
+        [SerializeField] private OrderMatchView orderMatchView;
 
         [Header("Tuning")]
         [Tooltip("Seconds without any player action before a possible merge is pointed out.")]
@@ -88,6 +89,7 @@ namespace MergeGame.App.Installers
             Container.Bind<INoticeView>().FromInstance(noticeView);
             Container.Bind<IGameMenuView>().FromInstance(gameMenuView);
             Container.Bind<IMergeHintView>().FromInstance(mergeHintView);
+            Container.Bind<IOrderMatchView>().FromInstance(orderMatchView);
         }
 
         private void BindPools()
@@ -107,6 +109,7 @@ namespace MergeGame.App.Installers
             Container.Bind<BoardPresenter>().AsSingle();
             Container.Bind<SelectionPresenter>().AsSingle();
             Container.Bind<OrdersPresenter>().AsSingle();
+            Container.Bind<OrderMatchPresenter>().AsSingle();
             Container.Bind<ScorePresenter>().AsSingle();
             Container.Bind<SpawnPresenter>().AsSingle();
             Container.Bind<GameNavigationPresenter>().AsSingle();
@@ -127,6 +130,7 @@ namespace MergeGame.App.Installers
                 container.Resolve<BoardPresenter>(),
                 container.Resolve<SelectionPresenter>(),
                 container.Resolve<OrdersPresenter>(),
+                container.Resolve<OrderMatchPresenter>(),
                 container.Resolve<ScorePresenter>(),
                 container.Resolve<SpawnPresenter>(),
                 container.Resolve<GameNavigationPresenter>(),

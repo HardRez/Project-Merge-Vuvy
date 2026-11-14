@@ -6,10 +6,10 @@ using UnityEngine.UI;
 namespace MergeGame.View.Board
 {
     /// <summary>
-    /// The attention layer of an item, between its root and its body: a gentle lean toward the partner of a suggested
-    /// merge, or the eager glow, pulse and shine of a merge target under the dragged item. It only moves its own
-    /// transform and visuals, so it composes with the item's other animations, and <see cref="Stop()"/> returns it to
-    /// its rest pose exactly.
+    /// The attention layer of an item, between its root and its body: a short shine after a spawn, a gentle lean toward
+    /// the partner of a suggested merge, or the eager glow, pulse and shine of a merge target under the dragged item.
+    /// One accent at a time, by the priority of <see cref="AccentKind"/>. It only moves its own transform and visuals,
+    /// so it composes with the item's other animations, and <see cref="Stop()"/> returns it to its rest pose exactly.
     /// </summary>
     [RequireComponent(typeof(RectTransform))]
     public sealed class ItemAccent : MonoBehaviour
@@ -24,6 +24,10 @@ namespace MergeGame.View.Board
 
         [SerializeField] private RectTransform shine;
         [SerializeField] private Image sparkles;
+
+        [Header("Spawn shine")]
+        [SerializeField] private Color spawnGlowColor = new Color(1f, 0.96f, 0.78f, 1f);
+        [SerializeField] private float spawnShineSeconds = 1f;
 
         [Header("Merge hint")]
         [SerializeField] private Color hintGlowColor = new Color(1f, 0.88f, 0.42f, 1f);
@@ -51,9 +55,28 @@ namespace MergeGame.View.Board
             SetRest();
         }
 
+        /// <summary>A bright burst and one sweep of light, then the item settles; ignored while a stronger accent plays.</summary>
+        /// <param name="iconSprite">The item's icon, which shapes the shine.</param>
+        public void PlaySpawnShine(Sprite iconSprite)
+        {
+            if (Current > AccentKind.SpawnShine)
+                return;
+
+            Stop();
+            Current = AccentKind.SpawnShine;
+            glow.color = spawnGlowColor;
+            glow.gameObject.SetActive(true);
+            ShowShine(iconSprite);
+            sparkles.gameObject.SetActive(true);
+            loop.Play(SpawnShine());
+        }
+
         /// <param name="towardPartner">Direction to the other item, in the space of this layer's parent.</param>
         public void PlayMergeHint(Vector2 towardPartner)
         {
+            if (Current > AccentKind.MergeHint)
+                return;
+
             Stop();
             Current = AccentKind.MergeHint;
             glow.color = hintGlowColor;
@@ -74,8 +97,7 @@ namespace MergeGame.View.Board
             Current = AccentKind.MergeTarget;
             glow.color = targetGlowColor;
             glow.gameObject.SetActive(true);
-            shineMask.sprite = iconSprite;
-            shineMask.gameObject.SetActive(iconSprite != null);
+            ShowShine(iconSprite);
             sparkles.gameObject.SetActive(true);
             loop.Play(TargetLoop());
         }
@@ -103,6 +125,31 @@ namespace MergeGame.View.Board
             hintRing.gameObject.SetActive(false);
             shineMask.gameObject.SetActive(false);
             sparkles.gameObject.SetActive(false);
+        }
+
+        private void ShowShine(Sprite iconSprite)
+        {
+            shineMask.sprite = iconSprite;
+            shineMask.gameObject.SetActive(iconSprite != null);
+            shine.anchoredPosition = new Vector2(-shineMask.rectTransform.rect.width, 0f);
+        }
+
+        private IEnumerator SpawnShine()
+        {
+            var sweep = shineMask.rectTransform.rect.width;
+            yield return Tween.Run(spawnShineSeconds, Ease.Linear, t =>
+            {
+                var burst = Ease.Bump(Mathf.Min(1f, t * 1.6f));
+                SetAlpha(glow, burst);
+                shine.anchoredPosition = new Vector2(Mathf.Lerp(-sweep, sweep, Ease.InOutQuad(Mathf.Clamp01((t - 0.15f) * 1.6f))), 0f);
+                sparkles.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 30f * t);
+                sparkles.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.6f, 1.1f, Ease.OutCubic(t));
+                SetAlpha(sparkles, Ease.Bump(t));
+            });
+
+            // Ends on its own; the channel needs no stopping from inside its own coroutine.
+            Current = AccentKind.None;
+            SetRest();
         }
 
         /// <summary>Lean in and back out, continuously; both items of a hint start together and stay in sync.</summary>

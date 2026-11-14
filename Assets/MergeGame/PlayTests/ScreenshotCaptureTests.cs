@@ -73,14 +73,20 @@ namespace MergeGame.PlayTests
 
             Assert.That(AutoPlayer.PlayUntilAnOrderIsDeliverable(game.Session, HighestRequestedLevel), Is.True, "No order became deliverable.");
             yield return GameScreenDriver.WaitSeconds(2.5f);
-            yield return Capture("10_game_order_ready");
+            game.Tap(game.OrderMatchedCells().First());
+            yield return GameScreenDriver.WaitSeconds(0.5f);
+            yield return Capture("10_game_order_ready_marked");
 
             GameScreenDriver.Click(FirstDeliverableCard().GetComponentInChildren<UnityEngine.UI.Button>());
             yield return GameScreenDriver.WaitSeconds(0.75f);
             yield return Capture("11_game_order_celebration");
 
+            game.ClickSpawn();
+            yield return GameScreenDriver.WaitSeconds(0.3f);
+            yield return Capture("12_game_spawn_shine");
+
             yield return FillTheBoard();
-            yield return Capture("12_game_board_full");
+            yield return Capture("13_game_board_full");
         }
 
         private IEnumerator Capture(string name, Action beforeRender = null) =>

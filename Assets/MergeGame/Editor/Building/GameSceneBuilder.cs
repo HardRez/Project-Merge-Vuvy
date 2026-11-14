@@ -61,6 +61,7 @@ namespace MergeGame.Editor.Building
             var dragLayer = UiKit.Rect("DragLayer", canvas).Stretch();
             var board = Board(boardArea, dragLayer);
             var mergeHint = board.gameObject.AddComponent<MergeHintView>().Wire("board", board);
+            var orderMatches = board.gameObject.AddComponent<OrderMatchView>().Wire("board", board);
             boardArea.gameObject.AddComponent<AspectHeightLayoutElement>()
                 .Wire("content", board.GetComponent<AspectRatioFitter>())
                 .Wire("minHeight", LayoutMetrics.BoardMinHeight);
@@ -75,6 +76,7 @@ namespace MergeGame.Editor.Building
                 .Wire("noticeView", notices)
                 .Wire("gameMenuView", menu)
                 .Wire("mergeHintView", mergeHint)
+                .Wire("orderMatchView", orderMatches)
                 .Wire("itemPrefab", prefabs.ItemView)
                 .Wire("pointsPopupPrefab", prefabs.PointsPopup)
                 .Wire("poolRoot", pool);

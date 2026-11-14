@@ -39,6 +39,10 @@ namespace MergeGame.View.Theme
         [SerializeField] private Color maxLevelHighlight = Hex(0xFFC83D);
         [SerializeField] private Color selection = Hex(0xFFD23F);
 
+        [Header("Order match")]
+        [Tooltip("The halo behind an item a customer is waiting for; the check badge carries the main signal.")]
+        [SerializeField] private Color orderMatch = Hex(0x34C759);
+
         public Color Panel => panel;
         public Color WoodLight => woodLight;
         public Color WoodDark => woodDark;
@@ -59,6 +63,7 @@ namespace MergeGame.View.Theme
         public Color TextOutline => textOutline;
 
         public Color Selection => selection;
+        public Color OrderMatch => orderMatch;
 
         public Color GetDropHighlightColor(DropHighlight highlight)
         {
