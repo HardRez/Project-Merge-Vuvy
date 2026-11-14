@@ -15,8 +15,8 @@ namespace MergeGame.View.Board.Sand
 
         /// <summary>
         /// Fills <paramref name="colours"/> and <paramref name="occupied"/> (row-major from the bottom row) for a grid of
-        /// <paramref name="columns"/> × <paramref name="rows"/> grains laid over <paramref name="tile"/>. Transparent parts
-        /// of the tile (its rounded corners) get no grain.
+        /// <paramref name="columns"/> × <paramref name="rows"/> grains laid over <paramref name="tile"/>. Fully transparent
+        /// parts of the tile (outside its rounded corners) get no grain.
         /// </summary>
         public static void Sample(Image tile, int columns, int rows, Color32[] colours, bool[] occupied)
         {
@@ -31,7 +31,8 @@ namespace MergeGame.View.Board.Sand
             var size = tile.rectTransform.rect.size;
             var spriteRect = sprite.rect;
             var border = sprite.border;
-            var pixelsPerUnit = tile.pixelsPerUnit;
+            // As the sliced Image draws its borders: the multiplier scales the corners (the covers use it to shrink them).
+            var pixelsPerUnit = tile.pixelsPerUnit * tile.pixelsPerUnitMultiplier;
             for (var y = 0; y < rows; y++)
             {
                 var fromY = SourcePixel(y, rows, size.y, border.y, border.w, spriteRect.y, spriteRect.height, pixelsPerUnit);
@@ -42,7 +43,9 @@ namespace MergeGame.View.Board.Sand
                     var toX = SourcePixel(x + 1, columns, size.x, border.x, border.z, spriteRect.x, spriteRect.width, pixelsPerUnit);
                     var colour = Average(pixels, texture.width, texture.height, fromX, toX, fromY, toY);
                     var index = y * columns + x;
-                    occupied[index] = colour.a >= 128;
+                    // Any grain the tile shows through gets a grain; the cover's mask (the tile's own shape) trims
+                    // the ones along the rounded edge, so the sand reaches exactly as far as the resting tile.
+                    occupied[index] = colour.a > 0;
                     colours[index] = new Color32(colour.r, colour.g, colour.b, 255);
                 }
             }
