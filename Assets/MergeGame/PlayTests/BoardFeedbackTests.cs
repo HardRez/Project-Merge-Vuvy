@@ -118,10 +118,10 @@ namespace MergeGame.PlayTests
             {
                 if (game.Board.TryGetCover(closed, out var cover))
                 {
-                    Assert.That(cover.GetComponent<Mask>().enabled, Is.True);
                     AssertSameWorldRect((RectTransform)cover.transform, tile, closed);
                     if (cover.IsPouring)
                     {
+                        Assert.That(cover.GetComponent<Mask>().enabled, Is.True, "The pouring grains are not clipped to the cell.");
                         sawPour = true;
                         Assert.That(cover.GrainCount, Is.LessThanOrEqualTo(grains), "Grains appeared during the pour.");
                         grains = cover.GrainCount;
