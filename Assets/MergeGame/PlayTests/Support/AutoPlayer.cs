@@ -14,15 +14,21 @@ namespace MergeGame.PlayTests.Support
     {
         public static bool PlayUntilAnOrderIsDeliverable(MergeGameSession session, int maxLevelToCreate, int maxMoves = 5000)
         {
+            return PlayUntil(session, maxLevelToCreate, () => session.ActiveOrders.Any(order => session.CanDeliver(order.Id)), maxMoves);
+        }
+
+        /// <summary>Builds until <paramref name="isReached"/> holds; false if it never does within the move budget.</summary>
+        public static bool PlayUntil(MergeGameSession session, int maxLevelToCreate, System.Func<bool> isReached, int maxMoves = 5000)
+        {
             for (var move = 0; move < maxMoves; move++)
             {
-                if (session.ActiveOrders.Any(order => session.CanDeliver(order.Id)))
+                if (isReached())
                     return true;
                 if (!TryBuild(session, maxLevelToCreate))
                     return false;
             }
 
-            return false;
+            return isReached();
         }
 
         /// <summary>Plays <paramref name="moves"/> commands at once, delivering every order that becomes ready.</summary>
