@@ -8,6 +8,7 @@ namespace MergeGame.Core.Rules
         SourceEmpty,
         DifferentChain,
         DifferentLevel,
-        MaxLevel
+        MaxLevel,
+        SourceLocked
     }
 }

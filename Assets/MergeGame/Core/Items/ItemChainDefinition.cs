@@ -55,7 +55,7 @@ namespace MergeGame.Core.Items
             foreach (var level in source)
             {
                 if (level == null)
-                    throw new ArgumentException($"Chain '{chainId}' contains a null level.", nameof(source));
+                    throw new ArgumentException($"Chain '{chainId}' contains a null level.", "levels");
                 sorted.Add(level);
             }
 

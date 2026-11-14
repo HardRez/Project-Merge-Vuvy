@@ -16,6 +16,8 @@ namespace MergeGame.Core.Tests.Support
 
         public IReadOnlyList<GameEvent> Events => events;
 
+        public IReadOnlyList<System.Type> Types => events.ConvertAll(gameEvent => gameEvent.GetType());
+
         public T Single<T>() where T : GameEvent
         {
             T found = null;

@@ -19,8 +19,7 @@ namespace MergeGame.Core.Scoring
         public int PointsForMerge(ItemId resultItemId)
         {
             var multiplier = catalog.GetChain(resultItemId.ChainId).ScoreMultiplier;
-            var points = table.GetPoints(resultItemId.Level) * (double)multiplier;
-            return (int)Math.Round(points, MidpointRounding.AwayFromZero);
+            return ChainPoints.Scale(table.GetPoints(resultItemId.Level), multiplier);
         }
     }
 }

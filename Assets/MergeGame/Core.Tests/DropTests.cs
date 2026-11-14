@@ -179,6 +179,50 @@ namespace MergeGame.Core.Tests
             Assert.That(session.Board.GetItem(Source).ItemId, Is.EqualTo(Item(Wood, 1)));
         }
 
+        [Test]
+        public void DropRule_AnsweringForOtherCells_IsRefusedBeforeAnythingChanges()
+        {
+            var session = SessionWithFirstRule(new MoveElsewhereRule());
+
+            var exception = Assert.Throws<System.InvalidOperationException>(() => session.Drop(Source, Target));
+            Assert.That(exception.Message, Does.Contain(nameof(MoveElsewhereRule)));
+            Assert.That(session.Board.GetItem(Source).ItemId, Is.EqualTo(Item(Wood, 1)));
+        }
+
+        [Test]
+        public void DropRule_ClaimingTheDropWithoutOutcome_IsRefused()
+        {
+            var session = SessionWithFirstRule(new NullOutcomeRule());
+
+            Assert.Throws<System.InvalidOperationException>(() => session.PreviewDrop(Source, Target));
+        }
+
+        private static MergeGameSession SessionWithFirstRule(IDropRule rule)
+        {
+            var rules = StandardDropRules.Create();
+            rules.Insert(0, rule);
+            var definition = new GameDefinition(DefaultCatalog(), new BoardSize(5, 5), new ScoreTable(DefaultPoints), rules);
+            return new SessionBuilder().WithDefinition(definition).WithItem(0, 0, Item(Wood, 1)).WithItem(1, 0, Item(Wood, 1)).Build();
+        }
+
+        private sealed class MoveElsewhereRule : IDropRule
+        {
+            public bool TryResolve(DropContext context, out DropOutcome outcome)
+            {
+                outcome = DropOutcome.Move(context.From, new GridPosition(4, 4));
+                return true;
+            }
+        }
+
+        private sealed class NullOutcomeRule : IDropRule
+        {
+            public bool TryResolve(DropContext context, out DropOutcome outcome)
+            {
+                outcome = null;
+                return true;
+            }
+        }
+
         private sealed class RejectEverythingRule : IDropRule
         {
             public bool TryResolve(DropContext context, out DropOutcome outcome)
