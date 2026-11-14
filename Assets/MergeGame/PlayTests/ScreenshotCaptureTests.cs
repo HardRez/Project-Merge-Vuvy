@@ -1,0 +1,157 @@
+using System;
+using System.Collections;
+using System.IO;
+using MergeGame.Core.Grid;
+using MergeGame.PlayTests.Support;
+using MergeGame.Presentation.Notices;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
+
+namespace MergeGame.PlayTests
+{
+    /// <summary>
+    /// Development aid, not a regression test: plays through the scenes and saves screenshots of key states at phone
+    /// and tablet resolutions. Runs only when the environment variable <c>MERGE_CAPTURE_DIR</c> names an output folder.
+    /// </summary>
+    [Category("Screenshots")]
+    public sealed class ScreenshotCaptureTests
+    {
+        private const string OutputVariable = "MERGE_CAPTURE_DIR";
+        private const int HighestRequestedLevel = 4;
+
+        private string directory;
+        private GameScreenDriver game;
+
+        [SetUp]
+        public void RequireOutputFolder()
+        {
+            directory = Environment.GetEnvironmentVariable(OutputVariable);
+            if (string.IsNullOrEmpty(directory))
+                Assert.Ignore($"Set {OutputVariable} to a folder to capture screenshots.");
+            Directory.CreateDirectory(directory);
+        }
+
+        [UnityTest]
+        public IEnumerator CaptureMainMenu()
+        {
+            yield return GameScreenDriver.LoadScene(GameScreenDriver.MainMenuScene);
+            yield return GameScreenDriver.WaitSeconds(1.5f);
+            yield return Snapshot.CaptureAll(Camera.main, directory, "01_main_menu");
+        }
+
+        [UnityTest]
+        public IEnumerator CaptureGameStates()
+        {
+            yield return GameScreenDriver.OpenGame(driver => game = driver);
+            yield return GameScreenDriver.WaitSeconds(0.8f);
+            yield return Capture("02_game_opening");
+
+            yield return SpawnAndMergeThenSelect();
+            yield return Capture("03_game_merged_selected");
+
+            yield return CaptureDragOverMergeTarget("04_game_dragging_merge");
+
+            yield return CaptureLockedItemNotice("05_game_notice_locked");
+            game.Notices.ShowNotice(Notice.MaxLevelReached);
+            yield return Capture("06_game_notice_max_level");
+
+            Assert.That(AutoPlayer.PlayUntilAnOrderIsDeliverable(game.Session, HighestRequestedLevel), Is.True, "No order became deliverable.");
+            yield return GameScreenDriver.WaitSeconds(2.5f);
+            yield return Capture("07_game_order_ready");
+
+            GameScreenDriver.Click(FirstDeliverableCard().GetComponentInChildren<UnityEngine.UI.Button>());
+            yield return GameScreenDriver.WaitSeconds(0.75f);
+            yield return Capture("08_game_order_celebration");
+
+            yield return FillTheBoard();
+            yield return Capture("09_game_board_full");
+        }
+
+        private IEnumerator Capture(string name, Action beforeRender = null) =>
+            Snapshot.CaptureAll(game.Camera, directory, name, beforeRender);
+
+        private IEnumerator SpawnAndMergeThenSelect()
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                game.ClickSpawn();
+                yield return GameScreenDriver.WaitSeconds(0.15f);
+            }
+
+            Assert.That(game.TryFindMergePair(out var from, out var to), Is.True);
+            yield return game.DragAndDrop(from, to);
+            yield return GameScreenDriver.WaitSeconds(1f);
+            game.Tap(to);
+            yield return GameScreenDriver.WaitSeconds(0.6f);
+        }
+
+        private IEnumerator CaptureDragOverMergeTarget(string name)
+        {
+            GridPosition from, to;
+            for (var spawns = 0; !game.TryFindMergePair(out from, out to) && spawns < 20; spawns++)
+            {
+                game.ClickSpawn();
+                yield return null;
+            }
+
+            yield return GameScreenDriver.WaitSeconds(0.5f);
+            PointerGesture held = null;
+            yield return game.DragOnto(from, to, gesture => held = gesture);
+            yield return GameScreenDriver.WaitSeconds(0.3f);
+            yield return Capture(name, () => held.MoveTo(game.ScreenPointOf(to) + new Vector2(12f, 18f)));
+
+            // The screen size changed back after the capture; aim at the target again before dropping.
+            yield return null;
+            held.MoveTo(game.ScreenPointOf(to));
+            held.Release();
+            yield return GameScreenDriver.WaitSeconds(1f);
+        }
+
+        private IEnumerator CaptureLockedItemNotice(string name)
+        {
+            Assert.That(TryFindLockedItem(out var locked), Is.True, "No locked item left on the board.");
+            yield return game.DragAndDrop(locked, locked);
+            yield return GameScreenDriver.WaitSeconds(0.3f);
+            yield return Capture(name);
+        }
+
+        private IEnumerator FillTheBoard()
+        {
+            for (var spawns = 0; game.Spawn.IsAvailable && spawns < 60; spawns++)
+            {
+                game.ClickSpawn();
+                yield return GameScreenDriver.WaitSeconds(0.05f);
+            }
+
+            yield return GameScreenDriver.WaitSeconds(2.5f);
+        }
+
+        private bool TryFindLockedItem(out GridPosition position)
+        {
+            foreach (var cell in game.Cells())
+            {
+                if (game.Board.TryGetItem(cell, out var item) && item.IsLocked)
+                {
+                    position = cell;
+                    return true;
+                }
+            }
+
+            position = default;
+            return false;
+        }
+
+        private Component FirstDeliverableCard()
+        {
+            for (var slot = 0; slot < game.Orders.CardCount; slot++)
+            {
+                if (game.Orders.GetCard(slot).CanDeliver)
+                    return game.Orders.GetCard(slot);
+            }
+
+            Assert.Fail("No deliverable order card.");
+            return null;
+        }
+    }
+}

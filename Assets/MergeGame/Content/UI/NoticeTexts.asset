@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcc0e5134d9e0394791a0305372e0b22, type: 3}
+  m_Name: NoticeTexts
+  m_EditorClassIdentifier: MergeGame.View::MergeGame.View.Notices.NoticeTexts
+  entries:
+  - notice: 0
+    text: "Kilitli! A\xE7mak i\xE7in ayn\u0131s\u0131n\u0131 \xFCst\xFCne s\xFCr\xFCkle."
+    icon: {fileID: 21300000, guid: c66052bbddb605d4089f36c052de7a5c, type: 3}
+    emphasized: 0
+  - notice: 1
+    text: "Bu e\u015Fya en y\xFCksek seviyede!"
+    icon: {fileID: 21300000, guid: 511c97b32c4f0364b8f5d10dda618b5a, type: 3}
+    emphasized: 1
+  - notice: 2
+    text: "Farkl\u0131 t\xFCrdeki e\u015Fyalar birle\u015Fmez."
+    icon: {fileID: 0}
+    emphasized: 0
+  - notice: 3
+    text: "Sadece ayn\u0131 seviyedeki e\u015Fyalar birle\u015Fir."
+    icon: {fileID: 0}
+    emphasized: 0
+  - notice: 4
+    text: "Tahta dolu! Birle\u015Ftir ya da bir e\u015Fyay\u0131 at."
+    icon: {fileID: 0}
+    emphasized: 0
+  - notice: 5
+    text: "Kilitli e\u015Fyalar at\u0131lamaz."
+    icon: {fileID: 21300000, guid: c66052bbddb605d4089f36c052de7a5c, type: 3}
+    emphasized: 0
+  - notice: 6
+    text: "Bu sipari\u015F i\xE7in e\u015Fyalar hen\xFCz haz\u0131r de\u011Fil."
+    icon: {fileID: 0}
+    emphasized: 0

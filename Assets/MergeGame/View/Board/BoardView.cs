@@ -1,0 +1,360 @@
+using System;
+using System.Collections.Generic;
+using MergeGame.Core.Grid;
+using MergeGame.Core.Items;
+using MergeGame.Data.Visuals;
+using MergeGame.Presentation.Board;
+using MergeGame.Presentation.Selection;
+using MergeGame.View.Common;
+using MergeGame.View.Theme;
+using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
+
+namespace MergeGame.View.Board
+{
+    /// <summary>
+    /// The grid, its pooled items and their animations. The dictionary of item views changes as soon as a command
+    /// arrives, so it always mirrors the board model; items that leave the board are removed from it before their exit
+    /// animation starts and can no longer be addressed. Cells and items are anchored to normalised cell rects, so the
+    /// grid fits any board size and screen without layout code.
+    /// </summary>
+    public sealed class BoardView : MonoBehaviour, IBoardView, IBoardSelectionView
+    {
+        [Header("Structure")]
+        [Tooltip("Keeps the board at the grid's aspect ratio inside the available area.")]
+        [SerializeField] private AspectRatioFitter boardFitter;
+
+        [Tooltip("The area the cells divide; every layer below is stretched over it.")]
+        [SerializeField] private RectTransform grid;
+
+        [SerializeField] private BoardInputSurface input;
+        [SerializeField] private RectTransform cellLayer;
+        [SerializeField] private RectTransform itemLayer;
+        [SerializeField] private RectTransform effectLayer;
+
+        [Tooltip("Above the whole screen: the dragged item and items flying to a customer.")]
+        [SerializeField] private RectTransform dragLayer;
+
+        [SerializeField] private Image cellPrefab;
+
+        [Tooltip("Gap between a cell's tile and its neighbours, in canvas units.")]
+        [SerializeField] private float cellInset = 5f;
+
+        [SerializeField] private DropHighlightView dropHighlight;
+        [SerializeField] private SelectionMarkerView selectionMarker;
+        [SerializeField] private UiTheme theme;
+
+        [Header("Timing (seconds)")]
+        [SerializeField] private float moveSeconds = 0.2f;
+        [SerializeField] private float returnSeconds = 0.3f;
+        [SerializeField] private float mergeFlightSeconds = 0.13f;
+        [SerializeField] private float deliveryFlightSeconds = 0.55f;
+        [SerializeField] private float deliveryStaggerSeconds = 0.09f;
+
+        private readonly Dictionary<GridPosition, ItemView> items = new Dictionary<GridPosition, ItemView>();
+        private readonly List<Image> cells = new List<Image>();
+
+        private IItemVisuals visuals;
+        private ItemCatalog catalog;
+        private ItemView.Pool itemPool;
+        private PointsPopup.Pool popupPool;
+        private IOrderSlotTargets deliveryTargets;
+
+        private BoardGeometry geometry;
+        private Camera eventCamera;
+        private bool isDragGesture;
+        private GridPosition? hoveredCell;
+
+        /// <summary>Where the presenter put the selection marker; it is hidden while that cell's item is being dragged.</summary>
+        private GridPosition? selectedCell;
+        private ItemView draggedItem;
+        private Vector3 grabOffset;
+
+        public event Action<GridPosition> DragStarted;
+        public event Action<GridPosition?> DragMoved;
+        public event Action<GridPosition?> DragReleased;
+        public event Action<GridPosition> CellTapped;
+
+        public BoardSize Size => geometry.Size;
+        public int CellCount => cells.Count;
+        public int ItemCount => items.Count;
+        public bool IsSelectionShown => selectionMarker.IsShown;
+        public bool IsDropHighlightShown => dropHighlight.IsShown;
+        public bool IsDragging => draggedItem != null;
+
+        [Inject]
+        public void Construct(
+            IItemVisuals itemVisuals,
+            ItemCatalog itemCatalog,
+            ItemView.Pool items,
+            PointsPopup.Pool popups,
+            IOrderSlotTargets orderSlotTargets)
+        {
+            visuals = itemVisuals;
+            catalog = itemCatalog;
+            itemPool = items;
+            popupPool = popups;
+            deliveryTargets = orderSlotTargets;
+        }
+
+        private void Awake()
+        {
+            var canvas = GetComponentInParent<Canvas>().rootCanvas;
+            eventCamera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+
+            input.Tapped += OnTapped;
+            input.DragBegan += OnDragBegan;
+            input.Dragged += OnDragged;
+            input.DragEnded += OnDragEnded;
+            dropHighlight.Hide();
+            selectionMarker.Hide();
+        }
+
+        private void OnDestroy()
+        {
+            input.Tapped -= OnTapped;
+            input.DragBegan -= OnDragBegan;
+            input.Dragged -= OnDragged;
+            input.DragEnded -= OnDragEnded;
+        }
+
+        public bool TryGetItem(GridPosition position, out ItemView item) => items.TryGetValue(position, out item);
+
+        public Vector3 GetCellWorldCenter(GridPosition position) => grid.NormalizedToWorld(geometry.GetCell(position).Center);
+
+        public void CreateGrid(BoardSize size)
+        {
+            geometry = new BoardGeometry(size);
+            boardFitter.aspectRatio = geometry.AspectRatio;
+
+            foreach (var cell in cells)
+                Destroy(cell.gameObject);
+            cells.Clear();
+
+            for (var y = 0; y < size.Height; y++)
+            {
+                for (var x = 0; x < size.Width; x++)
+                {
+                    var cell = Instantiate(cellPrefab, cellLayer);
+                    cell.name = $"Cell {x},{y}";
+                    cell.color = (x + y) % 2 == 0 ? theme.CellLight : theme.CellDark;
+                    var rect = geometry.GetCell(new GridPosition(x, y));
+                    cell.rectTransform.StretchOver(rect.Min, rect.Max);
+                    cell.rectTransform.offsetMin = Vector2.one * cellInset;
+                    cell.rectTransform.offsetMax = -Vector2.one * cellInset;
+                    cells.Add(cell);
+                }
+            }
+        }
+
+        public void PlaceItem(GridPosition position, ItemId itemId, bool isLocked) => AddItem(position, itemId, isLocked);
+
+        public void SpawnItem(GridPosition position, ItemId itemId) => AddItem(position, itemId, isLocked: false).PlaySpawn();
+
+        public void BeginDrag(GridPosition origin)
+        {
+            if (!items.TryGetValue(origin, out var item))
+                return;
+
+            draggedItem = item;
+            item.Lift(dragLayer);
+            if (selectedCell == origin)
+                selectionMarker.Hide();
+        }
+
+        public void RefuseDrag(GridPosition origin)
+        {
+            if (items.TryGetValue(origin, out var item))
+                item.PlayRefuse();
+        }
+
+        public void ShowDropHighlight(GridPosition cell, DropHighlight highlight) => dropHighlight.Show(geometry.GetCell(cell), highlight);
+
+        public void ClearDropHighlight() => dropHighlight.Hide();
+
+        public void ReturnItem(GridPosition origin)
+        {
+            if (!items.TryGetValue(origin, out var item))
+                return;
+
+            ForgetDrag(item);
+            item.Land(itemLayer, geometry.GetCell(origin), returnSeconds);
+            if (selectedCell == origin && !selectionMarker.IsShown)
+                selectionMarker.Show(geometry.GetCell(origin));
+        }
+
+        public void MoveItem(GridPosition from, GridPosition to)
+        {
+            var item = TakeItem(from);
+            if (item == null)
+                return;
+
+            items[to] = item;
+            item.Land(itemLayer, geometry.GetCell(to), moveSeconds);
+        }
+
+        public void MergeItems(GridPosition from, GridPosition to, ItemId resultItemId, bool unlockedTarget)
+        {
+            var source = TakeItem(from);
+            if (!items.TryGetValue(to, out var target))
+            {
+                Release(source);
+                return;
+            }
+
+            target.MergeInto(resultItemId, visuals.GetIcon(resultItemId), catalog.IsMaxLevel(resultItemId), unlockedTarget, mergeFlightSeconds);
+            source?.FlyAway(effectLayer, target.WorldCenter, mergeFlightSeconds, delay: 0f, endScale: 0.9f, () => Release(source));
+        }
+
+        public void ShowPointsPopup(GridPosition cell, int points)
+        {
+            var popup = popupPool.Spawn();
+            popup.transform.SetParent(effectLayer, worldPositionStays: false);
+            popup.transform.SetAsLastSibling();
+            popup.Play(GetCellWorldCenter(cell), points, () => popupPool.Despawn(popup));
+        }
+
+        public void DiscardItem(GridPosition position)
+        {
+            var item = TakeItem(position);
+            item?.Vanish(() => Release(item));
+        }
+
+        public void DeliverItems(int orderSlotIndex, IReadOnlyList<GridPosition> positions)
+        {
+            var hasTarget = deliveryTargets.TryGetDeliveryTarget(orderSlotIndex, out var target);
+            for (var i = 0; i < positions.Count; i++)
+            {
+                var item = TakeItem(positions[i]);
+                if (item == null)
+                    continue;
+
+                if (hasTarget)
+                    item.FlyAway(dragLayer, target, deliveryFlightSeconds, i * deliveryStaggerSeconds, endScale: 0.45f, () => Release(item));
+                else
+                    item.Vanish(() => Release(item));
+            }
+        }
+
+        public void ShowSelectionMarker(GridPosition position)
+        {
+            selectedCell = position;
+            selectionMarker.Show(geometry.GetCell(position));
+        }
+
+        public void HideSelectionMarker()
+        {
+            selectedCell = null;
+            selectionMarker.Hide();
+        }
+
+        private ItemView AddItem(GridPosition position, ItemId itemId, bool isLocked)
+        {
+            Release(TakeItem(position));
+
+            var item = itemPool.Spawn();
+            item.Show(itemId, visuals.GetIcon(itemId), isLocked, catalog.IsMaxLevel(itemId));
+            item.Place(itemLayer, geometry.GetCell(position));
+            items.Add(position, item);
+            return item;
+        }
+
+        /// <summary>Removes the item from the board's bookkeeping (it stays on screen for its exit animation).</summary>
+        private ItemView TakeItem(GridPosition position)
+        {
+            if (!items.TryGetValue(position, out var item))
+                return null;
+
+            items.Remove(position);
+            ForgetDrag(item);
+            return item;
+        }
+
+        private void Release(ItemView item)
+        {
+            if (item != null && item.gameObject.activeSelf)
+                itemPool.Despawn(item);
+        }
+
+        private void ForgetDrag(ItemView item)
+        {
+            if (draggedItem == item)
+                draggedItem = null;
+        }
+
+        private void OnTapped(Vector2 screenPoint)
+        {
+            var cell = FindCell(screenPoint);
+            if (cell.HasValue)
+                CellTapped?.Invoke(cell.Value);
+        }
+
+        private void OnDragBegan(Vector2 pressPoint)
+        {
+            var origin = FindCell(pressPoint);
+            if (!origin.HasValue)
+                return;
+
+            isDragGesture = true;
+            hoveredCell = origin;
+            DragStarted?.Invoke(origin.Value);
+            if (draggedItem != null)
+                grabOffset = draggedItem.WorldCenter - ScreenToWorld(pressPoint);
+        }
+
+        private void OnDragged(Vector2 screenPoint)
+        {
+            if (!isDragGesture)
+                return;
+
+            if (draggedItem != null)
+                draggedItem.DragTo(ScreenToWorld(screenPoint) + grabOffset);
+
+            var cell = FindCell(screenPoint);
+            if (cell == hoveredCell)
+                return;
+
+            hoveredCell = cell;
+            DragMoved?.Invoke(cell);
+        }
+
+        private void OnDragEnded(Vector2 screenPoint)
+        {
+            if (!isDragGesture)
+                return;
+
+            isDragGesture = false;
+            hoveredCell = null;
+            var releasedItem = draggedItem;
+            DragReleased?.Invoke(FindCell(screenPoint));
+
+            // The presenter always answers a release; this only guards against an item being left floating.
+            if (releasedItem != null && releasedItem == draggedItem && releasedItem.IsLifted)
+                ReturnItem(PositionOf(releasedItem));
+        }
+
+        private GridPosition PositionOf(ItemView item)
+        {
+            foreach (var pair in items)
+            {
+                if (pair.Value == item)
+                    return pair.Key;
+            }
+
+            throw new InvalidOperationException("The item is not on the board.");
+        }
+
+        private GridPosition? FindCell(Vector2 screenPoint)
+        {
+            var normalized = grid.ScreenToNormalized(screenPoint, eventCamera);
+            return normalized.HasValue ? geometry.FindCell(normalized.Value) : null;
+        }
+
+        private Vector3 ScreenToWorld(Vector2 screenPoint)
+        {
+            RectTransformUtility.ScreenPointToWorldPointInRectangle(dragLayer, screenPoint, eventCamera, out var world);
+            return world;
+        }
+    }
+}
