@@ -1,5 +1,6 @@
 using MergeGame.Core.Events;
 using MergeGame.Core.Grid;
+using MergeGame.Core.Scoring;
 using MergeGame.Core.Session;
 using MergeGame.Core.Spawning;
 using MergeGame.Core.Tests.Support;
@@ -91,6 +92,18 @@ namespace MergeGame.Core.Tests
         }
 
         [Test]
+        public void Spawn_WhenThePolicyChoosesAnOccupiedCell_ThrowsWithoutChangingTheBoard()
+        {
+            var definition = new GameDefinition(
+                DefaultCatalog(), new BoardSize(5, 5), new ScoreTable(DefaultPoints), spawnPolicy: new FixedCellPolicy(new GridPosition(0, 0)));
+            var session = new SessionBuilder().WithDefinition(definition).WithLockedItem(0, 0, Item(Stone, 2)).Build();
+
+            var exception = Assert.Throws<System.InvalidOperationException>(() => session.Spawn());
+            Assert.That(exception.Message, Does.Contain("(0, 0)"));
+            Assert.That(session.Board.GetItem(new GridPosition(0, 0)).ItemId, Is.EqualTo(Item(Stone, 2)));
+        }
+
+        [Test]
         public void Spawn_UntilFull_FillsEveryCellExactlyOnce()
         {
             var session = new MergeGameSession(Definition(3, 7), new SystemRandom(7));
@@ -100,6 +113,18 @@ namespace MergeGame.Core.Tests
 
             Assert.That(session.Board.IsFull, Is.True);
             Assert.That(session.Spawn().FailureReason, Is.EqualTo(SpawnFailureReason.BoardFull));
+        }
+
+        private sealed class FixedCellPolicy : ISpawnPolicy
+        {
+            private readonly GridPosition cell;
+
+            public FixedCellPolicy(GridPosition cell)
+            {
+                this.cell = cell;
+            }
+
+            public SpawnPlacement Choose(IReadOnlyBoard board, IRandom random) => new SpawnPlacement(Item(Wood, 1), cell);
         }
     }
 }

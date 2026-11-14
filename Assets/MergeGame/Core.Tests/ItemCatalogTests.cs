@@ -45,6 +45,15 @@ namespace MergeGame.Core.Tests
         }
 
         [Test]
+        public void ChainDefinition_WithNullLevel_ThrowsNamingTheLevelsParameter()
+        {
+            var levels = new[] { new ItemLevelDefinition(1, "Twig"), null };
+
+            var exception = Assert.Throws<ArgumentException>(() => new ItemChainDefinition(Wood, levels, 1, 1f));
+            Assert.That(exception.ParamName, Is.EqualTo("levels"));
+        }
+
+        [Test]
         public void ChainDefinition_WithLevelsOutOfOrder_SortsThem()
         {
             var levels = new[] { new ItemLevelDefinition(2, "Stick"), new ItemLevelDefinition(1, "Twig") };
