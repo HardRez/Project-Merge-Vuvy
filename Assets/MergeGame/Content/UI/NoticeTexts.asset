@@ -42,6 +42,6 @@ MonoBehaviour:
     icon: {fileID: 0}
     emphasized: 0
   - notice: 7
-    text: "Kutuyu a\xE7mak i\xE7in yan\u0131ndaki a\u011F\u0131 temizle!"
-    icon: {fileID: 21300000, guid: 62034e9f10fdcdc47819ea4eba3aa78c, type: 3}
+    text: "Kumu a\xE7mak i\xE7in yan\u0131ndaki a\u011F\u0131 temizle!"
+    icon: {fileID: 21300000, guid: 4419796f3d40ba74f8649cc34321013e, type: 3}
     emphasized: 0

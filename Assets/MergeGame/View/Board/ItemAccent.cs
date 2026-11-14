@@ -6,8 +6,8 @@ using UnityEngine.UI;
 namespace MergeGame.View.Board
 {
     /// <summary>
-    /// The attention layer of an item, between its root and its body: a short shine after a spawn, a gentle lean toward
-    /// the partner of a suggested merge, or the eager glow, pulse and shine of a merge target under the dragged item.
+    /// The attention layer of an item, between its root and its body: a short shine after a spawn, a one-shot pulse
+    /// toward the partner of a suggested merge, or the eager glow, pulse and shine of a merge target under the dragged item.
     /// One accent at a time, by the priority of <see cref="AccentKind"/>. It only moves its own transform and visuals,
     /// so it composes with the item's other animations, and <see cref="Stop()"/> returns it to its rest pose exactly.
     /// </summary>
@@ -35,7 +35,12 @@ namespace MergeGame.View.Board
         [Tooltip("How far each item leans toward its partner, as a fraction of the cell width.")]
         [SerializeField] private float hintLean = 0.16f;
 
-        [SerializeField] private float hintSeconds = 1.1f;
+        [Tooltip("Length of one hint pulse; keep it shorter than the hint's repeat interval.")]
+        [SerializeField] private float hintSeconds = 1.3f;
+
+        [Tooltip("Leans toward the partner within one hint pulse.")]
+        [Min(1)]
+        [SerializeField] private int hintNudges = 2;
 
         [Header("Merge target")]
         [SerializeField] private Color targetGlowColor = new Color(1f, 0.86f, 0.25f, 1f);
@@ -84,7 +89,7 @@ namespace MergeGame.View.Board
             hintRing.color = hintGlowColor;
             hintRing.gameObject.SetActive(true);
             var lean = towardPartner.normalized * (rectTransform.rect.width * hintLean);
-            loop.Play(Tween.Loop(() => HintCycle(lean)));
+            loop.Play(HintPulse(lean));
         }
 
         /// <param name="iconSprite">The item's icon, which shapes the shine.</param>
@@ -152,20 +157,27 @@ namespace MergeGame.View.Board
             SetRest();
         }
 
-        /// <summary>Lean in and back out, continuously; both items of a hint start together and stay in sync.</summary>
-        private IEnumerator HintCycle(Vector2 lean)
+        /// <summary>
+        /// One pulse: the glow and ring fade in, the item leans toward its partner <see cref="hintNudges"/> times, then
+        /// everything fades and the item is back at rest. Both items of a hint start together and stay in sync.
+        /// </summary>
+        private IEnumerator HintPulse(Vector2 lean)
         {
             // Tips toward a partner on the left or right; a partner above or below gets a straight nod.
             var tilt = lean.normalized.x * 6f;
-            return Tween.Run(hintSeconds, Ease.Linear, t =>
+            yield return Tween.Run(hintSeconds, Ease.Linear, t =>
             {
-                var nudge = Ease.Bump(t);
+                var nudge = Ease.Bump(t * hintNudges % 1f);
+                var presence = Ease.Bump(t);
                 rectTransform.anchoredPosition = lean * nudge;
                 rectTransform.localRotation = Quaternion.Euler(0f, 0f, -tilt * nudge);
                 rectTransform.localScale = Vector3.one * (1f + 0.08f * nudge);
-                SetAlpha(glow, 0.5f + 0.45f * nudge);
-                SetAlpha(hintRing, 0.65f + 0.35f * nudge);
+                SetAlpha(glow, presence * (0.6f + 0.35f * nudge));
+                SetAlpha(hintRing, Mathf.Min(1f, presence * 1.6f));
             });
+
+            Current = AccentKind.None;
+            SetRest();
         }
 
         private IEnumerator TargetLoop()

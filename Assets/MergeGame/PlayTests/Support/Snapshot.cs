@@ -20,13 +20,14 @@ namespace MergeGame.PlayTests.Support
         };
 
         /// <param name="beforeRender">Runs once the layout has adapted to each size, e.g. to re-aim a held drag.</param>
-        public static IEnumerator CaptureAll(Camera camera, string directory, string name, Action beforeRender = null)
+        /// <param name="settleSeconds">Waited after <paramref name="beforeRender"/>, e.g. to catch an animation it started.</param>
+        public static IEnumerator CaptureAll(Camera camera, string directory, string name, Action beforeRender = null, float settleSeconds = 0f)
         {
             foreach (var resolution in DeviceResolutions)
-                yield return Capture(camera, Path.Combine(directory, $"{name}_{resolution.x}x{resolution.y}.png"), resolution, beforeRender);
+                yield return Capture(camera, Path.Combine(directory, $"{name}_{resolution.x}x{resolution.y}.png"), resolution, beforeRender, settleSeconds);
         }
 
-        private static IEnumerator Capture(Camera camera, string path, Vector2Int size, Action beforeRender)
+        public static IEnumerator Capture(Camera camera, string path, Vector2Int size, Action beforeRender, float settleSeconds)
         {
             var target = new RenderTexture(size.x, size.y, 24, RenderTextureFormat.ARGB32);
             camera.targetTexture = target;
@@ -37,6 +38,8 @@ namespace MergeGame.PlayTests.Support
                 yield return null;
                 beforeRender?.Invoke();
                 yield return null;
+                for (var end = Time.realtimeSinceStartup + settleSeconds; Time.realtimeSinceStartup < end;)
+                    yield return null;
 
                 Canvas.ForceUpdateCanvases();
                 camera.Render();

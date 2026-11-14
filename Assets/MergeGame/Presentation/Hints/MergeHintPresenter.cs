@@ -10,10 +10,14 @@ using MergeGame.Presentation.Selection;
 namespace MergeGame.Presentation.Hints
 {
     /// <summary>
-    /// Suggests a merge once the player has been idle for <see cref="MergeHintSettings.IdleSeconds"/>. Any activity
-    /// (a session event, a drag start, a tap) hides a shown hint and restarts the idle time, so a hint never points at
-    /// cells that changed since. The idle time does not run during a drag. When an idle period ends without any
-    /// possible merge, nothing is shown and the board is checked again only after the next full idle period.
+    /// Pulses a merge suggestion while the player is idle. The first check happens
+    /// <see cref="MergeHintSettings.IdleSeconds"/> after the last activity, every later one
+    /// <see cref="MergeHintSettings.RepeatSeconds"/> after the previous check, whether or not that check found a pair.
+    /// Each check queries the board afresh and plays the hint once if a merge exists, otherwise shows nothing.
+    /// Any activity (a session event, a drag start, a tap) cancels a hint played since the last activity and restarts
+    /// the wait toward <see cref="MergeHintSettings.IdleSeconds"/>. Time does not run during a drag.
+    /// One <see cref="Advance"/> call runs at most one check; time beyond that check is dropped, so the next check
+    /// comes a full <see cref="MergeHintSettings.RepeatSeconds"/> later instead of catching up after a long frame.
     /// </summary>
     public sealed class MergeHintPresenter : IPresenter, ITimeDriven
     {
@@ -26,10 +30,10 @@ namespace MergeGame.Presentation.Hints
         private readonly SubscriptionBag subscriptions = new SubscriptionBag();
 
         private bool isActive;
-        private float idleSeconds;
+        private float secondsUntilCheck;
         private GridPosition? dragOrigin;
         private bool isDragging;
-        private bool isHintShown;
+        private bool hasShownSinceActivity;
 
         public MergeHintPresenter(
             MergeGameSession session,
@@ -48,6 +52,7 @@ namespace MergeGame.Presentation.Hints
             this.view = view ?? throw new ArgumentNullException(nameof(view));
             this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
             finder = new MergeHintFinder(session);
+            secondsUntilCheck = settings.IdleSeconds;
         }
 
         public void Initialize()
@@ -70,18 +75,18 @@ namespace MergeGame.Presentation.Hints
 
         public void Advance(float deltaSeconds)
         {
-            if (!isActive || isDragging || isHintShown || !(deltaSeconds > 0f))
+            if (!isActive || isDragging || !(deltaSeconds > 0f))
                 return;
 
-            idleSeconds += deltaSeconds;
-            if (idleSeconds < settings.IdleSeconds)
+            secondsUntilCheck -= deltaSeconds;
+            if (secondsUntilCheck > 0f)
                 return;
 
-            idleSeconds = 0f;
+            secondsUntilCheck = settings.RepeatSeconds;
             if (!finder.TryFind(out var hint))
                 return;
 
-            isHintShown = true;
+            hasShownSinceActivity = true;
             view.ShowMergeHint(hint.From, hint.To);
         }
 
@@ -135,11 +140,11 @@ namespace MergeGame.Presentation.Hints
 
         private void RestartIdleTime()
         {
-            idleSeconds = 0f;
-            if (!isHintShown)
+            secondsUntilCheck = settings.IdleSeconds;
+            if (!hasShownSinceActivity)
                 return;
 
-            isHintShown = false;
+            hasShownSinceActivity = false;
             view.HideMergeHint();
         }
     }

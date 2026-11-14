@@ -10,6 +10,7 @@ namespace MergeGame.Presentation.Tests
     public sealed class MergeHintPresenterTests
     {
         private const float Delay = GameScreen.HintDelaySeconds;
+        private const float Repeat = GameScreen.HintRepeatSeconds;
 
         private static GameBuilder BoardWithAPair() =>
             new GameBuilder().WithItem(0, 0, Item(Wood, 1)).WithItem(1, 0, Item(Wood, 1)).WithItem(4, 4, Item(Stone, 1));
@@ -27,15 +28,105 @@ namespace MergeGame.Presentation.Tests
         }
 
         [Test]
-        public void ShownHint_IsShownOnlyOnce_WhileThePlayerStaysIdle()
+        public void Hint_PlaysAgainEveryRepeatInterval_WhileThePlayerStaysIdle()
+        {
+            using var screen = GameScreen.For(BoardWithAPair());
+            screen.Advance(Delay);
+
+            screen.Advance(Repeat - 0.5f);
+            Assert.That(screen.Hint.ShowCount, Is.EqualTo(1));
+            screen.Advance(0.5f);
+            Assert.That(screen.Hint.ShowCount, Is.EqualTo(2));
+            screen.Advance(Repeat);
+            Assert.That(screen.Hint.ShowCount, Is.EqualTo(3));
+
+            Assert.That(screen.Hint.Shown, Is.EqualTo((At(0, 0), At(1, 0))));
+            Assert.That(screen.Hint.HideCount, Is.Zero);
+        }
+
+        [Test]
+        public void HugeTimeStep_PlaysAtMostOneHint_AndTheNextComesAFullRepeatIntervalLater()
         {
             using var screen = GameScreen.For(BoardWithAPair());
 
-            screen.Advance(Delay);
-            screen.Advance(Delay);
-            screen.Advance(Delay * 3);
-
+            screen.Advance(Delay + Repeat * 10);
             Assert.That(screen.Hint.ShowCount, Is.EqualTo(1));
+
+            screen.Advance(Repeat - 0.5f);
+            Assert.That(screen.Hint.ShowCount, Is.EqualTo(1));
+            screen.Advance(0.5f);
+            Assert.That(screen.Hint.ShowCount, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void ActivityBetweenPulses_CancelsTheHint_AndRestartsTheFullIdleDelay()
+        {
+            using var screen = GameScreen.For(BoardWithAPair());
+            screen.Advance(Delay);
+            screen.Advance(Repeat - 1f);
+
+            screen.Selection.Tap(4, 4);
+
+            Assert.That(screen.Hint.HideCount, Is.EqualTo(1));
+            screen.Advance(Repeat);
+            Assert.That(screen.Hint.ShowCount, Is.EqualTo(1), "The repeat interval no longer applies after activity.");
+            screen.Advance(Delay - Repeat);
+            Assert.That(screen.Hint.ShowCount, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Activity_WithoutAHintSinceTheLastActivity_DoesNotCancelAnything()
+        {
+            using var screen = GameScreen.For(BoardWithAPair());
+            screen.Advance(Delay);
+            screen.Selection.Tap(4, 4);
+
+            screen.Selection.Tap(4, 4);
+            screen.Spawn.PressSpawn();
+
+            Assert.That(screen.Hint.HideCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void NoPairAtTheFirstCheck_IsCheckedAgainAfterTheRepeatInterval()
+        {
+            var session = new GameBuilder().WithItem(1, 0, Item(Wood, 1)).Build();
+            var log = new ViewLog();
+            var hintView = new FakeMergeHintView(log);
+            using var unrelatedEvents = new SessionEventStream(new GameBuilder().Build());
+            using var presenter = new MergeHintPresenter(
+                session, unrelatedEvents, new FakeBoardView(log), new FakeSelectionView(log), hintView, new MergeHintSettings(Delay, Repeat));
+            presenter.Initialize();
+            presenter.Advance(Delay);
+
+            // Unreachable in the real wiring, where every board change is activity: the presenter here listens to
+            // another session's events, so this board change is not seen as activity and the re-query is observable.
+            session.Spawn();
+            presenter.Advance(Repeat - 0.5f);
+            Assert.That(hintView.ShowCount, Is.Zero);
+            presenter.Advance(0.5f);
+
+            Assert.That(hintView.Shown, Is.EqualTo((At(0, 0), At(1, 0))));
+        }
+
+        [Test]
+        public void EveryPulse_QueriesTheBoardAgain()
+        {
+            var session = BoardWithAPair().WithItem(2, 0, Item(Stone, 2)).WithItem(3, 0, Item(Stone, 2)).Build();
+            var log = new ViewLog();
+            var hintView = new FakeMergeHintView(log);
+            using var unrelatedEvents = new SessionEventStream(new GameBuilder().Build());
+            using var presenter = new MergeHintPresenter(
+                session, unrelatedEvents, new FakeBoardView(log), new FakeSelectionView(log), hintView, new MergeHintSettings(Delay, Repeat));
+            presenter.Initialize();
+            presenter.Advance(Delay);
+            Assert.That(hintView.Shown, Is.EqualTo((At(0, 0), At(1, 0))));
+
+            // Defensive in the real wiring (see above): a board change between pulses is always activity there.
+            session.Drop(At(0, 0), At(1, 0));
+            presenter.Advance(Repeat);
+
+            Assert.That(hintView.Shown, Is.EqualTo((At(2, 0), At(3, 0))));
         }
 
         [Test]
@@ -248,7 +339,7 @@ namespace MergeGame.Presentation.Tests
             var hintView = new FakeMergeHintView(log);
             using var events = new SessionEventStream(session);
             var presenter = new MergeHintPresenter(
-                session, events, new FakeBoardView(log), new FakeSelectionView(log), hintView, new MergeHintSettings(1f));
+                session, events, new FakeBoardView(log), new FakeSelectionView(log), hintView, new MergeHintSettings(1f, 1f));
 
             presenter.Advance(5f);
             Assert.That(hintView.ShowCount, Is.Zero);
@@ -270,18 +361,38 @@ namespace MergeGame.Presentation.Tests
             screen.Dispose();
             screen.Selection.Tap(0, 0);
             screen.Session.Spawn();
+            screen.Advance(Repeat * 3);
 
             Assert.That(screen.Hint.Shown, Is.Not.Null);
             Assert.That(screen.Hint.HideCount, Is.Zero);
+            Assert.That(screen.Hint.ShowCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Settings_KeepBothTimings()
+        {
+            var settings = new MergeHintSettings(4f, 2.5f);
+
+            Assert.That(settings.IdleSeconds, Is.EqualTo(4f));
+            Assert.That(settings.RepeatSeconds, Is.EqualTo(2.5f));
         }
 
         [TestCase(0f)]
         [TestCase(-1f)]
         [TestCase(float.NaN)]
         [TestCase(float.PositiveInfinity)]
-        public void Settings_RejectANonPositiveOrNonFiniteDelay(float idleSeconds)
+        public void Settings_RejectANonPositiveOrNonFiniteIdleDelay(float idleSeconds)
         {
-            Assert.That(() => new MergeHintSettings(idleSeconds), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => new MergeHintSettings(idleSeconds, 1f), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        [TestCase(0f)]
+        [TestCase(-1f)]
+        [TestCase(float.NaN)]
+        [TestCase(float.PositiveInfinity)]
+        public void Settings_RejectANonPositiveOrNonFiniteRepeatInterval(float repeatSeconds)
+        {
+            Assert.That(() => new MergeHintSettings(1f, repeatSeconds), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
     }
 }

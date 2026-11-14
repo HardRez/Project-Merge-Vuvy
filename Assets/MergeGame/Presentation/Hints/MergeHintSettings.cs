@@ -4,15 +4,22 @@ namespace MergeGame.Presentation.Hints
 {
     public sealed class MergeHintSettings
     {
-        /// <param name="idleSeconds">How long the player must be idle before a merge is suggested.</param>
-        public MergeHintSettings(float idleSeconds)
+        /// <param name="idleSeconds">How long the player must be idle before the first hint plays.</param>
+        /// <param name="repeatSeconds">How long after each check the next one happens while the player stays idle.</param>
+        public MergeHintSettings(float idleSeconds, float repeatSeconds)
         {
-            if (float.IsNaN(idleSeconds) || float.IsInfinity(idleSeconds) || idleSeconds <= 0f)
-                throw new ArgumentOutOfRangeException(nameof(idleSeconds), idleSeconds, "The idle delay before a merge hint must be a positive number of seconds.");
-
-            IdleSeconds = idleSeconds;
+            IdleSeconds = RequirePositive(idleSeconds, nameof(idleSeconds));
+            RepeatSeconds = RequirePositive(repeatSeconds, nameof(repeatSeconds));
         }
 
         public float IdleSeconds { get; }
+        public float RepeatSeconds { get; }
+
+        private static float RequirePositive(float seconds, string parameterName)
+        {
+            if (float.IsNaN(seconds) || float.IsInfinity(seconds) || seconds <= 0f)
+                throw new ArgumentOutOfRangeException(parameterName, seconds, "Merge hint timings must be a positive number of seconds.");
+            return seconds;
+        }
     }
 }

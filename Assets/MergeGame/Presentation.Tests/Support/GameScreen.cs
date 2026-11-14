@@ -41,7 +41,7 @@ namespace MergeGame.Presentation.Tests.Support
             presenters.Add(new ScorePresenter(session, Events, Score));
             presenters.Add(new SpawnPresenter(session, Events, Spawn, Notices));
             presenters.Add(new GameNavigationPresenter(Menu, Navigator));
-            HintPresenter = new MergeHintPresenter(session, Events, Board, Selection, Hint, new MergeHintSettings(HintDelaySeconds));
+            HintPresenter = new MergeHintPresenter(session, Events, Board, Selection, Hint, new MergeHintSettings(HintDelaySeconds, HintRepeatSeconds));
             presenters.Add(HintPresenter);
 
             foreach (var presenter in presenters)
@@ -49,6 +49,7 @@ namespace MergeGame.Presentation.Tests.Support
         }
 
         public const float HintDelaySeconds = 5f;
+        public const float HintRepeatSeconds = 3f;
 
         public ViewLog Log { get; } = new ViewLog();
         public MergeGameSession Session { get; }

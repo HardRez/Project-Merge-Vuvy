@@ -17,6 +17,8 @@ namespace MergeGame.View.Theme
         [SerializeField] private Color cellLight = Hex(0xFFF4DA);
         [SerializeField] private Color cellDark = Hex(0xF7E4BD);
         [SerializeField] private Color shadow = new Color(0.16f, 0.09f, 0.03f, 0.28f);
+        [Tooltip("Sand puffs when a closed cell is blown open.")]
+        [SerializeField] private Color sand = Hex(0xD9AE66);
         [SerializeField] private Color toastBackground = new Color(0.24f, 0.14f, 0.07f, 0.9f);
 
         [Header("Accents")]
@@ -49,6 +51,7 @@ namespace MergeGame.View.Theme
         public Color CellLight => cellLight;
         public Color CellDark => cellDark;
         public Color Shadow => shadow;
+        public Color Sand => sand;
         public Color ToastBackground => toastBackground;
 
         public Color Primary => primary;

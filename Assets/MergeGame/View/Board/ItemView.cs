@@ -10,7 +10,8 @@ using Zenject;
 namespace MergeGame.View.Board
 {
     /// <summary>
-    /// One item on the board, or a closed box. Its identity (<see cref="ItemId"/>, lock and box state) changes the moment a command arrives;
+    /// One item on the board, or the invisible item of a closed cell. Its identity (<see cref="ItemId"/>, lock and hidden
+    /// state) changes the moment a command arrives;
     /// animations only decide how the change looks. Every command first interrupts the running animation and reveals
     /// the current identity, then animates from the current pose to a rest pose, so overlapping commands can never
     /// leave the item with a stale icon, scale or position.
@@ -28,9 +29,6 @@ namespace MergeGame.View.Board
 
         [SerializeField] private Image icon;
         [SerializeField] private Image lockOverlay;
-
-        [Tooltip("Covers the whole cell while the item is a closed box.")]
-        [SerializeField] private Image boxCover;
 
         [SerializeField] private GameObject maxLevelBadge;
         [SerializeField] private Image liftShadow;
@@ -62,7 +60,7 @@ namespace MergeGame.View.Board
         public ItemId ItemId { get; private set; }
         public bool IsLocked { get; private set; }
 
-        /// <summary>A closed box: <see cref="ItemId"/> is unknown to the view until it is revealed.</summary>
+        /// <summary>In a closed cell: <see cref="ItemId"/> is unknown to the view and nothing is drawn until it is revealed.</summary>
         public bool IsHidden { get; private set; }
         public bool IsMaxLevel { get; private set; }
         public bool IsLifted { get; private set; }
@@ -88,7 +86,7 @@ namespace MergeGame.View.Board
             Interrupt();
         }
 
-        /// <summary>Shows a closed box; nothing about its content is known or drawn.</summary>
+        /// <summary>Draws nothing: the board's cover buries the cell, and nothing about the content may show.</summary>
         public void ShowHidden()
         {
             SetIdentity(default, null, isLocked: true, isMaxLevel: false);
@@ -97,8 +95,8 @@ namespace MergeGame.View.Board
         }
 
         /// <summary>
-        /// The box opens into a locked item. The box stays closed for <paramref name="delay"/> seconds, so the merge that
-        /// opened it reads first; interrupting shows the item immediately.
+        /// The closed cell opens into a locked item, which pops up after <paramref name="delay"/> seconds, so the merge
+        /// that opened it reads first; interrupting shows the item immediately.
         /// </summary>
         public void Reveal(ItemId itemId, Sprite sprite, bool isMaxLevel, float delay)
         {
@@ -256,7 +254,6 @@ namespace MergeGame.View.Board
             icon.color = IsLocked ? lockedIconTint : Color.white;
             lockOverlay.gameObject.SetActive(IsLocked && !IsHidden);
             maxLevelBadge.SetActive(IsMaxLevel && !IsHidden);
-            boxCover.gameObject.SetActive(IsHidden);
         }
 
         private void ResetEffects()
@@ -266,9 +263,6 @@ namespace MergeGame.View.Board
             SetAlpha(burstGlow, 0f);
             burstGlow.rectTransform.localScale = Vector3.one;
             burstSparkles.gameObject.SetActive(false);
-            SetAlpha(boxCover, 1f);
-            boxCover.rectTransform.localScale = Vector3.one;
-            boxCover.rectTransform.localRotation = Quaternion.identity;
         }
 
         private void SetRestPose()
@@ -310,19 +304,14 @@ namespace MergeGame.View.Board
 
         private IEnumerator PlayReveal(float delay)
         {
-            // The closed box (still shown: the identity is not revealed yet) waits for the merge next to it.
+            // Still invisible (the identity is not revealed yet) while the merge next to it plays.
             yield return Tween.Delay(delay);
 
             RevealIdentity();
-            boxCover.gameObject.SetActive(true);
             burstSparkles.gameObject.SetActive(true);
             yield return Tween.Run(revealSeconds, Ease.Linear, t =>
             {
-                var burst = Ease.OutQuad(Mathf.Min(1f, t * 1.6f));
-                boxCover.rectTransform.localScale = Vector3.one * Mathf.Lerp(1f, 1.6f, burst);
-                boxCover.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 14f * burst);
-                SetAlpha(boxCover, 1f - burst);
-                body.localScale = Vector3.one * Mathf.LerpUnclamped(0.85f, 1f, Ease.OutBack(t));
+                body.localScale = Vector3.one * Mathf.LerpUnclamped(0.5f, 1f, Ease.OutBack(t));
                 SetAlpha(burstGlow, 0.8f * Ease.Bump(t));
                 SetAlpha(burstSparkles, Ease.Bump(t));
                 burstSparkles.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.5f, 1f, Ease.OutCubic(t));

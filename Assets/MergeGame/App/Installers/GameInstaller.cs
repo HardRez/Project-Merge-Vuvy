@@ -46,9 +46,14 @@ namespace MergeGame.App.Installers
         [SerializeField] private OrderMatchView orderMatchView;
 
         [Header("Tuning")]
-        [Tooltip("Seconds without any player action before a possible merge is pointed out.")]
+        [Tooltip("Seconds without any player action before a possible merge is first pointed out (one short pulse).")]
         [Min(0.1f)]
         [SerializeField] private float mergeHintIdleSeconds = 5f;
+
+        [Tooltip("While the player stays idle, seconds between one hint check and the next; each check pulses the hint " +
+                 "once if a merge exists. Keep it longer than the pulse itself.")]
+        [Min(0.1f)]
+        [SerializeField] private float mergeHintRepeatSeconds = 4f;
 
         [Header("Pools")]
         [SerializeField] private ItemView itemPrefab;
@@ -113,7 +118,7 @@ namespace MergeGame.App.Installers
             Container.Bind<ScorePresenter>().AsSingle();
             Container.Bind<SpawnPresenter>().AsSingle();
             Container.Bind<GameNavigationPresenter>().AsSingle();
-            Container.Bind<MergeHintSettings>().FromInstance(new MergeHintSettings(mergeHintIdleSeconds));
+            Container.Bind<MergeHintSettings>().FromInstance(new MergeHintSettings(mergeHintIdleSeconds, mergeHintRepeatSeconds));
             Container.Bind(typeof(MergeHintPresenter), typeof(ITimeDriven)).To<MergeHintPresenter>().AsSingle();
             Container.BindInterfacesTo<TimeDrivenTicker>().AsSingle();
 

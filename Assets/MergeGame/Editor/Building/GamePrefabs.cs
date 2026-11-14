@@ -13,6 +13,8 @@ namespace MergeGame.Editor.Building
     /// <summary>The prefabs the game scene instantiates at runtime: board cells, pooled items and popups, order cards.</summary>
     internal sealed class GamePrefabs
     {
+        private const float CellCornerScale = 0.7f;
+
         // Where the item icon sits inside its cell (normalised).
         private static readonly Vector2 IconMin = new Vector2(0.08f, 0.08f);
         private static readonly Vector2 IconMax = new Vector2(0.92f, 0.92f);
@@ -22,6 +24,7 @@ namespace MergeGame.Editor.Building
         }
 
         public Image BoardCell { get; private set; }
+        public CellCover CellCover { get; private set; }
         public ItemView ItemView { get; private set; }
         public PointsPopup PointsPopup { get; private set; }
         public OrderCardView OrderCard { get; private set; }
@@ -30,6 +33,7 @@ namespace MergeGame.Editor.Building
         public static void Generate(UiKit ui)
         {
             BuildBoardCell(ui);
+            BuildCellCover(ui);
             BuildItemView(ui);
             BuildPointsPopup(ui);
             BuildOrderCard(ui, BuildRequirementSlot(ui));
@@ -38,6 +42,7 @@ namespace MergeGame.Editor.Building
         public static GamePrefabs Load() => new GamePrefabs
         {
             BoardCell = LoadPrefab<Image>(BuildPaths.BoardCellPrefab),
+            CellCover = LoadPrefab<CellCover>(BuildPaths.CellCoverPrefab),
             ItemView = LoadPrefab<ItemView>(BuildPaths.ItemViewPrefab),
             PointsPopup = LoadPrefab<PointsPopup>(BuildPaths.PointsPopupPrefab),
             OrderCard = LoadPrefab<OrderCardView>(BuildPaths.OrderCardPrefab)
@@ -48,8 +53,33 @@ namespace MergeGame.Editor.Building
 
         private static Image BuildBoardCell(UiKit ui)
         {
-            var cell = ui.Image("BoardCell", null, ui.Sprites.Cell, Color.white, cornerScale: 0.7f);
+            var cell = ui.Image("BoardCell", null, ui.Sprites.Cell, Color.white, cornerScale: CellCornerScale);
             return Save<Image>(cell.rectTransform, BuildPaths.BoardCellPrefab);
+        }
+
+        /// <summary>
+        /// Sand over a whole closed cell. The sand sprites are drawn at twice the cell sprite's resolution, so half the
+        /// cell's corner scale gives the same corner radius.
+        /// </summary>
+        private static CellCover BuildCellCover(UiKit ui)
+        {
+            var root = UiKit.Rect("CellCover", null);
+            var sand = ui.Image("Sand", root, ui.Sprites.Sand[0], Color.white, cornerScale: CellCornerScale / 2f);
+            sand.rectTransform.Stretch();
+
+            var puffs = new Image[6];
+            for (var i = 0; i < puffs.Length; i++)
+            {
+                puffs[i] = ui.Image($"Puff {i + 1}", root, ui.Sprites.Glow, ui.Theme.Sand);
+                puffs[i].rectTransform.Span(new Vector2(0.3f, 0.3f), new Vector2(0.7f, 0.7f));
+                puffs[i].gameObject.SetActive(false);
+            }
+
+            root.gameObject.AddComponent<CellCover>()
+                .Wire("sand", sand)
+                .Wire("variants", ui.Sprites.Sand)
+                .Wire("puffs", puffs);
+            return Save<CellCover>(root, BuildPaths.CellCoverPrefab);
         }
 
         private static ItemView BuildItemView(UiKit ui)
@@ -83,9 +113,6 @@ namespace MergeGame.Editor.Building
             var orderBadge = ui.Icon("OrderMatchBadge", body, "check");
             orderBadge.rectTransform.Span(new Vector2(-0.04f, -0.04f), new Vector2(0.36f, 0.36f));
             orderBadge.gameObject.SetActive(false);
-            var box = ui.Icon("BoxCover", body, "box");
-            box.rectTransform.Span(new Vector2(0.02f, 0.02f), new Vector2(0.98f, 0.98f));
-            box.gameObject.SetActive(false);
             var sparkles = ui.Icon("BurstSparkles", body, "sparkles");
             sparkles.rectTransform.Inset(-30f);
             sparkles.gameObject.SetActive(false);
@@ -100,7 +127,6 @@ namespace MergeGame.Editor.Building
                 .Wire("accent", accent)
                 .Wire("icon", icon)
                 .Wire("lockOverlay", lockOverlay)
-                .Wire("boxCover", box)
                 .Wire("maxLevelBadge", crown.gameObject)
                 .Wire("liftShadow", shadow)
                 .Wire("burstGlow", glow)

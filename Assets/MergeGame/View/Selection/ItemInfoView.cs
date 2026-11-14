@@ -27,12 +27,12 @@ namespace MergeGame.View.Selection
         [SerializeField] private Image nextIcon;
         [SerializeField] private TactileButton discardButton;
 
-        [Header("Closed box")]
-        [SerializeField] private Sprite boxIcon;
-        [SerializeField] private string boxName = "Kapalı Kutu";
+        [Header("Closed cell")]
+        [SerializeField] private Sprite coverIcon;
+        [SerializeField] private string coverName = "Kumla Kaplı";
 
-        [Tooltip("One line on how a box opens; shown instead of the level row.")]
-        [SerializeField] private GameObject boxExplanation;
+        [Tooltip("One line on how a closed cell opens; shown instead of the level row.")]
+        [SerializeField] private GameObject coverExplanation;
 
         [SerializeField] private float popSeconds = 0.3f;
 
@@ -45,7 +45,7 @@ namespace MergeGame.View.Selection
         public string ItemName => nameLabel.text;
         public string LevelText => levelLabel.text;
         public bool CanDiscard => discardButton.isActiveAndEnabled && discardButton.interactable;
-        public bool IsShowingBox => details.activeSelf && boxExplanation.activeSelf;
+        public bool IsShowingCover => details.activeSelf && coverExplanation.activeSelf;
 
         [Inject]
         public void Construct(IItemVisuals itemVisuals) => visuals = itemVisuals;
@@ -58,7 +58,7 @@ namespace MergeGame.View.Selection
 
         public void ShowItem(ItemInfo info)
         {
-            ShowDetails(visuals.GetIcon(info.ItemId), info.DisplayName, isBox: false);
+            ShowDetails(visuals.GetIcon(info.ItemId), info.DisplayName, isCovered: false);
             levelLabel.text = string.Format(levelFormat, info.Level, info.MaxLevel);
             maxLevelTag.SetActive(info.IsMaxLevel);
             lockedTag.SetActive(info.IsLocked);
@@ -68,22 +68,22 @@ namespace MergeGame.View.Selection
             discardButton.interactable = info.CanDiscard;
         }
 
-        /// <summary>A box keeps its secret: only what it is and how it opens; it cannot be discarded.</summary>
+        /// <summary>A closed cell keeps its secret: only what it is and how it opens; it cannot be discarded.</summary>
         public void ShowHiddenItem()
         {
-            ShowDetails(boxIcon, boxName, isBox: true);
+            ShowDetails(coverIcon, coverName, isCovered: true);
             next.SetActive(false);
         }
 
-        private void ShowDetails(Sprite itemIcon, string itemName, bool isBox)
+        private void ShowDetails(Sprite itemIcon, string itemName, bool isCovered)
         {
             hint.SetActive(false);
             details.SetActive(true);
             icon.sprite = itemIcon;
             nameLabel.text = itemName;
-            levelRow.SetActive(!isBox);
-            boxExplanation.SetActive(isBox);
-            discardButton.gameObject.SetActive(!isBox);
+            levelRow.SetActive(!isCovered);
+            coverExplanation.SetActive(isCovered);
+            discardButton.gameObject.SetActive(!isCovered);
 
             var iconTransform = icon.rectTransform;
             pop.Play(Tween.Run(popSeconds, Ease.OutBack, t => iconTransform.localScale = Vector3.one * Mathf.LerpUnclamped(0.6f, 1f, t)));

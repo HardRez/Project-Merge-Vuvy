@@ -6,7 +6,7 @@
 |---|---|---|---|
 | Items | `Items/<chainId>/<chainId>_<LL>.png` | 256×256 | Microsoft Fluent Emoji (3D), one per chain level, from the `emoji` field in `Assets/MergeGame/Editor/Seed/seed_content.json` |
 | Icons | `Icons/*.png` | 256×256 | Fluent Emoji (3D); `cobweb.png` is drawn by the script |
-| UI | `UI/*.png` | see table | drawn by the script |
+| UI | `UI/*.png` | see table | drawn by the script (including the sand cover variants) |
 
 Items and icons are trimmed, scaled so the longest side is 204 px, centred on a transparent 256×256 canvas and given a soft contact shadow, so every sprite has the same padding.
 
@@ -45,7 +45,6 @@ If anything cannot be resolved, the script exits with code 1 and lists every fai
 | `trash.png` | 🗑️ | Wastebasket | discard |
 | `sparkles.png` | ✨ | Sparkles | spawn button |
 | `crown.png` | 👑 | Crown | max-level badge |
-| `box.png` | 📦 | Package | closed box (hidden item until a neighbouring webbed item is freed) |
 | `play.png` | ▶️ | Play button | menu |
 | `customer_01.png` | 👱‍♀️ | Woman blonde hair (Default) | customer |
 | `customer_02.png` | 🧔‍♂️ | Man beard (Default) | customer |
@@ -74,6 +73,7 @@ All UI shapes except `background.png` are white/grey with alpha and are meant to
 | `badge.png` | 64×64 | 24, 26, 24, 22 | small tactile badge (counts, level) |
 | `speech_bubble.png` | 128×128 | 52, 60, 36, 36 | bubble with a tail at bottom-left pointing down-left; tail lies inside the bottom-left corner slice |
 | `background.png` | 512×1024 | 0, 0, 0, 0 | opaque sky-to-sand gradient with faint dots; not tinted, stretch to fill the screen |
+| `sand_01.png` … `sand_03.png` | 256×256 | 64, 64, 64, 64 | a closed board cell buried in sand: full colour (not tinted), same footprint and corner radius as `cell.png` at 2× (use half the cell's corner scale), sunk in by an inner rim shadow; ripples, grain and pebbles differ per variant so neighbouring cells do not look stamped |
 
 ## Licences
 

@@ -6,9 +6,9 @@ using UnityEngine;
 namespace MergeGame.View.Hints
 {
     /// <summary>
-    /// Points out a possible merge after the player has been idle: the two items lean toward each other in sync until
-    /// the hint is hidden. Items that leave the board or get picked up drop their accent themselves, so a hint never
-    /// leaves residue on them.
+    /// Points out a possible merge after the player has been idle: the two items pulse toward each other once, in sync,
+    /// and come back to rest by themselves. A new hint or <see cref="HideMergeHint"/> cancels one still playing. Items
+    /// that leave the board or get picked up drop their accent themselves, so a hint never leaves residue on them.
     /// </summary>
     public sealed class MergeHintView : MonoBehaviour, IMergeHintView
     {
@@ -17,7 +17,8 @@ namespace MergeGame.View.Hints
         private ItemView source;
         private ItemView target;
 
-        public bool IsShown => source != null;
+        /// <summary>True while the last hint's pulse is still playing on its items.</summary>
+        public bool IsPlaying => IsHinting(source) || IsHinting(target);
 
         public void ShowMergeHint(GridPosition from, GridPosition to)
         {
@@ -41,6 +42,8 @@ namespace MergeGame.View.Hints
             source = null;
             target = null;
         }
+
+        private static bool IsHinting(ItemView item) => item != null && item.Accent.Current == AccentKind.MergeHint;
 
         private static Vector2 DirectionInParentOf(ItemView item, Vector3 worldDirection) =>
             item.transform.InverseTransformVector(worldDirection);
