@@ -34,16 +34,52 @@ namespace MergeGame.View.Board.Sand
             var pixelsPerUnit = tile.pixelsPerUnit;
             for (var y = 0; y < rows; y++)
             {
-                var sourceY = (int)(spriteRect.y + SourceOffset((y + 0.5f) / rows * size.y, size.y, border.y, border.w, spriteRect.height, pixelsPerUnit));
+                var fromY = SourcePixel(y, rows, size.y, border.y, border.w, spriteRect.y, spriteRect.height, pixelsPerUnit);
+                var toY = SourcePixel(y + 1, rows, size.y, border.y, border.w, spriteRect.y, spriteRect.height, pixelsPerUnit);
                 for (var x = 0; x < columns; x++)
                 {
-                    var sourceX = (int)(spriteRect.x + SourceOffset((x + 0.5f) / columns * size.x, size.x, border.x, border.z, spriteRect.width, pixelsPerUnit));
-                    var colour = pixels[Mathf.Clamp(sourceY, 0, texture.height - 1) * texture.width + Mathf.Clamp(sourceX, 0, texture.width - 1)];
+                    var fromX = SourcePixel(x, columns, size.x, border.x, border.z, spriteRect.x, spriteRect.width, pixelsPerUnit);
+                    var toX = SourcePixel(x + 1, columns, size.x, border.x, border.z, spriteRect.x, spriteRect.width, pixelsPerUnit);
+                    var colour = Average(pixels, texture.width, texture.height, fromX, toX, fromY, toY);
                     var index = y * columns + x;
                     occupied[index] = colour.a >= 128;
                     colours[index] = new Color32(colour.r, colour.g, colour.b, 255);
                 }
             }
+        }
+
+        /// <summary>The first sprite pixel (in texture coordinates) under grain edge <paramref name="edge"/> of <paramref name="count"/>.</summary>
+        private static int SourcePixel(int edge, int count, float drawnSize, float borderStart, float borderEnd, float spriteStart, float spriteSize, float pixelsPerUnit) =>
+            (int)(spriteStart + SourceOffset(edge / (float)count * drawnSize, drawnSize, borderStart, borderEnd, spriteSize, pixelsPerUnit));
+
+        /// <summary>
+        /// The mean of the pixels a grain covers (colour weighted by alpha), so grains look like the tile does at its
+        /// drawn size rather than like single, high-contrast specks of it.
+        /// </summary>
+        private static Color32 Average(Color32[] pixels, int width, int height, int fromX, int toX, int fromY, int toY)
+        {
+            fromX = Mathf.Clamp(fromX, 0, width - 1);
+            fromY = Mathf.Clamp(fromY, 0, height - 1);
+            toX = Mathf.Clamp(Mathf.Max(toX, fromX + 1), 1, width);
+            toY = Mathf.Clamp(Mathf.Max(toY, fromY + 1), 1, height);
+
+            long r = 0, g = 0, b = 0, a = 0;
+            for (var y = fromY; y < toY; y++)
+            {
+                for (var x = fromX; x < toX; x++)
+                {
+                    var pixel = pixels[y * width + x];
+                    r += pixel.r * pixel.a;
+                    g += pixel.g * pixel.a;
+                    b += pixel.b * pixel.a;
+                    a += pixel.a;
+                }
+            }
+
+            var count = (toX - fromX) * (toY - fromY);
+            if (a == 0)
+                return default;
+            return new Color32((byte)(r / a), (byte)(g / a), (byte)(b / a), (byte)(a / count));
         }
 
         /// <summary>

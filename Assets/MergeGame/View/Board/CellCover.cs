@@ -26,13 +26,13 @@ namespace MergeGame.View.Board
         [SerializeField] private Sprite[] variants = Array.Empty<Sprite>();
 
         [Header("Pour")]
-        [Tooltip("Grains across the cell; about 3 screen pixels per grain on a phone.")]
+        [Tooltip("Grains across the cell; about 4–4.5 screen pixels per grain on a phone, so single grains read.")]
         [Min(8)]
-        [SerializeField] private int columns = 64;
+        [SerializeField] private int columns = 42;
 
         [Tooltip("Simulation steps per second; with the pour settings this sets how long the sand takes to run out.")]
         [Min(1f)]
-        [SerializeField] private float stepsPerSecond = 75f;
+        [SerializeField] private float stepsPerSecond = 70f;
 
         [Tooltip("Most simulation steps run in one frame, so a long frame slows the pour instead of jumping it.")]
         [Min(1)]

@@ -257,14 +257,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4419796f3d40ba74f8649cc34321013e, type: 3}
   - {fileID: 21300000, guid: e8a1cd8e01ce1164bacb5bbe06729e8f, type: 3}
   - {fileID: 21300000, guid: 88db807cdeb2d6a46bfe5e2a689ff076, type: 3}
-  columns: 64
-  stepsPerSecond: 75
+  columns: 42
+  stepsPerSecond: 70
   maxStepsPerFrame: 4
   pour:
-    gravity: 0.06
+    gravity: 0.08
     maxSpeed: 3
     slideChance: 0.8
     holeCount: 2
-    holesOpenStep: 6
-    widenSteps: 220
+    holesOpenStep: 3
+    widenSteps: 70
   refuseSeconds: 0.35

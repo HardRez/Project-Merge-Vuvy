@@ -21,7 +21,7 @@ namespace MergeGame.PlayTests
         private const float AnimationSettleSeconds = 1.2f;
 
         /// <summary>The reveal delay plus a whole sand pour, with room to spare.</summary>
-        private const float PourSettleSeconds = 3.5f;
+        private const float PourSettleSeconds = 2.5f;
 
         /// <summary>Longer than one hint pulse, shorter than the default repeat interval.</summary>
         private const float HintPulseSeconds = 1.8f;

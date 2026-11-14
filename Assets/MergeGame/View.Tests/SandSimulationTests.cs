@@ -6,10 +6,11 @@ namespace MergeGame.View.Tests
 {
     public sealed class SandSimulationTests
     {
-        private const int Size = 64;
+        /// <summary>The cover's default grid.</summary>
+        private const int Size = 42;
 
-        /// <summary>Generous: the default tuning empties a full cell in roughly 110 steps.</summary>
-        private const int StepsToEmpty = 400;
+        /// <summary>The default tuning empties a full cell in roughly 70 steps; the budget keeps the tail from dragging.</summary>
+        private const int StepsToEmpty = 100;
 
         [Test]
         public void SameSeed_PoursIdentically()
