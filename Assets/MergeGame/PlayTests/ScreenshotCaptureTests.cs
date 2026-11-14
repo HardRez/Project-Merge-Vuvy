@@ -47,20 +47,21 @@ namespace MergeGame.PlayTests
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
             yield return GameScreenDriver.WaitSeconds(0.8f);
-            yield return Capture("02_game_opening_boxes");
+            yield return Capture("02_game_opening_sand");
 
-            game.Tap(game.Cells().First(game.IsBox));
+            game.Tap(game.Cells().First(game.IsCovered));
             yield return GameScreenDriver.WaitSeconds(0.5f);
-            yield return Capture("03_game_box_selected");
+            yield return Capture("03_game_sand_selected");
 
-            game.Resolve<MergeHintPresenter>().Advance(game.Resolve<MergeHintSettings>().IdleSeconds);
-            yield return GameScreenDriver.WaitSeconds(0.45f);
-            yield return Capture("04_game_idle_hint");
+            // Each resolution re-triggers the one-shot pulse, so every capture catches it mid-pulse.
+            yield return Capture("04_game_idle_hint_pulse", PulseMergeHint, 0.3f);
 
-            Assert.That(game.TryFindBoxOpeningMerge(out var from, out var to), Is.True);
+            Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True);
             yield return game.DragAndDrop(from, to);
-            yield return GameScreenDriver.WaitSeconds(0.55f);
-            yield return Capture("05_game_box_revealed");
+            yield return GameScreenDriver.WaitSeconds(0.45f);
+            yield return CaptureOnce("05_game_sand_mid_reveal");
+            yield return GameScreenDriver.WaitSeconds(1f);
+            yield return Capture("05b_game_sand_revealed");
 
             yield return SpawnAndMergeThenSelect();
             yield return Capture("06_game_merged_selected");
@@ -89,8 +90,19 @@ namespace MergeGame.PlayTests
             yield return Capture("13_game_board_full");
         }
 
-        private IEnumerator Capture(string name, Action beforeRender = null) =>
-            Snapshot.CaptureAll(game.Camera, directory, name, beforeRender);
+        private IEnumerator Capture(string name, Action beforeRender = null, float settleSeconds = 0f) =>
+            Snapshot.CaptureAll(game.Camera, directory, name, beforeRender, settleSeconds);
+
+        /// <summary>Lets enough idle time pass for the next hint check, which pulses the hint once.</summary>
+        private void PulseMergeHint()
+        {
+            var settings = game.Resolve<MergeHintSettings>();
+            game.Resolve<MergeHintPresenter>().Advance(Mathf.Max(settings.IdleSeconds, settings.RepeatSeconds));
+        }
+
+        /// <summary>One resolution only, for a moment that would be over before the other sizes are rendered.</summary>
+        private IEnumerator CaptureOnce(string name) =>
+            Snapshot.Capture(game.Camera, Path.Combine(directory, $"{name}_1080x1920.png"), Snapshot.DeviceResolutions[0], null, 0f);
 
         private IEnumerator SpawnAndMergeThenSelect()
         {

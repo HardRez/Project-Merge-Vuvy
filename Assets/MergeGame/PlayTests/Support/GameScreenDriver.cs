@@ -145,12 +145,12 @@ namespace MergeGame.PlayTests.Support
         public bool TryFindMergePair(out GridPosition from, out GridPosition to) =>
             TryFindPair(CanMerge, out from, out to);
 
-        /// <summary>A merge onto a webbed item that has a closed box next to it, so the merge opens the box.</summary>
-        public bool TryFindBoxOpeningMerge(out GridPosition from, out GridPosition to)
+        /// <summary>A merge onto a webbed item that has a closed cell next to it, so the merge opens that cell.</summary>
+        public bool TryFindCoverOpeningMerge(out GridPosition from, out GridPosition to)
         {
             foreach (var target in Cells())
             {
-                if (!Board.TryGetItem(target, out var webbed) || !webbed.IsLocked || webbed.IsHidden || !Neighbours(target).Any(IsBox))
+                if (!Board.TryGetItem(target, out var webbed) || !webbed.IsLocked || webbed.IsHidden || !Neighbours(target).Any(IsCovered))
                     continue;
                 if (TryFindPair((dragged, other) => other == webbed && CanMerge(dragged, other), out from, out to))
                     return true;
@@ -177,7 +177,7 @@ namespace MergeGame.PlayTests.Support
             return cells;
         }
 
-        public bool IsBox(GridPosition cell) => Board.TryGetItem(cell, out var item) && item.IsHidden;
+        public bool IsCovered(GridPosition cell) => Board.TryGetItem(cell, out var item) && item.IsHidden;
 
         /// <summary>Equal, visible items below the last level: dropping one on the other merges them.</summary>
         public static bool CanMerge(ItemView dragged, ItemView target) =>
