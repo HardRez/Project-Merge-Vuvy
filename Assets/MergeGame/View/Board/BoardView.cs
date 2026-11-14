@@ -163,8 +163,13 @@ namespace MergeGame.View.Board
                 item.Reveal(itemId, visuals.GetIcon(itemId), catalog.IsMaxLevel(itemId), revealDelaySeconds);
         }
 
-        public void SpawnItem(GridPosition position, ItemId itemId) =>
-            AddItem(position, item => item.Show(itemId, visuals.GetIcon(itemId), isLocked: false, catalog.IsMaxLevel(itemId))).PlaySpawn();
+        /// <summary>Unlike opening-layout items and opened boxes, a spawned item pops in and shines for a moment.</summary>
+        public void SpawnItem(GridPosition position, ItemId itemId)
+        {
+            var item = AddItem(position, spawned => spawned.Show(itemId, visuals.GetIcon(itemId), isLocked: false, catalog.IsMaxLevel(itemId)));
+            item.PlaySpawn();
+            item.Accent.PlaySpawnShine(item.DisplayedIcon);
+        }
 
         public void BeginDrag(GridPosition origin)
         {

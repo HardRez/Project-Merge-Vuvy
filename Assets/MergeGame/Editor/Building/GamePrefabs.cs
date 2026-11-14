@@ -69,6 +69,9 @@ namespace MergeGame.Editor.Building
             var body = UiKit.Rect("Body", accentLayer).Stretch();
             var glow = ui.Image("BurstGlow", body, ui.Sprites.Glow, WithAlpha(ui.Theme.Gold, 0f));
             glow.rectTransform.Inset(-46f);
+            var orderHalo = ui.Image("OrderMatchHalo", body, ui.Sprites.Glow, ui.Theme.OrderMatch);
+            orderHalo.rectTransform.Inset(-18f);
+            orderHalo.gameObject.SetActive(false);
             var icon = ui.Image("Icon", body, null, Color.white);
             icon.rectTransform.Span(IconMin, IconMax);
             var lockOverlay = ui.Icon("LockOverlay", body, "cobweb");
@@ -76,6 +79,10 @@ namespace MergeGame.Editor.Building
             var crown = ui.Icon("MaxLevelBadge", body, "crown");
             crown.rectTransform.Span(new Vector2(0.6f, 0.62f), new Vector2(1.04f, 1.06f));
             crown.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -18f);
+            // Bottom-left, so it never collides with the crown in the top-right corner.
+            var orderBadge = ui.Icon("OrderMatchBadge", body, "check");
+            orderBadge.rectTransform.Span(new Vector2(-0.04f, -0.04f), new Vector2(0.36f, 0.36f));
+            orderBadge.gameObject.SetActive(false);
             var box = ui.Icon("BoxCover", body, "box");
             box.rectTransform.Span(new Vector2(0.02f, 0.02f), new Vector2(0.98f, 0.98f));
             box.gameObject.SetActive(false);
@@ -84,7 +91,11 @@ namespace MergeGame.Editor.Building
             sparkles.gameObject.SetActive(false);
 
             var accent = BuildAccent(ui, accentLayer, accentGlow);
+            var orderMark = root.gameObject.AddComponent<OrderMatchMark>()
+                .Wire("halo", orderHalo)
+                .Wire("badge", orderBadge);
             root.gameObject.AddComponent<ItemView>()
+                .Wire("orderMark", orderMark)
                 .Wire("body", body)
                 .Wire("accent", accent)
                 .Wire("icon", icon)
@@ -110,7 +121,7 @@ namespace MergeGame.Editor.Building
             var hintRing = ui.Image("HintRing", layer, ui.Sprites.Ring, ui.Theme.Gold, cornerScale: 0.6f);
             hintRing.rectTransform.Inset(2f);
             var sparkles = ui.Icon("AccentSparkles", layer, "sparkles");
-            sparkles.rectTransform.Span(new Vector2(-0.16f, -0.16f), new Vector2(0.44f, 0.44f));
+            sparkles.rectTransform.Span(new Vector2(-0.16f, 0.56f), new Vector2(0.44f, 1.16f));
 
             return layer.gameObject.AddComponent<ItemAccent>()
                 .Wire("glow", glow)
