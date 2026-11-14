@@ -50,7 +50,8 @@ namespace MergeGame.View.Board
         [SerializeField] private float refuseSeconds = 0.4f;
         [SerializeField] private float mergeSeconds = 0.42f;
         [SerializeField] private float vanishSeconds = 0.24f;
-        [SerializeField] private float revealSeconds = 0.5f;
+        [Tooltip("The small settle when the sand that covered the item has drained away.")]
+        [SerializeField] private float revealSettleSeconds = 0.25f;
 
         private RectTransform rectTransform;
         private CanvasGroup canvasGroup;
@@ -95,14 +96,15 @@ namespace MergeGame.View.Board
         }
 
         /// <summary>
-        /// The closed cell opens into a locked item, which pops up after <paramref name="delay"/> seconds, so the merge
-        /// that opened it reads first; interrupting shows the item immediately.
+        /// The closed cell opens into a locked item. It appears after <paramref name="delay"/> seconds, still under the
+        /// draining sand, which uncovers it; once the sand is gone (<paramref name="settleDelay"/>) it settles a little.
+        /// Interrupting shows the item immediately.
         /// </summary>
-        public void Reveal(ItemId itemId, Sprite sprite, bool isMaxLevel, float delay)
+        public void Reveal(ItemId itemId, Sprite sprite, bool isMaxLevel, float delay, float settleDelay)
         {
             Interrupt();
             SetIdentity(itemId, sprite, isLocked: true, isMaxLevel);
-            if (!motion.Play(PlayReveal(delay)))
+            if (!motion.Play(PlayReveal(delay, settleDelay)))
                 RevealIdentity();
         }
 
@@ -302,23 +304,14 @@ namespace MergeGame.View.Board
             ResetEffects();
         }
 
-        private IEnumerator PlayReveal(float delay)
+        private IEnumerator PlayReveal(float delay, float settleDelay)
         {
             // Still invisible (the identity is not revealed yet) while the merge next to it plays.
             yield return Tween.Delay(delay);
 
             RevealIdentity();
-            burstSparkles.gameObject.SetActive(true);
-            yield return Tween.Run(revealSeconds, Ease.Linear, t =>
-            {
-                body.localScale = Vector3.one * Mathf.LerpUnclamped(0.5f, 1f, Ease.OutBack(t));
-                SetAlpha(burstGlow, 0.8f * Ease.Bump(t));
-                SetAlpha(burstSparkles, Ease.Bump(t));
-                burstSparkles.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.5f, 1f, Ease.OutCubic(t));
-            });
-
-            RevealIdentity();
-            ResetEffects();
+            yield return Tween.Delay(settleDelay - delay);
+            yield return Tween.Run(revealSettleSeconds, Ease.Linear, t => body.localScale = Vector3.one * (1f + 0.05f * Ease.Bump(t)));
         }
 
         private IEnumerator PlayFlight(Vector3 worldTarget, float seconds, float delay, float endScale, Action arrived)
