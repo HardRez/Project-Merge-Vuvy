@@ -71,6 +71,7 @@ ICONS = [
     ("trash", "\U0001F5D1"),
     ("sparkles", "✨"),
     ("crown", "\U0001F451"),
+    ("box", "\U0001F4E6"),
     ("play", "▶"),
     ("customer_01", "\U0001F471‍♀️"),  # woman, blonde hair
     ("customer_02", "\U0001F9D4‍♂️"),  # man, beard

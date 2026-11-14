@@ -18,6 +18,7 @@ namespace MergeGame.Presentation.Tests.Support
         public ItemInfo Info { get; private set; }
 
         public bool IsShowingHint { get; private set; }
+        public bool IsShowingHiddenItem { get; private set; }
         public bool HasInputListeners => DiscardRequested != null;
 
         public void RequestDiscard() => DiscardRequested?.Invoke();
@@ -26,13 +27,23 @@ namespace MergeGame.Presentation.Tests.Support
         {
             Info = info;
             IsShowingHint = false;
+            IsShowingHiddenItem = false;
             log.Add($"Info.ShowItem {info}");
+        }
+
+        public void ShowHiddenItem()
+        {
+            Info = null;
+            IsShowingHint = false;
+            IsShowingHiddenItem = true;
+            log.Add("Info.ShowHiddenItem");
         }
 
         public void ShowHint()
         {
             Info = null;
             IsShowingHint = true;
+            IsShowingHiddenItem = false;
             log.Add("Info.ShowHint");
         }
     }

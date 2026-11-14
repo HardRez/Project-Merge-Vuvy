@@ -168,17 +168,19 @@
     "customerCount": 6
   },
   "initialLayout": [
-    { "x": 0, "y": 0, "chain": "fruit", "level": 1, "locked": true },
-    { "x": 2, "y": 0, "chain": "sea", "level": 2, "locked": true },
-    { "x": 4, "y": 0, "chain": "flower", "level": 1, "locked": true },
-    { "x": 1, "y": 1, "chain": "fruit", "level": 1, "locked": false },
-    { "x": 3, "y": 1, "chain": "flower", "level": 1, "locked": false },
-    { "x": 0, "y": 2, "chain": "bakery", "level": 2, "locked": true },
-    { "x": 4, "y": 2, "chain": "fruit", "level": 2, "locked": true },
-    { "x": 1, "y": 3, "chain": "fruit", "level": 1, "locked": false },
-    { "x": 3, "y": 3, "chain": "sea", "level": 1, "locked": false },
-    { "x": 0, "y": 4, "chain": "sea", "level": 1, "locked": true },
-    { "x": 2, "y": 4, "chain": "bakery", "level": 3, "locked": true },
-    { "x": 4, "y": 4, "chain": "flower", "level": 2, "locked": true }
+    { "x": 0, "y": 0, "chain": "fruit", "level": 2, "locked": true, "hidden": true },
+    { "x": 1, "y": 0, "chain": "fruit", "level": 1, "locked": true },
+    { "x": 3, "y": 0, "chain": "flower", "level": 1, "locked": true },
+    { "x": 4, "y": 0, "chain": "bakery", "level": 2, "locked": true, "hidden": true },
+    { "x": 0, "y": 1, "chain": "sea", "level": 1, "locked": true },
+    { "x": 2, "y": 1, "chain": "fruit", "level": 1, "locked": false },
+    { "x": 4, "y": 1, "chain": "bakery", "level": 1, "locked": true },
+    { "x": 1, "y": 2, "chain": "flower", "level": 1, "locked": false },
+    { "x": 3, "y": 2, "chain": "sea", "level": 1, "locked": false },
+    { "x": 0, "y": 4, "chain": "sea", "level": 2, "locked": true, "hidden": true },
+    { "x": 1, "y": 4, "chain": "bakery", "level": 2, "locked": true },
+    { "x": 2, "y": 4, "chain": "bakery", "level": 1, "locked": false },
+    { "x": 3, "y": 4, "chain": "flower", "level": 2, "locked": true },
+    { "x": 4, "y": 4, "chain": "fruit", "level": 3, "locked": true, "hidden": true }
   ]
 }

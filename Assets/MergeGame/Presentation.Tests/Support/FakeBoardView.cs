@@ -59,6 +59,18 @@ namespace MergeGame.Presentation.Tests.Support
             log.Add($"Board.PlaceItem {itemId} at {position}{(isLocked ? " locked" : string.Empty)}");
         }
 
+        public void PlaceHiddenItem(GridPosition position)
+        {
+            Items.Add(position, ShownItem.Box);
+            log.Add($"Board.PlaceHiddenItem at {position}");
+        }
+
+        public void RevealItem(GridPosition position, ItemId itemId)
+        {
+            Items[position] = new ShownItem(itemId, true);
+            log.Add($"Board.RevealItem {itemId} at {position}");
+        }
+
         public void SpawnItem(GridPosition position, ItemId itemId)
         {
             Items.Add(position, new ShownItem(itemId, false));

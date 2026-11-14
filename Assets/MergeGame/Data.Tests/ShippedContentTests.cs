@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using MergeGame.Core.Events;
 using MergeGame.Core.Grid;
 using MergeGame.Core.Items;
 using MergeGame.Core.Rules;
@@ -93,10 +95,38 @@ namespace MergeGame.Data.Tests
             var occupied = session.Board.Positions.Where(position => !session.Board.IsEmpty(position)).ToList();
 
             Assert.That(occupied.Count(position => session.Board.GetItem(position).IsLocked), Is.GreaterThan(0));
-            Assert.That(session.Board.EmptyCellCount, Is.GreaterThanOrEqualTo(12));
+            Assert.That(session.Board.EmptyCellCount, Is.GreaterThanOrEqualTo(11));
             Assert.That(
                 occupied.SelectMany(from => occupied.Select(to => session.PreviewDrop(from, to).Kind)),
                 Has.Some.EqualTo(DropOutcomeKind.Merge));
+        }
+
+        [Test]
+        public void OpeningLayout_HasBoxesThatCanAllBeOpened()
+        {
+            var placements = new GameDefinitionFactory().Create(config).InitialPlacements;
+            var boxes = placements.Where(placement => placement.IsHidden).Select(placement => placement.Position).ToList();
+            var webbed = placements.Where(placement => placement.IsLocked && !placement.IsHidden).Select(placement => placement.Position).ToList();
+
+            Assert.That(boxes, Is.Not.Empty);
+            foreach (var box in boxes)
+                Assert.That(webbed.Any(cell => Math.Abs(cell.X - box.X) + Math.Abs(cell.Y - box.Y) == 1), Is.True, $"The box at {box} touches no webbed item.");
+        }
+
+        [Test]
+        public void OpeningLayout_OneMergeFreesAWebbedItemAndOpensABox()
+        {
+            var session = new MergeGameSession(new GameDefinitionFactory().Create(config), new SystemRandom(1));
+            var revealed = 0;
+            session.EventRaised += gameEvent => revealed += gameEvent is ItemRevealed ? 1 : 0;
+            var opening = session.Board.Positions.SelectMany(from => session.Board.Positions.Select(to => (from, to)))
+                .First(pair => session.PreviewDrop(pair.from, pair.to).Kind == DropOutcomeKind.Merge
+                               && session.Board.GetItem(pair.to).IsLocked
+                               && Neighbours(pair.to).Any(cell => session.Board.IsInside(cell) && session.Board.TryGetItem(cell, out var item) && item.IsHidden));
+
+            session.Drop(opening.from, opening.to);
+
+            Assert.That(revealed, Is.GreaterThan(0));
         }
 
         [Test]
@@ -121,6 +151,9 @@ namespace MergeGame.Data.Tests
             Assert.That(session.Score, Is.GreaterThan(0));
             Assert.That(new ItemVisualLibrary(copy).GetIcon(new ItemId("gem", 2)), Is.SameAs(gem.Levels[1].Icon));
         }
+
+        private static GridPosition[] Neighbours(GridPosition cell) =>
+            new[] { new GridPosition(cell.X, cell.Y - 1), new GridPosition(cell.X - 1, cell.Y), new GridPosition(cell.X + 1, cell.Y), new GridPosition(cell.X, cell.Y + 1) };
 
         /// <summary>Merge points earned while building one item of <paramref name="level"/> from level-1 items.</summary>
         private int MergePointsToBuild(int level)

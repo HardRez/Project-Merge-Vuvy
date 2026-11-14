@@ -10,5 +10,8 @@ namespace MergeGame.Editor.Seed
         public string chain;
         public int level;
         public bool locked;
+
+        /// <summary>A closed box; implies locked.</summary>
+        public bool hidden;
     }
 }

@@ -41,6 +41,10 @@ namespace MergeGame.PlayTests
             foreach (var placement in config.InitialLayout.Placements)
             {
                 Assert.That(game.Board.TryGetItem(new GridPosition(placement.X, placement.Y), out var item), Is.True, $"No item at ({placement.X}, {placement.Y}).");
+                Assert.That(item.IsHidden, Is.EqualTo(placement.Hidden));
+                if (placement.Hidden)
+                    continue;
+
                 Assert.That(item.ItemId.ChainId, Is.EqualTo(placement.Chain.Id));
                 Assert.That(item.ItemId.Level, Is.EqualTo(placement.Level));
                 Assert.That(item.IsLocked, Is.EqualTo(placement.Locked));
@@ -84,7 +88,7 @@ namespace MergeGame.PlayTests
         public IEnumerator DragOntoADifferentItem_ReturnsItToItsCell()
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
-            Assert.That(game.TryFindPair((dragged, target) => dragged.ItemId != target.ItemId, out var from, out var to), Is.True);
+            Assert.That(game.TryFindPair((dragged, target) => !target.IsHidden && dragged.ItemId != target.ItemId, out var from, out var to), Is.True);
             game.Board.TryGetItem(from, out var dragged);
             var draggedId = dragged.ItemId;
             var itemsBefore = game.Board.ItemCount;
@@ -105,7 +109,7 @@ namespace MergeGame.PlayTests
         public IEnumerator SelectionMarker_WhileItsItemIsDragged_IsHiddenAndReturnsWithIt()
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
-            Assert.That(game.TryFindPair((dragged, target) => dragged.ItemId != target.ItemId, out var from, out var to), Is.True);
+            Assert.That(game.TryFindPair((dragged, target) => !target.IsHidden && dragged.ItemId != target.ItemId, out var from, out var to), Is.True);
             game.Tap(from);
             yield return null;
             Assert.That(game.Board.IsSelectionShown, Is.True);
@@ -139,9 +143,14 @@ namespace MergeGame.PlayTests
                     continue;
 
                 itemCount++;
-                Assert.That(shown.ItemId, Is.EqualTo(expected.ItemId), $"Cell {cell}");
+                Assert.That(shown.IsHidden, Is.EqualTo(expected.IsHidden), $"Cell {cell}");
                 Assert.That(shown.IsLocked, Is.EqualTo(expected.IsLocked), $"Cell {cell}");
-                Assert.That(shown.DisplayedIcon, Is.Not.Null, $"Cell {cell}");
+                if (!expected.IsHidden)
+                {
+                    Assert.That(shown.ItemId, Is.EqualTo(expected.ItemId), $"Cell {cell}");
+                    Assert.That(shown.DisplayedIcon, Is.Not.Null, $"Cell {cell}");
+                }
+
                 Assert.That(Vector3.Distance(shown.WorldCenter, game.Board.GetCellWorldCenter(cell)), Is.LessThan(0.01f), $"Cell {cell}");
             }
 

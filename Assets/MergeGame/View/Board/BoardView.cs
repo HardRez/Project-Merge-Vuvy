@@ -52,6 +52,9 @@ namespace MergeGame.View.Board
         [SerializeField] private float deliveryFlightSeconds = 0.55f;
         [SerializeField] private float deliveryStaggerSeconds = 0.09f;
 
+        [Tooltip("A box opened by a merge waits this long, so the merge next to it reads first.")]
+        [SerializeField] private float revealDelaySeconds = 0.35f;
+
         private readonly Dictionary<GridPosition, ItemView> items = new Dictionary<GridPosition, ItemView>();
         private readonly List<Image> cells = new List<Image>();
 
@@ -70,6 +73,7 @@ namespace MergeGame.View.Board
         private GridPosition? selectedCell;
         private ItemView draggedItem;
         private Vector3 grabOffset;
+        private ItemView mergeTarget;
 
         public event Action<GridPosition> DragStarted;
         public event Action<GridPosition?> DragMoved;
@@ -148,9 +152,19 @@ namespace MergeGame.View.Board
             }
         }
 
-        public void PlaceItem(GridPosition position, ItemId itemId, bool isLocked) => AddItem(position, itemId, isLocked);
+        public void PlaceItem(GridPosition position, ItemId itemId, bool isLocked) =>
+            AddItem(position, item => item.Show(itemId, visuals.GetIcon(itemId), isLocked, catalog.IsMaxLevel(itemId)));
 
-        public void SpawnItem(GridPosition position, ItemId itemId) => AddItem(position, itemId, isLocked: false).PlaySpawn();
+        public void PlaceHiddenItem(GridPosition position) => AddItem(position, item => item.ShowHidden());
+
+        public void RevealItem(GridPosition position, ItemId itemId)
+        {
+            if (items.TryGetValue(position, out var item))
+                item.Reveal(itemId, visuals.GetIcon(itemId), catalog.IsMaxLevel(itemId), revealDelaySeconds);
+        }
+
+        public void SpawnItem(GridPosition position, ItemId itemId) =>
+            AddItem(position, item => item.Show(itemId, visuals.GetIcon(itemId), isLocked: false, catalog.IsMaxLevel(itemId))).PlaySpawn();
 
         public void BeginDrag(GridPosition origin)
         {
@@ -169,9 +183,18 @@ namespace MergeGame.View.Board
                 item.PlayRefuse();
         }
 
-        public void ShowDropHighlight(GridPosition cell, DropHighlight highlight) => dropHighlight.Show(geometry.GetCell(cell), highlight);
+        public void ShowDropHighlight(GridPosition cell, DropHighlight highlight)
+        {
+            dropHighlight.Show(geometry.GetCell(cell), highlight);
+            var target = highlight == DropHighlight.Merge && items.TryGetValue(cell, out var item) ? item : null;
+            SetMergeTarget(target);
+        }
 
-        public void ClearDropHighlight() => dropHighlight.Hide();
+        public void ClearDropHighlight()
+        {
+            dropHighlight.Hide();
+            SetMergeTarget(null);
+        }
 
         public void ReturnItem(GridPosition origin)
         {
@@ -249,12 +272,13 @@ namespace MergeGame.View.Board
             selectionMarker.Hide();
         }
 
-        private ItemView AddItem(GridPosition position, ItemId itemId, bool isLocked)
+        /// <param name="identify">Gives the pooled item its identity before it is placed.</param>
+        private ItemView AddItem(GridPosition position, Action<ItemView> identify)
         {
             Release(TakeItem(position));
 
             var item = itemPool.Spawn();
-            item.Show(itemId, visuals.GetIcon(itemId), isLocked, catalog.IsMaxLevel(itemId));
+            identify(item);
             item.Place(itemLayer, geometry.GetCell(position));
             items.Add(position, item);
             return item;
@@ -275,6 +299,19 @@ namespace MergeGame.View.Board
         {
             if (item != null && item.gameObject.activeSelf)
                 itemPool.Despawn(item);
+        }
+
+        /// <summary>The item the dragged one would merge into lights up; only one at a time.</summary>
+        private void SetMergeTarget(ItemView target)
+        {
+            if (mergeTarget == target)
+                return;
+
+            if (mergeTarget != null)
+                mergeTarget.Accent.Stop(AccentKind.MergeTarget);
+            mergeTarget = target;
+            if (mergeTarget != null)
+                mergeTarget.Accent.PlayMergeTarget(mergeTarget.DisplayedIcon);
         }
 
         private void ForgetDrag(ItemView item)

@@ -44,10 +44,11 @@ namespace MergeGame.Core.Tests
         {
             var definition = Definition();
 
-            Assert.That(definition.DropRules.Count, Is.EqualTo(3));
+            Assert.That(definition.DropRules.Count, Is.EqualTo(4));
             Assert.That(definition.DropRules[0], Is.InstanceOf<LockedSourceRule>());
-            Assert.That(definition.DropRules[1], Is.InstanceOf<MoveToEmptyCellRule>());
-            Assert.That(definition.DropRules[2], Is.InstanceOf<MergeRule>());
+            Assert.That(definition.DropRules[1], Is.InstanceOf<HiddenTargetRule>());
+            Assert.That(definition.DropRules[2], Is.InstanceOf<MoveToEmptyCellRule>());
+            Assert.That(definition.DropRules[3], Is.InstanceOf<MergeRule>());
         }
     }
 }

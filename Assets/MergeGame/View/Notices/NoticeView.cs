@@ -39,12 +39,18 @@ namespace MergeGame.View.Notices
 
         public void ShowNotice(Notice notice)
         {
-            var hasText = texts.TryGet(notice, out var text);
-            label.text = hasText ? text.Text : notice.ToString();
-            icon.sprite = hasText ? text.Icon : null;
+            // Wording is data; a notice without an entry is skipped rather than shown in code terms.
+            if (!texts.TryGet(notice, out var text) || string.IsNullOrEmpty(text.Text))
+            {
+                Debug.LogWarning($"{texts.name} has no text for the notice {notice}; it is not shown.", texts);
+                return;
+            }
+
+            label.text = text.Text;
+            icon.sprite = text.Icon;
             icon.gameObject.SetActive(icon.sprite != null);
 
-            var emphasized = hasText && text.Emphasized;
+            var emphasized = text.Emphasized;
             background.color = emphasized ? theme.Gold : theme.ToastBackground;
             label.color = emphasized ? theme.TextDark : theme.TextLight;
 

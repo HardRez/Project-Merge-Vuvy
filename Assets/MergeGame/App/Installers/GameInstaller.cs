@@ -8,6 +8,7 @@ using MergeGame.Data.Visuals;
 using MergeGame.Presentation;
 using MergeGame.Presentation.Board;
 using MergeGame.Presentation.Events;
+using MergeGame.Presentation.Hints;
 using MergeGame.Presentation.Navigation;
 using MergeGame.Presentation.Notices;
 using MergeGame.Presentation.Orders;
@@ -15,6 +16,7 @@ using MergeGame.Presentation.Score;
 using MergeGame.Presentation.Selection;
 using MergeGame.Presentation.Spawning;
 using MergeGame.View.Board;
+using MergeGame.View.Hints;
 using MergeGame.View.Navigation;
 using MergeGame.View.Notices;
 using MergeGame.View.Orders;
@@ -40,6 +42,12 @@ namespace MergeGame.App.Installers
         [SerializeField] private SpawnView spawnView;
         [SerializeField] private NoticeView noticeView;
         [SerializeField] private GameMenuView gameMenuView;
+        [SerializeField] private MergeHintView mergeHintView;
+
+        [Header("Tuning")]
+        [Tooltip("Seconds without any player action before a possible merge is pointed out.")]
+        [Min(0.1f)]
+        [SerializeField] private float mergeHintIdleSeconds = 5f;
 
         [Header("Pools")]
         [SerializeField] private ItemView itemPrefab;
@@ -79,6 +87,7 @@ namespace MergeGame.App.Installers
             Container.Bind<ISpawnView>().FromInstance(spawnView);
             Container.Bind<INoticeView>().FromInstance(noticeView);
             Container.Bind<IGameMenuView>().FromInstance(gameMenuView);
+            Container.Bind<IMergeHintView>().FromInstance(mergeHintView);
         }
 
         private void BindPools()
@@ -101,8 +110,12 @@ namespace MergeGame.App.Installers
             Container.Bind<ScorePresenter>().AsSingle();
             Container.Bind<SpawnPresenter>().AsSingle();
             Container.Bind<GameNavigationPresenter>().AsSingle();
+            Container.Bind<MergeHintSettings>().FromInstance(new MergeHintSettings(mergeHintIdleSeconds));
+            Container.Bind(typeof(MergeHintPresenter), typeof(ITimeDriven)).To<MergeHintPresenter>().AsSingle();
+            Container.BindInterfacesTo<TimeDrivenTicker>().AsSingle();
 
-            // The order matters: the board must exist before the selection and orders describe it.
+            // The order matters: the board must exist before the selection and orders describe it, and the hint
+            // presenter comes last so it sees every other presenter's reaction to an event first.
             Container.BindInterfacesTo<PresenterLifecycle>().FromMethod(CreateLifecycle).AsSingle();
         }
 
@@ -116,7 +129,8 @@ namespace MergeGame.App.Installers
                 container.Resolve<OrdersPresenter>(),
                 container.Resolve<ScorePresenter>(),
                 container.Resolve<SpawnPresenter>(),
-                container.Resolve<GameNavigationPresenter>()
+                container.Resolve<GameNavigationPresenter>(),
+                container.Resolve<MergeHintPresenter>()
             };
             return new PresenterLifecycle(presenters, container.Resolve<SessionEventStream>());
         }

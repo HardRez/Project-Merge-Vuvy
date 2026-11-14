@@ -30,7 +30,7 @@ Vuvy "Unity Developer Case Study — Merge game mechanics" için hazırlanmış,
 
 Sahneler, prefab'lar ve Zenject `ProjectContext`'i repoda hazır gelir; yeniden üretmek gerekmez (bkz. [Araçlar](#araçlar-ve-üçüncü-taraf-varlıklar)).
 
-**Oyunda neler yapılabilir:** Ana menüde "Oyna" oyun sahnesini açar, "Çıkış" uygulamayı kapatır. 5×5 tahta, bir kısmı kilitli (örümcek ağlı) item'larla dolu bir açılış dizilimiyle başlar. "Üret" butonu rastgele bir zincirin 1. seviye item'ını boş bir hücreye koyar. Aynı zincirden ve aynı seviyedeki iki item'ı sürükleyip üst üste bırakınca bir üst seviye oluşur ve seviyeye göre artan puan kazanılır; sürükleme sırasında hedef hücre, bırakmanın sonucuna göre (taşıma, birleşme, geçersiz, maksimum seviye) vurgulanır. Uyuşmayan bir bırakma item'ı geldiği hücreye geri gönderir ve oyuncuya nedenini söyleyen kısa bir bildirim gösterir. Kilitli bir item'ın üzerine eşini birleştirmek onu serbest bırakır. Üst şeritteki müşteri sipariş kartları, istenen item'lar tahtadayken teslim butonuyla tamamlanır; item'lar müşteriye uçar ve ek puan kazanılır. Tahtanın altındaki bilgi çubuğu, dokunulan item'ın adını, seviyesini ve bir sonraki seviyesini gösterir; buradan item atılabilir, böylece dolu bir tahta asla çıkmaza girmez. Oyun ekranındaki ev butonu ana menüye döner.
+**Oyunda neler yapılabilir:** Ana menüde "Oyna" oyun sahnesini açar, "Çıkış" uygulamayı kapatır. 5×5 tahta, bir kısmı kilitli (örümcek ağlı) item'lar ve içi görünmeyen kapalı kutularla dolu bir açılış dizilimiyle başlar. "Üret" butonu rastgele bir zincirin 1. seviye item'ını boş bir hücreye koyar. Aynı zincirden ve aynı seviyedeki iki item'ı sürükleyip üst üste bırakınca bir üst seviye oluşur ve seviyeye göre artan puan kazanılır; sürükleme sırasında hedef hücre, bırakmanın sonucuna göre (taşıma, birleşme, geçersiz, maksimum seviye) vurgulanır ve birleşme mümkünse hedef item'ın kendisi parlar. Uyuşmayan bir bırakma item'ı geldiği hücreye geri gönderir ve oyuncuya nedenini söyleyen kısa bir bildirim gösterir. Kilitli bir item'ın üzerine eşini birleştirmek onu serbest bırakır; serbest kalan hücrenin dört komşusundaki kapalı kutular açılır ve içlerindeki item ağlı olarak ortaya çıkar. Oyuncu bir süre hiçbir şey yapmazsa, birleştirilebilecek iki item birbirine doğru eğilerek ipucu verir. Üst şeritteki müşteri sipariş kartları, istenen item'lar tahtadayken teslim butonuyla tamamlanır; item'lar müşteriye uçar ve ek puan kazanılır. Tahtanın altındaki bilgi çubuğu, dokunulan item'ın adını, seviyesini ve bir sonraki seviyesini gösterir; buradan item atılabilir, böylece dolu bir tahta asla çıkmaza girmez. Oyun ekranındaki ev butonu ana menüye döner.
 
 ## Case gereksinimleri kontrol listesi
 
@@ -48,7 +48,7 @@ Sahneler, prefab'lar ve Zenject `ProjectContext`'i repoda hazır gelir; yeniden 
 | Sürükle-bırak ile merge (aynı zincir + aynı seviye → sonraki seviye) | `MergeRule` | [MergeRule.cs](Assets/MergeGame/Core/Rules/MergeRule.cs), [DropTests.cs](Assets/MergeGame/Core.Tests/DropTests.cs) |
 | Maks. seviye birleşmez, kullanıcıya söylenir | `DropRejectReason.MaxLevel` → `Notice.MaxLevelReached` (toast: "Bu eşya en yüksek seviyede!"); sürüklerken `DropHighlight.MaxLevel` ayrı renkte; bilgi çubuğunda `ItemInfo.IsMaxLevel` etiketi | [BoardPresenter.cs](Assets/MergeGame/Presentation/Board/BoardPresenter.cs), [NoticeView.cs](Assets/MergeGame/View/Notices/NoticeView.cs), [NoticeTexts.asset](Assets/MergeGame/Content/UI/NoticeTexts.asset) |
 | Başarısız merge item'ı yerine döndürür | `DropRejected` olayı → `IBoardView.ReturnItem(from)`; tahta ve skor değişmez (testli). Farklı zincir/seviye için de bildirim | [MergeGameSession.cs](Assets/MergeGame/Core/Session/MergeGameSession.cs), [BoardPresenterTests.cs](Assets/MergeGame/Presentation.Tests/BoardPresenterTests.cs), `GameSmokeTests.DragOntoADifferentItem_ReturnsItToItsCell` |
-| Sürüklerken potansiyel hedef gösterilir | Her hücre değişiminde `session.PreviewDrop` (yan etkisiz) → `ShowDropHighlight(cell, DropHighlight)`; `DropHighlightView` hücreyi sonucun renginde boyar, olası merge parlayıp nabız atar | [BoardPresenter.cs](Assets/MergeGame/Presentation/Board/BoardPresenter.cs), [DropHighlightView.cs](Assets/MergeGame/View/Board/DropHighlightView.cs), [UiTheme.cs](Assets/MergeGame/View/Theme/UiTheme.cs) |
+| Sürüklerken potansiyel hedef gösterilir | Her hücre değişiminde `session.PreviewDrop` (yan etkisiz) → `ShowDropHighlight(cell, DropHighlight)`; `DropHighlightView` hücreyi sonucun renginde boyar. `DropHighlight.Merge` gelince `BoardView` hedef item'ın `ItemAccent`'ini oynatır (parlama, nabız, ışıltı); işaretçi hedeften çıkınca söner | [BoardPresenter.cs](Assets/MergeGame/Presentation/Board/BoardPresenter.cs), [DropHighlightView.cs](Assets/MergeGame/View/Board/DropHighlightView.cs), [ItemAccent.cs](Assets/MergeGame/View/Board/ItemAccent.cs), `BoardFeedbackTests.DraggingOverAMergeTarget_MakesItShine_UntilThePointerLeavesIt` |
 | "Üret": rastgele zincirin 1. seviyesi, boş hücreye | `WeightedRandomSpawnPolicy`: zinciri `SpawnWeight`'e göre, hücreyi boş hücreler arasından eşit olasılıkla seçer | [WeightedRandomSpawnPolicy.cs](Assets/MergeGame/Core/Spawning/WeightedRandomSpawnPolicy.cs), [SpawnTests.cs](Assets/MergeGame/Core.Tests/SpawnTests.cs) |
 | Grid doluyken buton pasif / uyarı | `BoardFullChanged` → `ISpawnView.SetSpawnAvailable(false)` → `SpawnView` butonu `interactable = false` yapar (gri görünür); presenter'a yine de istek gelirse `SpawnResult.Failure(BoardFull)` → `Notice.BoardFull` | [SpawnPresenter.cs](Assets/MergeGame/Presentation/Spawning/SpawnPresenter.cs), [SpawnView.cs](Assets/MergeGame/View/Spawning/SpawnView.cs), [SpawnPresenterTests.cs](Assets/MergeGame/Presentation.Tests/SpawnPresenterTests.cs) |
 | Her merge seviyeyle artan puan verir | Oluşan seviyenin tablo puanı × zincir çarpanı; Core tablo puanlarının azalmamasını, sevk edilen içerik testi kesin artmasını zorunlu kılar | [ScoreTableCalculator.cs](Assets/MergeGame/Core/Scoring/ScoreTableCalculator.cs), [ScoreTable.cs](Assets/MergeGame/Core/Scoring/ScoreTable.cs) |
@@ -118,13 +118,13 @@ flowchart TD
 ### Tek bir oyuncu eyleminin akışı: sürükle-birleştir
 
 1. **View** — [BoardInputSurface](Assets/MergeGame/View/Board/BoardInputSurface.cs) EventSystem pointer arayüzlerini (`IPointerDownHandler`, `IBeginDragHandler`, `IDragHandler`, `IEndDragHandler`, `IPointerUpHandler`) uygular ve tek bir parmağı dokunma ya da sürükleme hareketine çevirir (diğer parmaklar o parmak kalkana kadar yok sayılır). [BoardView](Assets/MergeGame/View/Board/BoardView.cs) ekran noktasını [BoardGeometry](Assets/MergeGame/View/Board/BoardGeometry.cs) ile hücreye çevirip `IBoardView.DragStarted(cell)`, `DragMoved(cell?)`, `DragReleased(cell?)` olaylarını yayar. `null` hücre "tahtanın dışında" demektir.
-2. **[BoardPresenter](Assets/MergeGame/Presentation/Board/BoardPresenter.cs)** — `DragStarted`'da item kilitliyse `RefuseDrag` + `Notice.ItemIsLocked`, değilse `BeginDrag`. Her `DragMoved`'da `session.PreviewDrop(origin, cell)` çağırır ve sonucu `DropHighlight`'a çevirip `ShowDropHighlight` ile gösterir (aynı vurguyu tekrar göndermez).
+2. **[BoardPresenter](Assets/MergeGame/Presentation/Board/BoardPresenter.cs)** — `DragStarted`'da item kapalı kutuysa `RefuseDrag` + `Notice.ItemIsHidden`, kilitliyse `RefuseDrag` + `Notice.ItemIsLocked`, değilse `BeginDrag`. Her `DragMoved`'da `session.PreviewDrop(origin, cell)` çağırır ve sonucu `DropHighlight`'a çevirip `ShowDropHighlight` ile gösterir (aynı vurguyu tekrar göndermez).
 3. `DragReleased`'da hedef tahtadaysa ve kaynaktan farklıysa `session.Drop(origin, cell)`; değilse doğrudan `ReturnItem(origin)`.
-4. **[MergeGameSession.Drop](Assets/MergeGame/Core/Session/MergeGameSession.cs)** — `PreviewDrop` ile aynı yolu kullanır: [DropResolver](Assets/MergeGame/Core/Rules/DropResolver.cs) önce yapısal kontrolleri (`OutOfBounds`, `SameCell`, `SourceEmpty`) yapar, sonra sıralı kuralları sorar: `LockedSourceRule` → `MoveToEmptyCellRule` → `MergeRule`. İlk karar veren kural kazanır; dönen `DropOutcome` uygulanmadan önce doğrulanır (ör. dolu hücreye "taşıma" diyen bir kural istisna üretir).
-5. **Tahta mutasyonu** — `ApplyMerge`: kaynak kaldırılır, hedefte yeni seviye (her zaman kilitsiz) oluşur, `IScoreCalculator` puanı hesaplar.
-6. **Olaylar** — durum tamamen güncellendikten sonra sırayla `ItemsMerged`, (puan > 0 ise) `ScoreChanged`, (tahta doluysa) `BoardFullChanged(false)`.
+4. **[MergeGameSession.Drop](Assets/MergeGame/Core/Session/MergeGameSession.cs)** — `PreviewDrop` ile aynı yolu kullanır: [DropResolver](Assets/MergeGame/Core/Rules/DropResolver.cs) önce yapısal kontrolleri (`OutOfBounds`, `SameCell`, `SourceEmpty`) yapar, sonra sıralı kuralları sorar: `LockedSourceRule` → `HiddenTargetRule` → `MoveToEmptyCellRule` → `MergeRule` ([StandardDropRules](Assets/MergeGame/Core/Rules/StandardDropRules.cs)). İlk karar veren kural kazanır; dönen `DropOutcome` uygulanmadan önce doğrulanır (ör. dolu hücreye "taşıma" diyen bir kural istisna üretir).
+5. **Tahta mutasyonu** — `ApplyMerge`: kaynak kaldırılır, hedefte yeni seviye (her zaman kilitsiz) oluşur, `IScoreCalculator` puanı hesaplar. Hedef kilitliyse [HiddenItemRevealer](Assets/MergeGame/Core/Grid/HiddenItemRevealer.cs) dört komşu hücredeki kapalı kutuları ağlı item'a çevirir.
+6. **Olaylar** — durum tamamen güncellendikten sonra sırayla `ItemsMerged`, açılan her kutu için bir `ItemRevealed` (satır öncelikli), (puan > 0 ise) `ScoreChanged`, (tahta doluysa) `BoardFullChanged(false)`.
 7. **[SessionEventStream](Assets/MergeGame/Presentation/Events/SessionEventStream.cs)** — olayları sırayla, her birini tüm abonelerine ulaştırdıktan sonra bir sonrakine geçerek dağıtır; bir handler yeni komut verse bile sıra korunur.
-8. **Presenter'lar → view metotları** — `BoardPresenter`: `MergeItems` + `ShowPointsPopup`; `ScorePresenter`: `ChangeScore`; `SelectionPresenter`: sonucu seçer, bilgi çubuğunu günceller; `OrdersPresenter`: değişen sipariş kartlarını yeniler; `SpawnPresenter`: butonu tekrar aktif eder.
+8. **Presenter'lar → view metotları** — `BoardPresenter`: `MergeItems` + `ShowPointsPopup`, açılan kutular için `RevealItem(position, itemId)` (kutunun içeriği View'a ilk kez bu çağrıyla gider; `PlaceHiddenItem(position)` item kimliği taşımaz); `ScorePresenter`: `ChangeScore`; `SelectionPresenter`: sonucu seçer, bilgi çubuğunu günceller; `OrdersPresenter`: değişen sipariş kartlarını yeniler; `SpawnPresenter`: butonu tekrar aktif eder; `MergeHintPresenter`: gösterilen ipucunu gizler ve boşta kalma süresini sıfırlar.
 9. **Animasyon** — `BoardView` item görünümlerinin sözlüğünü komut geldiği anda günceller, böylece her zaman modeli yansıtır; [ItemView](Assets/MergeGame/View/Board/ItemView.cs) her yeni komutta çalışan animasyonu keser, güncel kimliği gösterir ve mevcut pozdan dinlenme pozuna canlanır. Animasyonlar projeye ait küçük bir coroutine tween yardımcısıyla ([Tween](Assets/MergeGame/View/Animation/Tween.cs), [TweenChannel](Assets/MergeGame/View/Animation/TweenChannel.cs), [Ease](Assets/MergeGame/View/Animation/Ease.cs)) yapılır; harici tween paketi yok. Aynı karede gelen 300 komutluk bir patlamadan sonra her item görünümünün tahtayla eşleştiği PlayMode'da test edilir.
 
 Oturumun yaydığı olaylar ([Core/Events](Assets/MergeGame/Core/Events)) ve onları dinleyen presenter'lar:
@@ -134,24 +134,34 @@ Oturumun yaydığı olaylar ([Core/Events](Assets/MergeGame/Core/Events)) ve onl
 | `ItemSpawned` | "Üret" bir item koydu | Board, Orders |
 | `ItemMoved` | Item boş hücreye taşındı | Board, Selection, Orders |
 | `ItemsMerged` | Birleşme oldu (`TargetWasLocked` ile kilit açma dahil) | Board, Selection, Orders |
+| `ItemRevealed` | Serbest kalan hücrenin komşusundaki kutu açıldı; item hâlâ kilitli | Board, Selection |
 | `DropRejected` | Bırakma reddedildi; tahta değişmedi | Board |
 | `ItemDiscarded` | Item atıldı | Board, Selection, Orders |
 | `ScoreChanged` | Puan değişti (önceki ve yeni değer) | Score |
 | `BoardFullChanged` | Tahta doldu / boşaldı | Spawn |
 | `OrderDelivered`, `OrderAdded` | Sipariş teslim edildi, yerine yenisi geldi | Orders, Board, Selection |
 
+`MergeHintPresenter` tek tek olaylara değil, temel tip `GameEvent`'e abone olur: oturumdaki her değişiklik "oyuncu aktif" sayılır.
+
+### Zamana bağlı mantık: boşta kalma ipucu
+
+Presenter'lar saat okumaz. Zamana ihtiyacı olan presenter [ITimeDriven](Assets/MergeGame/Presentation/ITimeDriven.cs) uygular ve geçen süreyi `Advance(deltaSeconds)` ile dışarıdan alır. Oyunda bunu App'teki [TimeDrivenTicker](Assets/MergeGame/App/Lifecycle/TimeDrivenTicker.cs) (`ITickable`) her karede `Time.unscaledDeltaTime` ile yapar; testler süreyi açıkça ilerletir.
+
+[MergeHintPresenter](Assets/MergeGame/Presentation/Hints/MergeHintPresenter.cs), oyuncu [MergeHintSettings](Assets/MergeGame/Presentation/Hints/MergeHintSettings.cs)`.IdleSeconds` boyunca hareketsiz kalınca Core'daki [MergeHintFinder](Assets/MergeGame/Core/Hints/MergeHintFinder.cs)'a sorar ve bulunan çifti `IMergeHintView.ShowMergeHint(from, to)` ile gösterir. Finder kendi kuralını yazmaz: her aday çifti `session.PreviewDrop` ile kural hattına sorar, bu yüzden kilitli kaynak, kapalı kutu veya maksimum seviye çifti asla önerilmez. Kilitli bir item'ı serbest bırakan birleşmeyi tercih eder; aksi halde satır öncelikli sıradaki ilk çifti seçer, yani aynı tahta her zaman aynı ipucunu verir. Her oturum olayı, sürükleme başlangıcı veya dokunma ipucunu gizler ve süreyi sıfırlar; sürükleme sırasında süre işlemez. View tarafında [MergeHintView](Assets/MergeGame/View/Hints/MergeHintView.cs) iki item'ın [ItemAccent](Assets/MergeGame/View/Board/ItemAccent.cs) katmanını senkron eğer; aynı katman sürüklerken birleşme hedefinin parlamasını da oynatır.
+
 Oturum oluşturulurken olay yayılmaz; presenter'lar başlangıç durumunu `Initialize`'da `session.Board`, `session.Score` ve `session.ActiveOrders`'tan okur. Olay sırası sözleşmenin parçasıdır ve [EventOrderTests.cs](Assets/MergeGame/Core.Tests/EventOrderTests.cs) ile test edilir.
 
-Reddedilen bir bırakmada (4. adımda `Reject`) tahta değişmez, yalnızca `DropRejected` yayılır; `BoardPresenter` `ReturnItem(from)` çağırır ve neden `MaxLevel`, `DifferentChain`, `DifferentLevel` veya `SourceLocked` ise ilgili `Notice`'u gösterir. Bildirimin metni veridir: [NoticeView](Assets/MergeGame/View/Notices/NoticeView.cs) `Notice` değerini [NoticeTexts.asset](Assets/MergeGame/Content/UI/NoticeTexts.asset) tablosunda arar (metin, opsiyonel ikon, vurgu); presenter yalnızca enum değeri seçer.
+Reddedilen bir bırakmada (4. adımda `Reject`) tahta değişmez, yalnızca `DropRejected` yayılır; `BoardPresenter` `ReturnItem(from)` çağırır ve neden `MaxLevel`, `DifferentChain`, `DifferentLevel`, `SourceLocked` veya `TargetHidden` ise ilgili `Notice`'u gösterir (kapalı kutu için `Notice.ItemIsHidden`). Bildirimin metni veridir: [NoticeView](Assets/MergeGame/View/Notices/NoticeView.cs) `Notice` değerini [NoticeTexts.asset](Assets/MergeGame/Content/UI/NoticeTexts.asset) tablosunda arar (metin, opsiyonel ikon, vurgu); presenter yalnızca enum değeri seçer.
 
 ### Composition root (Zenject)
 
 Core, Presentation ve Data Zenject'i bilmez (asmdef'lerinde referans yok). Tüm bağlama [App](Assets/MergeGame/App) katmanındadır; View Zenject'i yalnızca `[Inject]` construct metotları (`BoardView`, `OrdersView`, `ItemInfoView`) ve iki `MonoMemoryPool` (`ItemView.Pool`, `PointsPopup.Pool`) için kullanır.
 
 - **[ProjectInstaller](Assets/MergeGame/App/Installers/ProjectInstaller.cs)** — `Content/Prefabs/Resources/ProjectContext.prefab` üzerinde, uygulama ömrü boyunca: `GameConfigAsset` (instance), `IAppNavigator` → [SceneNavigator](Assets/MergeGame/App/Navigation/SceneNavigator.cs) (sahne adları [SceneNames](Assets/MergeGame/App/Navigation/SceneNames.cs)'te), `IRandom` → `SystemRandom` (`randomSeed` 0 ise her açılışta yeni tohum, değilse tekrarlanabilir oturumlar).
-- **[GameInstaller](Assets/MergeGame/App/Installers/GameInstaller.cs)** — Game sahnesinin `SceneContext`'inde: `GameDefinition` (`GameDefinitionFactory.Create`), `ItemCatalog`, `MergeGameSession`, `SessionEventStream`, `IItemVisuals` → `ItemVisualLibrary`; sahnedeki view'lar arayüzleriyle (`BoardView` hem `IBoardView` hem `IBoardSelectionView`, `OrdersView` hem `IOrdersView` hem `IOrderSlotTargets`); item ve puan pop-up havuzları; altı presenter.
+- **[GameInstaller](Assets/MergeGame/App/Installers/GameInstaller.cs)** — Game sahnesinin `SceneContext`'inde: `GameDefinition` (`GameDefinitionFactory.Create`), `ItemCatalog`, `MergeGameSession`, `SessionEventStream`, `IItemVisuals` → `ItemVisualLibrary`; sahnedeki view'lar arayüzleriyle (`BoardView` hem `IBoardView` hem `IBoardSelectionView`, `OrdersView` hem `IOrdersView` hem `IOrderSlotTargets`); `IMergeHintView` → `MergeHintView`; item ve puan pop-up havuzları; yedi presenter; `MergeHintSettings` (boşta kalma süresi `GameInstaller`'da serileştirilmiş `mergeHintIdleSeconds` alanından); `MergeHintPresenter` ayrıca `ITimeDriven` olarak bağlanır ve `TimeDrivenTicker` tüm `ITimeDriven`'ları liste olarak alır.
 - **[MainMenuInstaller](Assets/MergeGame/App/Installers/MainMenuInstaller.cs)** — `IMainMenuView` → `MainMenuView` ve `MainMenuPresenter`.
-- **[PresenterLifecycle](Assets/MergeGame/App/Lifecycle/PresenterLifecycle.cs)** `: IInitializable, IDisposable` — saf presenter'ları verilen sırayla başlatır (önce board, sonra seçim ve siparişler), teardown'da ters sırayla dispose eder, ardından paylaşılan `SessionEventStream`'i kapatır. Böylece presenter'lar `IInitializable` gibi Zenject tiplerine bağımlı olmaz.
+- **[PresenterLifecycle](Assets/MergeGame/App/Lifecycle/PresenterLifecycle.cs)** `: IInitializable, IDisposable` — saf presenter'ları verilen sırayla başlatır (önce board, sonra seçim ve siparişler, en son ipucu), teardown'da ters sırayla dispose eder, ardından paylaşılan `SessionEventStream`'i kapatır. Böylece presenter'lar `IInitializable` gibi Zenject tiplerine bağımlı olmaz.
+- **[TimeDrivenTicker](Assets/MergeGame/App/Lifecycle/TimeDrivenTicker.cs)** `: ITickable` — ekranın tek saati; `ITimeDriven` presenter'ları her karede ilerletir.
 
 Sahne container'ı sahne kadar yaşar ve `SceneNavigator` her geçişte hedef sahneyi baştan yükler; Game sahnesine her girişte yeni bir oturum kurulur. Sahneden çıkışta `Dispose` tüm abonelikleri kapatır (`IPresenter` sözleşmesi: dispose sonrası view'a hiç dokunulmaz — `GameScreenTests.AfterDispose_NoViewIsCalled_AndNoViewEventIsListenedTo`).
 
@@ -197,11 +207,11 @@ Tüm asset'ler Inspector'da **Create → Merge Game → …** menüsünden oluş
 
 **[OrderSettingsAsset](Assets/MergeGame/Data/Authoring/OrderSettingsAsset.cs)**: `maxActiveOrders`, `minItemsPerOrder`/`maxItemsPerOrder`, `minRequestedLevel`/`maxRequestedLevel`, `rewardPointsByLevel`, `customerAvatars` (müşteri sayısı = liste uzunluğu).
 
-**[BoardLayoutAsset](Assets/MergeGame/Data/Authoring/BoardLayoutAsset.cs)**: `placements` — her biri [InitialPlacementEntry](Assets/MergeGame/Data/Authoring/InitialPlacementEntry.cs) (`x`, `y`, `chain` asset referansı, `level`, `locked`). Zincire metin id ile değil asset referansıyla bağlanır, böylece yazım hatası yapılamaz.
+**[BoardLayoutAsset](Assets/MergeGame/Data/Authoring/BoardLayoutAsset.cs)**: `placements` — her biri [InitialPlacementEntry](Assets/MergeGame/Data/Authoring/InitialPlacementEntry.cs) (`x`, `y`, `chain` asset referansı, `level`, `locked`, `hidden`). Zincire metin id ile değil asset referansıyla bağlanır, böylece yazım hatası yapılamaz. `hidden` kapalı kutudur ve her zaman kilitli sayılır (`Locked => locked || hidden`). Sevk edilen dizilim 14 item içerir: 4 serbest, 6 ağlı, 4 kapalı kutu.
 
 ### Asset'ten çalışma zamanı tanımına
 
-[GameDefinitionFactory.Create(config)](Assets/MergeGame/Data/Definitions/GameDefinitionFactory.cs) asset'leri Core'un değiştirilemez tiplerine çevirir: `ItemCatalog` (`ItemChainDefinition` + `ItemLevelDefinition`), `BoardSize`, `ScoreTable`, `OrderSettings`, `InitialPlacement` → tek bir [GameDefinition](Assets/MergeGame/Core/Session/GameDefinition.cs). İçerik kurallarını (bitişik seviyeler, benzersiz zincir id'leri, skor tablosunun en uzun zinciri kapsaması, başlangıç yerleşimlerinin tahtada ve çakışmasız olması, sipariş ayarlarının katalogla uyumu) Core'un constructor'ları zorlar; factory yalnızca Core'un göremediği şeyleri (boş asset slotları) ekler ve her hatayı hangi config/zincir/yerleşimden geldiğini söyleyen bir `GameConfigException`'a sarar.
+[GameDefinitionFactory.Create(config)](Assets/MergeGame/Data/Definitions/GameDefinitionFactory.cs) asset'leri Core'un değiştirilemez tiplerine çevirir: `ItemCatalog` (`ItemChainDefinition` + `ItemLevelDefinition`), `BoardSize`, `ScoreTable`, `OrderSettings`, `InitialPlacement` → tek bir [GameDefinition](Assets/MergeGame/Core/Session/GameDefinition.cs). İçerik kurallarını (bitişik seviyeler, benzersiz zincir id'leri, skor tablosunun en uzun zinciri kapsaması, başlangıç yerleşimlerinin tahtada ve çakışmasız olması, birbirine dokunan her kutu grubunun en az bir ağlı item'a komşu olması — yoksa kutu hiç açılamaz —, sipariş ayarlarının katalogla uyumu) Core'un constructor'ları zorlar; factory yalnızca Core'un göremediği şeyleri (boş asset slotları) ekler ve her hatayı hangi config/zincir/yerleşimden geldiğini söyleyen bir `GameConfigException`'a sarar.
 
 Sprite'lar Core'a girmez. View, `ItemId` → ikon/isim eşlemesini [IItemVisuals](Assets/MergeGame/Data/Visuals/IItemVisuals.cs) üzerinden ([ItemVisualLibrary](Assets/MergeGame/Data/Visuals/ItemVisualLibrary.cs)) aynı config'ten alır.
 
@@ -213,7 +223,7 @@ Sprite'lar Core'a girmez. View, `ItemId` → ikon/isim eşlemesini [IItemVisuals
 
 ### Doğrulama: düzenleme anında
 
-[GameConfigValidator](Assets/MergeGame/Data/Validation/GameConfigValidator.cs) istisna fırlatmadan, tasarımcı diliyle tüm sorunları listeler: boş slotlar, eksik sprite'lar, tekrar eden id'ler ve ayrıca factory'yi deneyerek Core'un zorladığı her kural. `GameConfigAsset` ve `ItemChainAsset` bunu `OnValidate`'te (yalnızca kaydedilmiş asset'ler için) çalıştırır ve sonuçları Console'a, tıklayınca asset'i seçen uyarılar olarak yazar; Inspector'daki bağlam menüsünde ayrıca **Validate** komutu vardır. Hatalı bir config, Play'e basılmadan görünür.
+[GameConfigValidator](Assets/MergeGame/Data/Validation/GameConfigValidator.cs) istisna fırlatmadan, tasarımcı diliyle tüm sorunları listeler: boş slotlar, eksik sprite'lar, tekrar eden id'ler, açılamayacak kutular (`CheckBoxesCanOpen`, Core ile aynı kural) ve ayrıca factory'yi deneyerek Core'un zorladığı her kural. `GameConfigAsset` ve `ItemChainAsset` bunu `OnValidate`'te (yalnızca kaydedilmiş asset'ler için) çalıştırır ve sonuçları Console'a, tıklayınca asset'i seçen uyarılar olarak yazar; Inspector'daki bağlam menüsünde ayrıca **Validate** komutu vardır. Hatalı bir config, Play'e basılmadan görünür.
 
 ### Neden ScriptableObject?
 
@@ -242,7 +252,8 @@ Hepsi bu; kod değişikliği yok. Yeni zincir "Üret" ile çıkar, birleşir, pu
 | Grid boyutu | `GameConfig` → `boardWidth`, `boardHeight`. Açılış dizilimindeki hücreler yeni tahtanın içinde kalmalı (validator kontrol eder). |
 | Merge puanları | `ScoreTable` → `pointsByLevel`; zincir bazında `scoreMultiplier` |
 | Siparişler | `OrderSettings` → aynı anda aktif sipariş, sipariş başına item sayısı, istenen seviye aralığı, ödül tablosu, müşteri avatarları. Siparişleri kapatmak için `GameConfig.orders` boş bırakılır. |
-| Açılış dizilimi | `BoardLayout` → `placements` (hücre, zincir, seviye, kilitli mi). Boş tahta için `GameConfig.initialLayout` boş bırakılır. |
+| Açılış dizilimi | `BoardLayout` → `placements` (hücre, zincir, seviye, kilitli mi, kapalı kutu mu; seed JSON'da `"hidden": true`). Boş tahta için `GameConfig.initialLayout` boş bırakılır. |
+| İpucu gecikmesi | Game sahnesindeki `GameInstaller` → `mergeHintIdleSeconds` |
 | Spawn olasılıkları | Her zincirin `spawnWeight`'i |
 
 ### Opsiyonel toplu araç: seed JSON + seeder
@@ -253,9 +264,9 @@ Sevk edilen asset'ler [seed_content.json](Assets/MergeGame/Editor/Seed/seed_cont
 
 | Desen | Nerede | Burada çözdüğü problem | Seçilmeyen alternatif |
 |---|---|---|---|
-| **MVP / Passive View** | [Presentation](Assets/MergeGame/Presentation) (`I*View` + `*Presenter`), [IPresenter](Assets/MergeGame/Presentation/IPresenter.cs) | View'lar karar vermez: olay yayar ve komut uygular. Tüm sunum mantığı Unity'siz test edilir. Her alan için bir presenter (board, score, spawn, orders, selection, navigation). | MVVM/data binding (bkz. Mimari); tek bir "GameController" (her şeyi bilen sınıf). |
+| **MVP / Passive View** | [Presentation](Assets/MergeGame/Presentation) (`I*View` + `*Presenter`), [IPresenter](Assets/MergeGame/Presentation/IPresenter.cs) | View'lar karar vermez: olay yayar ve komut uygular. Tüm sunum mantığı Unity'siz test edilir. Her alan için bir presenter (board, score, spawn, orders, selection, navigation, merge hint). | MVVM/data binding (bkz. Mimari); tek bir "GameController" (her şeyi bilen sınıf). |
 | **Facade** | [MergeGameSession](Assets/MergeGame/Core/Session/MergeGameSession.cs) | Presentation tek bir giriş noktası görür: `Drop`, `PreviewDrop`, `Spawn`, `Discard`, `DeliverOrder`, `EventRaised`. Board, resolver, skor ve sipariş defteri `internal`/gizli. | Bileşenleri ayrı ayrı açmak; o zaman "tahtayı değiştirip olayı unutma" gibi tutarsızlıklar mümkün olurdu. |
-| **Chain of Responsibility** (kural hattı) | [IDropRule](Assets/MergeGame/Core/Rules/IDropRule.cs), [DropResolver](Assets/MergeGame/Core/Rules/DropResolver.cs), [StandardDropRules](Assets/MergeGame/Core/Rules/StandardDropRules.cs) | Her bırakma sıralı kurallardan geçer; ilk karar veren kazanır. Kilitli item'lar tek bir kural (`LockedSourceRule`) eklenerek geldi. Kurallar yan etkisizdir, bu yüzden önizleme ile gerçek bırakma aynı yolu kullanır ve asla ayrışmaz (`PreviewDrop_AgreesWithTheActualDrop`). | `Drop` içinde büyüyen bir `if/else` zinciri; her yeni mekanik bu metodu değiştirirdi. |
+| **Chain of Responsibility** (kural hattı) | [IDropRule](Assets/MergeGame/Core/Rules/IDropRule.cs), [DropResolver](Assets/MergeGame/Core/Rules/DropResolver.cs), [StandardDropRules](Assets/MergeGame/Core/Rules/StandardDropRules.cs) | Her bırakma sıralı kurallardan geçer; ilk karar veren kazanır. Kilitli item'lar tek bir kural (`LockedSourceRule`), kapalı kutular yine tek bir kural (`HiddenTargetRule`) eklenerek geldi; `MergeRule` değişmedi. Kurallar yan etkisizdir, bu yüzden önizleme, gerçek bırakma ve ipucu araması (`MergeHintFinder`) aynı yolu kullanır ve asla ayrışmaz (`PreviewDrop_AgreesWithTheActualDrop`). | `Drop` içinde büyüyen bir `if/else` zinciri; her yeni mekanik bu metodu değiştirirdi. |
 | **Strategy** | [ISpawnPolicy](Assets/MergeGame/Core/Spawning/ISpawnPolicy.cs), [IScoreCalculator](Assets/MergeGame/Core/Scoring/IScoreCalculator.cs), [IOrderGenerator](Assets/MergeGame/Core/Orders/IOrderGenerator.cs), [IRandom](Assets/MergeGame/Core/Spawning/IRandom.cs) | Değişmesi muhtemel politikalar (nereye/ne üretilir, puan nasıl hesaplanır, sipariş ne ister) oturuma `GameDefinition` üzerinden verilir; varsayılanlar `WeightedRandomSpawnPolicy`, `ScoreTableCalculator`, `RandomOrderGenerator`, `SystemRandom`. `IRandom` testlerde `ScriptedRandom` ile deterministik. | Sanal metotlu kalıtım veya `UnityEngine.Random` çağrıları (test edilemez, tekrarlanamaz). |
 | **Observer** | `MergeGameSession.EventRaised` ([Events](Assets/MergeGame/Core/Events)), [SessionEventStream](Assets/MergeGame/Presentation/Events/SessionEventStream.cs), [SubscriptionBag](Assets/MergeGame/Presentation/Events/SubscriptionBag.cs) | Core tek, sıralı bir olay akışı yayar; presenter'lar tipli abone olur, aboneliği `IDisposable` ile kapatır. Akış kuyrukla yeniden girişte bile sırayı korur. | Olay tipi başına ayrı C# event'i (sıra garantisi yok); UniRx/R3 (bu ölçekte fazla bağımlılık); SO event channel'ları (bkz. Mimari); her karede polling. |
 | **Factory + Adapter** | [GameDefinitionFactory](Assets/MergeGame/Data/Definitions/GameDefinitionFactory.cs), [ItemVisualLibrary](Assets/MergeGame/Data/Visuals/ItemVisualLibrary.cs) | Unity asset'lerini Core'un tiplerine, Core'un `ItemId`'lerini Unity sprite'larına çevirir; iki dünyayı tek bir sınırda buluşturur. | Core'un ScriptableObject'leri doğrudan okuması (motor bağımlılığı, test edilemezlik). |
@@ -270,12 +281,12 @@ Sevk edilen asset'ler [seed_content.json](Assets/MergeGame/Editor/Seed/seed_cont
 
 | Katman | Assembly | Test sayısı | Kapsam |
 |---|---|---|---|
-| Core | [Core.Tests](Assets/MergeGame/Core.Tests) | 189 | Grid, katalog, bırakma kuralları ve red nedenleri, önizleme = gerçek bırakma, özel kural ekleme, spawn ağırlıkları, skor tablosu ve çarpan yuvarlama, kilitli item'lar, item atma, açılış dizilimi, siparişler, olay sırası |
-| Presentation | [Presentation.Tests](Assets/MergeGame/Presentation.Tests) | 73 | Her presenter, kayıt tutan sahte view'larla (`Support/Fake*View.cs`, `ViewLog`) **gerçek** `MergeGameSession` üzerinde; uçtan uca ekran senaryoları (`GameScreenTests`), dispose sonrası sessizlik |
-| Data | [Data.Tests](Assets/MergeGame/Data.Tests) | 57 | Factory eşlemesi ve hata mesajları, validator, görsel kütüphanesi; sevk edilen gerçek asset'ler üzerinde içerik testleri (5×5, ≥3 zincir ≥5 seviye, puanlar artıyor, sipariş ödülleri harcanan merge puanından büyük, açılışta en az bir birleşme mümkün) ve sıfır kodla yeni zincir testi |
-| PlayMode | [PlayTests](Assets/MergeGame/PlayTests) | 8 | Gerçek sahneler üzerinden smoke testleri ([GameSmokeTests.cs](Assets/MergeGame/PlayTests/GameSmokeTests.cs)), aşağıda |
+| Core | [Core.Tests](Assets/MergeGame/Core.Tests) | 218 | Grid, katalog, bırakma kuralları ve red nedenleri, önizleme = gerçek bırakma, özel kural ekleme, spawn ağırlıkları, skor tablosu ve çarpan yuvarlama, kilitli item'lar, kapalı kutular ve açılmaları ([HiddenItemTests.cs](Assets/MergeGame/Core.Tests/HiddenItemTests.cs)), ipucu arama ([MergeHintFinderTests.cs](Assets/MergeGame/Core.Tests/MergeHintFinderTests.cs)), item atma, açılış dizilimi, siparişler, olay sırası |
+| Presentation | [Presentation.Tests](Assets/MergeGame/Presentation.Tests) | 109 | Her presenter, kayıt tutan sahte view'larla (`Support/Fake*View.cs`, `ViewLog`) **gerçek** `MergeGameSession` üzerinde; uçtan uca ekran senaryoları (`GameScreenTests`), kutuların sunumu ([HiddenItemPresentationTests.cs](Assets/MergeGame/Presentation.Tests/HiddenItemPresentationTests.cs)), boşta kalma ipucu ([MergeHintPresenterTests.cs](Assets/MergeGame/Presentation.Tests/MergeHintPresenterTests.cs)), dispose sonrası sessizlik |
+| Data | [Data.Tests](Assets/MergeGame/Data.Tests) | 63 | Factory eşlemesi ve hata mesajları, validator, görsel kütüphanesi; sevk edilen gerçek asset'ler üzerinde içerik testleri (5×5, ≥3 zincir ≥5 seviye, puanlar artıyor, sipariş ödülleri harcanan merge puanından büyük, açılışta en az bir birleşme mümkün, tüm kutular açılabilir, bir birleşme ağlı bir item'ı serbest bırakıp bir kutuyu açar) ve sıfır kodla yeni zincir testi |
+| PlayMode | [PlayTests](Assets/MergeGame/PlayTests) | 13 | Gerçek sahneler, installer'lar ve view'lar üzerinden ([GameSmokeTests.cs](Assets/MergeGame/PlayTests/GameSmokeTests.cs), [BoardFeedbackTests.cs](Assets/MergeGame/PlayTests/BoardFeedbackTests.cs)), aşağıda |
 
-EditMode toplamı 319. Sayılar NUnit test vakalarıdır (`[TestCase]` başına bir). Rastgelelik `ScriptedRandom` ile sabitlendiği için birim testleri deterministiktir.
+EditMode toplamı 390. Boşta kalma ipucu gerçek zaman beklenmeden test edilir: testler `MergeHintPresenter.Advance(saniye)` ile zamanı açıkça ilerletir. Sayılar NUnit test vakalarıdır (`[TestCase]` başına bir). Rastgelelik `ScriptedRandom` ile sabitlendiği için birim testleri deterministiktir.
 
 **PlayMode smoke testleri** (`GameSmokeTests`):
 
@@ -287,6 +298,14 @@ EditMode toplamı 319. Sayılar NUnit test vakalarıdır (`[TestCase]` başına 
 6. Ev butonu MainMenu'ye döner.
 7. Tek karede 300 oturum komutu ve spawn tıklaması patlamasından sonra her item görünümü tahtayla eşleşir.
 8. Seçili item sürüklenirken seçim çerçevesi gizlenir, item yerine dönünce geri gelir.
+
+**PlayMode tahta geri bildirimi testleri** (`BoardFeedbackTests`):
+
+1. Boşta kalma süresi dolunca ipucu birleşebilen iki eş item'ı işaretler; bir sonraki dokunmada kaybolur ve item'lar dinlenme pozuna döner.
+2. Sürüklenen item bir birleşme hedefinin üzerindeyken hedef parlar; işaretçi ayrılınca parlama söner.
+3. Açılıştaki kutular içeriklerinden hiçbir şey göstermez (ikon yok, View item kimliğini bilmez).
+4. Bir kutunun ağlı komşusunu serbest bırakan birleşme kutuyu doğru ikonla ağlı item olarak açar.
+5. Kutu sürüklenemez; yerinde kalır ve `Notice.ItemIsHidden` gösterilir.
 
 Ayrıca bir geliştirme yardımcısı olarak iki ekran görüntüsü testi ([ScreenshotCaptureTests.cs](Assets/MergeGame/PlayTests/ScreenshotCaptureTests.cs)) vardır; `MERGE_CAPTURE_DIR` ortam değişkeni ayarlanmadıkça `Ignore` edilirler.
 
@@ -305,32 +324,34 @@ Ayrıca bir geliştirme yardımcısı olarak iki ekran görüntüsü testi ([Scr
 ```text
 Assets/MergeGame/
 ├── Core/                 Saf C# domain (noEngineReferences)
-│   ├── Grid/             Board (tek doğruluk kaynağı, internal), IReadOnlyBoard, GridPosition, BoardSize
+│   ├── Grid/             Board (tek doğruluk kaynağı, internal), IReadOnlyBoard, GridPosition, BoardSize, HiddenItemRevealer
 │   ├── Items/            ItemId, ItemChainDefinition, ItemLevelDefinition, ItemCatalog
-│   ├── Rules/            IDropRule hattı, DropResolver, DropOutcome, red nedenleri
+│   ├── Rules/            IDropRule hattı (LockedSource, HiddenTarget, MoveToEmptyCell, Merge), DropResolver, DropOutcome
+│   ├── Hints/            MergeHintFinder, MergeHint (yan etkisiz sorgu)
 │   ├── Scoring/          ScoreTable, IScoreCalculator, ScoreTableCalculator
 │   ├── Spawning/         ISpawnPolicy, WeightedRandomSpawnPolicy, IRandom, SpawnResult
 │   ├── Orders/           Order, OrderSettings, IOrderGenerator, OrderBook (internal)
 │   ├── Events/           GameEvent ve türevleri (tek sıralı akış)
 │   └── Session/          GameDefinition, MergeGameSession (facade), DiscardResult
-├── Core.Tests/           189 EditMode testi
-├── Presentation/         Saf C# MVP (noEngineReferences): view arayüzleri, presenter'lar, SessionEventStream
-├── Presentation.Tests/   73 test, sahte view'lar + gerçek oturum
+├── Core.Tests/           218 EditMode testi
+├── Presentation/         Saf C# MVP (noEngineReferences): view arayüzleri, presenter'lar, SessionEventStream, ITimeDriven, Hints/
+├── Presentation.Tests/   109 test, sahte view'lar + gerçek oturum
 ├── Data/
 │   ├── Authoring/        ScriptableObject'ler (GameConfig, ItemChain, ScoreTable, OrderSettings, BoardLayout)
 │   ├── Definitions/      GameDefinitionFactory, GameConfigException
 │   ├── Validation/       GameConfigValidator, Console raporlama
 │   └── Visuals/          IItemVisuals, ItemVisualLibrary
-├── Data.Tests/           57 test, sevk edilen içerik testleri dahil
+├── Data.Tests/           63 test, sevk edilen içerik testleri dahil
 ├── View/                 MonoBehaviour view'lar (pasif, kural yok)
-│   ├── Board/            BoardView, BoardInputSurface, BoardGeometry, ItemView (+Pool), DropHighlightView, PointsPopup (+Pool)
+│   ├── Board/            BoardView, BoardInputSurface, BoardGeometry, ItemView (+Pool), ItemAccent, DropHighlightView, PointsPopup (+Pool)
+│   ├── Hints/            MergeHintView
 │   ├── Animation/        Tween, TweenChannel, Ease (projeye ait tween yardımcısı)
 │   ├── Orders/ Score/ Spawning/ Selection/ Navigation/ MainMenu/   arayüz başına bir view
 │   ├── Notices/          NoticeView (toast), NoticeTexts (Notice → metin tablosu)
 │   ├── Theme/            UiTheme (renk paleti asset'i)
 │   └── Common/           SafeAreaFitter, MaxWidthLimiter, TactileButton
-├── App/                  Composition root: Installers/, Lifecycle/PresenterLifecycle, Navigation/SceneNavigator
-├── PlayTests/            8 PlayMode smoke testi + 2 opsiyonel ekran görüntüsü testi
+├── App/                  Composition root: Installers/, Lifecycle/ (PresenterLifecycle, TimeDrivenTicker), Navigation/SceneNavigator
+├── PlayTests/            13 PlayMode testi + 2 opsiyonel ekran görüntüsü testi
 ├── Editor/               ContentSeeder, seed JSON, sprite import ayarları
 │   └── Building/         SceneBuilder: sahneler, prefab'lar, ProjectContext, font preset'leri
 ├── Scenes/               MainMenu.unity, Game.unity
@@ -350,7 +371,10 @@ THIRD-PARTY-NOTICES.md
 Bunlar türün beklentilerinden seçilerek, her biri mimarideki bir genişleme noktasını göstermek için bilerek eklendi:
 
 - **Kilitli (ağlı) item'lar** — sürüklenemez, atılamaz, teslim edilemez; eşi üzerine birleştirilince serbest kalır. Bırakma hattına tek bir kural olarak eklendi ([LockedSourceRule](Assets/MergeGame/Core/Rules/LockedSourceRule.cs)); `MergeRule` değişmedi.
-- **Veriden açılış dizilimi** — [BoardLayoutAsset](Assets/MergeGame/Data/Authoring/BoardLayoutAsset.cs); sevk edilen dizilimde 12 item, 8'i kilitli.
+- **Kapalı kutular** — içeriği gizli, kilitli item'lar. Ağlı bir komşuları birleşmeyle serbest kalınca dört yön komşuluğundaki kutular ağlı item olarak açılır ([HiddenItemRevealer](Assets/MergeGame/Core/Grid/HiddenItemRevealer.cs), `ItemRevealed` olayı). Bırakma hattının ikinci genişletme örneği: kutuya bırakmayı reddeden tek bir kural ([HiddenTargetRule](Assets/MergeGame/Core/Rules/HiddenTargetRule.cs)). View ve bilgi çubuğu açılana kadar içeriği bilmez (`PlaceHiddenItem(position)`, `IItemInfoView.ShowHiddenItem()`).
+- **Veriden açılış dizilimi** — [BoardLayoutAsset](Assets/MergeGame/Data/Authoring/BoardLayoutAsset.cs); sevk edilen dizilimde 14 item: 4 serbest, 6 ağlı, 4 kapalı kutu.
+- **Boşta kalma ipucu** — oyuncu bir süre hareketsiz kalınca birleştirilebilir bir çift gösterilir; kural hattını `PreviewDrop` ile sorgular, zamanı `ITimeDriven` ile dışarıdan alır ([MergeHintPresenter](Assets/MergeGame/Presentation/Hints/MergeHintPresenter.cs)).
+- **Birleşme hedefinin parlaması** — tamamen View'da: presenter `DropHighlight.Merge` bildirince hedef item parlar ([BoardView](Assets/MergeGame/View/Board/BoardView.cs), [ItemAccent](Assets/MergeGame/View/Board/ItemAccent.cs)); presenter ve Core'a dokunmadan eklendi.
 - **Müşteri siparişleri** — veri odaklı ödüller, `IOrderGenerator` stratejisi, karttaki gereksinimlerin tahtada olup olmadığının canlı gösterimi ([OrdersPresenter](Assets/MergeGame/Presentation/Orders/OrdersPresenter.cs)).
 - **Item atma** — ödülsüz kaldırma; birleşmesi mümkün olmayan dolu bir tahta asla çıkmaza girmez ([MergeGameSession.Discard](Assets/MergeGame/Core/Session/MergeGameSession.cs)).
 - **Seçim ve bilgi çubuğu** — dokunulan item'ın adı, seviyesi/maks. seviyesi ve bir sonraki seviyesi ([SelectionPresenter](Assets/MergeGame/Presentation/Selection/SelectionPresenter.cs)).
@@ -359,7 +383,7 @@ Bunlar türün beklentilerinden seçilerek, her biri mimarideki bir genişleme n
 
 - **Kayıt yok.** Core'da kalıcılık yok; oyun sahnesine her girişte yeni bir oturum başlar ve skor sıfırlanır. Sonraki adım: `Board` + skor + siparişler için serileştirilebilir bir anlık görüntü (`ItemChainAsset.id` bu yüzden "kararlı" olarak tanımlandı).
 - **Stratejiler veriden seçilemiyor.** `GameDefinition` özel kural, spawn politikası, skor hesaplayıcı ve sipariş üreticisi kabul ediyor, fakat `GameDefinitionFactory` her zaman varsayılanları kullanıyor ve `GameInstaller` tanımı bu factory ile kuruyor; bir tasarımcı Inspector'dan farklı bir spawn politikası seçemez, bunun için kod gerekir.
-- **Sahneler ve prefab'lar bir editör kurucusuyla üretiliyor** ([SceneBuilder](Assets/MergeGame/Editor/Building/SceneBuilder.cs), **Merge Game → Build Scenes**). Yeniden çalıştırmak şunları sıfırdan yeniden yazar ve elle yapılmış değişiklikleri kaybeder: `MainMenu.unity` ve `Game.unity` (boş sahneden kurulur; `GameInstaller` alanları dahil her bileşen kurucunun değerlerine döner), `Content/Prefabs` altındaki beş prefab, `ProjectContext.prefab` (`ProjectInstaller.randomSeed` ve sahne adları varsayılana döner), TextMesh Pro font materyal preset'leri, `Content/Sprites/UI` import ayarları ve Build Settings'teki sahne listesi. Korunanlar: `UiTheme.asset`, `NoticeTexts.asset` ve font asset'i yalnızca yoksa oluşturulur; `Content/Config` asset'lerine dokunulmaz.
+- **Sahneler ve prefab'lar bir editör kurucusuyla üretiliyor** ([SceneBuilder](Assets/MergeGame/Editor/Building/SceneBuilder.cs), **Merge Game → Build Scenes**). Yeniden çalıştırmak şunları sıfırdan yeniden yazar ve elle yapılmış değişiklikleri kaybeder: `MainMenu.unity` ve `Game.unity` (boş sahneden kurulur; `GameInstaller` alanları dahil her bileşen kurucunun değerlerine döner), `Content/Prefabs` altındaki beş prefab, `ProjectContext.prefab` (`ProjectInstaller.randomSeed` ve sahne adları varsayılana döner), TextMesh Pro font materyal preset'leri, `Content/Sprites/UI` import ayarları ve Build Settings'teki sahne listesi. Korunanlar: `UiTheme.asset` ve font asset'i yalnızca yoksa oluşturulur; `NoticeTexts.asset`'te mevcut metinler korunur, yalnızca metni olmayan `Notice` değerleri için varsayılan girdi eklenir; `Content/Config` asset'lerine dokunulmaz.
 - **İki içerik kaynağı riski.** Seeder JSON'u, Inspector düzenlemelerinin üzerine yazar (bkz. [seeder notu](#opsiyonel-toplu-araç-seed-json--seeder)).
 - **Sipariş teslimi otomatik eşleşir.** Tahtadaki ilk uygun kilitsiz item'lar (satır öncelikli sırayla) teslim edilir; oyuncu aynı item'ın hangi kopyasının gideceğini seçemez. Siparişlerin süresi veya zorluk eğrisi yok.
 - **Skor tablosunun 1. seviye girdisi merge için kullanılmıyor.** Birleşme en az 2. seviyeyi üretir; tablo yine de 1. seviyeden başlar (sevk edilen değer 0), çünkü sipariş ödül tablosu ile aynı `ScoreTable` tipini paylaşıyor.
@@ -369,6 +393,9 @@ Bunlar türün beklentilerinden seçilerek, her biri mimarideki bir genişleme n
 - **Ses yok.**
 - **Yerelleştirme yok.** Türkçe item adları veride (`displayName`), bildirim metinleri `NoticeTexts.asset`'te; diğer UI metinleri (buton etiketleri, ipucu) sahne kurucusunun yazdığı serileştirilmiş alanlarda duruyor. Sonraki adım: metinleri anahtara çevirip Unity Localization.
 - **Fiziksel cihazda henüz çalıştırılmadı.** Dokunma ve çoklu dokunma davranışı, çentikli ekranlarda safe area kenar boşlukları ve `Application.Quit` yalnızca editörde/kodda doğrulandı. PlayMode testleri pointer olaylarını doğrudan tahtaya gönderir ([PointerGesture.cs](Assets/MergeGame/PlayTests/Support/PointerGesture.cs), `ExecuteEvents`); Input System UI modülü üzerinden geçen gerçek giriş yolu testlerde kapsanmıyor.
+- **İpucu PlayMode testi gerçek saati kullanmıyor.** Test `MergeHintPresenter.Advance`'i doğrudan çağırır; `TimeDrivenTicker`'ın her karede presenter'ı ilerletmesi otomatik olarak doğrulanmıyor.
+- **İpucu araması kaba kuvvet.** `MergeHintFinder` her dolu kaynak için her dolu hedefi `PreviewDrop` ile dener (hücre sayısının karesi); 5×5'te ihmal edilebilir, çok büyük tahtalarda zincir/seviyeye göre gruplamak gerekir. Ayrıca bir boşta kalma periyodunda birleşme bulunamazsa tahta ancak bir sonraki tam periyotta yeniden kontrol edilir.
+- **Kutular yalnızca ağlı bir komşunun serbest kalmasıyla açılır.** Başka açma yolu (ör. kutuya özel bir item veya ödül) yok; açılan item kilitli kalır ve onu da birleşmeyle serbest bırakmak gerekir.
 - **Denge örnek amaçlı.** Puanlar, spawn ağırlıkları ve sipariş ödülleri yalnızca birkaç sevk edilen içerik testiyle (puanlar artıyor, sipariş ödülü harcanan merge puanından büyük) sınırlandı; oynanış verisiyle ayarlanmadı.
 - **Doğrulama bloklamıyor.** Validator düzenleme anında yalnızca uyarı yazar; hatalı bir config ile Play'e basılırsa factory oyun sahnesi kurulurken `GameConfigException` fırlatır.
 

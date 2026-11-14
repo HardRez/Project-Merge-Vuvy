@@ -196,7 +196,7 @@ namespace MergeGame.Editor
             var layout = LoadOrCreate<BoardLayoutAsset>(BoardLayoutPath);
             layout.Placements = seed
                 .Select(placement => new InitialPlacementEntry(
-                    placement.x, placement.y, chains.First(chain => chain.Id == placement.chain), placement.level, placement.locked))
+                    placement.x, placement.y, chains.First(chain => chain.Id == placement.chain), placement.level, placement.locked, placement.hidden))
                 .ToList();
             EditorUtility.SetDirty(layout);
             return layout;

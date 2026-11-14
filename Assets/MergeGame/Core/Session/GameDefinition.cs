@@ -95,7 +95,55 @@ namespace MergeGame.Core.Session
                 copy[i] = placement;
             }
 
+            EnsureHiddenPlacementsCanOpen(copy);
             return copy;
+        }
+
+        /// <summary>
+        /// A box opens only when a neighbouring locked item is freed, so every group of orthogonally touching hidden
+        /// placements must touch a locked, visible placement. Whether that item can actually be matched is not checked.
+        /// </summary>
+        private static void EnsureHiddenPlacementsCanOpen(InitialPlacement[] placements)
+        {
+            var byPosition = new Dictionary<GridPosition, InitialPlacement>();
+            foreach (var placement in placements)
+                byPosition.Add(placement.Position, placement);
+
+            var visited = new HashSet<GridPosition>();
+            foreach (var placement in placements)
+            {
+                if (!placement.IsHidden || !visited.Add(placement.Position))
+                    continue;
+
+                var group = new Queue<GridPosition>();
+                group.Enqueue(placement.Position);
+                var touchesLockedItem = false;
+                while (group.Count > 0)
+                {
+                    foreach (var neighbour in OrthogonalNeighbours(group.Dequeue()))
+                    {
+                        if (!byPosition.TryGetValue(neighbour, out var other))
+                            continue;
+                        if (other.IsHidden && visited.Add(neighbour))
+                            group.Enqueue(neighbour);
+                        else if (other.IsLocked && !other.IsHidden)
+                            touchesLockedItem = true;
+                    }
+                }
+
+                if (!touchesLockedItem)
+                    throw new ArgumentException(
+                        $"Hidden placement {placement} can never be revealed: neither it nor any hidden cell touching it borders a locked, visible item.",
+                        "initialPlacements");
+            }
+        }
+
+        private static IEnumerable<GridPosition> OrthogonalNeighbours(GridPosition cell)
+        {
+            yield return new GridPosition(cell.X, cell.Y - 1);
+            yield return new GridPosition(cell.X - 1, cell.Y);
+            yield return new GridPosition(cell.X + 1, cell.Y);
+            yield return new GridPosition(cell.X, cell.Y + 1);
         }
     }
 }

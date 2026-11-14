@@ -41,7 +41,12 @@ namespace MergeGame.Presentation.Board
             view.CreateGrid(Board.Size);
             foreach (var position in Board.Positions)
             {
-                if (Board.TryGetItem(position, out var item))
+                if (!Board.TryGetItem(position, out var item))
+                    continue;
+
+                if (item.IsHidden)
+                    view.PlaceHiddenItem(position);
+                else
                     view.PlaceItem(position, item.ItemId, item.IsLocked);
             }
 
@@ -52,6 +57,7 @@ namespace MergeGame.Presentation.Board
             subscriptions.Add(events.Subscribe<ItemSpawned>(OnItemSpawned));
             subscriptions.Add(events.Subscribe<ItemMoved>(OnItemMoved));
             subscriptions.Add(events.Subscribe<ItemsMerged>(OnItemsMerged));
+            subscriptions.Add(events.Subscribe<ItemRevealed>(OnItemRevealed));
             subscriptions.Add(events.Subscribe<DropRejected>(OnDropRejected));
             subscriptions.Add(events.Subscribe<ItemDiscarded>(OnItemDiscarded));
             subscriptions.Add(events.Subscribe<OrderDelivered>(OnOrderDelivered));
@@ -69,6 +75,13 @@ namespace MergeGame.Presentation.Board
         {
             if (dragOrigin.HasValue || !Board.IsInside(origin) || !Board.TryGetItem(origin, out var item))
                 return;
+
+            if (item.IsHidden)
+            {
+                view.RefuseDrag(origin);
+                notices.ShowNotice(Notice.ItemIsHidden);
+                return;
+            }
 
             if (item.IsLocked)
             {
@@ -124,11 +137,17 @@ namespace MergeGame.Presentation.Board
             UpdateHighlight();
         }
 
+        private void OnItemRevealed(ItemRevealed revealed)
+        {
+            view.RevealItem(revealed.Position, revealed.ItemId);
+            UpdateHighlight();
+        }
+
         private void OnDropRejected(DropRejected rejected)
         {
             if (rejected.Reason != DropRejectReason.SourceEmpty)
                 view.ReturnItem(rejected.From);
-            if (TryGetNotice(rejected.Reason, out var notice))
+            if (TryGetNotice(rejected, out var notice))
                 notices.ShowNotice(notice);
         }
 
@@ -205,10 +224,16 @@ namespace MergeGame.Presentation.Board
             }
         }
 
-        private static bool TryGetNotice(DropRejectReason reason, out Notice notice)
+        private bool TryGetNotice(DropRejected rejected, out Notice notice)
         {
-            switch (reason)
+            switch (rejected.Reason)
             {
+                case DropRejectReason.TargetHidden:
+                    notice = Notice.ItemIsHidden;
+                    return true;
+                case DropRejectReason.SourceLocked when IsHidden(rejected.From):
+                    notice = Notice.ItemIsHidden;
+                    return true;
                 case DropRejectReason.MaxLevel:
                     notice = Notice.MaxLevelReached;
                     return true;
@@ -226,5 +251,7 @@ namespace MergeGame.Presentation.Board
                     return false;
             }
         }
+
+        private bool IsHidden(GridPosition position) => Board.TryGetItem(position, out var item) && item.IsHidden;
     }
 }

@@ -184,6 +184,30 @@ namespace MergeGame.Data.Tests
         }
 
         [Test]
+        public void LayoutBoxWithoutAWebbedNeighbour_IsReported()
+        {
+            var config = assets.Config();
+            config.InitialLayout = assets.Layout(
+                new InitialPlacementEntry(2, 2, config.Chains[0], 1, locked: true, hidden: true),
+                new InitialPlacementEntry(3, 2, config.Chains[0], 2, locked: true, hidden: true),
+                new InitialPlacementEntry(2, 3, config.Chains[1], 1, locked: false));
+
+            AssertReports(config, "the boxes at (2, 2), (3, 2) can never open");
+        }
+
+        [Test]
+        public void LayoutBoxReachingAWebbedItemThroughAnotherBox_IsAccepted()
+        {
+            var config = assets.Config();
+            config.InitialLayout = assets.Layout(
+                new InitialPlacementEntry(0, 0, config.Chains[0], 1, locked: true, hidden: true),
+                new InitialPlacementEntry(1, 0, config.Chains[0], 2, locked: true, hidden: true),
+                new InitialPlacementEntry(2, 0, config.Chains[1], 1, locked: true));
+
+            Assert.That(GameConfigValidator.Validate(config), Is.Empty);
+        }
+
+        [Test]
         public void ProblemsOnlyCoreDetects_AreReported()
         {
             var config = assets.Config();

@@ -9,6 +9,9 @@ namespace MergeGame.Presentation.Selection
 
         void ShowItem(ItemInfo info);
 
+        /// <summary>A closed box is selected; nothing about its content may be shown.</summary>
+        void ShowHiddenItem();
+
         /// <summary>Nothing is selected; e.g. invite the player to tap an item.</summary>
         void ShowHint();
     }
