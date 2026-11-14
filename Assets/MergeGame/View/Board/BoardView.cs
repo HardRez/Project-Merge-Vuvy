@@ -58,7 +58,7 @@ namespace MergeGame.View.Board
         [SerializeField] private float deliveryStaggerSeconds = 0.09f;
 
         [Tooltip("A closed cell opened by a merge waits this long, so the merge next to it reads first.")]
-        [SerializeField] private float revealDelaySeconds = 0.35f;
+        [SerializeField] private float revealDelaySeconds = 0.2f;
 
         private readonly Dictionary<GridPosition, ItemView> items = new Dictionary<GridPosition, ItemView>();
         private readonly List<Image> cells = new List<Image>();

@@ -8,7 +8,7 @@ namespace MergeGame.View.Board.Sand
     public sealed class SandPourSettings
     {
         [Tooltip("Speed a falling grain gains every step, in cells per step.")]
-        [SerializeField] private float gravity = 0.06f;
+        [SerializeField] private float gravity = 0.08f;
 
         [Tooltip("Top speed of a falling grain, in cells per step.")]
         [SerializeField] private float maxSpeed = 3f;
@@ -24,11 +24,11 @@ namespace MergeGame.View.Board.Sand
 
         [Tooltip("Step at which the holes open, one column wide.")]
         [Min(0)]
-        [SerializeField] private int holesOpenStep = 6;
+        [SerializeField] private int holesOpenStep = 3;
 
         [Tooltip("Steps from the holes opening until the whole floor is open.")]
         [Min(1)]
-        [SerializeField] private int widenSteps = 220;
+        [SerializeField] private int widenSteps = 70;
 
         public SandPourSettings()
         {
