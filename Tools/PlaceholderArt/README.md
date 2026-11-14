@@ -40,7 +40,7 @@ If anything cannot be resolved, the script exits with code 1 and lists every fai
 | `coin.png` | 🪙 | Coin | currency |
 | `cobweb.png` | – | drawn by the script | semi-transparent web drawn over a locked item; clipped to a rounded square |
 | `lock.png` | 🔒 | Locked | locked state |
-| `check.png` | ✅ | Check mark button | order complete |
+| `check.png` | – | drawn by the script | order complete; a bare green tick with a white rim, no button behind it |
 | `home.png` | 🏠 | House | home / menu |
 | `trash.png` | 🗑️ | Wastebasket | discard |
 | `sparkles.png` | ✨ | Sparkles | spawn button |

@@ -42,7 +42,6 @@ VS16 = "️"  # emoji presentation selector; Fluent metadata is inconsistent abo
 FLUENT_FOLDER_OVERRIDES = {
     "⭐": "Star",                          # WHITE MEDIUM STAR
     "\U0001F512": "Locked",                    # LOCK
-    "✅": "Check mark button",             # WHITE HEAVY CHECK MARK
     "\U0001F3E0": "House",                     # HOUSE BUILDING
     "▶": "Play button",                   # BLACK RIGHT-POINTING TRIANGLE
     "\U0001F33E": "Sheaf of rice",             # EAR OF RICE
@@ -67,7 +66,6 @@ ICONS = [
     ("star", "⭐"),
     ("coin", "\U0001FA99"),
     ("lock", "\U0001F512"),
-    ("check", "✅"),
     ("home", "\U0001F3E0"),
     ("trash", "\U0001F5D1"),
     ("sparkles", "✨"),
@@ -81,6 +79,7 @@ ICONS = [
     ("customer_06", "\U0001F469‍\U0001F9B1"),    # woman, curly hair
 ]
 # `cobweb.png` is drawn procedurally (see draw_cobweb) so it works as an overlay.
+# `check.png` is drawn procedurally (see draw_check): a bare tick, with no button behind it.
 
 UI_SIZE = 128             # existing UI sprites are 128 x 128; their .meta sprite rects depend on it
 SUPERSAMPLE = 4
@@ -273,6 +272,48 @@ def draw_cobweb() -> Image.Image:
     return img.convert("RGBa").resize((SPRITE_SIZE, SPRITE_SIZE), Image.LANCZOS).convert("RGBA")
 
 
+def draw_check() -> Image.Image:
+    """A bare green tick. The white rim and soft shadow keep it readable on top of any item, green ones included."""
+    ss = SUPERSAMPLE
+    size = SPRITE_SIZE * ss
+    points = [(56 * ss, 132 * ss), (106 * ss, 182 * ss), (202 * ss, 74 * ss)]
+
+    def stroke(width: float) -> Image.Image:
+        m = Image.new("L", (size, size), 0)
+        d = ImageDraw.Draw(m)
+        w = round(width * ss)
+        d.line(points, fill=255, width=w, joint="curve")
+        for x, y in points:  # round caps and a round elbow
+            d.ellipse((x - w / 2, y - w / 2, x + w / 2, y + w / 2), fill=255)
+        return m
+
+    rim_a = stroke(62)
+    fill_a = stroke(40)
+
+    shadow_a = ImageChops.offset(rim_a, 0, 8 * ss).filter(ImageFilter.GaussianBlur(7 * ss))
+    shadow_a = shadow_a.point(lambda a: round(a * 0.35))
+
+    # Lighter at the top, deeper at the bottom, so the tick has a little volume like the emoji art around it.
+    top, bottom = (104, 226, 132), (30, 168, 84)
+    fill = Image.new("RGBA", (size, size))
+    fill_draw = ImageDraw.Draw(fill)
+    y0, y1 = 54 * ss, 202 * ss
+    for y in range(size):
+        t = min(1.0, max(0.0, (y - y0) / (y1 - y0)))
+        fill_draw.line(((0, y), (size, y)), fill=tuple(round(a + (b - a) * t) for a, b in zip(top, bottom)) + (255,))
+    fill.putalpha(fill_a)
+
+    img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    shadow = Image.new("RGBA", (size, size), (40, 30, 20, 0))
+    shadow.putalpha(shadow_a)
+    rim = Image.new("RGBA", (size, size), (255, 255, 255, 0))
+    rim.putalpha(rim_a)
+    img.alpha_composite(shadow)
+    img.alpha_composite(rim)
+    img.alpha_composite(fill)
+    return img.convert("RGBa").resize((SPRITE_SIZE, SPRITE_SIZE), Image.LANCZOS).convert("RGBA")
+
+
 def write_icons(source: FluentSource, out_dir: Path) -> list[Path]:
     written, errors = [], []
     icon_dir = out_dir / "Icons"
@@ -288,9 +329,10 @@ def write_icons(source: FluentSource, out_dir: Path) -> list[Path]:
         written.append(path)
     if errors:
         raise ResolveError("Unresolvable icon emoji:\n  " + "\n  ".join(errors))
-    path = icon_dir / "cobweb.png"
-    draw_cobweb().save(path)
-    written.append(path)
+    for stem, draw in (("cobweb", draw_cobweb), ("check", draw_check)):
+        path = icon_dir / f"{stem}.png"
+        draw().save(path)
+        written.append(path)
     return written
 
 

@@ -6,7 +6,7 @@ This project includes the following third-party material.
 
 - Source: https://github.com/microsoft/fluentui-emoji (3D style PNG renders)
 - Licence: MIT
-- Used for: item sprites and icons (score, coin, lock, check, home, trash, sparkles, crown, play, customer portraits). The renders are trimmed, scaled, centred and given a drop shadow by `Tools/PlaceholderArt/generate_sprites.py`.
+- Used for: item sprites and icons (score, coin, lock, home, trash, sparkles, crown, play, customer portraits). The renders are trimmed, scaled, centred and given a drop shadow by `Tools/PlaceholderArt/generate_sprites.py`.
 - Files: `Assets/MergeGame/Content/Sprites/Items/**/*.png` and `Assets/MergeGame/Content/Sprites/Icons/*.png` (except `Icons/cobweb.png`, which is drawn by the script).
 
 ```
