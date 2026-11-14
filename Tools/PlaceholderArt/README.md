@@ -74,6 +74,7 @@ All UI shapes except `background.png` are white/grey with alpha and are meant to
 | `speech_bubble.png` | 128×128 | 52, 60, 36, 36 | bubble with a tail at bottom-left pointing down-left; tail lies inside the bottom-left corner slice |
 | `background.png` | 512×1024 | 0, 0, 0, 0 | opaque sky-to-sand gradient with faint dots; not tinted, stretch to fill the screen |
 | `sand_01.png` … `sand_03.png` | 256×256 | 64, 64, 64, 64 | a closed board cell buried in sand: full colour (not tinted), same footprint and corner radius as `cell.png` at 2× (use half the cell's corner scale), sunk in by an inner rim shadow; ripples, grain and pebbles differ per variant so neighbouring cells do not look stamped |
+| `sand_surface.png` | 256×96 | 0, 0, 0, 0 | the uneven top of sand draining out of an opened cell: transparent above a gently sloped, wavy sand line (about 40% from the top) with a lit crest and a soft shadow, opaque sand below that matches the light top of the sand tiles; not tinted, stretched to the cell width |
 
 ## Licences
 

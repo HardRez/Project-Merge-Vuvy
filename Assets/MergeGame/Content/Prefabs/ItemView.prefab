@@ -1048,7 +1048,7 @@ MonoBehaviour:
   refuseSeconds: 0.4
   mergeSeconds: 0.42
   vanishSeconds: 0.24
-  revealSeconds: 0.5
+  revealSettleSeconds: 0.25
 --- !u!1 &7719276605508080002
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,6 +22,9 @@ namespace MergeGame.PlayTests
         private const string OutputVariable = "MERGE_CAPTURE_DIR";
         private const int HighestRequestedLevel = 4;
 
+        /// <summary>Moments of the sand drain the filmstrip shows, as normalised time.</summary>
+        private static readonly float[] DrainStops = { 0f, 0.15f, 0.35f, 0.55f, 0.75f, 0.95f, 1f };
+
         private string directory;
         private GameScreenDriver game;
 
@@ -56,10 +59,7 @@ namespace MergeGame.PlayTests
             // Each resolution re-triggers the one-shot pulse, so every capture catches it mid-pulse.
             yield return Capture("04_game_idle_hint_pulse", PulseMergeHint, 0.3f);
 
-            Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True);
-            yield return game.DragAndDrop(from, to);
-            yield return GameScreenDriver.WaitSeconds(0.45f);
-            yield return CaptureOnce("05_game_sand_mid_reveal");
+            yield return CaptureSandDrainFilmstrip("05_game_sand_drain");
             yield return GameScreenDriver.WaitSeconds(1f);
             yield return Capture("05b_game_sand_revealed");
 
@@ -100,9 +100,34 @@ namespace MergeGame.PlayTests
             game.Resolve<MergeHintPresenter>().Advance(Mathf.Max(settings.IdleSeconds, settings.RepeatSeconds));
         }
 
-        /// <summary>One resolution only, for a moment that would be over before the other sizes are rendered.</summary>
-        private IEnumerator CaptureOnce(string name) =>
-            Snapshot.Capture(game.Camera, Path.Combine(directory, $"{name}_1080x1920.png"), Snapshot.DeviceResolutions[0], null, 0f);
+        /// <summary>
+        /// Opens a closed cell for real, then holds its sand drain at exact moments and films the cell and its neighbours,
+        /// magnified, as single frames and as one strip.
+        /// </summary>
+        private IEnumerator CaptureSandDrainFilmstrip(string name)
+        {
+            Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True);
+            var closed = GameScreenDriver.Neighbours(to).First(game.IsCovered);
+            yield return game.DragAndDrop(from, to);
+
+            // Past the reveal delay, so the item already sits behind the sand.
+            yield return GameScreenDriver.WaitSeconds(0.4f);
+            Assert.That(game.Board.TryGetCover(closed, out var cover), Is.True);
+            yield return Filmstrip.Capture(
+                game.Camera, Snapshot.DeviceResolutions[0], directory, name, DrainStops, cover.ShowDrainFrame,
+                () => CellNeighbourhoodInPixels(closed), magnify: 2);
+            cover.Finish();
+        }
+
+        /// <summary>The cell and half a cell around it, in pixels of the current render.</summary>
+        private RectInt CellNeighbourhoodInPixels(GridPosition cell)
+        {
+            var center = game.ScreenPointOf(cell);
+            var size = Mathf.RoundToInt(CellStep(cell).x * 2f);
+            var x = Mathf.Clamp(Mathf.RoundToInt(center.x - size / 2f), 0, game.Camera.pixelWidth - size);
+            var y = Mathf.Clamp(Mathf.RoundToInt(center.y - size / 2f), 0, game.Camera.pixelHeight - size);
+            return new RectInt(x, y, size, size);
+        }
 
         private IEnumerator SpawnAndMergeThenSelect()
         {

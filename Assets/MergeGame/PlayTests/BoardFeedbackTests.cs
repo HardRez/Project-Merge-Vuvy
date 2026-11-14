@@ -11,6 +11,7 @@ using MergeGame.View.Hints;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace MergeGame.PlayTests
 {
@@ -97,15 +98,30 @@ namespace MergeGame.PlayTests
         }
 
         [UnityTest]
-        public IEnumerator FreeingTheWebbedNeighbourOfAClosedCell_BlowsTheSandAway_AndRevealsAWebbedItem()
+        public IEnumerator FreeingTheWebbedNeighbourOfAClosedCell_DrainsTheSandInsideTheCell_AndRevealsAWebbedItem()
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
             Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True, "No merge frees a webbed item next to a closed cell.");
             var closed = GameScreenDriver.Neighbours(to).First(game.IsCovered);
 
+            var tile = game.Board.GetCellTile(closed);
             yield return game.DragAndDrop(from, to);
-            yield return GameScreenDriver.WaitSeconds(AnimationSettleSeconds);
 
+            // Every frame of the drain: the cover, which masks all of its sand and grains, stays exactly on the cell.
+            var sawDrain = false;
+            for (var end = Time.realtimeSinceStartup + AnimationSettleSeconds + 0.5f; Time.realtimeSinceStartup < end; )
+            {
+                if (game.Board.TryGetCover(closed, out var cover))
+                {
+                    sawDrain |= cover.IsDraining;
+                    Assert.That(cover.GetComponent<Mask>().enabled, Is.True);
+                    AssertSameWorldRect((RectTransform)cover.transform, tile, closed);
+                }
+
+                yield return null;
+            }
+
+            Assert.That(sawDrain, Is.True, "The sand never drained.");
             var expected = game.Session.Board.GetItem(closed);
             Assert.That(expected.IsHidden, Is.False);
             Assert.That(game.Board.TryGetCover(closed, out _), Is.False, "The sand is still there.");

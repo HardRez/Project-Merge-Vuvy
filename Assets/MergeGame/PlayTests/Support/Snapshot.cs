@@ -27,7 +27,7 @@ namespace MergeGame.PlayTests.Support
                 yield return Capture(camera, Path.Combine(directory, $"{name}_{resolution.x}x{resolution.y}.png"), resolution, beforeRender, settleSeconds);
         }
 
-        public static IEnumerator Capture(Camera camera, string path, Vector2Int size, Action beforeRender, float settleSeconds)
+        private static IEnumerator Capture(Camera camera, string path, Vector2Int size, Action beforeRender, float settleSeconds)
         {
             var target = new RenderTexture(size.x, size.y, 24, RenderTextureFormat.ARGB32);
             camera.targetTexture = target;
