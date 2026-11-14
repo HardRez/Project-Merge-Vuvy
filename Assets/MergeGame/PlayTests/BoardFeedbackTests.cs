@@ -20,6 +20,9 @@ namespace MergeGame.PlayTests
     {
         private const float AnimationSettleSeconds = 1.2f;
 
+        /// <summary>The reveal delay plus a whole sand pour, with room to spare.</summary>
+        private const float PourSettleSeconds = 3.5f;
+
         /// <summary>Longer than one hint pulse, shorter than the default repeat interval.</summary>
         private const float HintPulseSeconds = 1.8f;
 
@@ -98,7 +101,7 @@ namespace MergeGame.PlayTests
         }
 
         [UnityTest]
-        public IEnumerator FreeingTheWebbedNeighbourOfAClosedCell_DrainsTheSandInsideTheCell_AndRevealsAWebbedItem()
+        public IEnumerator FreeingTheWebbedNeighbourOfAClosedCell_PoursTheSandOutInsideTheCell_AndRevealsAWebbedItem()
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
             Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True, "No merge frees a webbed item next to a closed cell.");
@@ -107,21 +110,28 @@ namespace MergeGame.PlayTests
             var tile = game.Board.GetCellTile(closed);
             yield return game.DragAndDrop(from, to);
 
-            // Every frame of the drain: the cover, which masks all of its sand and grains, stays exactly on the cell.
-            var sawDrain = false;
-            for (var end = Time.realtimeSinceStartup + AnimationSettleSeconds + 0.5f; Time.realtimeSinceStartup < end; )
+            // Every frame of the pour: the cover, which masks all of its grains, stays exactly on the cell, and grains
+            // only ever leave.
+            var sawPour = false;
+            var grains = int.MaxValue;
+            for (var end = Time.realtimeSinceStartup + PourSettleSeconds; Time.realtimeSinceStartup < end; )
             {
                 if (game.Board.TryGetCover(closed, out var cover))
                 {
-                    sawDrain |= cover.IsDraining;
                     Assert.That(cover.GetComponent<Mask>().enabled, Is.True);
                     AssertSameWorldRect((RectTransform)cover.transform, tile, closed);
+                    if (cover.IsPouring)
+                    {
+                        sawPour = true;
+                        Assert.That(cover.GrainCount, Is.LessThanOrEqualTo(grains), "Grains appeared during the pour.");
+                        grains = cover.GrainCount;
+                    }
                 }
 
                 yield return null;
             }
 
-            Assert.That(sawDrain, Is.True, "The sand never drained.");
+            Assert.That(sawPour, Is.True, "The sand never poured.");
             var expected = game.Session.Board.GetItem(closed);
             Assert.That(expected.IsHidden, Is.False);
             Assert.That(game.Board.TryGetCover(closed, out _), Is.False, "The sand is still there.");
