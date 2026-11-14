@@ -111,6 +111,33 @@ namespace MergeGame.Data.Tests
         }
 
         [Test]
+        public void Create_MapsBoxesAsHiddenLockedPlacements()
+        {
+            var config = assets.Config();
+            config.InitialLayout = assets.Layout(
+                new InitialPlacementEntry(0, 0, config.Chains[0], 2, locked: false, hidden: true),
+                new InitialPlacementEntry(1, 0, config.Chains[1], 1, locked: true));
+
+            var placements = factory.Create(config).InitialPlacements;
+
+            Assert.That(placements[0].IsHidden, Is.True);
+            Assert.That(placements[0].IsLocked, Is.True, "A box is always locked, even if its Locked flag is off.");
+            Assert.That(placements[0].ItemId, Is.EqualTo(new ItemId(Wood, 2)));
+            Assert.That(placements[1].IsHidden, Is.False);
+        }
+
+        [Test]
+        public void Create_WithABoxThatCanNeverOpen_ExplainsWhy()
+        {
+            var config = assets.Config();
+            config.InitialLayout = assets.Layout(new InitialPlacementEntry(2, 2, config.Chains[0], 1, locked: true, hidden: true));
+
+            var exception = Assert.Throws<GameConfigException>(() => factory.Create(config));
+
+            Assert.That(exception.Message, Does.Contain("can never be revealed"));
+        }
+
+        [Test]
         public void Create_WithoutOrdersOrLayout_GivesAGameWithoutThem()
         {
             var definition = factory.Create(assets.Config());

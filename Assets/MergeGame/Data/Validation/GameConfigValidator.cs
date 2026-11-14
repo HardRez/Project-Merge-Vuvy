@@ -140,6 +140,57 @@ namespace MergeGame.Data.Validation
                 else if (entry.Level < 1 || entry.Level > entry.Chain.MaxLevel)
                     problems.Add($"{label} asks for level {entry.Level}, but {AssetLabels.Chain(entry.Chain)} has levels 1..{entry.Chain.MaxLevel}.");
             }
+
+            CheckBoxesCanOpen(layout, problems);
+        }
+
+        /// <summary>
+        /// A box opens when a webbed item next to it is freed, and opening reveals another webbed item, so a group of
+        /// touching boxes needs at least one webbed (locked, not boxed) neighbour. Same rule as Core's.
+        /// </summary>
+        private static void CheckBoxesCanOpen(BoardLayoutAsset layout, List<string> problems)
+        {
+            var byCell = new Dictionary<GridPosition, InitialPlacementEntry>();
+            foreach (var entry in layout.Placements)
+            {
+                if (entry != null && !byCell.ContainsKey(new GridPosition(entry.X, entry.Y)))
+                    byCell.Add(new GridPosition(entry.X, entry.Y), entry);
+            }
+
+            var visited = new HashSet<GridPosition>();
+            foreach (var start in byCell.Where(pair => pair.Value.Hidden).Select(pair => pair.Key))
+            {
+                if (!visited.Add(start))
+                    continue;
+
+                var group = new List<GridPosition> { start };
+                var touchesWeb = false;
+                for (var i = 0; i < group.Count; i++)
+                {
+                    foreach (var neighbour in OrthogonalNeighbours(group[i]))
+                    {
+                        if (!byCell.TryGetValue(neighbour, out var other))
+                            continue;
+                        if (other.Hidden && visited.Add(neighbour))
+                            group.Add(neighbour);
+                        else if (other.Locked && !other.Hidden)
+                            touchesWeb = true;
+                    }
+                }
+
+                if (!touchesWeb)
+                    problems.Add($"Initial layout '{layout.name}': the box{(group.Count > 1 ? "es" : string.Empty)} at " +
+                                 $"{string.Join(", ", group.Select(cell => $"({cell.X}, {cell.Y})"))} can never open; a box opens only " +
+                                 "when a webbed item next to it (or next to a box it touches) is freed.");
+            }
+        }
+
+        private static IEnumerable<GridPosition> OrthogonalNeighbours(GridPosition cell)
+        {
+            yield return new GridPosition(cell.X, cell.Y - 1);
+            yield return new GridPosition(cell.X - 1, cell.Y);
+            yield return new GridPosition(cell.X + 1, cell.Y);
+            yield return new GridPosition(cell.X, cell.Y + 1);
         }
 
         private static void CheckBuildsDefinition(GameConfigAsset config, List<string> problems)

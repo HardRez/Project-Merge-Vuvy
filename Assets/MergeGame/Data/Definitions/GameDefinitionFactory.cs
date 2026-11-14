@@ -121,7 +121,7 @@ namespace MergeGame.Data.Definitions
 
                 try
                 {
-                    placements.Add(new InitialPlacement(new GridPosition(entry.X, entry.Y), new ItemId(entry.Chain.Id, entry.Level), entry.Locked));
+                    placements.Add(new InitialPlacement(new GridPosition(entry.X, entry.Y), new ItemId(entry.Chain.Id, entry.Level), entry.Locked, entry.Hidden));
                 }
                 catch (ArgumentException exception)
                 {

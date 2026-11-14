@@ -45,6 +45,7 @@ If anything cannot be resolved, the script exits with code 1 and lists every fai
 | `trash.png` | 🗑️ | Wastebasket | discard |
 | `sparkles.png` | ✨ | Sparkles | spawn button |
 | `crown.png` | 👑 | Crown | max-level badge |
+| `box.png` | 📦 | Package | closed box (hidden item until a neighbouring webbed item is freed) |
 | `play.png` | ▶️ | Play button | menu |
 | `customer_01.png` | 👱‍♀️ | Woman blonde hair (Default) | customer |
 | `customer_02.png` | 🧔‍♂️ | Man beard (Default) | customer |
