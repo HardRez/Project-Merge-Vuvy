@@ -46,6 +46,7 @@ namespace MergeGame.Presentation.Selection
 
             subscriptions.Add(events.Subscribe<ItemMoved>(OnItemMoved));
             subscriptions.Add(events.Subscribe<ItemsMerged>(OnItemsMerged));
+            subscriptions.Add(events.Subscribe<ItemRevealed>(OnItemRevealed));
             subscriptions.Add(events.Subscribe<ItemDiscarded>(OnItemDiscarded));
             subscriptions.Add(events.Subscribe<OrderDelivered>(OnOrderDelivered));
         }
@@ -70,6 +71,12 @@ namespace MergeGame.Presentation.Selection
             if (!SelectedPosition.HasValue)
                 return;
 
+            if (session.Board.GetItem(SelectedPosition.Value).IsHidden)
+            {
+                notices.ShowNotice(Notice.ItemIsHidden);
+                return;
+            }
+
             var result = session.Discard(SelectedPosition.Value);
             if (!result.Succeeded && result.FailureReason == DiscardFailureReason.ItemLocked)
                 notices.ShowNotice(Notice.LockedItemCannotBeDiscarded);
@@ -82,6 +89,12 @@ namespace MergeGame.Presentation.Selection
         }
 
         private void OnItemsMerged(ItemsMerged merged) => Select(merged.To);
+
+        private void OnItemRevealed(ItemRevealed revealed)
+        {
+            if (SelectedPosition == revealed.Position)
+                Select(revealed.Position);
+        }
 
         private void OnItemDiscarded(ItemDiscarded discarded)
         {
@@ -105,7 +118,10 @@ namespace MergeGame.Presentation.Selection
         {
             SelectedPosition = position;
             selectionView.ShowSelectionMarker(position);
-            infoView.ShowItem(DescribeItemAt(position));
+            if (session.Board.GetItem(position).IsHidden)
+                infoView.ShowHiddenItem();
+            else
+                infoView.ShowItem(DescribeItemAt(position));
         }
 
         private void ClearSelection()

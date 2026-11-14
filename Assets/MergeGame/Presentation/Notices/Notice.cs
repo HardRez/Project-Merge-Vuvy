@@ -18,6 +18,9 @@ namespace MergeGame.Presentation.Notices
         LockedItemCannotBeDiscarded,
 
         /// <summary>Delivery was requested while the board lacks some of the order's items.</summary>
-        OrderNotReady
+        OrderNotReady,
+
+        /// <summary>A closed box was picked up or something was dropped onto one; boxes open when a neighbouring locked item is freed.</summary>
+        ItemIsHidden
     }
 }

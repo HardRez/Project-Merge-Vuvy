@@ -28,6 +28,13 @@ namespace MergeGame.Presentation.Tests.Support
             return this;
         }
 
+        /// <summary>A closed box; the definition requires a locked, visible item next to it (or to its group of boxes).</summary>
+        public GameBuilder WithHiddenItem(int x, int y, ItemId item)
+        {
+            placements.Add(InitialPlacement.Hidden(new GridPosition(x, y), item));
+            return this;
+        }
+
         public GameBuilder WithLockedItem(int x, int y, ItemId item) => WithItem(x, y, item, isLocked: true);
 
         public GameBuilder WithFullBoardOf(ItemId item)
