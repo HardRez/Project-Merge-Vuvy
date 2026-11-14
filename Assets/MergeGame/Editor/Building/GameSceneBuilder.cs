@@ -216,8 +216,9 @@ namespace MergeGame.Editor.Building
         private SelectionMarkerView SelectionMarker(RectTransform grid)
         {
             var root = UiKit.Rect("SelectionMarker", grid).Stretch();
-            var ring = ui.Image("Ring", root, ui.Sprites.Ring, ui.Theme.Selection, cornerScale: 0.6f);
-            ring.rectTransform.Inset(-2f);
+            // The brackets reach a little past the tile, so they frame the item instead of covering its corners.
+            var ring = ui.Image("Brackets", root, ui.Sprites.SelectionBrackets, Color.white, cornerScale: 0.7f);
+            ring.rectTransform.Inset(-8f);
             return root.gameObject.AddComponent<SelectionMarkerView>().Wire("ring", ring.rectTransform);
         }
 
