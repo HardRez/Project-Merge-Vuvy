@@ -4,6 +4,7 @@
     "references": [
         "MergeGame.Core",
         "MergeGame.Data",
+        "spine-unity",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

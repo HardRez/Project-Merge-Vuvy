@@ -67,7 +67,7 @@ namespace MergeGame.Data.Tests.Support
             orders.MinRequestedLevel = 2;
             orders.MaxRequestedLevel = 3;
             orders.RewardPointsByLevel = DefaultRewardPoints;
-            orders.CustomerAvatars = Enumerable.Range(0, customerCount).Select(index => Sprite($"customer_{index}")).ToList();
+            orders.Customers = Enumerable.Range(0, customerCount).Select(index => new CustomerEntry(null, Sprite($"customer_{index}"))).ToList();
             return orders;
         }
 

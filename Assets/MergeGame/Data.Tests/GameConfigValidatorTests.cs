@@ -3,6 +3,7 @@ using MergeGame.Data.Authoring;
 using MergeGame.Data.Tests.Support;
 using MergeGame.Data.Validation;
 using NUnit.Framework;
+using Spine.Unity;
 using static MergeGame.Data.Tests.Support.TestAssets;
 
 namespace MergeGame.Data.Tests
@@ -39,21 +40,40 @@ namespace MergeGame.Data.Tests
         }
 
         [Test]
-        public void MissingCustomerAvatar_IsReported()
+        public void CustomerWithoutPortraitOrAvatar_IsReported()
         {
             var config = assets.FullConfig();
-            config.Orders.CustomerAvatars = new[] { config.Orders.CustomerAvatars[0], null };
+            config.Orders.Customers = new[] { config.Orders.Customers[0], new CustomerEntry(null, null) };
 
-            AssertReports(config, "customer 1 has no avatar sprite");
+            AssertReports(config, "customer 1 has neither a portrait nor an avatar sprite");
+        }
+
+        [Test]
+        public void EmptyCustomerSlot_IsReported()
+        {
+            var config = assets.FullConfig();
+            config.Orders.Customers = new[] { config.Orders.Customers[0], null };
+
+            AssertReports(config, "customer 1 has neither a portrait nor an avatar sprite");
+        }
+
+        [Test]
+        public void PortraitThatDoesNotLoad_IsReported()
+        {
+            var config = assets.FullConfig();
+            var portrait = assets.Create<SkeletonDataAsset>("BrokenPortrait");
+            config.Orders.Customers = new[] { new CustomerEntry(portrait, null) };
+
+            AssertReports(config, "customer 0: portrait 'BrokenPortrait' does not load");
         }
 
         [Test]
         public void OrdersWithoutAnyCustomer_AreReported()
         {
             var config = assets.FullConfig();
-            config.Orders.CustomerAvatars = new UnityEngine.Sprite[0];
+            config.Orders.Customers = new CustomerEntry[0];
 
-            AssertReports(config, "no customer avatars");
+            AssertReports(config, "have no customers");
         }
 
         [Test]

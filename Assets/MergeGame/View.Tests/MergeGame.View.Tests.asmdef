@@ -3,6 +3,7 @@
     "rootNamespace": "MergeGame.View.Tests",
     "references": [
         "MergeGame.View",
+        "spine-unity",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
