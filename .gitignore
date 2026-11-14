@@ -37,3 +37,4 @@ Thumbs.db
 
 # Local tooling
 /.unity-bridge/
+/Tools/PlaceholderArt/.cache/
