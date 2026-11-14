@@ -13,6 +13,10 @@ namespace MergeGame.Editor.Building
     /// <summary>The prefabs the game scene instantiates at runtime: board cells, pooled items and popups, order cards.</summary>
     internal sealed class GamePrefabs
     {
+        // Where the item icon sits inside its cell (normalised).
+        private static readonly Vector2 IconMin = new Vector2(0.08f, 0.08f);
+        private static readonly Vector2 IconMax = new Vector2(0.92f, 0.92f);
+
         private GamePrefabs()
         {
         }
@@ -58,29 +62,63 @@ namespace MergeGame.Editor.Building
             var shadow = ui.Image("LiftShadow", root, ui.Sprites.Shadow, Color.clear, cornerScale: 0.6f);
             shadow.rectTransform.Stretch(4f, -30f, 4f, 18f);
 
-            var body = UiKit.Rect("Body", root).Stretch();
+            var accentLayer = UiKit.Rect("Accent", root).Stretch();
+            var accentGlow = ui.Image("AccentGlow", accentLayer, ui.Sprites.Glow, Color.white);
+            accentGlow.rectTransform.Inset(-84f);
+
+            var body = UiKit.Rect("Body", accentLayer).Stretch();
             var glow = ui.Image("BurstGlow", body, ui.Sprites.Glow, WithAlpha(ui.Theme.Gold, 0f));
             glow.rectTransform.Inset(-46f);
             var icon = ui.Image("Icon", body, null, Color.white);
-            icon.rectTransform.Span(new Vector2(0.08f, 0.08f), new Vector2(0.92f, 0.92f));
+            icon.rectTransform.Span(IconMin, IconMax);
             var lockOverlay = ui.Icon("LockOverlay", body, "cobweb");
             lockOverlay.rectTransform.Span(new Vector2(0.01f, 0.01f), new Vector2(0.99f, 0.99f));
             var crown = ui.Icon("MaxLevelBadge", body, "crown");
             crown.rectTransform.Span(new Vector2(0.6f, 0.62f), new Vector2(1.04f, 1.06f));
             crown.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -18f);
+            var box = ui.Icon("BoxCover", body, "box");
+            box.rectTransform.Span(new Vector2(0.02f, 0.02f), new Vector2(0.98f, 0.98f));
+            box.gameObject.SetActive(false);
             var sparkles = ui.Icon("BurstSparkles", body, "sparkles");
             sparkles.rectTransform.Inset(-30f);
             sparkles.gameObject.SetActive(false);
 
+            var accent = BuildAccent(ui, accentLayer, accentGlow);
             root.gameObject.AddComponent<ItemView>()
                 .Wire("body", body)
+                .Wire("accent", accent)
                 .Wire("icon", icon)
                 .Wire("lockOverlay", lockOverlay)
+                .Wire("boxCover", box)
                 .Wire("maxLevelBadge", crown.gameObject)
                 .Wire("liftShadow", shadow)
                 .Wire("burstGlow", glow)
                 .Wire("burstSparkles", sparkles);
             return Save<ItemView>(root, BuildPaths.ItemViewPrefab);
+        }
+
+        /// <summary>The shine sweeps inside a copy of the icon's shape, so it lights up the item and not its tile.</summary>
+        private static ItemAccent BuildAccent(UiKit ui, RectTransform layer, Image glow)
+        {
+            var shineMask = ui.Image("ShineMask", layer, null, Color.white);
+            shineMask.rectTransform.Span(IconMin, IconMax);
+            shineMask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+            var shine = ui.Image("Shine", shineMask.rectTransform, ui.Sprites.Glow, Color.white);
+            shine.preserveAspect = false;
+            shine.rectTransform.Span(new Vector2(0.3f, -0.3f), new Vector2(0.7f, 1.3f));
+            shine.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -22f);
+            var hintRing = ui.Image("HintRing", layer, ui.Sprites.Ring, ui.Theme.Gold, cornerScale: 0.6f);
+            hintRing.rectTransform.Inset(2f);
+            var sparkles = ui.Icon("AccentSparkles", layer, "sparkles");
+            sparkles.rectTransform.Span(new Vector2(-0.16f, -0.16f), new Vector2(0.44f, 0.44f));
+
+            return layer.gameObject.AddComponent<ItemAccent>()
+                .Wire("glow", glow)
+                .Wire("hintRing", hintRing)
+                .Wire("shineMask", shineMask)
+                .Wire("shine", shine.rectTransform)
+                .Wire("sparkles", sparkles)
+                .Wire("targetGlowColor", ui.Theme.Gold);
         }
 
         private static PointsPopup BuildPointsPopup(UiKit ui)

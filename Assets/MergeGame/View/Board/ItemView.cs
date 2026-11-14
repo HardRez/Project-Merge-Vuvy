@@ -10,7 +10,7 @@ using Zenject;
 namespace MergeGame.View.Board
 {
     /// <summary>
-    /// One item on the board. Its identity (<see cref="ItemId"/>, lock state) changes the moment a command arrives;
+    /// One item on the board, or a closed box. Its identity (<see cref="ItemId"/>, lock and box state) changes the moment a command arrives;
     /// animations only decide how the change looks. Every command first interrupts the running animation and reveals
     /// the current identity, then animates from the current pose to a rest pose, so overlapping commands can never
     /// leave the item with a stale icon, scale or position.
@@ -21,8 +21,15 @@ namespace MergeGame.View.Board
         [Tooltip("Scaled and rotated by the animations; holds every visual except the lift shadow.")]
         [SerializeField] private RectTransform body;
 
+        [Tooltip("Hint and merge-target highlights; sits between the root and the body.")]
+        [SerializeField] private ItemAccent accent;
+
         [SerializeField] private Image icon;
         [SerializeField] private Image lockOverlay;
+
+        [Tooltip("Covers the whole cell while the item is a closed box.")]
+        [SerializeField] private Image boxCover;
+
         [SerializeField] private GameObject maxLevelBadge;
         [SerializeField] private Image liftShadow;
         [SerializeField] private Image burstGlow;
@@ -43,6 +50,7 @@ namespace MergeGame.View.Board
         [SerializeField] private float refuseSeconds = 0.4f;
         [SerializeField] private float mergeSeconds = 0.42f;
         [SerializeField] private float vanishSeconds = 0.24f;
+        [SerializeField] private float revealSeconds = 0.5f;
 
         private RectTransform rectTransform;
         private CanvasGroup canvasGroup;
@@ -51,6 +59,9 @@ namespace MergeGame.View.Board
 
         public ItemId ItemId { get; private set; }
         public bool IsLocked { get; private set; }
+
+        /// <summary>A closed box: <see cref="ItemId"/> is unknown to the view until it is revealed.</summary>
+        public bool IsHidden { get; private set; }
         public bool IsMaxLevel { get; private set; }
         public bool IsLifted { get; private set; }
 
@@ -58,6 +69,8 @@ namespace MergeGame.View.Board
         public Sprite DisplayedIcon => icon.sprite;
 
         public Vector3 WorldCenter => rectTransform.TransformPoint(rectTransform.rect.center);
+
+        public ItemAccent Accent => accent;
 
         private void Awake()
         {
@@ -70,6 +83,26 @@ namespace MergeGame.View.Board
         {
             SetIdentity(itemId, sprite, isLocked, isMaxLevel);
             Interrupt();
+        }
+
+        /// <summary>Shows a closed box; nothing about its content is known or drawn.</summary>
+        public void ShowHidden()
+        {
+            SetIdentity(default, null, isLocked: true, isMaxLevel: false);
+            IsHidden = true;
+            Interrupt();
+        }
+
+        /// <summary>
+        /// The box opens into a locked item. The box stays closed for <paramref name="delay"/> seconds, so the merge that
+        /// opened it reads first; interrupting shows the item immediately.
+        /// </summary>
+        public void Reveal(ItemId itemId, Sprite sprite, bool isMaxLevel, float delay)
+        {
+            Interrupt();
+            SetIdentity(itemId, sprite, isLocked: true, isMaxLevel);
+            if (!motion.Play(PlayReveal(delay)))
+                RevealIdentity();
         }
 
         /// <summary>Snaps the item into the cell, at rest.</summary>
@@ -96,6 +129,7 @@ namespace MergeGame.View.Board
         public void Lift(RectTransform dragLayer)
         {
             Interrupt();
+            accent.Stop();
             IsLifted = true;
             rectTransform.DetachInto(dragLayer);
 
@@ -152,6 +186,7 @@ namespace MergeGame.View.Board
         public void MergeInto(ItemId resultId, Sprite resultSprite, bool isMaxLevel, bool unlocked, float revealDelay)
         {
             Interrupt();
+            accent.Stop();
             SetIdentity(resultId, resultSprite, isLocked: false, isMaxLevel);
             if (!motion.Play(PlayMerge(unlocked, revealDelay)))
                 RevealIdentity();
@@ -164,6 +199,7 @@ namespace MergeGame.View.Board
         public void FlyAway(RectTransform layer, Vector3 worldTarget, float seconds, float delay, float endScale, Action arrived)
         {
             Interrupt();
+            accent.Stop();
             IsLifted = false;
             rectTransform.DetachInto(layer);
             if (!motion.Play(PlayFlight(worldTarget, seconds, delay, endScale, arrived)))
@@ -174,6 +210,7 @@ namespace MergeGame.View.Board
         public void Vanish(Action vanished)
         {
             Interrupt();
+            accent.Stop();
             IsLifted = false;
             if (!motion.Play(PlayVanish(body.localScale.x, vanished)))
                 vanished?.Invoke();
@@ -183,6 +220,7 @@ namespace MergeGame.View.Board
         public void ResetForReuse()
         {
             motion.Stop();
+            accent.Stop();
             IsLifted = false;
             SetRestPose();
             ResetEffects();
@@ -194,6 +232,7 @@ namespace MergeGame.View.Board
             iconSprite = sprite;
             IsLocked = isLocked;
             IsMaxLevel = isMaxLevel;
+            IsHidden = false;
         }
 
         private void Interrupt()
@@ -209,9 +248,11 @@ namespace MergeGame.View.Board
         private void RevealIdentity()
         {
             icon.sprite = iconSprite;
+            icon.enabled = !IsHidden;
             icon.color = IsLocked ? lockedIconTint : Color.white;
-            lockOverlay.gameObject.SetActive(IsLocked);
-            maxLevelBadge.SetActive(IsMaxLevel);
+            lockOverlay.gameObject.SetActive(IsLocked && !IsHidden);
+            maxLevelBadge.SetActive(IsMaxLevel && !IsHidden);
+            boxCover.gameObject.SetActive(IsHidden);
         }
 
         private void ResetEffects()
@@ -221,6 +262,9 @@ namespace MergeGame.View.Board
             SetAlpha(burstGlow, 0f);
             burstGlow.rectTransform.localScale = Vector3.one;
             burstSparkles.gameObject.SetActive(false);
+            SetAlpha(boxCover, 1f);
+            boxCover.rectTransform.localScale = Vector3.one;
+            boxCover.rectTransform.localRotation = Quaternion.identity;
         }
 
         private void SetRestPose()
@@ -254,6 +298,30 @@ namespace MergeGame.View.Board
                     SetAlpha(lockOverlay, 1f - Ease.OutQuad(t));
                     lockOverlay.rectTransform.localScale = Vector3.one * Mathf.Lerp(1f, 1.5f, Ease.OutQuad(t));
                 }
+            });
+
+            RevealIdentity();
+            ResetEffects();
+        }
+
+        private IEnumerator PlayReveal(float delay)
+        {
+            // The closed box (still shown: the identity is not revealed yet) waits for the merge next to it.
+            yield return Tween.Delay(delay);
+
+            RevealIdentity();
+            boxCover.gameObject.SetActive(true);
+            burstSparkles.gameObject.SetActive(true);
+            yield return Tween.Run(revealSeconds, Ease.Linear, t =>
+            {
+                var burst = Ease.OutQuad(Mathf.Min(1f, t * 1.6f));
+                boxCover.rectTransform.localScale = Vector3.one * Mathf.Lerp(1f, 1.6f, burst);
+                boxCover.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 14f * burst);
+                SetAlpha(boxCover, 1f - burst);
+                body.localScale = Vector3.one * Mathf.LerpUnclamped(0.85f, 1f, Ease.OutBack(t));
+                SetAlpha(burstGlow, 0.8f * Ease.Bump(t));
+                SetAlpha(burstSparkles, Ease.Bump(t));
+                burstSparkles.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.5f, 1f, Ease.OutCubic(t));
             });
 
             RevealIdentity();

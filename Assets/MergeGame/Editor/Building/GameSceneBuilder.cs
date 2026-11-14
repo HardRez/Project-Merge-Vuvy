@@ -1,6 +1,7 @@
 using MergeGame.App.Installers;
 using MergeGame.View.Board;
 using MergeGame.View.Common;
+using MergeGame.View.Hints;
 using MergeGame.View.Navigation;
 using MergeGame.View.Notices;
 using MergeGame.View.Orders;
@@ -59,6 +60,7 @@ namespace MergeGame.Editor.Building
             var pool = UiKit.Rect("Pool", canvas).Stretch();
             var dragLayer = UiKit.Rect("DragLayer", canvas).Stretch();
             var board = Board(boardArea, dragLayer);
+            var mergeHint = board.gameObject.AddComponent<MergeHintView>().Wire("board", board);
             boardArea.gameObject.AddComponent<AspectHeightLayoutElement>()
                 .Wire("content", board.GetComponent<AspectRatioFitter>())
                 .Wire("minHeight", LayoutMetrics.BoardMinHeight);
@@ -72,6 +74,7 @@ namespace MergeGame.Editor.Building
                 .Wire("spawnView", spawn)
                 .Wire("noticeView", notices)
                 .Wire("gameMenuView", menu)
+                .Wire("mergeHintView", mergeHint)
                 .Wire("itemPrefab", prefabs.ItemView)
                 .Wire("pointsPopupPrefab", prefabs.PointsPopup)
                 .Wire("poolRoot", pool);
@@ -268,6 +271,13 @@ namespace MergeGame.Editor.Building
             var levelRow = LevelRow(details, out var level, out var maxTag, out var lockedTag);
             var next = NextItem(details, out var nextIcon);
 
+            var boxExplanation = ui.Text("BoxExplanation", details, "Yanındaki ağ temizlenince açılır.", 36f, TextTone.Muted, TextAlignmentOptions.TopLeft);
+            boxExplanation.rectTransform.Span(Vector2.zero, new Vector2(1f, 0.5f));
+            boxExplanation.rectTransform.offsetMin = new Vector2(170f, 18f);
+            boxExplanation.rectTransform.offsetMax = new Vector2(-32f, -4f);
+            UiKit.ShrinkToFit(boxExplanation, 26f);
+            boxExplanation.gameObject.SetActive(false);
+
             var discard = ui.Button("DiscardButton", details, ui.Theme.Danger, cornerScale: 0.7f);
             discard.Rect.Pin(RectLayout.Right, new Vector2(116f, 116f), new Vector2(-22f, 0f));
             ui.Icon("Icon", discard.Content, "trash").rectTransform.Inset(16f);
@@ -278,12 +288,15 @@ namespace MergeGame.Editor.Building
                 .Wire("details", details.gameObject)
                 .Wire("icon", icon)
                 .Wire("nameLabel", name)
+                .Wire("levelRow", levelRow.gameObject)
                 .Wire("levelLabel", level)
                 .Wire("maxLevelTag", maxTag)
                 .Wire("lockedTag", lockedTag)
                 .Wire("next", next)
                 .Wire("nextIcon", nextIcon)
-                .Wire("discardButton", discard.Button);
+                .Wire("discardButton", discard.Button)
+                .Wire("boxIcon", ui.Sprites.Icon("box"))
+                .Wire("boxExplanation", boxExplanation.gameObject);
         }
 
         private RectTransform LevelRow(RectTransform details, out TextMeshProUGUI level, out GameObject maxTag, out GameObject lockedTag)
