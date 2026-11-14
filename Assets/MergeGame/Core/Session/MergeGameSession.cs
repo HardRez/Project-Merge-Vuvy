@@ -23,6 +23,7 @@ namespace MergeGame.Core.Session
         private readonly IScoreCalculator scoreCalculator;
         private readonly IRandom random;
         private readonly OrderBook orderBook;
+        private readonly HiddenItemRevealer revealer = new HiddenItemRevealer();
 
         public MergeGameSession(GameDefinition definition, IRandom random)
             : this(definition, random, CreateInitialBoard(RequireDefinition(definition)))
@@ -61,6 +62,12 @@ namespace MergeGame.Core.Session
 
         public DropOutcome PreviewDrop(GridPosition from, GridPosition to) => dropResolver.Resolve(board, Catalog, from, to);
 
+        /// <summary>
+        /// Applies the drop <see cref="PreviewDrop"/> predicts. A move raises <see cref="ItemMoved"/>; a rejection raises
+        /// <see cref="DropRejected"/>. A merge raises <see cref="ItemsMerged"/>, then one <see cref="ItemRevealed"/> per
+        /// box it opened (row-major; only when it freed a locked target), then <see cref="ScoreChanged"/> (if points were
+        /// awarded) and <see cref="BoardFullChanged"/> (if the board was full), in that order.
+        /// </summary>
         public DropOutcome Drop(GridPosition from, GridPosition to)
         {
             var outcome = PreviewDrop(from, to);
@@ -182,10 +189,13 @@ namespace MergeGame.Core.Session
             board.Replace(outcome.To, new BoardItem(outcome.ResultItemId));
 
             var points = scoreCalculator.PointsForMerge(outcome.ResultItemId);
+            var revealed = targetWasLocked ? revealer.RevealAround(board, outcome.To) : new List<GridPosition>();
             var previousScore = Score;
             Score += points;
 
             Raise(new ItemsMerged(outcome.From, outcome.To, consumedItemId, outcome.ResultItemId, points, targetWasLocked));
+            foreach (var position in revealed)
+                Raise(new ItemRevealed(position, board.GetItem(position).ItemId));
             if (points != 0)
                 Raise(new ScoreChanged(previousScore, Score));
             if (wasFull)
@@ -207,7 +217,7 @@ namespace MergeGame.Core.Session
         {
             var board = new Board(definition.BoardSize);
             foreach (var placement in definition.InitialPlacements)
-                board.Place(placement.Position, new BoardItem(placement.ItemId, placement.IsLocked));
+                board.Place(placement.Position, new BoardItem(placement.ItemId, placement.IsLocked, placement.IsHidden));
             return board;
         }
 

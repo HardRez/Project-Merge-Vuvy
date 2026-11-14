@@ -9,6 +9,9 @@ namespace MergeGame.Core.Rules
         DifferentChain,
         DifferentLevel,
         MaxLevel,
-        SourceLocked
+        SourceLocked,
+
+        /// <summary>The target is a closed box, which is not a merge target.</summary>
+        TargetHidden
     }
 }

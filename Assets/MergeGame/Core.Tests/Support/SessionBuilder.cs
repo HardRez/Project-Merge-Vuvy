@@ -32,6 +32,13 @@ namespace MergeGame.Core.Tests.Support
 
         public SessionBuilder WithLockedItem(int x, int y, ItemId item) => WithItem(x, y, item, isLocked: true);
 
+        /// <summary>The board is built directly, so unlike a definition it accepts boxes nothing can open.</summary>
+        public SessionBuilder WithHiddenItem(int x, int y, ItemId item)
+        {
+            placements.Add((new GridPosition(x, y), BoardItem.Hidden(item)));
+            return this;
+        }
+
         public SessionBuilder WithFullBoardOf(ItemId item, bool isLocked = false)
         {
             var size = definition.BoardSize;
