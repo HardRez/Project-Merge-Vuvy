@@ -295,7 +295,9 @@ namespace MergeGame.Editor.Building
 
         private static ButtonParts BuildDeliverButton(UiKit ui, RectTransform card, out RectTransform pulse)
         {
-            pulse = UiKit.Rect("DeliverPulse", card).Pin(RectLayout.BottomRight, new Vector2(220f, 92f), new Vector2(-18f, 16f));
+            // Pivoted on its centre so the pulse grows evenly in every direction; the offset places that centre.
+            pulse = UiKit.Rect("DeliverPulse", card)
+                .Pin(RectLayout.BottomRight, new Vector2(220f, 92f), new Vector2(-128f, 62f), pivot: RectLayout.Center);
             var button = ui.Button("DeliverButton", pulse, ui.Theme.Primary, cornerScale: 0.7f);
             button.Rect.Stretch();
             var label = ui.Text("Label", button.Content, "Teslim Et", 40f, TextTone.Light);
