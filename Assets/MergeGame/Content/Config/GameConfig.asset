@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3a289f6c6bc3d418bdb588f97c8e6e, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: MergeGame.Data::MergeGame.Data.Authoring.GameConfigAsset
+  boardWidth: 5
+  boardHeight: 5
+  chains:
+  - {fileID: 11400000, guid: 21248951a9dba52499ff7b55534f8a43, type: 2}
+  - {fileID: 11400000, guid: d926d788e75daea44bc3b0ee272ebf92, type: 2}
+  - {fileID: 11400000, guid: c2eceb6c74701414b817bb15328b6595, type: 2}
+  - {fileID: 11400000, guid: 5b10bf35074a2b04ba9a99be5a7ed837, type: 2}
+  scoreTable: {fileID: 11400000, guid: 57156fb247df61646b6a5369e6bd22d9, type: 2}
+  orders: {fileID: 11400000, guid: 89f65aea13752d14ca18096687829f7d, type: 2}
+  initialLayout: {fileID: 11400000, guid: c0565931dc9d0be4cadfb826fe4f63c9, type: 2}
