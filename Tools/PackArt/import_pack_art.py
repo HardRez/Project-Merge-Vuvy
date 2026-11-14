@@ -37,6 +37,7 @@ CONTACT_SHADOW_BLUR = 6
 # (published file under Content/Sprites/UI, pack file)
 UI_SPRITES = [
     ("selection_brackets.png", Path("Board") / "Board" / "item_selected.png"),
+    ("board_tray.png", Path("Board") / "Board" / "board.png"),
 ]
 
 # (published file under Content/Audio, pack file)

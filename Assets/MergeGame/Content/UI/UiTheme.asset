@@ -30,7 +30,7 @@ MonoBehaviour:
   textMuted: {r: 0.6117647, g: 0.48235294, b: 0.35686275, a: 1}
   textLight: {r: 1, g: 1, b: 1, a: 1}
   textOutline: {r: 0.2901961, g: 0.16470589, b: 0.07058824, a: 1}
-  moveHighlight: {r: 0.55, g: 0.83, b: 1, a: 0.75}
+  moveHighlight: {r: 1, g: 1, b: 1, a: 0.6}
   mergeHighlight: {r: 0.48235294, g: 0.9372549, b: 0.32156864, a: 1}
   invalidHighlight: {r: 1, g: 0.38, b: 0.38, a: 0.8}
   maxLevelHighlight: {r: 1, g: 0.78431374, b: 0.23921569, a: 1}

@@ -168,8 +168,9 @@ namespace MergeGame.Editor.Building
             fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
             fitter.aspectRatio = 1f;
 
+            // A blue tray in the wooden frame: the warm item art stands out on it, the frame ties it to the warm UI.
             ui.DropShadow(board, spread: 22f, drop: 18f);
-            ui.Image("Wood", board, ui.Sprites.Panel, ui.Theme.WoodLight).rectTransform.Stretch();
+            ui.Image("Tray", board, ui.Sprites.BoardTray, Color.white).rectTransform.Inset(4f);
             ui.Image("Frame", board, ui.Sprites.BoardFrame, ui.Theme.WoodDark).rectTransform.Stretch();
 
             var grid = ui.Image("Grid", board, null, Color.clear);

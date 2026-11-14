@@ -16,6 +16,10 @@ namespace MergeGame.View.Theme
         [SerializeField] private Color woodDark = Hex(0x8B5530);
         [SerializeField] private Color cellLight = Hex(0xFFF4DA);
         [SerializeField] private Color cellDark = Hex(0xF7E4BD);
+
+        [Tooltip("The board's checkered tiles: blue, so the warm item art stands out (the asset pack's tile colours).")]
+        [SerializeField] private Color boardTileLight = Hex(0x8EB8F1);
+        [SerializeField] private Color boardTileDark = Hex(0x87B3ED);
         [SerializeField] private Color shadow = new Color(0.16f, 0.09f, 0.03f, 0.28f);
         [SerializeField] private Color toastBackground = new Color(0.24f, 0.14f, 0.07f, 0.9f);
 
@@ -33,7 +37,7 @@ namespace MergeGame.View.Theme
         [SerializeField] private Color textOutline = Hex(0x4A2A12);
 
         [Header("Drop highlights")]
-        [SerializeField] private Color moveHighlight = new Color(0.55f, 0.83f, 1f, 0.75f);
+        [SerializeField] private Color moveHighlight = new Color(1f, 1f, 1f, 0.6f);
         [SerializeField] private Color mergeHighlight = Hex(0x7BEF52);
         [SerializeField] private Color invalidHighlight = new Color(1f, 0.38f, 0.38f, 0.8f);
         [SerializeField] private Color maxLevelHighlight = Hex(0xFFC83D);
@@ -48,6 +52,8 @@ namespace MergeGame.View.Theme
         public Color WoodDark => woodDark;
         public Color CellLight => cellLight;
         public Color CellDark => cellDark;
+        public Color BoardTileLight => boardTileLight;
+        public Color BoardTileDark => boardTileDark;
         public Color Shadow => shadow;
         public Color ToastBackground => toastBackground;
 

@@ -6,6 +6,7 @@
 |---|---|---|
 | `Sprites/Items/<chainId>/<chainId>_<LL>.png` | `Board/ItemMain/Item/<source>.png`, one per chain level whose entry in `Assets/MergeGame/Editor/Seed/seed_content.json` has a `source` | Trimmed, scaled (longest side × 1.3, clamped to 160–212 px, so level 1 items stay readable while higher levels still grow), centred on a 256×256 canvas with a soft contact shadow, the same canvas as the placeholder emoji items |
 | `Sprites/UI/selection_brackets.png` | `Board/Board/item_selected.png` | Copied unchanged; the scene builder slices it 9-ways (60 px corners) |
+| `Sprites/UI/board_tray.png` | `Board/Board/board.png` | Copied unchanged; the blue tray inside the board's wooden frame, sliced 9-ways (30 px borders). The tile colours in `UiTheme` (`boardTileLight`, `boardTileDark`) are sampled from the pack's `tile_bg1.png` and `tile_bg2.png` |
 | `Audio/*.ogg` | `Audios/Effect/*.ogg`, `Audios/Music/bgmScene.ogg` | Copied unchanged under the names in the `AUDIO` table; `SoundLibrary.asset` is created from these names |
 
 ## Run

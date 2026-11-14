@@ -164,7 +164,7 @@ namespace MergeGame.View.Board
                 {
                     var cell = Instantiate(cellPrefab, cellLayer);
                     cell.name = $"Cell {x},{y}";
-                    cell.color = (x + y) % 2 == 0 ? theme.CellLight : theme.CellDark;
+                    cell.color = (x + y) % 2 == 0 ? theme.BoardTileLight : theme.BoardTileDark;
                     FitToCell(cell.rectTransform, new GridPosition(x, y));
                     cells.Add(cell);
                 }
