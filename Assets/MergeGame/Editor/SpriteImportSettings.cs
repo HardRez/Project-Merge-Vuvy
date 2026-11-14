@@ -15,11 +15,12 @@ namespace MergeGame.Editor
         private const float PixelsPerUnit = 100f;
 
         /// <returns>The asset paths whose import settings had to change and were re-imported.</returns>
-        public static IReadOnlyList<string> Apply(params string[] folders) => Apply(folders, _ => Vector4.zero);
+        public static IReadOnlyList<string> Apply(params string[] folders) => Apply(folders, _ => Vector4.zero, _ => false);
 
         /// <param name="borderFor">The 9-slice border (left, bottom, right, top) for a file name without extension.</param>
+        /// <param name="readableFor">Whether scripts read the pixels of a file at runtime (Read/Write enabled).</param>
         /// <returns>The asset paths whose import settings had to change and were re-imported.</returns>
-        public static IReadOnlyList<string> Apply(IEnumerable<string> folders, Func<string, Vector4> borderFor)
+        public static IReadOnlyList<string> Apply(IEnumerable<string> folders, Func<string, Vector4> borderFor, Func<string, bool> readableFor)
         {
             var changed = new List<string>();
             AssetDatabase.StartAssetEditing();
@@ -32,7 +33,8 @@ namespace MergeGame.Editor
                         var path = file.Replace('\\', '/');
                         if (!(AssetImporter.GetAtPath(path) is TextureImporter importer))
                             throw new InvalidOperationException($"{path} has no texture importer; has Unity imported it?");
-                        if (!Configure(importer, borderFor(Path.GetFileNameWithoutExtension(path))))
+                        var name = Path.GetFileNameWithoutExtension(path);
+                        if (!Configure(importer, borderFor(name), readableFor(name)))
                             continue;
 
                         importer.SaveAndReimport();
@@ -49,9 +51,15 @@ namespace MergeGame.Editor
         }
 
         /// <returns>True when a setting changed; untouched textures are not re-imported.</returns>
-        private static bool Configure(TextureImporter importer, Vector4 border)
+        private static bool Configure(TextureImporter importer, Vector4 border, bool readable)
         {
             var changed = false;
+            if (importer.isReadable != readable)
+            {
+                importer.isReadable = readable;
+                changed = true;
+            }
+
             if (importer.textureType != TextureImporterType.Sprite)
             {
                 importer.textureType = TextureImporterType.Sprite;

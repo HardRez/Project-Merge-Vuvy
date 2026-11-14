@@ -581,46 +581,6 @@ def draw_sand(variant: int) -> Image.Image:
     return img.convert("RGBa").resize(size, Image.LANCZOS).convert("RGBA")
 
 
-SAND_SURFACE_SIZE = (256, 96)
-
-
-def draw_sand_surface() -> Image.Image:
-    """
-    The top of a sinking sand body: an uneven, gently sloped sand line (about 40% from the top) with a lit crest and
-    a soft shadow under it, opaque sand below, transparent above. Its lower edge matches the light top of the sand
-    tiles, so it can sit on a tile's top edge while the sand drains out of a closed cell.
-    """
-    rng = random.Random(2024)
-    ss = SUPERSAMPLE
-    w, h = SAND_SURFACE_SIZE
-    big_w, big_h = w * ss, h * ss
-    line = [0.42 * big_h + 0.05 * big_h * math.sin(x / big_w * math.tau * 1.3 + 0.6)
-            + 0.03 * big_h * math.sin(x / big_w * math.tau * 3.1 + 2.0) - 0.04 * big_h * (x / big_w)
-            for x in range(big_w)]
-
-    alpha = Image.new("L", (big_w, big_h), 0)
-    crest = Image.new("L", (big_w, big_h), 0)
-    shade = Image.new("L", (big_w, big_h), 0)
-    alpha_draw, crest_draw, shade_draw = ImageDraw.Draw(alpha), ImageDraw.Draw(crest), ImageDraw.Draw(shade)
-    for x, y in enumerate(line):
-        alpha_draw.line([(x, y), (x, big_h)], fill=255)
-        crest_draw.line([(x, y), (x, y + 4 * ss)], fill=255)
-        shade_draw.line([(x, y + 6 * ss), (x, y + 16 * ss)], fill=150)
-
-    sand = Image.new("RGB", (big_w, big_h), (240, 212, 152))
-    sand.paste((252, 232, 186), mask=_blur(crest, 1.2))
-    sand.paste((214, 176, 112), mask=_blur(shade, 4))
-    grain = ImageDraw.Draw(sand)
-    for _ in range(500):
-        x, y = rng.uniform(0, big_w), rng.uniform(0, big_h)
-        r = rng.uniform(0.6, 1.5) * ss
-        grain.ellipse((x - r, y - r, x + r, y + r), fill=rng.choice(((255, 238, 200), (196, 156, 94), (214, 176, 112))))
-
-    img = sand.convert("RGBA")
-    img.putalpha(_blur(alpha, 0.6))
-    return img.convert("RGBa").resize((w, h), Image.LANCZOS).convert("RGBA")
-
-
 UI_SHAPES = {
     "panel": ui_panel,
     "cell": ui_cell,
@@ -644,9 +604,6 @@ def write_ui(out_dir: Path) -> list[Path]:
         path.parent.mkdir(parents=True, exist_ok=True)
         build().save(path)
         written.append(path)
-    path = out_dir / "UI" / "sand_surface.png"
-    draw_sand_surface().save(path)
-    written.append(path)
     for variant in range(SAND_VARIANTS):
         path = out_dir / "UI" / f"sand_{variant + 1:02d}.png"
         draw_sand(variant).save(path)

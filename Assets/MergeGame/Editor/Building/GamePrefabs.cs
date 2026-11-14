@@ -14,11 +14,7 @@ namespace MergeGame.Editor.Building
     internal sealed class GamePrefabs
     {
         private const float CellCornerScale = 0.7f;
-
-        // The sand surface strip, as fractions of the cell height, and the loose grains of a draining cover.
-        private const float SandSurfaceHeight = 0.375f;
-        private const float SandSurfaceOverlap = 0.22f;
-        private const int SandGrainCount = 14;
+        private const string SandGrainShader = "MergeGame/UI/Sand Grains";
 
         // Where the item icon sits inside its cell (normalised).
         private static readonly Vector2 IconMin = new Vector2(0.08f, 0.08f);
@@ -38,7 +34,7 @@ namespace MergeGame.Editor.Building
         public static void Generate(UiKit ui)
         {
             BuildBoardCell(ui);
-            BuildCellCover(ui);
+            BuildCellCover(ui, WriteSandGrainMaterial());
             BuildItemView(ui);
             BuildPointsPopup(ui);
             BuildOrderCard(ui, BuildRequirementSlot(ui));
@@ -63,46 +59,45 @@ namespace MergeGame.Editor.Building
         }
 
         /// <summary>
-        /// Sand over a whole closed cell, masked to the cell's rounded shape so draining sand never leaves the cell. The
+        /// Sand over a whole closed cell, masked to the cell's rounded shape so pouring grains never leave the cell. The
         /// sand sprites are drawn at twice the cell sprite's resolution, so half the cell's corner scale gives the same
         /// corner radius.
         /// </summary>
-        private static CellCover BuildCellCover(UiKit ui)
+        private static CellCover BuildCellCover(UiKit ui, Material grainMaterial)
         {
             var root = ui.Image("CellCover", null, ui.Sprites.Sand[0], Color.white, cornerScale: CellCornerScale / 2f);
             root.gameObject.AddComponent<Mask>().showMaskGraphic = false;
 
-            var body = UiKit.Rect("Body", root.rectTransform).Stretch();
-            var sand = ui.Image("Sand", body, ui.Sprites.Sand[0], Color.white, cornerScale: CellCornerScale / 2f);
+            var sand = ui.Image("Sand", root.rectTransform, ui.Sprites.Sand[0], Color.white, cornerScale: CellCornerScale / 2f);
             sand.rectTransform.Stretch();
 
-            // Stands on the tile's top edge and overlaps it far enough to hide the tile's rounded top corners.
-            var surface = ui.Image("Surface", body, ui.Sprites.SandSurface, Color.white);
-            surface.preserveAspect = false;
-            surface.rectTransform.Span(new Vector2(0f, 1f - SandSurfaceOverlap), new Vector2(1f, 1f - SandSurfaceOverlap + SandSurfaceHeight));
-            surface.gameObject.SetActive(false);
-
-            var grains = new Image[SandGrainCount];
-            for (var i = 0; i < grains.Length; i++)
-            {
-                grains[i] = ui.Image($"Grain {i + 1}", root.rectTransform, ui.Sprites.Circle, ui.Theme.SandGrain);
-                grains[i].rectTransform.Pin(RectLayout.Center, Vector2.one * (i % 3 == 0 ? 7f : 5f), pivot: RectLayout.Center);
-                grains[i].gameObject.SetActive(false);
-            }
-
-            var dust = ui.Image("Dust", root.rectTransform, ui.Sprites.Glow, ui.Theme.Sand);
-            dust.preserveAspect = false;
-            dust.rectTransform.Span(new Vector2(0.05f, -0.1f), new Vector2(0.95f, 0.22f));
-            dust.gameObject.SetActive(false);
+            var grains = UiKit.Rect("Grains", root.rectTransform).Stretch().gameObject.AddComponent<RawImage>();
+            grains.material = grainMaterial;
+            grains.raycastTarget = false;
+            grains.gameObject.SetActive(false);
 
             root.gameObject.AddComponent<CellCover>()
-                .Wire("body", body)
                 .Wire("sand", sand)
-                .Wire("surface", surface.rectTransform)
-                .Wire("variants", ui.Sprites.Sand)
                 .Wire("grains", grains)
-                .Wire("dust", dust);
+                .Wire("variants", ui.Sprites.Sand);
             return Save<CellCover>(root.rectTransform, BuildPaths.CellCoverPrefab);
+        }
+
+        /// <summary>The material the pouring sand is drawn with; an asset, so the shader ships in builds.</summary>
+        private static Material WriteSandGrainMaterial()
+        {
+            var shader = Shader.Find(SandGrainShader) ?? throw new InvalidOperationException($"Shader '{SandGrainShader}' not found.");
+            var material = AssetDatabase.LoadAssetAtPath<Material>(BuildPaths.SandGrainMaterial);
+            if (material == null)
+            {
+                AssetFolders.Ensure(Path.GetDirectoryName(BuildPaths.SandGrainMaterial));
+                material = new Material(shader);
+                AssetDatabase.CreateAsset(material, BuildPaths.SandGrainMaterial);
+            }
+
+            material.shader = shader;
+            EditorUtility.SetDirty(material);
+            return material;
         }
 
         private static ItemView BuildItemView(UiKit ui)

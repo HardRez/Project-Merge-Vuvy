@@ -51,7 +51,7 @@ namespace MergeGame.Editor.Building
         public static void Build()
         {
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-            SpriteImportSettings.Apply(new[] { BuildPaths.UiSpritesFolder }, UiSprites.BorderOf);
+            SpriteImportSettings.Apply(new[] { BuildPaths.UiSpritesFolder }, UiSprites.BorderOf, UiSprites.IsReadAtRuntime);
 
             if (AssetDatabase.LoadAssetAtPath<GameConfigAsset>(ContentSeeder.GameConfigPath) == null)
                 throw new InvalidOperationException($"{LogPrefix} {ContentSeeder.GameConfigPath} is missing; run Merge Game/Seed Content first.");

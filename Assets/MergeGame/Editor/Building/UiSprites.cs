@@ -46,11 +46,11 @@ namespace MergeGame.Editor.Building
         /// <summary>Sand covering a closed cell, in several looks; drawn at twice the cell's resolution.</summary>
         public Sprite[] Sand { get; private set; }
 
-        /// <summary>The uneven top of sand draining out of an opened cell.</summary>
-        public Sprite SandSurface { get; private set; }
-
         /// <summary>Unsliced shapes get no border; that includes the opaque background.</summary>
         public static Vector4 BorderOf(string shapeName) => Borders.TryGetValue(shapeName, out var border) ? border : Vector4.zero;
+
+        /// <summary>The sand tiles are read at runtime: their pixels colour the grains of a pouring cover.</summary>
+        public static bool IsReadAtRuntime(string shapeName) => shapeName.StartsWith("sand_", StringComparison.Ordinal);
 
         public static UiSprites Load() => new UiSprites
         {
@@ -65,8 +65,7 @@ namespace MergeGame.Editor.Building
             BoardFrame = LoadShape("board_frame"),
             SpeechBubble = LoadShape("speech_bubble"),
             Background = LoadShape("background"),
-            Sand = new[] { LoadShape("sand_01"), LoadShape("sand_02"), LoadShape("sand_03") },
-            SandSurface = LoadShape("sand_surface")
+            Sand = new[] { LoadShape("sand_01"), LoadShape("sand_02"), LoadShape("sand_03") }
         };
 
         /// <param name="name">An icon file name without extension, e.g. <c>star</c> or <c>customer_01</c>.</param>
