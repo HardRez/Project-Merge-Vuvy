@@ -255,26 +255,46 @@ namespace MergeGame.Editor.Building
         }
 
         /// <summary>
-        /// The customer in a round frame: a Spine portrait masked to the disc, with a still avatar for customers without one.
+        /// The customer on its disc: a Spine portrait whose shoulders are masked to the disc and whose head may rise above
+        /// it, with a still avatar for customers without one and a glow behind the disc while the order is ready.
         /// The portrait's texture is straight alpha and the card fades through a CanvasGroup, so the material reads straight
         /// alpha and is CanvasGroup compatible, and the mesh keeps its vertex colours unpremultiplied (Spine's guidance for both).
         /// </summary>
         private static CustomerPortraitView BuildCustomer(UiKit ui, RectTransform card, Material portraitMaterial)
         {
+            const float discOffsetX = 20f;
+            const float discOffsetY = -22f;
+            const float frameInset = 8f;
             var size = LayoutMetrics.AvatarSize;
+
+            const float glowSpread = 46f;
+            var glow = ui.Image("ReadyGlow", card, ui.Sprites.Glow, WithAlpha(ui.Theme.Gold, 0f));
+            glow.rectTransform.Pin(RectLayout.TopLeft, new Vector2(size + 2f * glowSpread, size + 2f * glowSpread),
+                new Vector2(discOffsetX - glowSpread, discOffsetY + glowSpread));
+            glow.preserveAspect = false;
+            glow.gameObject.SetActive(false);
+
             var disc = ui.Image("AvatarDisc", card, ui.Sprites.Circle, ui.Theme.CellDark);
-            disc.rectTransform.Pin(RectLayout.TopLeft, new Vector2(size, size), new Vector2(20f, -22f));
+            disc.rectTransform.Pin(RectLayout.TopLeft, new Vector2(size, size), new Vector2(discOffsetX, discOffsetY));
 
-            var frame = ui.Image("Frame", disc.rectTransform, ui.Sprites.Circle, Color.white);
-            frame.rectTransform.Inset(8f);
-            frame.raycastTarget = false;
-            frame.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+            var frame = UiKit.Rect("Frame", disc.rectTransform);
+            frame.Inset(frameInset);
 
-            var avatar = ui.Image("Avatar", frame.rectTransform, null, Color.white);
-            avatar.rectTransform.Stretch();
+            // The frame's circle with room above it for the head; the actor's origin is the circle's centre.
+            var frameSize = size - 2f * frameInset;
+            var windowHeight = frameSize * (1f + LayoutMetrics.PortraitHeadroomAboveFrame);
+            var window = UiKit.Rect("Window", disc.rectTransform)
+                .Pin(RectLayout.Bottom, new Vector2(frameSize, windowHeight), new Vector2(0f, frameInset));
+            window.gameObject.AddComponent<PortraitWindow>().raycastTarget = true;
+            window.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+
+            var actor = UiKit.Rect("Actor", window).Pin(new Vector2(0.5f, frameSize * 0.5f / windowHeight), Vector2.zero, pivot: RectLayout.Center);
+
+            var avatar = ui.Image("Avatar", actor, null, Color.white);
+            avatar.rectTransform.Pin(RectLayout.Center, new Vector2(frameSize, frameSize));
             avatar.raycastTarget = false;
 
-            var portrait = UiKit.Rect("Portrait", frame.rectTransform)
+            var portrait = UiKit.Rect("Portrait", actor)
                 .Pin(RectLayout.Center, Vector2.zero)
                 .gameObject.AddComponent<SkeletonGraphic>();
             portrait.material = portraitMaterial;
@@ -283,9 +303,11 @@ namespace MergeGame.Editor.Building
             portrait.gameObject.SetActive(false);
 
             return disc.gameObject.AddComponent<CustomerPortraitView>()
-                .Wire("frame", frame.rectTransform)
+                .Wire("frame", frame)
+                .Wire("actor", actor)
                 .Wire("portrait", portrait)
-                .Wire("avatar", avatar);
+                .Wire("avatar", avatar)
+                .Wire("readyGlow", glow);
         }
 
         private static Material WritePortraitMaterial()
