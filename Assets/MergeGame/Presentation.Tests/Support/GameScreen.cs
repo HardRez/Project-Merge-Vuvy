@@ -37,6 +37,7 @@ namespace MergeGame.Presentation.Tests.Support
             presenters.Add(new BoardPresenter(session, Events, Board, Notices));
             presenters.Add(SelectionPresenter);
             presenters.Add(new OrdersPresenter(session, Events, Orders, Notices));
+            presenters.Add(new OrderMatchPresenter(session, Events, OrderMatches));
             presenters.Add(new ScorePresenter(session, Events, Score));
             presenters.Add(new SpawnPresenter(session, Events, Spawn, Notices));
             presenters.Add(new GameNavigationPresenter(Menu, Navigator));
@@ -62,6 +63,7 @@ namespace MergeGame.Presentation.Tests.Support
         public FakeGameMenuView Menu { get; } = new FakeGameMenuView();
         public FakeAppNavigator Navigator { get; } = new FakeAppNavigator();
         public FakeMergeHintView Hint { get; }
+        public FakeOrderMatchView OrderMatches { get; } = new FakeOrderMatchView();
         public SelectionPresenter SelectionPresenter { get; }
         public MergeHintPresenter HintPresenter { get; }
 

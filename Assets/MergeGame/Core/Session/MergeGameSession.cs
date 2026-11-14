@@ -142,6 +142,20 @@ namespace MergeGame.Core.Session
         }
 
         /// <summary>
+        /// Entry i is the board cell <see cref="DeliverOrder"/> would hand over for <c>Requirements[i]</c> of the order,
+        /// or null when that requirement is missing; entry i has a cell exactly when <see cref="GetRequirementFulfilment"/>
+        /// entry i is true. Each order is matched on its own against the whole board, so two orders may name the same
+        /// cell. Side-effect free; returns a fresh list. Empty for an id that is not active (and always in a game
+        /// without orders).
+        /// </summary>
+        public IReadOnlyList<GridPosition?> GetRequirementMatches(int orderId)
+        {
+            if (orderBook == null || !orderBook.TryGetSlot(orderId, out var slot))
+                return Array.Empty<GridPosition?>();
+            return Array.AsReadOnly(orderBook.GetMatchedCells(orderBook.ActiveOrders[slot], board));
+        }
+
+        /// <summary>
         /// Hands the first matching unlocked items (row-major) to the customer and replaces the order in its slot.
         /// Raises <see cref="OrderDelivered"/>, <see cref="ScoreChanged"/> (if points were awarded),
         /// <see cref="BoardFullChanged"/> (if the board was full) and <see cref="OrderAdded"/>, in that order.
