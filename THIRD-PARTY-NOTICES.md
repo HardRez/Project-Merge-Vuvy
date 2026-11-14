@@ -6,8 +6,8 @@ This project includes the following third-party material.
 
 - Source: https://github.com/microsoft/fluentui-emoji (3D style PNG renders)
 - Licence: MIT
-- Used for: item sprites and icons (score, coin, lock, check, home, trash, sparkles, crown, play, customer portraits). The renders are trimmed, scaled, centred and given a drop shadow by `Tools/PlaceholderArt/generate_sprites.py`.
-- Files: `Assets/MergeGame/Content/Sprites/Items/**/*.png` and `Assets/MergeGame/Content/Sprites/Icons/*.png` (except `Icons/cobweb.png`, which is drawn by the script).
+- Used for: icons (score, coin, lock, home, trash, sparkles, crown, play, customer avatars). The renders are trimmed, scaled, centred and given a drop shadow by `Tools/PlaceholderArt/generate_sprites.py`. The script can also render item sprites for chain levels that name an `emoji` in the seed; no shipped chain does.
+- Files: `Assets/MergeGame/Content/Sprites/Icons/*.png` (except `Icons/cobweb.png` and `Icons/check.png`, which are drawn by the script).
 
 ```
 MIT License
@@ -54,3 +54,9 @@ SOFTWARE
 - Source: supplied by the project owner, who holds the licence to use them.
 - Used for: the 13 animated customers on the order cards (Spine 3.8.99 exports: skeleton, atlas and texture).
 - Files: `Assets/MergeGame/Content/Characters/**`.
+
+## Licensed asset pack (item art, selection brackets, sound)
+
+- Source: an asset pack supplied by the project owner, who holds the licence to use it. The pack is not part of the repository.
+- Used for: the item sprites of all four chains, the corner brackets around the selected cell, the sound effects and the background music.
+- Files: `Assets/MergeGame/Content/Sprites/Items/**/*.png`, `Assets/MergeGame/Content/Sprites/UI/selection_brackets.png` and `Assets/MergeGame/Content/Audio/*.ogg`. They are copied from the pack by `Tools/PackArt/import_pack_art.py`, which lists every source file; item art is trimmed, scaled, centred on a 256×256 canvas and given a contact shadow, audio is copied unchanged.

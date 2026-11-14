@@ -22,6 +22,7 @@ namespace MergeGame.Editor.Building
             ["board_frame"] = new Vector4(40, 40, 40, 40),
             ["badge"] = new Vector4(24, 26, 24, 22),
             ["speech_bubble"] = new Vector4(52, 60, 36, 36),
+            ["selection_brackets"] = new Vector4(60, 60, 60, 60),
             ["sand_01"] = new Vector4(64, 64, 64, 64),
             ["sand_02"] = new Vector4(64, 64, 64, 64),
             ["sand_03"] = new Vector4(64, 64, 64, 64)
@@ -42,6 +43,9 @@ namespace MergeGame.Editor.Building
         public Sprite BoardFrame { get; private set; }
         public Sprite SpeechBubble { get; private set; }
         public Sprite Background { get; private set; }
+
+        /// <summary>Four corner brackets around the selected cell, from the asset pack; drawn in its own colours.</summary>
+        public Sprite SelectionBrackets { get; private set; }
 
         /// <summary>Sand covering a closed cell, in several looks; drawn at twice the cell's resolution.</summary>
         public Sprite[] Sand { get; private set; }
@@ -65,6 +69,7 @@ namespace MergeGame.Editor.Building
             BoardFrame = LoadShape("board_frame"),
             SpeechBubble = LoadShape("speech_bubble"),
             Background = LoadShape("background"),
+            SelectionBrackets = LoadShape("selection_brackets"),
             Sand = new[] { LoadShape("sand_01"), LoadShape("sand_02"), LoadShape("sand_03") }
         };
 

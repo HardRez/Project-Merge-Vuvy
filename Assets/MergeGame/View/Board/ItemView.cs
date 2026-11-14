@@ -19,7 +19,7 @@ namespace MergeGame.View.Board
     [RequireComponent(typeof(RectTransform), typeof(CanvasGroup))]
     public sealed class ItemView : MonoBehaviour
     {
-        [Tooltip("Scaled and rotated by the animations; holds every visual except the lift shadow.")]
+        [Tooltip("Scaled and rotated by the animations; holds every visual of the item.")]
         [SerializeField] private RectTransform body;
 
         [Tooltip("Spawn shine, hint and merge-target highlights; sits between the root and the body.")]
@@ -31,7 +31,6 @@ namespace MergeGame.View.Board
         [SerializeField] private Image lockOverlay;
 
         [SerializeField] private GameObject maxLevelBadge;
-        [SerializeField] private Image liftShadow;
         [SerializeField] private Image burstGlow;
         [SerializeField] private Image burstSparkles;
 
@@ -40,9 +39,6 @@ namespace MergeGame.View.Board
         [SerializeField] private Color lockedIconTint = new Color(0.68f, 0.68f, 0.72f, 1f);
 
         [SerializeField] private float liftedScale = 1.2f;
-
-        [Range(0f, 1f)]
-        [SerializeField] private float liftShadowAlpha = 0.45f;
 
         [Header("Timing (seconds)")]
         [SerializeField] private float spawnSeconds = 0.32f;
@@ -134,7 +130,7 @@ namespace MergeGame.View.Board
             }));
         }
 
-        /// <summary>Picks the item up: it moves to the drag layer, grows and casts a shadow.</summary>
+        /// <summary>Picks the item up: it moves to the drag layer and grows.</summary>
         public void Lift(RectTransform dragLayer)
         {
             Interrupt();
@@ -143,11 +139,8 @@ namespace MergeGame.View.Board
             rectTransform.DetachInto(dragLayer);
 
             var startScale = body.localScale.x;
-            motion.Play(Tween.Run(liftSeconds, Ease.OutBack, t =>
-            {
-                body.localScale = Vector3.one * Mathf.LerpUnclamped(startScale, liftedScale, t);
-                SetAlpha(liftShadow, Mathf.Clamp01(t) * liftShadowAlpha);
-            }));
+            motion.Play(Tween.Run(liftSeconds, Ease.OutBack,
+                t => body.localScale = Vector3.one * Mathf.LerpUnclamped(startScale, liftedScale, t)));
         }
 
         public void DragTo(Vector3 worldPosition) => rectTransform.position = worldPosition;
@@ -165,12 +158,10 @@ namespace MergeGame.View.Board
 
             var startOffset = rectTransform.anchoredPosition;
             var startScale = body.localScale.x;
-            var startShadow = liftShadow.color.a;
             motion.Play(Tween.Run(seconds, Ease.Linear, t =>
             {
                 rectTransform.anchoredPosition = Vector2.LerpUnclamped(startOffset, Vector2.zero, Ease.OutCubic(t));
                 body.localScale = Vector3.one * Mathf.LerpUnclamped(startScale, 1f, Ease.OutBack(t));
-                SetAlpha(liftShadow, Mathf.Lerp(startShadow, 0f, t));
             }));
         }
 
@@ -280,7 +271,6 @@ namespace MergeGame.View.Board
             body.localScale = Vector3.one;
             body.localRotation = Quaternion.identity;
             canvasGroup.alpha = 1f;
-            SetAlpha(liftShadow, 0f);
         }
 
         private IEnumerator PlayMerge(bool unlocked, float revealDelay)
@@ -323,7 +313,6 @@ namespace MergeGame.View.Board
 
             var start = rectTransform.position;
             var startScale = body.localScale.x;
-            var startShadow = liftShadow.color.a;
             // A slight sideways curve reads as a throw rather than a slide.
             var arc = Vector3.Cross(worldTarget - start, Vector3.forward) * 0.2f;
             yield return Tween.Run(seconds, Ease.Linear, t =>
@@ -331,7 +320,6 @@ namespace MergeGame.View.Board
                 var travelled = Ease.InOutQuad(t);
                 rectTransform.position = Vector3.LerpUnclamped(start, worldTarget, travelled) + arc * Ease.Bump(t);
                 body.localScale = Vector3.one * Mathf.Lerp(startScale, endScale, travelled);
-                SetAlpha(liftShadow, Mathf.Lerp(startShadow, 0f, t));
             });
 
             arrived?.Invoke();

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b646e446b22a66478ab8e61dfa4bddf, type: 3}
+  m_Name: garden
+  m_EditorClassIdentifier: MergeGame.Data::MergeGame.Data.Authoring.ItemChainAsset
+  id: garden
+  displayName: "Bah\xE7e"
+  spawnWeight: 3
+  scoreMultiplier: 1
+  levels:
+  - displayName: Tohum
+    icon: {fileID: 21300000, guid: 9ad27e3358be43445a57d7700742180e, type: 3}
+  - displayName: Filiz
+    icon: {fileID: 21300000, guid: b557f7fd7aa83b54e921f03a0e3bc40d, type: 3}
+  - displayName: Fide
+    icon: {fileID: 21300000, guid: 6a13823b0da3f1442b8e0b30a3b68d59, type: 3}
+  - displayName: "\xC7i\xE7ekli Fidan"
+    icon: {fileID: 21300000, guid: bb3a1bf52887fb942b0fb346cd70283b, type: 3}
+  - displayName: "Gen\xE7 A\u011Fa\xE7"
+    icon: {fileID: 21300000, guid: da485e45ab8ef8343bbb03341fc8c381, type: 3}
+  - displayName: "Portakal A\u011Fac\u0131"
+    icon: {fileID: 21300000, guid: 7381b390d6ee78e49abba16cd3286af0, type: 3}
+  - displayName: "Bereketli A\u011Fa\xE7"
+    icon: {fileID: 21300000, guid: 6f0fb5f08a36db64ab34ff9803ef4fde, type: 3}

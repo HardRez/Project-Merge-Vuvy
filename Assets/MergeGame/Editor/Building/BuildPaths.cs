@@ -13,6 +13,11 @@ namespace MergeGame.Editor.Building
         public const string UiDataFolder = "Assets/MergeGame/Content/UI";
         public const string Theme = UiDataFolder + "/UiTheme.asset";
         public const string NoticeTexts = UiDataFolder + "/NoticeTexts.asset";
+        public const string SoundLibrary = UiDataFolder + "/SoundLibrary.asset";
+
+        /// <summary>Sound effects and music; file names are fixed by <c>Tools/PackArt/import_pack_art.py</c>.</summary>
+        public const string AudioFolder = "Assets/MergeGame/Content/Audio";
+        public const string MusicClip = AudioFolder + "/music_main.ogg";
 
         public const string PrefabsFolder = "Assets/MergeGame/Content/Prefabs";
         public const string BoardCellPrefab = PrefabsFolder + "/BoardCell.prefab";

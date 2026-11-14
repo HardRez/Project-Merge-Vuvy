@@ -52,6 +52,7 @@ namespace MergeGame.Editor.Building
         {
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             SpriteImportSettings.Apply(new[] { BuildPaths.UiSpritesFolder }, UiSprites.BorderOf, UiSprites.IsReadAtRuntime);
+            AudioImportSettings.Apply(BuildPaths.AudioFolder, BuildPaths.MusicClip);
 
             if (AssetDatabase.LoadAssetAtPath<GameConfigAsset>(ContentSeeder.GameConfigPath) == null)
                 throw new InvalidOperationException($"{LogPrefix} {ContentSeeder.GameConfigPath} is missing; run Merge Game/Seed Content first.");
@@ -60,6 +61,7 @@ namespace MergeGame.Editor.Building
             SceneScaffold.NewScene();
             var theme = UiDataAssets.LoadOrCreateTheme();
             UiDataAssets.LoadOrCreateNoticeTexts(UiSprites.Load());
+            UiDataAssets.LoadOrCreateSoundLibrary();
             UiFonts.Generate(theme);
             GamePrefabs.Generate(UiKit.Load());
             ProjectContextBuilder.Build(AssetDatabase.LoadAssetAtPath<GameConfigAsset>(ContentSeeder.GameConfigPath));

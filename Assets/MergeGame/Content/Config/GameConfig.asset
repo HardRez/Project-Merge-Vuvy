@@ -15,8 +15,8 @@ MonoBehaviour:
   boardWidth: 5
   boardHeight: 5
   chains:
-  - {fileID: 11400000, guid: 21248951a9dba52499ff7b55534f8a43, type: 2}
-  - {fileID: 11400000, guid: d926d788e75daea44bc3b0ee272ebf92, type: 2}
+  - {fileID: 11400000, guid: de91d738f36e7054d8e85dcf916de8c1, type: 2}
+  - {fileID: 11400000, guid: d3cef418f6527784e893d3fdd7208390, type: 2}
   - {fileID: 11400000, guid: c2eceb6c74701414b817bb15328b6595, type: 2}
   - {fileID: 11400000, guid: 5b10bf35074a2b04ba9a99be5a7ed837, type: 2}
   scoreTable: {fileID: 11400000, guid: 57156fb247df61646b6a5369e6bd22d9, type: 2}

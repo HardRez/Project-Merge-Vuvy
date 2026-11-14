@@ -17,17 +17,17 @@ MonoBehaviour:
   spawnWeight: 2
   scoreMultiplier: 1.2
   levels:
-  - displayName: "Bu\u011Fday"
+  - displayName: "Un \xC7uval\u0131"
     icon: {fileID: 21300000, guid: 2ff9198336f07b04284000b2aca98d72, type: 3}
-  - displayName: Ekmek
+  - displayName: Hamur
     icon: {fileID: 21300000, guid: 6074c0c9ded24a74c9cfbe61150fbe85, type: 3}
-  - displayName: Kruvasan
+  - displayName: "\xC7\xF6rek"
     icon: {fileID: 21300000, guid: 8ee57c727cd788d45911bade0bd21cd4, type: 3}
-  - displayName: Simit
+  - displayName: Somun Ekmek
     icon: {fileID: 21300000, guid: 13b73eda2d41cb849a791d5f0c752ddd, type: 3}
-  - displayName: Kek
+  - displayName: "Sandvi\xE7"
     icon: {fileID: 21300000, guid: a6711c1d305b48c48a6f47ab68d8bf1d, type: 3}
-  - displayName: Pasta Dilimi
+  - displayName: "Kul\xFCp Sandvi\xE7"
     icon: {fileID: 21300000, guid: ee92e1ec444c73e4b920c13a15cd1242, type: 3}
-  - displayName: "Ya\u015F Pasta"
+  - displayName: Hamburger
     icon: {fileID: 21300000, guid: 635718d6a1e94c645a1c6eda75e95513, type: 3}

@@ -1,6 +1,7 @@
 using System.Collections;
 using MergeGame.Presentation.Notices;
 using MergeGame.View.Animation;
+using MergeGame.View.Audio;
 using MergeGame.View.Theme;
 using TMPro;
 using UnityEngine;
@@ -18,6 +19,10 @@ namespace MergeGame.View.Notices
         [SerializeField] private Image background;
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text label;
+
+        [Tooltip("Optional; without it notices are silent.")]
+        [SerializeField] private SoundPlayer sounds;
+
         [SerializeField] private float popSeconds = 0.25f;
         [SerializeField] private float holdSeconds = 1.8f;
         [SerializeField] private float fadeSeconds = 0.35f;
@@ -55,6 +60,7 @@ namespace MergeGame.View.Notices
             label.color = emphasized ? theme.TextDark : theme.TextLight;
 
             ShownNotice = notice;
+            sounds.TryPlay(SoundCue.Notice);
             if (!motion.Play(PlayToast()))
                 canvasGroup.alpha = 0f;
         }

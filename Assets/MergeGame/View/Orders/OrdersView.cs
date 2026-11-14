@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MergeGame.Core.Orders;
 using MergeGame.Data.Visuals;
 using MergeGame.Presentation.Orders;
+using MergeGame.View.Audio;
 using MergeGame.View.Board;
 using UnityEngine;
 using Zenject;
@@ -14,6 +15,9 @@ namespace MergeGame.View.Orders
     {
         [SerializeField] private RectTransform cardContainer;
         [SerializeField] private OrderCardView cardPrefab;
+
+        [Tooltip("Optional; without it completed orders are silent.")]
+        [SerializeField] private SoundPlayer sounds;
 
         private readonly List<OrderCardView> cards = new List<OrderCardView>();
         private IItemVisuals visuals;
@@ -51,8 +55,11 @@ namespace MergeGame.View.Orders
 
         public void RefreshCard(OrderCard card) => FindCard(card.SlotIndex)?.Show(card);
 
-        public void CompleteOrder(int slotIndex, IReadOnlyList<ConsumedItem> consumedItems, int awardedPoints) =>
+        public void CompleteOrder(int slotIndex, IReadOnlyList<ConsumedItem> consumedItems, int awardedPoints)
+        {
             FindCard(slotIndex)?.Celebrate(awardedPoints);
+            sounds.TryPlay(SoundCue.OrderComplete);
+        }
 
         public void AddCard(OrderCard card) => FindCard(card.SlotIndex)?.Show(card);
 

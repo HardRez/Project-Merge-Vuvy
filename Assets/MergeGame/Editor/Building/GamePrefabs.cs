@@ -116,9 +116,6 @@ namespace MergeGame.Editor.Building
             group.blocksRaycasts = false;
             group.interactable = false;
 
-            var shadow = ui.Image("LiftShadow", root, ui.Sprites.Shadow, Color.clear, cornerScale: 0.6f);
-            shadow.rectTransform.Stretch(4f, -30f, 4f, 18f);
-
             var accentLayer = UiKit.Rect("Accent", root).Stretch();
             var accentGlow = ui.Image("AccentGlow", accentLayer, ui.Sprites.Glow, Color.white);
             accentGlow.rectTransform.Inset(-84f);
@@ -136,9 +133,9 @@ namespace MergeGame.Editor.Building
             var crown = ui.Icon("MaxLevelBadge", body, "crown");
             crown.rectTransform.Span(new Vector2(0.6f, 0.62f), new Vector2(1.04f, 1.06f));
             crown.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -18f);
-            // Bottom-left, so it never collides with the crown in the top-right corner.
+            // Overlaps the icon's bottom-right corner so it reads as part of the item; the crown keeps the top-right.
             var orderBadge = ui.Icon("OrderMatchBadge", body, "check");
-            orderBadge.rectTransform.Span(new Vector2(-0.04f, -0.04f), new Vector2(0.36f, 0.36f));
+            orderBadge.rectTransform.Span(new Vector2(0.58f, 0.04f), new Vector2(0.96f, 0.42f));
             orderBadge.gameObject.SetActive(false);
             var sparkles = ui.Icon("BurstSparkles", body, "sparkles");
             sparkles.rectTransform.Inset(-30f);
@@ -155,7 +152,6 @@ namespace MergeGame.Editor.Building
                 .Wire("icon", icon)
                 .Wire("lockOverlay", lockOverlay)
                 .Wire("maxLevelBadge", crown.gameObject)
-                .Wire("liftShadow", shadow)
                 .Wire("burstGlow", glow)
                 .Wire("burstSparkles", sparkles);
             return Save<ItemView>(root, BuildPaths.ItemViewPrefab);

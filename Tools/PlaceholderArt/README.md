@@ -1,10 +1,10 @@
 # Sprite Generator
 
-`generate_sprites.py` builds every sprite under `Assets/MergeGame/Content/Sprites/`:
+`generate_sprites.py` builds the placeholder sprites under `Assets/MergeGame/Content/Sprites/`. The shipped item art and the selection brackets come from the licensed asset pack instead (see [Tools/PackArt](../PackArt/README.md)):
 
 | Group | Path | Size | Source |
 |---|---|---|---|
-| Items | `Items/<chainId>/<chainId>_<LL>.png` | 256×256 | Microsoft Fluent Emoji (3D), one per chain level, from the `emoji` field in `Assets/MergeGame/Editor/Seed/seed_content.json` |
+| Items | `Items/<chainId>/<chainId>_<LL>.png` | 256×256 | Microsoft Fluent Emoji (3D), only for chain levels with an `emoji` field in `Assets/MergeGame/Editor/Seed/seed_content.json`; levels with a pack `source` are skipped (no shipped chain uses emoji) |
 | Icons | `Icons/*.png` | 256×256 | Fluent Emoji (3D); `cobweb.png` is drawn by the script |
 | UI | `UI/*.png` | see table | drawn by the script (including the sand cover variants) |
 
@@ -40,7 +40,7 @@ If anything cannot be resolved, the script exits with code 1 and lists every fai
 | `coin.png` | 🪙 | Coin | currency |
 | `cobweb.png` | – | drawn by the script | semi-transparent web drawn over a locked item; clipped to a rounded square |
 | `lock.png` | 🔒 | Locked | locked state |
-| `check.png` | ✅ | Check mark button | order complete |
+| `check.png` | – | drawn by the script | order complete; a bare green tick with a white rim, no button behind it |
 | `home.png` | 🏠 | House | home / menu |
 | `trash.png` | 🗑️ | Wastebasket | discard |
 | `sparkles.png` | ✨ | Sparkles | spawn button |
