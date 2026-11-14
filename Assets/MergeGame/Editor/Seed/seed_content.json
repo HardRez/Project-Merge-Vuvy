@@ -1,4 +1,8 @@
 {
+  "board": {
+    "width": 5,
+    "height": 5
+  },
   "scoreTable": [
     0,
     10,
@@ -152,81 +156,29 @@
           "emoji": "🎂"
         }
       ]
-    },
-    {
-      "id": "basket",
-      "displayName": "Sepet",
-      "spawnWeight": 0,
-      "scoreMultiplier": 1.5,
-      "levels": [
-        {
-          "name": "Poşet",
-          "emoji": "🛍️"
-        },
-        {
-          "name": "Sepet",
-          "emoji": "🧺"
-        },
-        {
-          "name": "Market Arabası",
-          "emoji": "🛒"
-        }
-      ]
-    },
-    {
-      "id": "boat",
-      "displayName": "Tekne",
-      "spawnWeight": 0,
-      "scoreMultiplier": 1.5,
-      "levels": [
-        {
-          "name": "Çapa",
-          "emoji": "⚓"
-        },
-        {
-          "name": "Kano",
-          "emoji": "🛶"
-        },
-        {
-          "name": "Yelkenli",
-          "emoji": "⛵"
-        }
-      ]
-    },
-    {
-      "id": "kitchen",
-      "displayName": "Mutfak",
-      "spawnWeight": 0,
-      "scoreMultiplier": 1.5,
-      "levels": [
-        {
-          "name": "Kaşık",
-          "emoji": "🥄"
-        },
-        {
-          "name": "Kase",
-          "emoji": "🥣"
-        },
-        {
-          "name": "Tava",
-          "emoji": "🍳"
-        }
-      ]
     }
   ],
-  "modes": [
-    {
-      "id": "classic",
-      "displayName": "Klasik",
-      "boardWidth": 5,
-      "boardHeight": 5,
-      "chains": [
-        "fruit",
-        "flower",
-        "sea",
-        "bakery"
-      ],
-      "showSpawnButton": true
-    }
+  "orders": {
+    "maxActiveOrders": 2,
+    "minItemsPerOrder": 1,
+    "maxItemsPerOrder": 2,
+    "minRequestedLevel": 2,
+    "maxRequestedLevel": 4,
+    "rewardPointsByLevel": [5, 30, 130, 450, 1400, 4000, 11000],
+    "customerCount": 6
+  },
+  "initialLayout": [
+    { "x": 0, "y": 0, "chain": "fruit", "level": 1, "locked": true },
+    { "x": 2, "y": 0, "chain": "sea", "level": 2, "locked": true },
+    { "x": 4, "y": 0, "chain": "flower", "level": 1, "locked": true },
+    { "x": 1, "y": 1, "chain": "fruit", "level": 1, "locked": false },
+    { "x": 3, "y": 1, "chain": "flower", "level": 1, "locked": false },
+    { "x": 0, "y": 2, "chain": "bakery", "level": 2, "locked": true },
+    { "x": 4, "y": 2, "chain": "fruit", "level": 2, "locked": true },
+    { "x": 1, "y": 3, "chain": "fruit", "level": 1, "locked": false },
+    { "x": 3, "y": 3, "chain": "sea", "level": 1, "locked": false },
+    { "x": 0, "y": 4, "chain": "sea", "level": 1, "locked": true },
+    { "x": 2, "y": 4, "chain": "bakery", "level": 3, "locked": true },
+    { "x": 4, "y": 4, "chain": "flower", "level": 2, "locked": true }
   ]
 }

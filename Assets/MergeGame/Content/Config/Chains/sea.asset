@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b646e446b22a66478ab8e61dfa4bddf, type: 3}
+  m_Name: sea
+  m_EditorClassIdentifier: MergeGame.Data::MergeGame.Data.Authoring.ItemChainAsset
+  id: sea
+  displayName: Deniz
+  spawnWeight: 2
+  scoreMultiplier: 1.2
+  levels:
+  - displayName: "Deniz Kabu\u011Fu"
+    icon: {fileID: 21300000, guid: 6678aa04ec99de24fb4ca74d9e98cc15, type: 3}
+  - displayName: Karides
+    icon: {fileID: 21300000, guid: 29be212895989b24d86344fe6b66d598, type: 3}
+  - displayName: "Yenge\xE7"
+    icon: {fileID: 21300000, guid: 69c00ad073e0d25459c1fee910a915f3, type: 3}
+  - displayName: "Bal\u0131k"
+    icon: {fileID: 21300000, guid: b6f90a036237b544e991077325950c37, type: 3}
+  - displayName: Ahtapot
+    icon: {fileID: 21300000, guid: 27bfed4aee3e9e94e880bdfcb76f82e0, type: 3}
+  - displayName: Yunus
+    icon: {fileID: 21300000, guid: e53e7641a3766734f913b7cac578dcd5, type: 3}
+  - displayName: Balina
+    icon: {fileID: 21300000, guid: 03275d9755e236e4f9a19f2216849ab6, type: 3}
