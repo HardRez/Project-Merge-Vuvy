@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using MergeGame.View.Audio;
 using MergeGame.View.Common;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -34,6 +35,8 @@ namespace MergeGame.Editor.Building
             camera.transform.position = new Vector3(0f, 0f, -CanvasDistance);
             camera.nearClipPlane = 0.3f;
             camera.farClipPlane = CanvasDistance * 2f;
+            // The ears of the scene; every screen has exactly one, so the effects and the music are heard.
+            camera.gameObject.AddComponent<AudioListener>();
             return camera;
         }
 
@@ -77,6 +80,19 @@ namespace MergeGame.Editor.Building
             safeArea.gameObject.AddComponent<SafeAreaFitter>();
             return safeArea;
         }
+
+        /// <summary>The screen's sound effect player: one non-spatial source the views play their cues through.</summary>
+        public static SoundPlayer Sounds(SoundLibrary library)
+        {
+            var player = new GameObject("Sounds").AddComponent<SoundPlayer>().Wire("library", library);
+            var source = player.GetComponent<AudioSource>();
+            source.playOnAwake = false;
+            source.spatialBlend = 0f;
+            return player;
+        }
+
+        /// <summary>Gives a button that has no game action of its own a click.</summary>
+        public static void ClickSound(Button button, SoundPlayer sounds) => button.gameObject.AddComponent<ButtonSound>().Wire("sounds", sounds);
 
         public static TInstaller SceneContext<TInstaller>() where TInstaller : MonoInstaller
         {

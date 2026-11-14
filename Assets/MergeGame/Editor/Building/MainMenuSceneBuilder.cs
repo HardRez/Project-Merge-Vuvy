@@ -60,6 +60,10 @@ namespace MergeGame.Editor.Building
                 .Wire("title", title)
                 .Wire("entranceItems", play.Rect.parent, quit.Rect.parent);
 
+            var sounds = SceneScaffold.Sounds(UiDataAssets.LoadOrCreateSoundLibrary());
+            SceneScaffold.ClickSound(play.Button, sounds);
+            SceneScaffold.ClickSound(quit.Button, sounds);
+
             SceneScaffold.SceneContext<MainMenuInstaller>().Wire("mainMenuView", view);
         }
 

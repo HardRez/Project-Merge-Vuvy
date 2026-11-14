@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01af3b4e07dc4624c958101663da0624, type: 3}
+  m_Name: SoundLibrary
+  m_EditorClassIdentifier: MergeGame.View::MergeGame.View.Audio.SoundLibrary
+  cues:
+  - cue: 0
+    clip: {fileID: 8300000, guid: 9c9452900500d1d44ba8a99a9039112b, type: 3}
+    volume: 0.8
+  - cue: 1
+    clip: {fileID: 8300000, guid: 8ab176cdf72888949bed87d65e027655, type: 3}
+    volume: 0.8
+  - cue: 2
+    clip: {fileID: 8300000, guid: 49cc8ac5c42ca7649a881b6341f88e25, type: 3}
+    volume: 0.6
+  - cue: 3
+    clip: {fileID: 8300000, guid: dcaae1bcaddc5584198d2affd517b7ab, type: 3}
+    volume: 0.5
+  - cue: 4
+    clip: {fileID: 8300000, guid: 762aed7df22e6d541b7c23b96d7fe620, type: 3}
+    volume: 0.8
+  - cue: 5
+    clip: {fileID: 8300000, guid: 75e9da00b7a94774190f397b9456d0e7, type: 3}
+    volume: 0.8
+  - cue: 6
+    clip: {fileID: 8300000, guid: c89bcfff310c1df4c903021c576d6d20, type: 3}
+    volume: 0.8
+  - cue: 7
+    clip: {fileID: 8300000, guid: 593c4ed6c1961264894718d495ee58cc, type: 3}
+    volume: 0.9
+  - cue: 8
+    clip: {fileID: 8300000, guid: a68962dc80aab014a805ecc7db349aab, type: 3}
+    volume: 0.5
+  mergeClips:
+  - {fileID: 8300000, guid: 78704683749700f4e870d5cee6935f97, type: 3}
+  - {fileID: 8300000, guid: 0fd0c6c513fb3f942b2216694e08b8d1, type: 3}
+  - {fileID: 8300000, guid: 399835d278f3f8c49adddc6e171fd91c, type: 3}
+  - {fileID: 8300000, guid: 32128f69090092443ab329168ebc7fd9, type: 3}
+  - {fileID: 8300000, guid: 417609a240c86ce4ba75fccaa02e7e89, type: 3}
+  - {fileID: 8300000, guid: 335ead05f112f9946a253b4a184bdc57, type: 3}
+  mergeVolume: 0.8
+  music: {fileID: 8300000, guid: e48d7969a7885964f9468b942937d61a, type: 3}
+  musicVolume: 0.35

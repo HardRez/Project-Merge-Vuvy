@@ -49,7 +49,7 @@ namespace MergeGame.Editor.Building
             // Orders, board and info bar form one group. Height beyond the 9:16 reference first lets the orders strip
             // and the info bar grow a little, the rest is shared between the space above the group and above the
             // spawn button; the board itself never stretches past its natural size.
-            var menu = TopBar(column, out var score);
+            var menu = TopBar(column, out var score, out var home);
             Spacer("SpaceAboveGroup", column, LayoutMetrics.SpaceAboveGroupShare);
             var orders = OrdersStrip(column);
             var boardArea = UiKit.Rect("BoardArea", column);
@@ -66,6 +66,12 @@ namespace MergeGame.Editor.Building
                 .Wire("content", board.GetComponent<AspectRatioFitter>())
                 .Wire("minHeight", LayoutMetrics.BoardMinHeight);
             var notices = Toast(boardArea);
+
+            var sounds = SceneScaffold.Sounds(UiDataAssets.LoadOrCreateSoundLibrary());
+            board.Wire("sounds", sounds);
+            orders.Wire("sounds", sounds);
+            notices.Wire("sounds", sounds);
+            SceneScaffold.ClickSound(home, sounds);
 
             SceneScaffold.SceneContext<GameInstaller>()
                 .Wire("boardView", board)
@@ -109,7 +115,7 @@ namespace MergeGame.Editor.Building
         private static void Spacer(string name, RectTransform column, float share) =>
             UiKit.Rect(name, column).Prefer(height: 0f, flexibleHeight: share);
 
-        private GameMenuView TopBar(RectTransform column, out ScoreView score)
+        private GameMenuView TopBar(RectTransform column, out ScoreView score, out Button homeButton)
         {
             var bar = Section("TopBar", column, LayoutMetrics.TopBarHeight);
             var size = LayoutMetrics.TopBarHeight;
@@ -119,6 +125,7 @@ namespace MergeGame.Editor.Building
             ui.Icon("Icon", home.Content, "home").rectTransform.Inset(16f);
 
             score = ScorePill(bar);
+            homeButton = home.Button;
             return bar.gameObject.AddComponent<GameMenuView>().Wire("backButton", home.Button);
         }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MergeGame.Presentation.Notices;
+using MergeGame.View.Audio;
 using MergeGame.View.Notices;
 using MergeGame.View.Theme;
 using UnityEditor;
@@ -24,6 +25,32 @@ namespace MergeGame.Editor.Building
         };
 
         public static UiTheme LoadOrCreateTheme() => LoadOrCreate<UiTheme>(BuildPaths.Theme, _ => { });
+
+        /// <summary>Created with the imported pack audio; afterwards clips and volumes are the designers' to change.</summary>
+        public static SoundLibrary LoadOrCreateSoundLibrary() => LoadOrCreate<SoundLibrary>(BuildPaths.SoundLibrary, library =>
+        {
+            library.Cues = new[]
+            {
+                new SoundLibrary.CueClip(SoundCue.ButtonClick, Clip("button_click"), 0.8f),
+                new SoundLibrary.CueClip(SoundCue.Spawn, Clip("spawn"), 0.8f),
+                new SoundLibrary.CueClip(SoundCue.PickUp, Clip("pick_up"), 0.6f),
+                new SoundLibrary.CueClip(SoundCue.Land, Clip("land"), 0.5f),
+                new SoundLibrary.CueClip(SoundCue.Unlock, Clip("unlock"), 0.8f),
+                new SoundLibrary.CueClip(SoundCue.SandBreak, Clip("sand_break"), 0.8f),
+                new SoundLibrary.CueClip(SoundCue.Discard, Clip("discard"), 0.8f),
+                new SoundLibrary.CueClip(SoundCue.OrderComplete, Clip("order_complete"), 0.9f),
+                new SoundLibrary.CueClip(SoundCue.Notice, Clip("notice"), 0.5f)
+            };
+            library.MergeClips = Enumerable.Range(2, 6).Select(level => Clip($"merge_{level:00}")).ToList();
+            library.Music = Clip("music_main");
+        });
+
+        private static AudioClip Clip(string name)
+        {
+            var path = $"{BuildPaths.AudioFolder}/{name}.ogg";
+            return AssetDatabase.LoadAssetAtPath<AudioClip>(path)
+                   ?? throw new System.InvalidOperationException($"{path} is missing; run Tools/PackArt/import_pack_art.py.");
+        }
 
         /// <summary>Also adds the default entry of any notice the asset has no text for yet; existing wording is kept.</summary>
         public static NoticeTexts LoadOrCreateNoticeTexts(UiSprites sprites)

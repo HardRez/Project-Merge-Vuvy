@@ -6,6 +6,7 @@ using MergeGame.Core.Items;
 using MergeGame.Data.Visuals;
 using MergeGame.Presentation.Board;
 using MergeGame.Presentation.Selection;
+using MergeGame.View.Audio;
 using MergeGame.View.Common;
 using MergeGame.View.Theme;
 using UnityEngine;
@@ -49,6 +50,9 @@ namespace MergeGame.View.Board
         [SerializeField] private DropHighlightView dropHighlight;
         [SerializeField] private SelectionMarkerView selectionMarker;
         [SerializeField] private UiTheme theme;
+
+        [Tooltip("Optional; without it the board is silent.")]
+        [SerializeField] private SoundPlayer sounds;
 
         [Header("Timing (seconds)")]
         [SerializeField] private float moveSeconds = 0.2f;
@@ -194,6 +198,7 @@ namespace MergeGame.View.Board
             {
                 covers.Remove(position);
                 PourCover(position, cover, item);
+                sounds.TryPlay(SoundCue.SandBreak);
             }
         }
 
@@ -203,6 +208,7 @@ namespace MergeGame.View.Board
             var item = AddItem(position, spawned => spawned.Show(itemId, visuals.GetIcon(itemId), isLocked: false, catalog.IsMaxLevel(itemId)));
             item.PlaySpawn();
             item.Accent.PlaySpawnShine(item.DisplayedIcon);
+            sounds.TryPlay(SoundCue.Spawn);
         }
 
         public void BeginDrag(GridPosition origin)
@@ -212,6 +218,7 @@ namespace MergeGame.View.Board
 
             draggedItem = item;
             item.Lift(dragLayer);
+            sounds.TryPlay(SoundCue.PickUp);
             if (selectedCell == origin)
                 selectionMarker.Hide();
         }
@@ -244,6 +251,7 @@ namespace MergeGame.View.Board
 
             ForgetDrag(item);
             item.Land(itemLayer, geometry.GetCell(origin), returnSeconds);
+            sounds.TryPlay(SoundCue.Land);
             if (selectedCell == origin && !selectionMarker.IsShown)
                 selectionMarker.Show(geometry.GetCell(origin));
         }
@@ -256,6 +264,7 @@ namespace MergeGame.View.Board
 
             items[to] = item;
             item.Land(itemLayer, geometry.GetCell(to), moveSeconds);
+            sounds.TryPlay(SoundCue.Land);
         }
 
         public void MergeItems(GridPosition from, GridPosition to, ItemId resultItemId, bool unlockedTarget)
@@ -270,6 +279,9 @@ namespace MergeGame.View.Board
 
             target.MergeInto(resultItemId, visuals.GetIcon(resultItemId), catalog.IsMaxLevel(resultItemId), unlockedTarget, mergeFlightSeconds);
             source?.FlyAway(effectLayer, target.WorldCenter, mergeFlightSeconds, delay: 0f, endScale: 0.9f, () => Release(source));
+            sounds.TryPlayMerge(resultItemId.Level);
+            if (unlockedTarget)
+                sounds.TryPlay(SoundCue.Unlock);
         }
 
         public void ShowPointsPopup(GridPosition cell, int points)
@@ -284,6 +296,8 @@ namespace MergeGame.View.Board
         {
             var item = TakeItem(position);
             item?.Vanish(() => Release(item));
+            if (item != null)
+                sounds.TryPlay(SoundCue.Discard);
         }
 
         public void DeliverItems(int orderSlotIndex, IReadOnlyList<GridPosition> positions)
