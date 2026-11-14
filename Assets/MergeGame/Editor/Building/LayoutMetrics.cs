@@ -38,6 +38,9 @@ namespace MergeGame.Editor.Building
 
         public const float CardSpacing = 20f;
         public const float AvatarSize = 132f;
+
+        /// <summary>How far above the customer's round frame its head may rise, in frame heights.</summary>
+        public const float PortraitHeadroomAboveFrame = 0.32f;
         public const float RequirementSize = 100f;
     }
 }

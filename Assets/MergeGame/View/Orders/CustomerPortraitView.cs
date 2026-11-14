@@ -1,35 +1,71 @@
+using System.Collections;
 using System.Linq;
 using MergeGame.Data.Visuals;
 using MergeGame.Presentation.Orders;
+using MergeGame.View.Animation;
 using Spine.Unity;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace MergeGame.View.Orders
 {
     /// <summary>
-    /// The customer of an order card inside its round frame: an animated Spine portrait when the customer has one,
-    /// otherwise its still avatar. A new customer plays its <c>appear</c> animation, a change of mood plays that mood's
-    /// entry (<c>progress</c>, <c>finished</c>) and every state then loops; a delivered order plays <c>leave</c>.
+    /// The customer of an order card: an animated Spine portrait when the customer has one, otherwise its still avatar.
+    /// Its shoulders sit in the round frame and its head may rise above it (see <see cref="PortraitWindow"/>).
+    /// <para>
+    /// A customer arrives with the pop-in animation of its mood (<c>appear</c> while waiting, <c>progress</c> while part
+    /// of the order is on the board, <c>finished</c> when it can be delivered) and then loops that mood. A later change of
+    /// mood cross-fades to the new loop instead, because the pop-ins start from nothing; a happier mood also hops. A ready
+    /// customer glows, a tap makes it hop, and a delivered order plays <c>leave</c>.
+    /// </para>
     /// </summary>
-    public sealed class CustomerPortraitView : MonoBehaviour
+    public sealed class CustomerPortraitView : MonoBehaviour, IPointerClickHandler
     {
-        [Tooltip("The round, masked area the customer is framed in.")]
+        [Tooltip("The round frame; framing and the delivery target use it.")]
         [SerializeField] private RectTransform frame;
+
+        [Tooltip("Carries the character; sits at the frame's centre and hops.")]
+        [SerializeField] private RectTransform actor;
 
         [SerializeField] private SkeletonGraphic portrait;
         [SerializeField] private Image avatar;
 
+        [Tooltip("Glows behind the frame while the order can be delivered.")]
+        [SerializeField] private Image readyGlow;
+
         [Header("Framing")]
         [Tooltip("The character's resting height (first frame of its waiting loop), in frame heights; larger shows less of the body.")]
         [Min(0.1f)]
-        [SerializeField] private float heightInFrames = 1.7f;
+        [SerializeField] private float heightInFrames = 2f;
 
-        [Tooltip("Gap between the top of the frame and the top of the character, in frame heights.")]
-        [SerializeField] private float headroom = 0.04f;
+        [Tooltip("Gap between the top of the frame and the top of the character, in frame heights; negative lets the head rise " +
+                 "above the frame (keep it within the window's open top).")]
+        [SerializeField] private float headroom = -0.2f;
+
+        [Tooltip("The top part of the resting pose, as a share of its height, that is centred horizontally: the head, so " +
+                 "characters whose head is off their body's centre (a raised arm, a hat) still face the middle of the frame.")]
+        [Range(0.1f, 1f)]
+        [SerializeField] private float centredTop = 0.4f;
+
+        [Header("Reactions")]
+        [SerializeField] private float hopSeconds = 0.36f;
+
+        [Tooltip("How high a hop lifts the character, in frame heights.")]
+        [SerializeField] private float hopHeight = 0.08f;
+
+        [SerializeField] private float glowPulseSeconds = 1.4f;
+
+        [Range(0f, 1f)]
+        [SerializeField] private float glowAlpha = 0.9f;
+
+        [SerializeField] private float glowFadeSeconds = 0.25f;
 
         private CustomerAnimationSet animations;
         private CustomerMood mood;
+        private TweenChannel hop;
+        private TweenChannel glow;
+        private bool glowing;
 
         /// <summary>Where delivered items fly to, in world space.</summary>
         public Vector3 Center => frame.TransformPoint(frame.rect.center);
@@ -40,6 +76,15 @@ namespace MergeGame.View.Orders
         /// <summary>The animation the portrait is playing now; null without an animated portrait.</summary>
         public string CurrentAnimation => IsAnimated ? portrait.AnimationState.GetCurrent(0)?.Animation.Name : null;
 
+        /// <summary>True while the customer glows as ready (from the moment it turns on, false from the moment its fade-out starts).</summary>
+        public bool IsGlowing => glowing;
+
+        /// <summary>True while the still avatar is shown instead of a portrait.</summary>
+        public bool ShowsAvatar => avatar.gameObject.activeSelf;
+
+        private TweenChannel Hop => hop ??= new TweenChannel(this);
+        private TweenChannel Glow => glow ??= new TweenChannel(this);
+
         /// <summary>Shows a customer who just arrived with an order.</summary>
         public void Arrive(SkeletonDataAsset skeleton, Sprite still, CustomerMood customerMood)
         {
@@ -48,11 +93,13 @@ namespace MergeGame.View.Orders
             avatar.sprite = still;
             avatar.gameObject.SetActive(animations == null && still != null);
             portrait.gameObject.SetActive(animations != null);
+            StopHop();
+            SetGlow(mood == CustomerMood.Ready, fade: false);
             if (animations == null)
                 return;
 
             var state = portrait.AnimationState;
-            state.SetAnimation(0, animations.Appear, false);
+            state.SetAnimation(0, Entry(mood), false);
             state.AddAnimation(0, Loop(mood), true, 0f);
         }
 
@@ -61,27 +108,27 @@ namespace MergeGame.View.Orders
         {
             if (customerMood == mood)
                 return;
+            var happier = customerMood > mood;
             mood = customerMood;
-            if (animations == null)
-                return;
-
-            var state = portrait.AnimationState;
-            var entry = Entry(mood);
-            if (entry == null)
-            {
-                state.SetAnimation(0, Loop(mood), true);
-                return;
-            }
-
-            state.SetAnimation(0, entry, false);
-            state.AddAnimation(0, Loop(mood), true, 0f);
+            SetGlow(mood == CustomerMood.Ready, fade: true);
+            if (animations != null)
+                portrait.AnimationState.SetAnimation(0, Loop(mood), true);
+            if (happier)
+                PlayHop(mood == CustomerMood.Ready ? 1.4f : 1f);
         }
 
         /// <summary>The order was delivered; the customer says goodbye and stays on its last frame.</summary>
         public void Leave()
         {
+            SetGlow(false, fade: true);
             if (animations != null)
                 portrait.AnimationState.SetAnimation(0, animations.Leave, false);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (IsAnimated || ShowsAvatar)
+                PlayHop(1f);
         }
 
         private CustomerAnimationSet Load(SkeletonDataAsset skeleton)
@@ -106,8 +153,9 @@ namespace MergeGame.View.Orders
         }
 
         /// <summary>
-        /// Scales the character so its resting pose is <see cref="heightInFrames"/> frames tall, top-aligned and centred.
-        /// Not the setup pose: some characters are only placed in frame by their animations.
+        /// Scales the character so its resting pose is <see cref="heightInFrames"/> frames tall, its top <see cref="headroom"/>
+        /// below the frame's top and its head (<see cref="centredTop"/>) centred. Not the setup pose: some characters are only
+        /// placed in frame by their animations. The actor's origin is the frame's centre.
         /// </summary>
         private void FrameRestingPose(Spine.Animation resting)
         {
@@ -116,23 +164,116 @@ namespace MergeGame.View.Orders
             resting.Apply(skeleton, 0f, 0f, false, null, 1f, Spine.MixBlend.Setup, Spine.MixDirection.In);
             skeleton.UpdateWorldTransform();
             portrait.UpdateMesh();
-            var bounds = portrait.GetLastMesh().bounds;
+            var mesh = portrait.GetLastMesh();
+            var bounds = mesh.bounds;
             if (bounds.size.y <= 0f)
                 return;
+            var headCentre = HorizontalCentreAbove(mesh, bounds.max.y - bounds.size.y * centredTop, bounds.center.x);
 
             var frameHeight = frame.rect.height;
             var scale = frameHeight * heightInFrames / bounds.size.y;
             var top = frameHeight * (0.5f - headroom);
             var rect = portrait.rectTransform;
             rect.localScale = new Vector3(scale, scale, 1f);
-            rect.anchoredPosition = new Vector2(-bounds.center.x * scale, top - bounds.max.y * scale);
+            rect.anchoredPosition = new Vector2(-headCentre * scale, top - bounds.max.y * scale);
+        }
+
+        private static float HorizontalCentreAbove(Mesh mesh, float height, float fallback)
+        {
+            var min = float.MaxValue;
+            var max = float.MinValue;
+            foreach (var vertex in mesh.vertices)
+            {
+                if (vertex.y < height)
+                    continue;
+                min = Mathf.Min(min, vertex.x);
+                max = Mathf.Max(max, vertex.x);
+            }
+
+            return min <= max ? (min + max) * 0.5f : fallback;
+        }
+
+        private void PlayHop(float strength)
+        {
+            if (!Hop.Play(HopAnimation(strength)))
+                StopHop();
+        }
+
+        private void StopHop()
+        {
+            Hop.Stop();
+            actor.anchoredPosition = Vector2.zero;
+            actor.localScale = Vector3.one;
+        }
+
+        /// <summary>Stretches up off the ground, comes down and lands with a small squash.</summary>
+        private IEnumerator HopAnimation(float strength)
+        {
+            var lift = frame.rect.height * hopHeight * strength;
+            yield return Tween.Run(hopSeconds, Ease.Linear, t =>
+            {
+                var rise = Ease.Bump(Mathf.Min(1f, t / 0.8f));
+                var squash = t > 0.8f ? Ease.Bump((t - 0.8f) / 0.2f) : 0f;
+                actor.anchoredPosition = new Vector2(0f, lift * rise);
+                var stretch = 0.05f * strength * rise - 0.06f * strength * squash;
+                actor.localScale = new Vector3(1f - stretch * 0.6f, 1f + stretch, 1f);
+            });
+            StopHop();
+        }
+
+        private void SetGlow(bool on, bool fade)
+        {
+            glowing = on;
+            if (on)
+            {
+                if (readyGlow.gameObject.activeSelf && fade)
+                    return;
+                readyGlow.gameObject.SetActive(true);
+                if (!Glow.Play(GlowAnimation(fade)))
+                    SetGlowAlpha(glowAlpha);
+                return;
+            }
+
+            if (!readyGlow.gameObject.activeSelf)
+                return;
+            if (!fade || !Glow.Play(FadeGlowOut()))
+                HideGlow();
+        }
+
+        private IEnumerator GlowAnimation(bool fadeIn)
+        {
+            if (fadeIn)
+                yield return Tween.Run(glowFadeSeconds, Ease.OutQuad, t => SetGlowAlpha(glowAlpha * t));
+            yield return Tween.Loop(() => Tween.Run(glowPulseSeconds, Ease.Linear,
+                t => SetGlowAlpha(glowAlpha * (1f - 0.35f * Ease.Bump(t)))));
+        }
+
+        private IEnumerator FadeGlowOut()
+        {
+            var from = readyGlow.color.a;
+            yield return Tween.Run(glowFadeSeconds, Ease.OutQuad, t => SetGlowAlpha(from * (1f - t)));
+            HideGlow();
+        }
+
+        private void HideGlow()
+        {
+            Glow.Stop();
+            SetGlowAlpha(0f);
+            readyGlow.gameObject.SetActive(false);
+        }
+
+        private void SetGlowAlpha(float alpha)
+        {
+            var color = readyGlow.color;
+            color.a = alpha;
+            readyGlow.color = color;
         }
 
         private string Entry(CustomerMood customerMood) => customerMood switch
         {
             CustomerMood.Hopeful => animations.Progress,
             CustomerMood.Ready => animations.Finished,
-            _ => null
+            _ => animations.Appear
         };
 
         private string Loop(CustomerMood customerMood) => customerMood switch
