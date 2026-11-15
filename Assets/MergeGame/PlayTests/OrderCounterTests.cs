@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using MergeGame.PlayTests.Support;
+using MergeGame.View.Audio;
 using MergeGame.View.Common;
 using MergeGame.View.Orders;
 using NUnit.Framework;
@@ -90,7 +91,7 @@ namespace MergeGame.PlayTests
         }
 
         [UnityTest]
-        public IEnumerator ADeliveredOrder_IsGoneCompletely_BeforeTheNextCustomerComesIn()
+        public IEnumerator ADeliveredOrder_IsGoneCompletely_BeforeTheNextCustomerComesIn_WithAPop()
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
             Assert.That(AutoPlayer.PlayUntilAnOrderIsDeliverable(game.Session, HighestRequestedLevel), Is.True);
@@ -102,6 +103,19 @@ namespace MergeGame.PlayTests
             // This card's own order: when two orders can be delivered, delivering the other one may take this one's items.
             var order = game.Session.ActiveOrders[slot];
             Assert.That(game.Session.CanDeliver(order.Id), Is.True);
+            var sounds = Object.FindAnyObjectByType<SoundPlayer>();
+            Assert.That(sounds.Library.TryGet(SoundCue.CustomerAppear, out var pop, out _), Is.True, "No clip for a customer coming in.");
+            var arrivalFrame = -1;
+            var popFrame = -1;
+            void Arrived() => arrivalFrame = Time.frameCount;
+            void Played(AudioClip clip)
+            {
+                if (clip == pop)
+                    popFrame = Time.frameCount;
+            }
+
+            card.CustomerArrived += Arrived;
+            sounds.ClipPlayed += Played;
             game.Session.DeliverOrder(order.Id);
 
             var left = false;
@@ -131,6 +145,10 @@ namespace MergeGame.PlayTests
             Assert.That(customerGone, Is.True, "The leaving customer was still showing when the next one came in.");
             Assert.That(arrivedAfter, Is.LessThan(HandoverLimitSeconds), "The handover takes too long.");
             Assert.That(customer.Opacity, Is.EqualTo(1f), "The next customer came in faded.");
+            card.CustomerArrived -= Arrived;
+            sounds.ClipPlayed -= Played;
+            Assert.That(arrivalFrame, Is.GreaterThan(0), "The card never said its next customer came in.");
+            Assert.That(popFrame, Is.EqualTo(arrivalFrame), "The next customer came in without its pop.");
         }
 
         [UnityTest]
