@@ -1,0 +1,2420 @@
+fileFormatVersion: 2
+guid: 9ace07763575bc944826fa25a43c7388
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2908405266681656202
+    second: bubble_pop_sheet_0
+  - first:
+      213: -7993622005880005636
+    second: bubble_pop_sheet_1
+  - first:
+      213: 1455308770329728411
+    second: bubble_pop_sheet_2
+  - first:
+      213: -6398737366803347572
+    second: bubble_pop_sheet_3
+  - first:
+      213: 8065224875199357856
+    second: bubble_pop_sheet_4
+  - first:
+      213: 5512876955050663749
+    second: bubble_pop_sheet_5
+  - first:
+      213: -1259681376044062263
+    second: bubble_pop_sheet_6
+  - first:
+      213: -2090989828427209174
+    second: bubble_pop_sheet_7
+  - first:
+      213: -300668973791654384
+    second: bubble_pop_sheet_8
+  - first:
+      213: -5463063418333130094
+    second: bubble_pop_sheet_9
+  - first:
+      213: 8698109308698106533
+    second: bubble_pop_sheet_10
+  - first:
+      213: 6174931236151220406
+    second: bubble_pop_sheet_11
+  - first:
+      213: -4923185520104590047
+    second: bubble_pop_sheet_12
+  - first:
+      213: -1708066866854705005
+    second: bubble_pop_sheet_13
+  - first:
+      213: 665983369410183978
+    second: bubble_pop_sheet_14
+  - first:
+      213: 8003038178659436560
+    second: bubble_pop_sheet_15
+  - first:
+      213: 3137295349185210697
+    second: bubble_pop_sheet_16
+  - first:
+      213: 8095252613627926535
+    second: bubble_pop_sheet_17
+  - first:
+      213: 4540068389979877440
+    second: bubble_pop_sheet_18
+  - first:
+      213: -3921078968751935487
+    second: bubble_pop_sheet_19
+  - first:
+      213: 7407865885416813029
+    second: bubble_pop_sheet_20
+  - first:
+      213: 4287753140089989737
+    second: bubble_pop_sheet_21
+  - first:
+      213: -5738981213466232195
+    second: bubble_pop_sheet_22
+  - first:
+      213: 6450826691239419470
+    second: bubble_pop_sheet_23
+  - first:
+      213: -3326275533472583172
+    second: bubble_pop_sheet_24
+  - first:
+      213: -8159982340121616983
+    second: bubble_pop_sheet_25
+  - first:
+      213: 6630355636353880200
+    second: bubble_pop_sheet_26
+  - first:
+      213: 3601175089039546759
+    second: bubble_pop_sheet_27
+  - first:
+      213: 2967421495178842470
+    second: bubble_pop_sheet_28
+  - first:
+      213: 1412203184705193563
+    second: bubble_pop_sheet_29
+  - first:
+      213: -2922753656948578482
+    second: bubble_pop_sheet_30
+  - first:
+      213: 2041355174729556663
+    second: bubble_pop_sheet_31
+  - first:
+      213: 3477108805744327905
+    second: bubble_pop_sheet_32
+  - first:
+      213: -3574741277840836507
+    second: bubble_pop_sheet_33
+  - first:
+      213: -8833181769098500868
+    second: bubble_pop_sheet_34
+  - first:
+      213: -7808544241805181426
+    second: bubble_pop_sheet_35
+  - first:
+      213: -507488784708503269
+    second: bubble_pop_sheet_36
+  - first:
+      213: -1955475940196906040
+    second: bubble_pop_sheet_37
+  - first:
+      213: 1468880907867159117
+    second: bubble_pop_sheet_38
+  - first:
+      213: -8543658948013258114
+    second: bubble_pop_sheet_39
+  - first:
+      213: -7884542813710776322
+    second: bubble_pop_sheet_40
+  - first:
+      213: -1235357768263073522
+    second: bubble_pop_sheet_41
+  - first:
+      213: -4197215214561712567
+    second: bubble_pop_sheet_42
+  - first:
+      213: -4096956134407667828
+    second: bubble_pop_sheet_43
+  - first:
+      213: -3863743690801670193
+    second: bubble_pop_sheet_44
+  - first:
+      213: 6207694654212867864
+    second: bubble_pop_sheet_45
+  - first:
+      213: -7544856402826904549
+    second: bubble_pop_sheet_46
+  - first:
+      213: 4510970117256558239
+    second: bubble_pop_sheet_47
+  - first:
+      213: -7733881811111292088
+    second: bubble_pop_sheet_48
+  - first:
+      213: 568768251823849759
+    second: bubble_pop_sheet_49
+  - first:
+      213: -1052845539837077325
+    second: bubble_pop_sheet_50
+  - first:
+      213: 1580718775321060899
+    second: bubble_pop_sheet_51
+  - first:
+      213: -4732438014514983125
+    second: bubble_pop_sheet_52
+  - first:
+      213: -6931693512192514288
+    second: bubble_pop_sheet_53
+  - first:
+      213: -4410073176820280217
+    second: bubble_pop_sheet_54
+  - first:
+      213: -5030269107810903127
+    second: bubble_pop_sheet_55
+  - first:
+      213: -4562550950821655466
+    second: bubble_pop_sheet_56
+  - first:
+      213: -8825556702070088002
+    second: bubble_pop_sheet_57
+  - first:
+      213: -5953756292513265957
+    second: bubble_pop_sheet_58
+  - first:
+      213: -8758711099995026691
+    second: bubble_pop_sheet_59
+  - first:
+      213: 2823839346488550358
+    second: bubble_pop_sheet_60
+  - first:
+      213: -3133143895109068645
+    second: bubble_pop_sheet_61
+  - first:
+      213: -5775304391142213103
+    second: bubble_pop_sheet_62
+  - first:
+      213: -3874845054475633888
+    second: bubble_pop_sheet_63
+  - first:
+      213: -2948523698248694437
+    second: bubble_pop_sheet_64
+  - first:
+      213: 2193468906443496519
+    second: bubble_pop_sheet_65
+  - first:
+      213: -3580801900011608121
+    second: bubble_pop_sheet_66
+  - first:
+      213: -4681582419204195960
+    second: bubble_pop_sheet_67
+  - first:
+      213: -435034964511734602
+    second: bubble_pop_sheet_68
+  - first:
+      213: 195983444995391035
+    second: bubble_pop_sheet_69
+  - first:
+      213: 3962846103201412869
+    second: bubble_pop_sheet_70
+  - first:
+      213: -3465752814536737745
+    second: bubble_pop_sheet_71
+  - first:
+      213: -629713224318263556
+    second: bubble_pop_sheet_72
+  - first:
+      213: -1429725819615032772
+    second: bubble_pop_sheet_73
+  - first:
+      213: -4168698983138417598
+    second: bubble_pop_sheet_74
+  - first:
+      213: 6400025777298156618
+    second: bubble_pop_sheet_75
+  - first:
+      213: 8377660586408134823
+    second: bubble_pop_sheet_76
+  - first:
+      213: -3559420073549621063
+    second: bubble_pop_sheet_77
+  - first:
+      213: 4888351739384038309
+    second: bubble_pop_sheet_78
+  - first:
+      213: 5480325526125598903
+    second: bubble_pop_sheet_79
+  - first:
+      213: 4625909805965192773
+    second: bubble_pop_sheet_80
+  - first:
+      213: 1643464776955872822
+    second: bubble_pop_sheet_81
+  - first:
+      213: 1653966576098022701
+    second: bubble_pop_sheet_82
+  - first:
+      213: 2939965130803605113
+    second: bubble_pop_sheet_83
+  - first:
+      213: 2869041235281637989
+    second: bubble_pop_sheet_84
+  - first:
+      213: 4764165746261013651
+    second: bubble_pop_sheet_85
+  - first:
+      213: -4570644095112173956
+    second: bubble_pop_sheet_86
+  - first:
+      213: 1270480215469249546
+    second: bubble_pop_sheet_87
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: bubble_pop_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 455
+        width: 35
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67c8090c1d443a7d0800000000000000
+      internalID: -2908405266681656202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 467
+        width: 26
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfbd6ce3323f01190800000000000000
+      internalID: -7993622005880005636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 377
+        width: 152
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b959306bd9b423410800000000000000
+      internalID: 1455308770329728411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 359
+        width: 164
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c870ba0544e1337a0800000000000000
+      internalID: -6398737366803347572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 479
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a3e6e7ea4f6def60800000000000000
+      internalID: 8065224875199357856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 485
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54f5b34d16ca18c40800000000000000
+      internalID: 5512876955050663749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 407
+        width: 137
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c9e7ba6676b48ee0800000000000000
+      internalID: -1259681376044062263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 478
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2624af54df4bf2e0800000000000000
+      internalID: -2090989828427209174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 487
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01eca2e492fc3dbf0800000000000000
+      internalID: -300668973791654384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 473
+        width: 8
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29292dcf3cc4f24b0800000000000000
+      internalID: -5463063418333130094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 473
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5aa187ae454e5b870800000000000000
+      internalID: 8698109308698106533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 473
+        width: 56
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b8d14b3e33c1b550800000000000000
+      internalID: 6174931236151220406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_12
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 395
+        width: 104
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 125b1d68ad45dabb0800000000000000
+      internalID: -4923185520104590047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_13
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 455
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 398c28cfb3abb48e0800000000000000
+      internalID: -1708066866854705005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 443
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a230300985c0e3900800000000000000
+      internalID: 665983369410183978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_15
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 443
+        width: 38
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01882e252d0801f60800000000000000
+      internalID: 8003038178659436560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_16
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 425
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9496bab7f79e98b20800000000000000
+      internalID: 3137295349185210697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_17
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 359
+        width: 10
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70858529c5d185070800000000000000
+      internalID: 8095252613627926535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_18
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 383
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 040fab87520910f30800000000000000
+      internalID: 4540068389979877440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_19
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 389
+        width: 6
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1003943e3778599c0800000000000000
+      internalID: -3921078968751935487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_20
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 275
+        width: 147
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e1f00436c60ec660800000000000000
+      internalID: 7407865885416813029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_21
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 359
+        width: 22
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96a21af63c8218b30800000000000000
+      internalID: 4287753140089989737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_22
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 378
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7a74b62efa0b50b0800000000000000
+      internalID: -5738981213466232195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_23
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 365
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4e1fee92b0f58950800000000000000
+      internalID: 6450826691239419470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_24
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 257
+        width: 122
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf13b429602b6d1d0800000000000000
+      internalID: -3326275533472583172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_25
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 257
+        width: 164
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ad179b8b4be1ce80800000000000000
+      internalID: -8159982340121616983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_26
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 359
+        width: 6
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 880d1677251c30c50800000000000000
+      internalID: 6630355636353880200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_27
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 348
+        width: 38
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7891034e9a1f9f130800000000000000
+      internalID: 3601175089039546759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 257
+        width: 127
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6615ef6b0266e2920800000000000000
+      internalID: 2967421495178842470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_29
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 349
+        width: 26
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5647077057299310800000000000000
+      internalID: 1412203184705193563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_30
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 347
+        width: 26
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e472b9fc80b4077d0800000000000000
+      internalID: -2922753656948578482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_31
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 347
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b2292247b9545c10800000000000000
+      internalID: 2041355174729556663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_32
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 335
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ecf5cb490c214030800000000000000
+      internalID: 3477108805744327905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_33
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 163
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 568fe526fb7f36ec0800000000000000
+      internalID: -3574741277840836507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_34
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 269
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf46d603bfb3a6580800000000000000
+      internalID: -8833181769098500868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_35
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 275
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0eb74e226a72a390800000000000000
+      internalID: -7808544241805181426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_36
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 273
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1974fb93a905f8f0800000000000000
+      internalID: -507488784708503269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_37
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 221
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cb8db13ef0ccd4e0800000000000000
+      internalID: -1955475940196906040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_38
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 263
+        width: 29
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4a76ca3763826410800000000000000
+      internalID: 1468880907867159117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_39
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 169
+        width: 59
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7a0599f373de6980800000000000000
+      internalID: -8543658948013258114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_40
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 263
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef70964c51a749290800000000000000
+      internalID: -7884542813710776322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_41
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 273
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e01092ca7a02bdee0800000000000000
+      internalID: -1235357768263073522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_42
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 263
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9462f2a000f70c5c0800000000000000
+      internalID: -4197215214561712567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_43
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 263
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8ff5443a10b427c0800000000000000
+      internalID: -4096956134407667828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_44
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 233
+        width: 10
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc71c9e8599316ac0800000000000000
+      internalID: -3863743690801670193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_45
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 191
+        width: 68
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8170372f569262650800000000000000
+      internalID: 6207694654212867864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_46
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 236
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1cbb2473194b4790800000000000000
+      internalID: -7544856402826904549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_47
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 185
+        width: 59
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f96ba77eb6f2a9e30800000000000000
+      internalID: 4510970117256558239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_48
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 215
+        width: 57
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8435bd9f77bbba490800000000000000
+      internalID: -7733881811111292088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_49
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 149
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f110b7926bba4e700800000000000000
+      internalID: 568768251823849759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_50
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 107
+        width: 74
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b818aa4f8a8361f0800000000000000
+      internalID: -1052845539837077325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_51
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 216
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3266dc4e957dfe510800000000000000
+      internalID: 1580718775321060899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_52
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 221
+        width: 22
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2f874703b0035eb0800000000000000
+      internalID: -4732438014514983125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_53
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 191
+        width: 32
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 017a2e1f97dadcf90800000000000000
+      internalID: -6931693512192514288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_54
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 197
+        width: 26
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 764162eafc54cc2c0800000000000000
+      internalID: -4410073176820280217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_55
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 203
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ab5f40e5e4e03ab0800000000000000
+      internalID: -5030269107810903127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_56
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 191
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65c87aa65109ea0c0800000000000000
+      internalID: -4562550950821655466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_57
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 179
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebe5b0470f2558580800000000000000
+      internalID: -8825556702070088002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_58
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 167
+        width: 8
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd600814232006da0800000000000000
+      internalID: -5953756292513265957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_59
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 185
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfa868209aec27680800000000000000
+      internalID: -8758711099995026691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_60
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 167
+        width: 32
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d3a83e9cea403720800000000000000
+      internalID: 2823839346488550358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_61
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 151
+        width: 44
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9817dd3a36d484d0800000000000000
+      internalID: -3133143895109068645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_62
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 175
+        width: 13
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11af630514ff9dfa0800000000000000
+      internalID: -5775304391142213103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_63
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 168
+        width: 92
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02bfc48e3f8c93ac0800000000000000
+      internalID: -3874845054475633888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_64
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 149
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b55c012815db417d0800000000000000
+      internalID: -2948523698248694437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_65
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 137
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74cdd625954c07e10800000000000000
+      internalID: 2193468906443496519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_66
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 119
+        width: 22
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c7a3c2d4af6e4ec0800000000000000
+      internalID: -3580801900011608121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_67
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 143
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 889be94089da70fb0800000000000000
+      internalID: -4681582419204195960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_68
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 143
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b44763310276f9f0800000000000000
+      internalID: -435034964511734602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_69
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 143
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3ebec4a7e548b200800000000000000
+      internalID: 195983444995391035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_70
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 122
+        width: 41
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5077cd8e88bdef630800000000000000
+      internalID: 3962846103201412869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_71
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 137
+        width: 40
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2c3a327d2c27efc0800000000000000
+      internalID: -3465752814536737745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_72
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 125
+        width: 6
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfed42aa82fc247f0800000000000000
+      internalID: -629713224318263556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_73
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 119
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3a44ab21f7982ce0800000000000000
+      internalID: -1429725819615032772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_74
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 113
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 244a08e8c5ec526c0800000000000000
+      internalID: -4168698983138417598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_75
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 70
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4c2331298571d850800000000000000
+      internalID: 6400025777298156618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_76
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 89
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a8c5a5aaed634470800000000000000
+      internalID: 8377660586408134823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_77
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 35
+        width: 45
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b81ead3d466a9ec0800000000000000
+      internalID: -3559420073549621063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_78
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 17
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a30623e10ae6d340800000000000000
+      internalID: 4888351739384038309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_79
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 54
+        width: 42
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b8d83ea7070e0c40800000000000000
+      internalID: 5480325526125598903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_80
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 77
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54e2d8b9578823040800000000000000
+      internalID: 4625909805965192773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_81
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 67
+        width: 62
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6364257d182cec610800000000000000
+      internalID: 1643464776955872822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_82
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 24
+        width: 148
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2511be76d114f610800000000000000
+      internalID: 1653966576098022701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_83
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 65
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97e6599b5badcc820800000000000000
+      internalID: 2939965130803605113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_84
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 61
+        width: 14
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 562f8ea7dc1e0d720800000000000000
+      internalID: 2869041235281637989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_85
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 60
+        width: 43
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 394b8fc2187bd1240800000000000000
+      internalID: 4764165746261013651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_86
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 48
+        width: 82
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c762a1c696fc190c0800000000000000
+      internalID: -4570644095112173956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bubble_pop_sheet_87
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 28
+        width: 55
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a04d4315607a1a110800000000000000
+      internalID: 1270480215469249546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      bubble_pop_sheet_0: -2908405266681656202
+      bubble_pop_sheet_1: -7993622005880005636
+      bubble_pop_sheet_10: 8698109308698106533
+      bubble_pop_sheet_11: 6174931236151220406
+      bubble_pop_sheet_12: -4923185520104590047
+      bubble_pop_sheet_13: -1708066866854705005
+      bubble_pop_sheet_14: 665983369410183978
+      bubble_pop_sheet_15: 8003038178659436560
+      bubble_pop_sheet_16: 3137295349185210697
+      bubble_pop_sheet_17: 8095252613627926535
+      bubble_pop_sheet_18: 4540068389979877440
+      bubble_pop_sheet_19: -3921078968751935487
+      bubble_pop_sheet_2: 1455308770329728411
+      bubble_pop_sheet_20: 7407865885416813029
+      bubble_pop_sheet_21: 4287753140089989737
+      bubble_pop_sheet_22: -5738981213466232195
+      bubble_pop_sheet_23: 6450826691239419470
+      bubble_pop_sheet_24: -3326275533472583172
+      bubble_pop_sheet_25: -8159982340121616983
+      bubble_pop_sheet_26: 6630355636353880200
+      bubble_pop_sheet_27: 3601175089039546759
+      bubble_pop_sheet_28: 2967421495178842470
+      bubble_pop_sheet_29: 1412203184705193563
+      bubble_pop_sheet_3: -6398737366803347572
+      bubble_pop_sheet_30: -2922753656948578482
+      bubble_pop_sheet_31: 2041355174729556663
+      bubble_pop_sheet_32: 3477108805744327905
+      bubble_pop_sheet_33: -3574741277840836507
+      bubble_pop_sheet_34: -8833181769098500868
+      bubble_pop_sheet_35: -7808544241805181426
+      bubble_pop_sheet_36: -507488784708503269
+      bubble_pop_sheet_37: -1955475940196906040
+      bubble_pop_sheet_38: 1468880907867159117
+      bubble_pop_sheet_39: -8543658948013258114
+      bubble_pop_sheet_4: 8065224875199357856
+      bubble_pop_sheet_40: -7884542813710776322
+      bubble_pop_sheet_41: -1235357768263073522
+      bubble_pop_sheet_42: -4197215214561712567
+      bubble_pop_sheet_43: -4096956134407667828
+      bubble_pop_sheet_44: -3863743690801670193
+      bubble_pop_sheet_45: 6207694654212867864
+      bubble_pop_sheet_46: -7544856402826904549
+      bubble_pop_sheet_47: 4510970117256558239
+      bubble_pop_sheet_48: -7733881811111292088
+      bubble_pop_sheet_49: 568768251823849759
+      bubble_pop_sheet_5: 5512876955050663749
+      bubble_pop_sheet_50: -1052845539837077325
+      bubble_pop_sheet_51: 1580718775321060899
+      bubble_pop_sheet_52: -4732438014514983125
+      bubble_pop_sheet_53: -6931693512192514288
+      bubble_pop_sheet_54: -4410073176820280217
+      bubble_pop_sheet_55: -5030269107810903127
+      bubble_pop_sheet_56: -4562550950821655466
+      bubble_pop_sheet_57: -8825556702070088002
+      bubble_pop_sheet_58: -5953756292513265957
+      bubble_pop_sheet_59: -8758711099995026691
+      bubble_pop_sheet_6: -1259681376044062263
+      bubble_pop_sheet_60: 2823839346488550358
+      bubble_pop_sheet_61: -3133143895109068645
+      bubble_pop_sheet_62: -5775304391142213103
+      bubble_pop_sheet_63: -3874845054475633888
+      bubble_pop_sheet_64: -2948523698248694437
+      bubble_pop_sheet_65: 2193468906443496519
+      bubble_pop_sheet_66: -3580801900011608121
+      bubble_pop_sheet_67: -4681582419204195960
+      bubble_pop_sheet_68: -435034964511734602
+      bubble_pop_sheet_69: 195983444995391035
+      bubble_pop_sheet_7: -2090989828427209174
+      bubble_pop_sheet_70: 3962846103201412869
+      bubble_pop_sheet_71: -3465752814536737745
+      bubble_pop_sheet_72: -629713224318263556
+      bubble_pop_sheet_73: -1429725819615032772
+      bubble_pop_sheet_74: -4168698983138417598
+      bubble_pop_sheet_75: 6400025777298156618
+      bubble_pop_sheet_76: 8377660586408134823
+      bubble_pop_sheet_77: -3559420073549621063
+      bubble_pop_sheet_78: 4888351739384038309
+      bubble_pop_sheet_79: 5480325526125598903
+      bubble_pop_sheet_8: -300668973791654384
+      bubble_pop_sheet_80: 4625909805965192773
+      bubble_pop_sheet_81: 1643464776955872822
+      bubble_pop_sheet_82: 1653966576098022701
+      bubble_pop_sheet_83: 2939965130803605113
+      bubble_pop_sheet_84: 2869041235281637989
+      bubble_pop_sheet_85: 4764165746261013651
+      bubble_pop_sheet_86: -4570644095112173956
+      bubble_pop_sheet_87: 1270480215469249546
+      bubble_pop_sheet_9: -5463063418333130094
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

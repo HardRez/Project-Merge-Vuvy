@@ -285,7 +285,7 @@ namespace MergeGame.Editor.Building
             var levelRow = LevelRow(details, out var level, out var maxTag, out var lockedTag);
             var next = NextItem(details, out var nextIcon);
 
-            var coverExplanation = ui.Text("CoverExplanation", details, "Yanındaki ağ temizlenince açılır.", 36f, TextTone.Muted, TextAlignmentOptions.TopLeft);
+            var coverExplanation = ui.Text("CoverExplanation", details, "Yanındaki baloncuk patlayınca açılır.", 36f, TextTone.Muted, TextAlignmentOptions.TopLeft);
             coverExplanation.rectTransform.Span(Vector2.zero, new Vector2(1f, 0.5f));
             coverExplanation.rectTransform.offsetMin = new Vector2(170f, 18f);
             coverExplanation.rectTransform.offsetMax = new Vector2(-32f, -4f);

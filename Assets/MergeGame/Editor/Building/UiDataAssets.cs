@@ -19,9 +19,11 @@ namespace MergeGame.Editor.Building
         /// Default wording that no longer matches the game (closed cells used to be boxes). Only an entry still holding
         /// exactly this text is replaced, so a designer's own wording survives.
         /// </summary>
-        private static readonly Dictionary<Notice, string> RetiredDefaults = new Dictionary<Notice, string>
+        private static readonly (Notice notice, string text)[] RetiredDefaults =
         {
-            [Notice.ItemIsHidden] = "Kutuyu açmak için yanındaki ağı temizle!"
+            (Notice.ItemIsHidden, "Kutuyu açmak için yanındaki ağı temizle!"),
+            // Locked items were webbed before they sat in bubbles.
+            (Notice.ItemIsHidden, "Kumu açmak için yanındaki ağı temizle!")
         };
 
         public static UiTheme LoadOrCreateTheme() => LoadOrCreate<UiTheme>(BuildPaths.Theme, _ => { });
@@ -74,7 +76,7 @@ namespace MergeGame.Editor.Building
             var replaced = false;
             var entries = texts.Entries.Select(entry =>
             {
-                if (entry == null || !RetiredDefaults.TryGetValue(entry.Notice, out var retired) || entry.Text != retired)
+                if (entry == null || !RetiredDefaults.Any(retired => retired.notice == entry.Notice && retired.text == entry.Text))
                     return entry;
 
                 replaced = true;
@@ -95,7 +97,7 @@ namespace MergeGame.Editor.Building
             new NoticeText(Notice.BoardFull, "Tahta dolu! Birleştir ya da bir eşyayı at."),
             new NoticeText(Notice.LockedItemCannotBeDiscarded, "Kilitli eşyalar atılamaz.", sprites.Icon("lock")),
             new NoticeText(Notice.OrderNotReady, "Bu sipariş için eşyalar henüz hazır değil."),
-            new NoticeText(Notice.ItemIsHidden, "Kumu açmak için yanındaki ağı temizle!", sprites.Sand[0])
+            new NoticeText(Notice.ItemIsHidden, "Kumu açmak için yanındaki baloncuğu patlat!", sprites.Sand[0])
         };
 
         private static T LoadOrCreate<T>(string path, System.Action<T> initialize) where T : ScriptableObject

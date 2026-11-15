@@ -121,6 +121,8 @@ namespace MergeGame.Editor.Building
             mergeRing.rectTransform.Inset(-6f);
             mergeRing.gameObject.SetActive(false);
 
+            var bubblePop = BuildBubblePop(ui, root);
+
             var accentLayer = UiKit.Rect("Accent", root).Stretch();
             var accentGlow = ui.Image("AccentGlow", accentLayer, ui.Sprites.Glow, Color.white);
             accentGlow.rectTransform.Inset(-84f);
@@ -133,8 +135,13 @@ namespace MergeGame.Editor.Building
             orderHalo.gameObject.SetActive(false);
             var icon = ui.Image("Icon", body, null, Color.white);
             icon.rectTransform.Span(IconMin, IconMax);
-            var lockOverlay = ui.Icon("LockOverlay", body, "cobweb");
-            lockOverlay.rectTransform.Span(new Vector2(0.01f, 0.01f), new Vector2(0.99f, 0.99f));
+            // A clear bubble around the item, so a locked item stays fully readable. The bubble fills about 72% of its
+            // image, so the rect reaches past the cell for the bubble to wrap the whole item. It breathes on a layer of
+            // its own, so its swell and burst on a merge compose with the breathing.
+            var breathing = UiKit.Rect("LockOverlay", body).Span(new Vector2(-0.15f, -0.15f), new Vector2(1.15f, 1.15f));
+            var lockOverlay = ui.Image("Bubble", breathing, ui.Sprites.LockBubble, Color.white);
+            lockOverlay.rectTransform.Stretch();
+            breathing.gameObject.AddComponent<BubbleBreath>().Wire("bubble", lockOverlay);
             var crown = ui.Icon("MaxLevelBadge", body, "crown");
             crown.rectTransform.Span(new Vector2(0.6f, 0.62f), new Vector2(1.04f, 1.06f));
             crown.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -18f);
@@ -157,11 +164,49 @@ namespace MergeGame.Editor.Building
                 .Wire("accent", accent)
                 .Wire("icon", icon)
                 .Wire("lockOverlay", lockOverlay)
+                .Wire("bubblePop", bubblePop)
                 .Wire("maxLevelBadge", crown.gameObject)
                 .Wire("burstGlow", glow)
                 .Wire("burstSparkles", sparkles)
                 .Wire("mergeRing", mergeRing);
             return Save<ItemView>(root, BuildPaths.ItemViewPrefab);
+        }
+
+        /// <summary>
+        /// The burst of a locked item's bubble, over the bubble's own rect: the pack's popping-bubble sheet as a flipbook,
+        /// and small bubbles that spray outwards.
+        /// </summary>
+        private static BubblePop BuildBubblePop(UiKit ui, RectTransform root)
+        {
+            var pop = UiKit.Rect("BubblePop", root).Span(new Vector2(-0.15f, -0.15f), new Vector2(1.15f, 1.15f));
+            var shell = ui.Image("Shell", pop, ui.Sprites.LockBubble, Color.white);
+            shell.rectTransform.Stretch();
+            var flash = ui.Image("Flash", pop, ui.Sprites.Glow, Color.white);
+            flash.preserveAspect = false;
+            flash.rectTransform.Inset(10f);
+            var skin = UiKit.Rect("Skin", pop).Stretch().gameObject.AddComponent<RawImage>();
+            skin.texture = ui.Sprites.BubblePopSheet.texture;
+            skin.raycastTarget = false;
+
+            // Many small droplets in three sizes, so the spray is dense and has depth without reaching further.
+            float[] sizes = { 56f, 42f, 30f };
+            const int dropletCount = 16;
+            var droplets = new Image[dropletCount];
+            for (var i = 0; i < dropletCount; i++)
+            {
+                var size = sizes[i % sizes.Length];
+                var droplet = ui.Image($"Droplet{i + 1}", pop, ui.Sprites.BubbleDroplet, Color.white);
+                droplet.rectTransform.Pin(RectLayout.Center, new Vector2(size, size), pivot: RectLayout.Center);
+                droplets[i] = droplet;
+            }
+
+            var component = pop.gameObject.AddComponent<BubblePop>()
+                .Wire("shell", shell)
+                .Wire("flash", flash)
+                .Wire("skin", skin)
+                .Wire("droplets", droplets);
+            pop.gameObject.SetActive(false);
+            return component;
         }
 
         /// <summary>The shine sweeps inside a copy of the icon's shape, so it lights up the item and not its tile.</summary>

@@ -145,14 +145,14 @@ namespace MergeGame.PlayTests.Support
         public bool TryFindMergePair(out GridPosition from, out GridPosition to) =>
             TryFindPair(CanMerge, out from, out to);
 
-        /// <summary>A merge onto a webbed item that has a closed cell next to it, so the merge opens that cell.</summary>
+        /// <summary>A merge onto a bubbled (locked) item that has a closed cell next to it, so the merge opens that cell.</summary>
         public bool TryFindCoverOpeningMerge(out GridPosition from, out GridPosition to)
         {
             foreach (var target in Cells())
             {
-                if (!Board.TryGetItem(target, out var webbed) || !webbed.IsLocked || webbed.IsHidden || !Neighbours(target).Any(IsCovered))
+                if (!Board.TryGetItem(target, out var bubbled) || !bubbled.IsLocked || bubbled.IsHidden || !Neighbours(target).Any(IsCovered))
                     continue;
-                if (TryFindPair((dragged, other) => other == webbed && CanMerge(dragged, other), out from, out to))
+                if (TryFindPair((dragged, other) => other == bubbled && CanMerge(dragged, other), out from, out to))
                     return true;
             }
 

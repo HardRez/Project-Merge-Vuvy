@@ -30,6 +30,15 @@ namespace MergeGame.View.Board
         [SerializeField] private Image icon;
         [SerializeField] private Image lockOverlay;
 
+        [Tooltip("The bubble bursting when a merge frees the item.")]
+        [SerializeField] private BubblePop bubblePop;
+
+        [Tooltip("Multiplies the icon of a locked item, so it reads as held inside its bubble.")]
+        [SerializeField] private Color lockedIconTint = new Color(0.76f, 0.76f, 0.8f, 1f);
+
+        [Tooltip("How much the bubble swells while the other item flies into it, just before it bursts.")]
+        [SerializeField] private float bubbleSwell = 0.1f;
+
         [SerializeField] private GameObject maxLevelBadge;
         [SerializeField] private Image burstGlow;
         [SerializeField] private Image burstSparkles;
@@ -38,8 +47,6 @@ namespace MergeGame.View.Board
         [SerializeField] private Image mergeRing;
 
         [Header("Look")]
-        [Tooltip("Multiplies the icon of a locked item, so it reads as inactive under the cobweb.")]
-        [SerializeField] private Color lockedIconTint = new Color(0.68f, 0.68f, 0.72f, 1f);
 
         [SerializeField] private float liftedScale = 1.2f;
 
@@ -91,6 +98,8 @@ namespace MergeGame.View.Board
         /// <summary>The icon currently on screen; differs from the identity only while a merge is about to reveal it.</summary>
         public Sprite DisplayedIcon => icon.sprite;
 
+        public Color DisplayedIconColor => icon.color;
+
         public Vector3 WorldCenter => rectTransform.TransformPoint(rectTransform.rect.center);
 
         public ItemAccent Accent => accent;
@@ -99,6 +108,10 @@ namespace MergeGame.View.Board
         public Transform Body => body;
 
         public Image MergeRing => mergeRing;
+
+        public BubblePop BubblePop => bubblePop;
+
+        public Image LockOverlay => lockOverlay;
         public OrderMatchMark OrderMark => orderMark;
 
         private void Awake()
@@ -290,6 +303,7 @@ namespace MergeGame.View.Board
         {
             SetAlpha(lockOverlay, 1f);
             lockOverlay.rectTransform.localScale = Vector3.one;
+            bubblePop.Stop();
             SetAlpha(burstGlow, 0f);
             burstGlow.rectTransform.localScale = Vector3.one;
             burstSparkles.gameObject.SetActive(false);
@@ -312,13 +326,20 @@ namespace MergeGame.View.Board
         /// </summary>
         private IEnumerator PlayMerge(bool unlocked, float revealDelay)
         {
-            // The previous icon (and cobweb) stay visible until the consumed item lands on them, braced for the hit.
+            // The previous icon (and bubble) stay visible until the consumed item lands on them, braced for the hit.
+            // A bubble swells against the hit; the body squashing under it keeps the bubble's own size about the same.
             var startScale = body.localScale.x;
             yield return Tween.Run(revealDelay, Ease.Linear, t =>
-                body.localScale = Squashed(Mathf.Lerp(startScale, 1f - impactSquash * 0.5f, Ease.OutQuad(t)), impactSquash * Ease.OutQuad(t)));
+            {
+                body.localScale = Squashed(Mathf.Lerp(startScale, 1f - impactSquash * 0.5f, Ease.OutQuad(t)), impactSquash * Ease.OutQuad(t));
+                if (unlocked)
+                    lockOverlay.rectTransform.localScale = Vector3.one * (1f + bubbleSwell * Ease.InQuad(t));
+            });
 
+            // The bubble bursts the moment the new item appears; the item comes out in its own colours.
             RevealIdentity();
-            lockOverlay.gameObject.SetActive(unlocked);
+            if (unlocked)
+                bubblePop.Play();
             burstSparkles.gameObject.SetActive(true);
             mergeRing.gameObject.SetActive(true);
             mergeRing.color = mergeRingColor;
@@ -334,11 +355,6 @@ namespace MergeGame.View.Board
                 SetAlpha(burstSparkles, Ease.Bump(Mathf.Min(1f, t * 1.3f)));
                 burstSparkles.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.5f, 1.35f, Ease.OutCubic(t));
                 burstSparkles.rectTransform.localRotation = Quaternion.Euler(0f, 0f, t * 40f);
-                if (unlocked)
-                {
-                    SetAlpha(lockOverlay, 1f - Ease.OutQuad(t));
-                    lockOverlay.rectTransform.localScale = Vector3.one * Mathf.Lerp(1f, 1.5f, Ease.OutQuad(t));
-                }
             });
 
             body.localScale = Vector3.one;

@@ -40,6 +40,9 @@ UI_SPRITES = [
     ("board_tray.png", Path("Board") / "Board" / "board.png"),
     ("sparkle_star.png", Path("Effects") / "Textures" / "t_xingxing_3.png"),
     ("merge_ring.png", Path("Effects") / "Textures" / "t_effect_1.png"),
+    ("lock_bubble.png", Path("Board") / "ItemMain" / "Item" / "Bubble.png"),
+    ("bubble_pop_sheet.png", Path("Effects") / "Textures" / "t_water_5.png"),
+    ("bubble_droplet.png", Path("Effects") / "Textures" / "t_paopao1.png"),
 ]
 
 # (published file under Content/Audio, pack file)
@@ -49,7 +52,7 @@ AUDIO = [
     ("spawn.ogg", Path("Audios") / "Effect" / "SfxMergeSpawnManual.ogg"),
     ("pick_up.ogg", Path("Audios") / "Effect" / "sfxItemChoose.ogg"),
     ("land.ogg", Path("Audios") / "Effect" / "sfxItemLanding.ogg"),
-    ("unlock.ogg", Path("Audios") / "Effect" / "sfxItemUnlock.ogg"),
+    ("unlock.ogg", Path("Audios") / "Effect" / "SfxMergeBubbleBreak.ogg"),  # freeing a locked item pops its bubble
     ("sand_break.ogg", Path("Audios") / "Effect" / "sfxSandBreak.ogg"),
     ("discard.ogg", Path("Audios") / "Effect" / "sfxCommonDelete.ogg"),
     ("order_complete.ogg", Path("Audios") / "Effect" / "sfxOrderComplete.ogg"),

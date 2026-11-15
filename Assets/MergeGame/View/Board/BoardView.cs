@@ -280,8 +280,9 @@ namespace MergeGame.View.Board
             target.MergeInto(resultItemId, visuals.GetIcon(resultItemId), catalog.IsMaxLevel(resultItemId), unlockedTarget, mergeFlightSeconds);
             source?.FlyAway(effectLayer, target.WorldCenter, mergeFlightSeconds, delay: 0f, endScale: 0.9f, () => Release(source));
             sounds.TryPlayMerge(resultItemId.Level);
+            // The bubble bursts when the flying item lands, so its pop is timed to that moment.
             if (unlockedTarget)
-                sounds.TryPlay(SoundCue.Unlock);
+                sounds.TryPlay(SoundCue.Unlock, mergeFlightSeconds);
         }
 
         public void ShowPointsPopup(GridPosition cell, int points)
