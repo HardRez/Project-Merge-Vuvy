@@ -238,9 +238,10 @@ namespace MergeGame.PlayTests
                 yield return null;
 
                 var crop = ScreenRect(camera, (RectTransform)cover.transform);
+                var canvas = cover.GetComponentInParent<Canvas>().rootCanvas;
                 check(() =>
                 {
-                    Canvas.ForceUpdateCanvases();
+                    RebuildBatches(canvas);
                     camera.Render();
                     return Read(target, crop);
                 });
@@ -250,6 +251,21 @@ namespace MergeGame.PlayTests
                 camera.targetTexture = null;
                 Object.Destroy(target);
             }
+        }
+
+        /// <summary>
+        /// Makes the next render draw every element where it is now. A canvas takes the transforms that tweens changed
+        /// this frame into its batches only at the end of the frame, or when its hierarchy changes, and
+        /// <see cref="Canvas.ForceUpdateCanvases"/> does not do it. Without this, the frame without the sand and the frame
+        /// with it, rendered in the same step around the test's own hiding and showing, can draw a moving neighbour (the
+        /// selection ring breathing around the merged item, which reaches into this cell's corner) at two different
+        /// sizes, and that difference counts as sand.
+        /// </summary>
+        private static void RebuildBatches(Canvas canvas)
+        {
+            canvas.enabled = false;
+            canvas.enabled = true;
+            Canvas.ForceUpdateCanvases();
         }
 
         /// <summary>The pixels the rect covers, rounded inwards.</summary>
