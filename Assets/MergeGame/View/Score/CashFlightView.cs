@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using MergeGame.View.Animation;
+using MergeGame.View.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,13 +11,16 @@ namespace MergeGame.View.Score
     /// The money of a completed order flying into the score pill: a few bills burst out of the order's reward and arc
     /// into the pill one after another, and the pill counts each bill's share only when it lands. The order's points are
     /// announced to the pill on delivery (<see cref="Expect"/>), before the score changes, so the pill holds them back
-    /// until the bills take off (<see cref="PayOut"/>) and arrive.
+    /// until the bills take off (<see cref="PayOut"/>) and arrive. The bills pop as they burst out and swoosh as they
+    /// sweep off to the pill (once per payment, so a handful of bills never blurs into noise), and every bill rings as
+    /// it lands.
     /// </summary>
     public sealed class CashFlightView : MonoBehaviour
     {
         [SerializeField] private ScoreView score;
         [SerializeField] private Sprite billSprite;
         [SerializeField] private Vector2 billSize = new Vector2(96f, 70f);
+        [SerializeField] private SoundPlayer sounds;
 
         [Header("Bills per order")]
         [SerializeField] private int pointsPerBill = 20;
@@ -47,6 +51,9 @@ namespace MergeGame.View.Score
         /// <summary>Bills on their way to the pill right now.</summary>
         public int BillsInFlight => flyingBills.Count;
 
+        /// <summary>Raised as each bill lands in the pill; lets tests follow the payment bill by bill.</summary>
+        public event System.Action BillLanded;
+
         /// <summary>The points of the order in this slot will fly to the pill; call it before the score changes.</summary>
         public void Expect(int slotIndex, int points)
         {
@@ -74,11 +81,12 @@ namespace MergeGame.View.Score
             var count = Mathf.Clamp(Mathf.CeilToInt(points / (float)Mathf.Max(1, pointsPerBill)), minBills, maxBills);
             count = Mathf.Max(1, Mathf.Min(count, points));
             pointsInFlight += points;
+            sounds.TryPlay(SoundCue.CashBurst);
             for (var i = 0; i < count; i++)
             {
                 // Every bill carries an equal share; the last one also carries what does not divide evenly.
                 var share = points / count + (i == count - 1 ? points % count : 0);
-                StartCoroutine(Fly(TakeBill(), worldPosition, i * staggerSeconds, share));
+                StartCoroutine(Fly(TakeBill(), worldPosition, i * staggerSeconds, share, leads: i == 0));
             }
         }
 
@@ -100,7 +108,8 @@ namespace MergeGame.View.Score
                 ReturnBill(bill);
         }
 
-        private IEnumerator Fly(Image bill, Vector3 origin, float delay, int share)
+        /// <param name="leads">The first bill of the payment: the swoosh starts with its flight to the pill.</param>
+        private IEnumerator Fly(Image bill, Vector3 origin, float delay, int share, bool leads)
         {
             if (delay > 0f)
                 yield return Tween.Delay(delay);
@@ -123,6 +132,8 @@ namespace MergeGame.View.Score
             });
 
             // Then along a bent arc into the pill, speeding up as it goes.
+            if (leads)
+                sounds.TryPlay(SoundCue.CashSwoosh);
             var start = rect.position;
             var target = score.CashTarget;
             var travel = target - start;
@@ -140,6 +151,8 @@ namespace MergeGame.View.Score
             ReturnBill(bill);
             pointsInFlight -= share;
             Release(share);
+            sounds.TryPlay(SoundCue.CashLand);
+            BillLanded?.Invoke();
         }
 
         // The pill may already be gone while the screen is being torn down.

@@ -99,6 +99,9 @@ AUDIO = [
     ("discard.ogg", Path("Audios") / "Effect" / "sfxCommonDelete.ogg"),
     ("order_complete.ogg", Path("Audios") / "Effect" / "sfxOrderComplete.ogg"),
     ("notice.ogg", Path("Audios") / "Effect" / "sfxDialoguePop.ogg"),
+    ("cash_land.ogg", Path("Audios") / "Effect" / "SfxCoinRaceDropCoin.ogg"),  # a bill lands in the score pill
+    ("cash_burst.ogg", Path("Audios") / "Effect" / "sfxWindowPop.ogg"),  # an order's bills burst out of its reward
+    ("cash_swoosh.ogg", Path("Audios") / "Effect" / "sfxCardFly.ogg"),  # the paper bills sweep off to the pill
 ] + [
     (f"merge_{level:02d}.ogg", Path("Audios") / "Effect" / f"SfxMergelv{level}.ogg") for level in range(2, 8)
 ]

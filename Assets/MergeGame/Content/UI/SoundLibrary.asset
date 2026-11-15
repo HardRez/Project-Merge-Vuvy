@@ -40,6 +40,15 @@ MonoBehaviour:
   - cue: 8
     clip: {fileID: 8300000, guid: a68962dc80aab014a805ecc7db349aab, type: 3}
     volume: 0.5
+  - cue: 9
+    clip: {fileID: 8300000, guid: b30112211295de1419ec53664c9942f8, type: 3}
+    volume: 0.6
+  - cue: 10
+    clip: {fileID: 8300000, guid: ac4204c691fb8014e8991146277bb5d6, type: 3}
+    volume: 0.6
+  - cue: 11
+    clip: {fileID: 8300000, guid: a36d686aad52fc740a72fda8e0b82e97, type: 3}
+    volume: 0.7
   mergeClips:
   - {fileID: 8300000, guid: 78704683749700f4e870d5cee6935f97, type: 3}
   - {fileID: 8300000, guid: 0fd0c6c513fb3f942b2216694e08b8d1, type: 3}
