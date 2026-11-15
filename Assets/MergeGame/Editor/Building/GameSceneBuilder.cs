@@ -16,7 +16,8 @@ namespace MergeGame.Editor.Building
 {
     /// <summary>
     /// Generates <c>Game.unity</c>: one portrait column of top bar, orders strip, board, item info bar and spawn button.
-    /// The board takes whatever height the other sections leave.
+    /// The board takes whatever height the other sections leave. The screen is a little shop: the customers stand behind
+    /// a counter in front of a papered wall, and the board lies on the parquet floor.
     /// </summary>
     internal sealed class GameSceneBuilder
     {
@@ -44,18 +45,20 @@ namespace MergeGame.Editor.Building
             var camera = SceneScaffold.Camera(ui.Theme.CellLight);
             SceneScaffold.EventSystem();
             var canvas = SceneScaffold.Canvas(camera);
-            var column = Column(SceneScaffold.SafeContent(ui, canvas));
+            var column = Column(SceneScaffold.SafeContent(ui, canvas, ui.Sprites.ShopFloor, LayoutMetrics.ShopFloorTileWidth));
 
             // Orders, board and info bar form one group. Height beyond the 9:16 reference first lets the orders strip
             // and the info bar grow a little, the rest is shared between the space above the group and above the
             // spawn button; the board itself never stretches past its natural size.
             var menu = TopBar(column, out var score, out var home);
             Spacer("SpaceAboveGroup", column, LayoutMetrics.SpaceAboveGroupShare);
-            var orders = OrdersStrip(column);
+            var orders = OrdersStrip(column, out var counterPlank);
             var boardArea = UiKit.Rect("BoardArea", column);
             var itemInfo = InfoBar(column);
             Spacer("SpaceAboveSpawn", column, LayoutMetrics.SpaceAboveSpawnShare);
             var spawn = SpawnBar(column);
+
+            Wall(canvas, counterPlank);
 
             var pool = UiKit.Rect("Pool", canvas).Stretch();
             var dragLayer = UiKit.Rect("DragLayer", canvas).Stretch();
@@ -147,19 +150,71 @@ namespace MergeGame.Editor.Building
                 .Wire("star", star.rectTransform);
         }
 
-        private OrdersView OrdersStrip(RectTransform column)
+        /// <summary>
+        /// The customers behind the counter and their orders in front of it, in that drawing order, so the counter hides
+        /// the customers' lower bodies while the trays stand on it.
+        /// </summary>
+        /// <param name="counterPlank">The counter's plank, which the wall reaches down behind.</param>
+        private OrdersView OrdersStrip(RectTransform column, out RectTransform counterPlank)
         {
             var strip = Section("Orders", column, LayoutMetrics.OrdersHeight, LayoutMetrics.OrdersGrowth);
-            var layout = strip.gameObject.AddComponent<HorizontalLayoutGroup>();
+            var customers = SlotRow("Customers", strip);
+            counterPlank = Counter(strip);
+            var cards = SlotRow("Cards", strip);
+
+            return strip.gameObject.AddComponent<OrdersView>()
+                .Wire("customerContainer", customers)
+                .Wire("customerPrefab", prefabs.CustomerStage)
+                .Wire("cardContainer", cards)
+                .Wire("cardPrefab", prefabs.OrderCard);
+        }
+
+        /// <summary>A row of order slots sharing the strip's width; the customers' row and the cards' row lay out alike.</summary>
+        private static RectTransform SlotRow(string name, RectTransform strip)
+        {
+            var row = UiKit.Rect(name, strip).Stretch();
+            var layout = row.gameObject.AddComponent<HorizontalLayoutGroup>();
             layout.spacing = LayoutMetrics.CardSpacing;
             layout.childControlWidth = true;
             layout.childControlHeight = true;
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = true;
+            return row;
+        }
 
-            return strip.gameObject.AddComponent<OrdersView>()
-                .Wire("cardContainer", strip)
-                .Wire("cardPrefab", prefabs.OrderCard);
+        /// <summary>
+        /// The shop counter across the bottom of the strip, from one edge of the screen to the other: a teal cloth hanging
+        /// down its front under a wooden plank. The cloth's hem hangs a little past the strip.
+        /// </summary>
+        /// <returns>The plank.</returns>
+        private RectTransform Counter(RectTransform strip)
+        {
+            const float hemOverhang = LayoutMetrics.CounterClothHeight - LayoutMetrics.CounterClothTop;
+            var counter = UiKit.Rect("Counter", strip).Band(fromTop: false, LayoutMetrics.CounterTop + hemOverhang, offset: -hemOverhang);
+            counter.gameObject.AddComponent<CanvasWidthFitter>();
+
+            var cloth = ui.Image("Cloth", counter, ui.Sprites.CounterCloth, Color.white);
+            cloth.preserveAspect = false;
+            cloth.rectTransform.Band(fromTop: false, LayoutMetrics.CounterClothHeight);
+
+            var plank = ui.Image("Plank", counter, ui.Sprites.CounterTop, Color.white);
+            plank.preserveAspect = false;
+            plank.rectTransform.Band(fromTop: true, LayoutMetrics.CounterPlankHeight);
+            return plank.rectTransform;
+        }
+
+        /// <summary>
+        /// The shop's wallpaper behind the customers: across the whole screen, from its top down to the middle of the
+        /// counter's plank, wherever the column's layout puts the counter. It lies over the floor and under all content.
+        /// </summary>
+        private void Wall(RectTransform canvas, RectTransform counterPlank)
+        {
+            var wall = ui.Tiled("Wall", canvas, ui.Sprites.ShopWall, LayoutMetrics.ShopWallTileWidth);
+            wall.rectTransform.Stretch();
+            wall.rectTransform.SetSiblingIndex(1);
+            wall.gameObject.AddComponent<BottomEdgeFollower>()
+                .Wire("target", counterPlank)
+                .Wire("heightInTarget", 0.5f);
         }
 
         private BoardView Board(RectTransform area, RectTransform dragLayer)

@@ -70,8 +70,8 @@ All UI shapes except `background.png` are white/grey with alpha and are meant to
 | `ring.png` | 128×128 | 34, 34, 34, 34 | 10 px rounded outline (selection / highlight) |
 | `board_frame.png` | 128×128 | 40, 40, 40, 40 | 14 px rounded frame with bevel; centre is transparent |
 | `badge.png` | 64×64 | 24, 26, 24, 22 | small tactile badge (counts, level) |
-| `speech_bubble.png` | 128×128 | 52, 60, 36, 36 | bubble with a tail at bottom-left pointing down-left; tail lies inside the bottom-left corner slice |
-| `background.png` | 512×1024 | 0, 0, 0, 0 | opaque sky-to-sand gradient with faint dots; not tinted, stretch to fill the screen |
+| `speech_bubble.png` | 128×128 | 52, 60, 36, 36 | bubble with a tail at bottom-left pointing down-left; tail lies inside the bottom-left corner slice. No longer used: the orders stand on trays from the asset pack |
+| `background.png` | 512×1024 | 0, 0, 0, 0 | opaque sky-to-sand gradient with faint dots; not tinted, stretch to fill the screen. No longer used: the screens are papered with the asset pack's shop wall and floor |
 | `sand_01.png` … `sand_03.png` | 256×256 | 64, 64, 64, 64 | a closed board cell buried in sand: full colour (not tinted), same footprint and corner radius as `cell.png` at 2× (use half the cell's corner scale), sunk in by an inner rim shadow; ripples, grain and pebbles differ per variant so neighbouring cells do not look stamped; imported with Read/Write, because a pouring cover colours its grains from these pixels |
 
 ## Licences

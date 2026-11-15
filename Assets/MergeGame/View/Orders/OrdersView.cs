@@ -10,9 +10,16 @@ using Zenject;
 
 namespace MergeGame.View.Orders
 {
-    /// <summary>The strip of order cards, one per slot, sharing the width equally whatever the number of slots.</summary>
+    /// <summary>
+    /// The shop counter with one order per slot, the slots sharing the width equally whatever their number. Each slot has
+    /// two parts in two rows: its customer, standing behind the counter, and its card in front of it (the tray of
+    /// requested items, the reward and the deliver button). The counter is drawn between the rows, so it hides the
+    /// customers' lower bodies; both rows lay out alike, so a customer stays above its own card.
+    /// </summary>
     public sealed class OrdersView : MonoBehaviour, IOrdersView, IOrderSlotTargets
     {
+        [SerializeField] private RectTransform customerContainer;
+        [SerializeField] private CustomerPortraitView customerPrefab;
         [SerializeField] private RectTransform cardContainer;
         [SerializeField] private OrderCardView cardPrefab;
 
@@ -20,6 +27,7 @@ namespace MergeGame.View.Orders
         [SerializeField] private SoundPlayer sounds;
 
         private readonly List<OrderCardView> cards = new List<OrderCardView>();
+        private readonly List<CustomerPortraitView> customers = new List<CustomerPortraitView>();
         private IItemVisuals visuals;
 
         public event Action<int> DeliverRequested;
@@ -35,13 +43,19 @@ namespace MergeGame.View.Orders
         {
             foreach (var card in cards)
                 Destroy(card.gameObject);
+            foreach (var customer in customers)
+                Destroy(customer.gameObject);
             cards.Clear();
+            customers.Clear();
 
             foreach (var orderCard in orderCards)
             {
+                var customer = Instantiate(customerPrefab, customerContainer);
+                customer.name = $"Customer {orderCard.SlotIndex}";
+                customers.Add(customer);
                 var card = Instantiate(cardPrefab, cardContainer);
                 card.name = $"Order Card {orderCard.SlotIndex}";
-                card.Initialize(visuals);
+                card.Initialize(visuals, customer);
                 var slotIndex = orderCard.SlotIndex;
                 card.DeliverClicked += () => DeliverRequested?.Invoke(slotIndex);
                 card.Show(orderCard);

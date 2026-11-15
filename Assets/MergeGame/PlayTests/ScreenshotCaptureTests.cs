@@ -143,6 +143,33 @@ namespace MergeGame.PlayTests
             }
         }
 
+        /// <summary>
+        /// Delivering an order, filmed at 30 frames per second of game time over the counter: the items fly onto the tray,
+        /// the customer leaves and the next one arrives.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator CaptureCustomerLeaveFrames()
+        {
+            yield return GameScreenDriver.OpenGame(driver => game = driver);
+            Assert.That(AutoPlayer.PlayUntilAnOrderIsDeliverable(game.Session, HighestRequestedLevel), Is.True, "No order became deliverable.");
+            yield return GameScreenDriver.WaitSeconds(1.3f);
+
+            var screen = Snapshot.DeviceResolutions[0];
+            var order = game.Session.ActiveOrders.First(active => game.Session.CanDeliver(active.Id));
+            Time.captureDeltaTime = 1f / 30f;
+            try
+            {
+                yield return CroppedFrames.CaptureLive(
+                    game.Camera, screen, directory, "17_customer_leave", 75,
+                    () => game.Session.DeliverOrder(order.Id),
+                    () => new RectInt(0, Mathf.RoundToInt(screen.y * 0.6f), screen.x, Mathf.RoundToInt(screen.y * 0.4f)), 1);
+            }
+            finally
+            {
+                Time.captureDeltaTime = 0f;
+            }
+        }
+
         private IEnumerator FilmMerge(string name, GridPosition from, GridPosition to)
         {
             yield return GameScreenDriver.WaitSeconds(0.6f);

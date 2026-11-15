@@ -45,6 +45,8 @@ UI_SPRITES = [
     ("bubble_droplet.png", Path("Effects") / "Textures" / "t_paopao1.png"),
     ("spawn_icon.png", Path("Hud") / "BaseSceneView" / "icon_cook.png"),  # whisk and spatula: making things
     ("home_button.png", Path("Hud") / "UIRoot" / "btn_setall_edit_hud.png"),
+    ("order_tray.png", Path("Board") / "Board" / "order_tray.png"),  # the customers' orders stand on it
+    ("counter_cloth.png", Path("Board") / "Board" / "order_counter.png"),  # hangs down the front of the counter
 ]
 
 # (published file under Content/Audio, pack file)
@@ -181,6 +183,47 @@ def import_round_button(pack: Path, folder: Path) -> list[Path]:
     return [folder / "spawn_button.png", folder / "spawn_button_disabled.png"]
 
 
+# The shop the customers stand in: a leaf wallpaper behind them, a wooden counter in front and a parquet floor under
+# the board. Both textures are drawn tiled.
+SHOP_WALL = Path("Texture2D") / "canteenwall_3.png"
+# One repeat of the wallpaper above its wooden dado: two columns of leaves across, one leaf down. Measured; the
+# texture's own 256 px width does not repeat cleanly.
+SHOP_WALL_REPEAT = (5, 5, 178, 91)
+SHOP_FLOOR = Path("Texture2D") / "patiofloor_1.png"
+# The parquet is calmed so the board stays the busiest thing on screen: its contrast is pulled towards its average
+# colour, then it is tinted towards a warm sand.
+SHOP_FLOOR_CALM = 0.45
+SHOP_FLOOR_TINT = ((236, 196, 150), 0.35)
+COUNTER_TOP = Path("UI") / "Window" / "SpecialOrder" / "special_order_table.png"
+
+
+def calmed(art: Image.Image, calm: float, tint: tuple[tuple[int, int, int], float]) -> Image.Image:
+    """Pulls the colours towards their average by <calm>, then blends them towards <tint> colour by its weight."""
+    import numpy as np
+
+    rgba = np.asarray(art).astype(np.float64)
+    mean = rgba[..., :3].reshape(-1, 3).mean(axis=0)
+    rgba[..., :3] = rgba[..., :3] * (1 - calm) + mean * calm
+    colour, weight = tint
+    rgba[..., :3] = rgba[..., :3] * (1 - weight) + np.array(colour) * weight
+    return Image.fromarray(np.clip(rgba, 0, 255).astype(np.uint8), "RGBA")
+
+
+def import_shop(pack: Path, folder: Path) -> list[Path]:
+    for path in (pack / SHOP_WALL, pack / SHOP_FLOOR, pack / COUNTER_TOP):
+        if not path.is_file():
+            raise ImportError_(f"Missing pack file: {path}")
+    folder.mkdir(parents=True, exist_ok=True)
+    wall = Image.open(pack / SHOP_WALL).convert("RGBA").crop(SHOP_WALL_REPEAT)
+    wall.save(folder / "shop_wall.png")
+    floor = calmed(Image.open(pack / SHOP_FLOOR).convert("RGBA"), SHOP_FLOOR_CALM, SHOP_FLOOR_TINT)
+    floor.save(folder / "shop_floor.png")
+    # The plank of the special order window's table, cut out of its empty margins (its soft shadow stays).
+    table = Image.open(pack / COUNTER_TOP).convert("RGBA")
+    table.crop(table.getbbox()).save(folder / "counter_top.png")
+    return [folder / "shop_wall.png", folder / "shop_floor.png", folder / "counter_top.png"]
+
+
 def copy_files(pack: Path, table: list[tuple[str, Path]], folder: Path) -> list[Path]:
     missing = [str(pack / source) for _, source in table if not (pack / source).is_file()]
     if missing:
@@ -204,6 +247,7 @@ def main(argv=None) -> int:
         items = import_items(args.pack, args.seed, args.out)
         ui = copy_files(args.pack, UI_SPRITES, args.out / "Sprites" / "UI")
         ui += import_round_button(args.pack, args.out / "Sprites" / "UI")
+        ui += import_shop(args.pack, args.out / "Sprites" / "UI")
         audio = copy_files(args.pack, AUDIO, args.out / "Audio")
     except ImportError_ as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

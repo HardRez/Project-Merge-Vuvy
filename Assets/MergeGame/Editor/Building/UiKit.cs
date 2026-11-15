@@ -77,6 +77,20 @@ namespace MergeGame.Editor.Building
             return image;
         }
 
+        /// <summary>
+        /// A texture repeated over the rect, each repeat <paramref name="tileWidth"/> canvas units wide (and in proportion
+        /// high), starting from the rect's bottom left corner.
+        /// </summary>
+        public Image Tiled(string name, Transform parent, Sprite sprite, float tileWidth)
+        {
+            var image = Image(name, parent, sprite, Color.white);
+            image.type = UnityEngine.UI.Image.Type.Tiled;
+            image.preserveAspect = false;
+            // A sprite pixel is one canvas unit at the reference resolution (both are 100 per unit).
+            image.pixelsPerUnitMultiplier = sprite.rect.width / tileWidth;
+            return image;
+        }
+
         /// <summary>An icon that keeps its aspect ratio inside its rect.</summary>
         public Image Icon(string name, Transform parent, string iconName) => Image(name, parent, Sprites.Icon(iconName), Color.white);
 

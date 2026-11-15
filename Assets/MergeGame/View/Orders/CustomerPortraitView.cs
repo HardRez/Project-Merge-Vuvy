@@ -11,8 +11,9 @@ using UnityEngine.UI;
 namespace MergeGame.View.Orders
 {
     /// <summary>
-    /// The customer of an order card: an animated Spine portrait when the customer has one, otherwise its still avatar.
-    /// Its shoulders sit in the round frame and its head may rise above it (see <see cref="PortraitWindow"/>).
+    /// The customer of an order: an animated Spine portrait when the customer has one, otherwise its still avatar. It
+    /// stands behind the shop counter, which is drawn in front of it and hides its lower body: its frame is the space
+    /// above the counter, and the character is scaled taller than the frame so it reaches down behind the counter.
     /// <para>
     /// A customer arrives with the pop-in animation of its mood (<c>appear</c> while waiting, <c>progress</c> while part
     /// of the order is on the board, <c>finished</c> when it can be delivered) and then loops that mood. A later change of
@@ -22,7 +23,7 @@ namespace MergeGame.View.Orders
     /// </summary>
     public sealed class CustomerPortraitView : MonoBehaviour, IPointerClickHandler
     {
-        [Tooltip("The round frame; framing and the delivery target use it.")]
+        [Tooltip("The space above the counter the character stands in; framing and hops are measured in its height.")]
         [SerializeField] private RectTransform frame;
 
         [Tooltip("Carries the character; sits at the frame's centre and hops.")]
@@ -31,17 +32,21 @@ namespace MergeGame.View.Orders
         [SerializeField] private SkeletonGraphic portrait;
         [SerializeField] private Image avatar;
 
-        [Tooltip("Glows behind the frame while the order can be delivered.")]
+        [Tooltip("Fades the whole customer (character, glow) out when it leaves.")]
+        [SerializeField] private CanvasGroup group;
+
+        [Tooltip("Glows behind the character while the order can be delivered.")]
         [SerializeField] private Image readyGlow;
 
         [Header("Framing")]
-        [Tooltip("The character's resting height (first frame of its waiting loop), in frame heights; larger shows less of the body.")]
+        [Tooltip("The character's resting height (first frame of its waiting loop), in frame heights; the part beyond one frame " +
+                 "hangs below the frame, behind the counter. Larger shows less of the body.")]
         [Min(0.1f)]
-        [SerializeField] private float heightInFrames = 2f;
+        [SerializeField] private float heightInFrames = 1.25f;
 
         [Tooltip("Gap between the top of the frame and the top of the character, in frame heights; negative lets the head rise " +
-                 "above the frame (keep it within the window's open top).")]
-        [SerializeField] private float headroom = -0.2f;
+                 "above the frame.")]
+        [SerializeField] private float headroom = 0.02f;
 
         [Tooltip("The top part of the resting pose, as a share of its height, that is centred horizontally: the head, so " +
                  "characters whose head is off their body's centre (a raised arm, a hat) still face the middle of the frame.")]
@@ -61,14 +66,35 @@ namespace MergeGame.View.Orders
 
         [SerializeField] private float glowFadeSeconds = 0.25f;
 
+        [Tooltip("How fast a leaving customer fades out; the next customer comes in only after it is gone.")]
+        [SerializeField] private float leaveFadeSeconds = 0.35f;
+
         private CustomerAnimationSet animations;
         private CustomerMood mood;
         private TweenChannel hop;
         private TweenChannel glow;
+        private TweenChannel fade;
         private bool glowing;
 
-        /// <summary>Where delivered items fly to, in world space.</summary>
-        public Vector3 Center => frame.TransformPoint(frame.rect.center);
+        // The resting pose in the skeleton's own space, measured when the character arrives.
+        private float restingHeight;
+        private float restingTop;
+        private float restingHeadCentre;
+
+        /// <summary>The space above the counter the customer stands in, in world space.</summary>
+        public Rect FrameWorldRect => WorldRect(frame, frame.rect);
+
+        /// <summary>The character as drawn now (its mesh bounds), in world space; empty without an animated portrait.</summary>
+        public Rect PortraitWorldRect
+        {
+            get
+            {
+                if (!IsAnimated)
+                    return Rect.zero;
+                var bounds = portrait.GetLastMesh().bounds;
+                return WorldRect(portrait.rectTransform, Rect.MinMaxRect(bounds.min.x, bounds.min.y, bounds.max.x, bounds.max.y));
+            }
+        }
 
         /// <summary>True while an animated portrait is shown (false for a still avatar or a portrait without the needed animations).</summary>
         public bool IsAnimated => animations != null && portrait.gameObject.activeSelf;
@@ -84,11 +110,17 @@ namespace MergeGame.View.Orders
 
         private TweenChannel Hop => hop ??= new TweenChannel(this);
         private TweenChannel Glow => glow ??= new TweenChannel(this);
+        private TweenChannel Fade => fade ??= new TweenChannel(this);
+
+        /// <summary>How visible the customer is: 1 while it is here, fading to 0 as it leaves.</summary>
+        public float Opacity => group.alpha;
 
         /// <summary>Shows a customer who just arrived with an order.</summary>
         public void Arrive(SkeletonDataAsset skeleton, Sprite still, CustomerMood customerMood)
         {
             mood = customerMood;
+            Fade.Stop();
+            group.alpha = 1f;
             animations = Load(skeleton);
             avatar.sprite = still;
             avatar.gameObject.SetActive(animations == null && still != null);
@@ -101,6 +133,13 @@ namespace MergeGame.View.Orders
             var state = portrait.AnimationState;
             state.SetAnimation(0, Entry(mood), false);
             state.AddAnimation(0, Loop(mood), true, 0f);
+
+            // The mesh still holds the resting pose the framing measured; draw the pop-in's first frame now, or the
+            // whole character flashes up for one frame before popping in.
+            portrait.Skeleton.SetToSetupPose();
+            state.Apply(portrait.Skeleton);
+            portrait.Skeleton.UpdateWorldTransform();
+            portrait.UpdateMesh();
         }
 
         /// <summary>The same customer now feels differently about the board.</summary>
@@ -117,12 +156,14 @@ namespace MergeGame.View.Orders
                 PlayHop(mood == CustomerMood.Ready ? 1.4f : 1f);
         }
 
-        /// <summary>The order was delivered; the customer says goodbye and stays on its last frame.</summary>
+        /// <summary>The order was delivered; the customer says goodbye and fades out while it does.</summary>
         public void Leave()
         {
             SetGlow(false, fade: true);
             if (animations != null)
                 portrait.AnimationState.SetAnimation(0, animations.Leave, false);
+            if (!Fade.Play(Tween.Run(leaveFadeSeconds, Ease.InQuad, t => group.alpha = 1f - t)))
+                group.alpha = 0f;
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -153,9 +194,8 @@ namespace MergeGame.View.Orders
         }
 
         /// <summary>
-        /// Scales the character so its resting pose is <see cref="heightInFrames"/> frames tall, its top <see cref="headroom"/>
-        /// below the frame's top and its head (<see cref="centredTop"/>) centred. Not the setup pose: some characters are only
-        /// placed in frame by their animations. The actor's origin is the frame's centre.
+        /// Measures the character's resting pose (the first frame of its waiting loop; not the setup pose, as some
+        /// characters are only placed in frame by their animations) and frames it.
         /// </summary>
         private void FrameRestingPose(Spine.Animation resting)
         {
@@ -166,16 +206,41 @@ namespace MergeGame.View.Orders
             portrait.UpdateMesh();
             var mesh = portrait.GetLastMesh();
             var bounds = mesh.bounds;
-            if (bounds.size.y <= 0f)
-                return;
-            var headCentre = HorizontalCentreAbove(mesh, bounds.max.y - bounds.size.y * centredTop, bounds.center.x);
+            restingHeight = bounds.size.y;
+            restingTop = bounds.max.y;
+            restingHeadCentre = HorizontalCentreAbove(mesh, bounds.max.y - bounds.size.y * centredTop, bounds.center.x);
+            ApplyFraming();
+        }
 
+        /// <summary>
+        /// Scales the resting pose to <see cref="heightInFrames"/> frames tall, its top <see cref="headroom"/> below the
+        /// frame's top and its head (<see cref="centredTop"/>) centred. The actor's origin is the frame's centre.
+        /// </summary>
+        private void ApplyFraming()
+        {
+            if (restingHeight <= 0f)
+                return;
             var frameHeight = frame.rect.height;
-            var scale = frameHeight * heightInFrames / bounds.size.y;
+            var scale = frameHeight * heightInFrames / restingHeight;
             var top = frameHeight * (0.5f - headroom);
             var rect = portrait.rectTransform;
             rect.localScale = new Vector3(scale, scale, 1f);
-            rect.anchoredPosition = new Vector2(-headCentre * scale, top - bounds.max.y * scale);
+            rect.anchoredPosition = new Vector2(-restingHeadCentre * scale, top - restingTop * scale);
+        }
+
+        // The frame follows the counter's layout (taller screens give it more height, and the layout may settle after the
+        // customer arrived), so the character is framed again whenever this slot is resized.
+        private void OnRectTransformDimensionsChange()
+        {
+            if (animations != null)
+                ApplyFraming();
+        }
+
+        private static Rect WorldRect(Transform space, Rect local)
+        {
+            var min = space.TransformPoint(local.min);
+            var max = space.TransformPoint(local.max);
+            return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
         }
 
         private static float HorizontalCentreAbove(Mesh mesh, float height, float fallback)

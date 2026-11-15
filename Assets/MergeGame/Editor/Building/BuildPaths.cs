@@ -29,6 +29,7 @@ namespace MergeGame.Editor.Building
         public const string PointsPopupPrefab = PrefabsFolder + "/PointsPopup.prefab";
         public const string RequirementSlotPrefab = PrefabsFolder + "/RequirementSlot.prefab";
         public const string OrderCardPrefab = PrefabsFolder + "/OrderCard.prefab";
+        public const string CustomerStagePrefab = PrefabsFolder + "/CustomerStage.prefab";
 
         /// <summary>Zenject loads the project context from a Resources folder by this exact name.</summary>
         public const string ProjectContextPrefab = PrefabsFolder + "/Resources/ProjectContext.prefab";

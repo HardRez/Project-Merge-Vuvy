@@ -12,15 +12,20 @@ using UnityEngine.UI;
 namespace MergeGame.View.Orders
 {
     /// <summary>
-    /// One customer's order. A completed order first celebrates (once the delivered items have arrived, while the customer
-    /// leaves) and only then shows the next order and its customer; cards that arrive meanwhile wait until the celebration is over.
+    /// One customer's order, in front of the counter: the requested items on a tray, the reward and the deliver button.
+    /// Its customer stands behind the counter in a row of its own (see <see cref="OrdersView"/>). A completed order first
+    /// celebrates once the delivered items have arrived: the customer leaves and fades out while the tray fades out
+    /// completely, and only when both are gone do the next order and its customer come in, so the two never overlap.
+    /// Cards that arrive meanwhile wait until the celebration is over.
     /// </summary>
     public sealed class OrderCardView : MonoBehaviour
     {
         [SerializeField] private RectTransform body;
         [SerializeField] private CanvasGroup content;
-        [SerializeField] private CustomerPortraitView customer;
+
+        [Tooltip("The tray the requested items stand on; delivered items fly onto it.")]
         [SerializeField] private RectTransform requirementContainer;
+
         [SerializeField] private RequirementSlotView requirementPrefab;
         [SerializeField] private TMP_Text rewardLabel;
         [SerializeField] private string rewardFormat = "+{0}";
@@ -33,15 +38,22 @@ namespace MergeGame.View.Orders
         [SerializeField] private TMP_Text celebrationLabel;
 
         [Header("Timing (seconds)")]
-        [Tooltip("Lets the delivered items reach the customer before the celebration starts.")]
+        [Tooltip("Lets the delivered items reach the tray before the celebration starts.")]
         [SerializeField] private float celebrationDelaySeconds = 0.5f;
 
-        [SerializeField] private float celebrationSeconds = 0.9f;
+        [Tooltip("From the customer starting to leave until the next order comes in; the points rise and the glow flashes meanwhile.")]
+        [SerializeField] private float celebrationSeconds = 0.6f;
+
+        [Tooltip("How fast the tray fades out completely once the customer starts to leave; shorter than the celebration, so " +
+                 "nothing of it is left when the next order comes in.")]
+        [SerializeField] private float trayFadeSeconds = 0.35f;
+
         [SerializeField] private float swapSeconds = 0.3f;
         [SerializeField] private float pulseSeconds = 0.9f;
 
         private readonly List<RequirementSlotView> requirementSlots = new List<RequirementSlotView>();
         private IItemVisuals visuals;
+        private CustomerPortraitView customer;
         private TweenChannel celebration;
         private TweenChannel pulse;
         private OrderCard pendingCard;
@@ -52,10 +64,13 @@ namespace MergeGame.View.Orders
 
         public OrderCard Card { get; private set; }
         public bool CanDeliver => deliverButton.interactable;
-        public Vector3 DeliveryTarget => customer.Center;
+        public Vector3 DeliveryTarget => requirementContainer.TransformPoint(requirementContainer.rect.center);
 
         /// <summary>The customer shown on this card.</summary>
         public CustomerPortraitView Customer => customer;
+
+        /// <summary>How visible the tray, reward and deliver button are (they fade out on delivery and in for the next order).</summary>
+        public float ContentAlpha => content.alpha;
 
         private void Awake()
         {
@@ -66,7 +81,12 @@ namespace MergeGame.View.Orders
             celebrationLabel.gameObject.SetActive(false);
         }
 
-        public void Initialize(IItemVisuals itemVisuals) => visuals = itemVisuals;
+        /// <param name="slotCustomer">The customer standing behind the counter above this card.</param>
+        public void Initialize(IItemVisuals itemVisuals, CustomerPortraitView slotCustomer)
+        {
+            visuals = itemVisuals;
+            customer = slotCustomer;
+        }
 
         public void Show(OrderCard card)
         {
@@ -153,10 +173,11 @@ namespace MergeGame.View.Orders
             celebrationLabel.text = string.Format(rewardFormat, awardedPoints);
             var labelTransform = celebrationLabel.rectTransform;
             var labelStart = labelTransform.anchoredPosition;
+            var trayFadeShare = Mathf.Clamp01(trayFadeSeconds / Mathf.Max(0.01f, celebrationSeconds));
             yield return Tween.Run(celebrationSeconds, Ease.Linear, t =>
             {
                 body.localScale = Vector3.one * (1f + 0.08f * Ease.Bump(Mathf.Min(1f, t * 2.5f)));
-                content.alpha = Mathf.Lerp(1f, 0.3f, Ease.OutQuad(Mathf.Min(1f, t * 3f)));
+                content.alpha = t >= trayFadeShare ? 0f : 1f - Ease.OutQuad(t / trayFadeShare);
                 celebrationGlow.color = WithAlpha(celebrationGlow.color, 0.75f * Ease.Bump(t));
                 celebrationGlow.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.8f, 1.25f, Ease.OutQuad(t));
                 labelTransform.anchoredPosition = labelStart + Vector2.up * (90f * Ease.OutCubic(t));
@@ -165,8 +186,7 @@ namespace MergeGame.View.Orders
             });
             labelTransform.anchoredPosition = labelStart;
 
-            var dimmed = content.alpha;
-            yield return Tween.Run(swapSeconds * 0.5f, Ease.InQuad, t => content.alpha = dimmed * (1f - t));
+            content.alpha = 0f;
             FinishCelebration();
             yield return Tween.Run(swapSeconds, Ease.Linear, t =>
             {
