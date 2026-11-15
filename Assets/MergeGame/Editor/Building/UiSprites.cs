@@ -51,6 +51,9 @@ namespace MergeGame.Editor.Building
         /// <summary>The blue tray the board's tiles sit in, with its own rim and soft shadow; from the asset pack.</summary>
         public Sprite BoardTray { get; private set; }
 
+        /// <summary>A gold-white four-point star with a soft glow, for sparkles; from the asset pack.</summary>
+        public Sprite SparkleStar { get; private set; }
+
         /// <summary>Sand covering a closed cell, in several looks; drawn at twice the cell's resolution.</summary>
         public Sprite[] Sand { get; private set; }
 
@@ -75,6 +78,7 @@ namespace MergeGame.Editor.Building
             Background = LoadShape("background"),
             SelectionBrackets = LoadShape("selection_brackets"),
             BoardTray = LoadShape("board_tray"),
+            SparkleStar = LoadShape("sparkle_star"),
             Sand = new[] { LoadShape("sand_01"), LoadShape("sand_02"), LoadShape("sand_03") }
         };
 
