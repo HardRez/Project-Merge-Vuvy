@@ -52,6 +52,47 @@ namespace MergeGame.PlayTests.Support
             }
         }
 
+        /// <summary>
+        /// Films an animation that runs on its own: calls <paramref name="start"/> once the render size has settled,
+        /// then saves one cropped frame per game frame. Set <see cref="Time.captureDeltaTime"/> first so every frame
+        /// advances the animation by the same time.
+        /// </summary>
+        public static IEnumerator CaptureLive(
+            Camera camera,
+            Vector2Int screen,
+            string directory,
+            string name,
+            int frames,
+            Action start,
+            Func<RectInt> cropInPixels,
+            int magnify)
+        {
+            var target = new RenderTexture(screen.x, screen.y, 24, RenderTextureFormat.ARGB32);
+            camera.targetTexture = target;
+            try
+            {
+                yield return null;
+                yield return null;
+
+                var crop = cropInPixels();
+                start();
+                for (var frame = 0; frame < frames; frame++)
+                {
+                    yield return null;
+                    Canvas.ForceUpdateCanvases();
+                    camera.Render();
+                    var pixels = Magnify(ReadCrop(target, crop), crop.width, crop.height, magnify);
+                    var png = PngEncoder.Encode(pixels, crop.width * magnify, crop.height * magnify);
+                    File.WriteAllBytes(Path.Combine(directory, $"{name}_{frame:000}.png"), png);
+                }
+            }
+            finally
+            {
+                camera.targetTexture = null;
+                Object.Destroy(target);
+            }
+        }
+
         private static byte[] ReadCrop(RenderTexture source, RectInt crop)
         {
             var previous = RenderTexture.active;

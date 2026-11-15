@@ -116,6 +116,11 @@ namespace MergeGame.Editor.Building
             group.blocksRaycasts = false;
             group.interactable = false;
 
+            // Behind everything else of the item, so the ring spreads out from under the new item.
+            var mergeRing = ui.Image("MergeRing", root, ui.Sprites.MergeRing, Color.white);
+            mergeRing.rectTransform.Inset(-6f);
+            mergeRing.gameObject.SetActive(false);
+
             var accentLayer = UiKit.Rect("Accent", root).Stretch();
             var accentGlow = ui.Image("AccentGlow", accentLayer, ui.Sprites.Glow, Color.white);
             accentGlow.rectTransform.Inset(-84f);
@@ -137,8 +142,9 @@ namespace MergeGame.Editor.Building
             var orderBadge = ui.Icon("OrderMatchBadge", body, "check");
             orderBadge.rectTransform.Span(new Vector2(0.58f, 0.04f), new Vector2(0.96f, 0.42f));
             orderBadge.gameObject.SetActive(false);
+            // A glint at the top-right corner: the star's bright core would hide the new item if it sat over it.
             var sparkles = ui.Image("BurstSparkles", body, ui.Sprites.SparkleStar, Color.white);
-            sparkles.rectTransform.Inset(-30f);
+            sparkles.rectTransform.Span(new Vector2(0.5f, 0.5f), new Vector2(1.12f, 1.12f));
             sparkles.gameObject.SetActive(false);
 
             var accent = BuildAccent(ui, accentLayer, accentGlow);
@@ -153,7 +159,8 @@ namespace MergeGame.Editor.Building
                 .Wire("lockOverlay", lockOverlay)
                 .Wire("maxLevelBadge", crown.gameObject)
                 .Wire("burstGlow", glow)
-                .Wire("burstSparkles", sparkles);
+                .Wire("burstSparkles", sparkles)
+                .Wire("mergeRing", mergeRing);
             return Save<ItemView>(root, BuildPaths.ItemViewPrefab);
         }
 

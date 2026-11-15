@@ -54,6 +54,9 @@ namespace MergeGame.Editor.Building
         /// <summary>A gold-white four-point star with a soft glow, for sparkles; from the asset pack.</summary>
         public Sprite SparkleStar { get; private set; }
 
+        /// <summary>A soft white ring that spreads out from a merge; from the asset pack.</summary>
+        public Sprite MergeRing { get; private set; }
+
         /// <summary>Sand covering a closed cell, in several looks; drawn at twice the cell's resolution.</summary>
         public Sprite[] Sand { get; private set; }
 
@@ -79,6 +82,7 @@ namespace MergeGame.Editor.Building
             SelectionBrackets = LoadShape("selection_brackets"),
             BoardTray = LoadShape("board_tray"),
             SparkleStar = LoadShape("sparkle_star"),
+            MergeRing = LoadShape("merge_ring"),
             Sand = new[] { LoadShape("sand_01"), LoadShape("sand_02"), LoadShape("sand_03") }
         };
 
