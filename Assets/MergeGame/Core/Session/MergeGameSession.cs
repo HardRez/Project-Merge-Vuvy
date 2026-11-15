@@ -55,6 +55,7 @@ namespace MergeGame.Core.Session
             else if (snapshot != null && snapshot.Orders.Count > 0)
                 throw new ArgumentException("The save holds orders but the game has none.", nameof(snapshot));
             Score = snapshot?.Score ?? 0;
+            RememberOrderMatches();
         }
 
         /// <summary>
@@ -151,6 +152,7 @@ namespace MergeGame.Core.Session
                 throw new InvalidOperationException($"Spawn policy chose cell {placement.Position}, which is not an empty cell of the board.");
 
             board.Place(placement.Position, new BoardItem(placement.ItemId));
+            RememberOrderMatches();
 
             Raise(new ItemSpawned(placement.Position, placement.ItemId));
             if (board.IsFull)
@@ -169,6 +171,7 @@ namespace MergeGame.Core.Session
 
             var wasFull = board.IsFull;
             var itemId = board.Remove(position).ItemId;
+            RememberOrderMatches();
 
             Raise(new ItemDiscarded(position, itemId));
             if (wasFull)
@@ -197,8 +200,10 @@ namespace MergeGame.Core.Session
         /// Entry i is the board cell <see cref="DeliverOrder"/> would hand over for <c>Requirements[i]</c> of the order,
         /// or null when that requirement is missing; entry i has a cell exactly when <see cref="GetRequirementFulfilment"/>
         /// entry i is true. Each order is matched on its own against the whole board, so two orders may name the same
-        /// cell. Side-effect free; returns a fresh list. Empty for an id that is not active (and always in a game
-        /// without orders).
+        /// cell. A matched item stays matched while it is on the board unchanged (moving it keeps it), even when an
+        /// identical item appears; a merge, discard or delivery that takes it lets the next free one (row-major) step in.
+        /// Side-effect free; returns a fresh list. Empty for an id that is not active (and always in a game without
+        /// orders).
         /// </summary>
         public IReadOnlyList<GridPosition?> GetRequirementMatches(int orderId)
         {
@@ -208,7 +213,7 @@ namespace MergeGame.Core.Session
         }
 
         /// <summary>
-        /// Hands the first matching unlocked items (row-major) to the customer and replaces the order in its slot.
+        /// Hands the matched items (<see cref="GetRequirementMatches"/>) to the customer and replaces the order in its slot.
         /// Raises <see cref="OrderDelivered"/>, <see cref="ScoreChanged"/> (if points were awarded),
         /// <see cref="BoardFullChanged"/> (if the board was full) and <see cref="OrderAdded"/>, in that order.
         /// A failed delivery changes nothing and raises nothing.
@@ -228,6 +233,7 @@ namespace MergeGame.Core.Session
             foreach (var item in consumed)
                 board.Remove(item.Position);
             orderBook.Replace(slot, replacement);
+            RememberOrderMatches();
             var previousScore = Score;
             Score += order.RewardPoints;
 
@@ -244,6 +250,7 @@ namespace MergeGame.Core.Session
         {
             var itemId = board.GetItem(outcome.From).ItemId;
             board.Move(outcome.From, outcome.To);
+            RememberOrderMatches();
             Raise(new ItemMoved(outcome.From, outcome.To, itemId));
         }
 
@@ -256,6 +263,7 @@ namespace MergeGame.Core.Session
 
             var points = scoreCalculator.PointsForMerge(outcome.ResultItemId);
             var revealed = targetWasLocked ? revealer.RevealAround(board, outcome.To) : new List<GridPosition>();
+            RememberOrderMatches();
             var previousScore = Score;
             Score += points;
 
@@ -278,6 +286,9 @@ namespace MergeGame.Core.Session
         }
 
         private void Raise(GameEvent gameEvent) => EventRaised?.Invoke(gameEvent);
+
+        /// <summary>Called after every board change, before its events, so a matched item stays matched while it is unchanged.</summary>
+        private void RememberOrderMatches() => orderBook?.RememberMatches(board);
 
         private static Board CreateInitialBoard(GameDefinition definition)
         {

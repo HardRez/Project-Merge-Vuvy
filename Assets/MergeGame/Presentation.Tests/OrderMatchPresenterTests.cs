@@ -56,6 +56,18 @@ namespace MergeGame.Presentation.Tests
         }
 
         [Test]
+        public void SpawningAnItemIdenticalToAMarkedOne_KeepsTheMarkWhereItIs()
+        {
+            using var screen = GameScreen.For(new GameBuilder()
+                .WithItem(3, 3, Item(Wood, 1))
+                .WithOrders(1, new[] { Item(Wood, 1) }));
+
+            screen.Spawn.PressSpawn();
+
+            Assert.That(screen.OrderMatches.SentSets, Is.EqualTo(new[] { new[] { At(3, 3) } }));
+        }
+
+        [Test]
         public void SpawningAnUnneededItem_DoesNotResendTheSet()
         {
             using var screen = GameScreen.For(new GameBuilder()

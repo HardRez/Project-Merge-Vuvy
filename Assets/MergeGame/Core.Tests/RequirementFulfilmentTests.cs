@@ -140,6 +140,68 @@ namespace MergeGame.Core.Tests
         }
 
         [Test]
+        public void Matches_KeepTheirItem_WhenAnIdenticalItemAppearsEarlierInRowMajorOrder()
+        {
+            var session = Builder(Item(Wood, 2))
+                .WithItem(3, 3, Item(Wood, 2))
+                .WithItem(0, 0, Item(Wood, 1))
+                .WithItem(1, 0, Item(Wood, 1))
+                .Build();
+
+            session.Drop(At(1, 0), At(0, 0));
+
+            Assert.That(session.Board.GetItem(At(0, 0)).ItemId, Is.EqualTo(Item(Wood, 2)));
+            Assert.That(Matches(session), Is.EqualTo(new GridPosition?[] { At(3, 3) }));
+        }
+
+        [Test]
+        public void Matches_FollowAMovedItem_PastAnIdenticalOne()
+        {
+            var session = Builder(Item(Wood, 1))
+                .WithItem(0, 0, Item(Wood, 1))
+                .WithItem(3, 3, Item(Wood, 1))
+                .Build();
+
+            session.Drop(At(0, 0), At(4, 4));
+
+            Assert.That(Matches(session), Is.EqualTo(new GridPosition?[] { At(4, 4) }));
+        }
+
+        [Test]
+        public void Delivery_HandsOverTheKeptItem_NotTheNewerIdenticalOne()
+        {
+            var session = Builder(Item(Wood, 2))
+                .WithItem(3, 3, Item(Wood, 2))
+                .WithItem(0, 0, Item(Wood, 1))
+                .WithItem(1, 0, Item(Wood, 1))
+                .Build();
+            var recorder = new EventRecorder(session);
+            session.Drop(At(1, 0), At(0, 0));
+
+            session.DeliverOrder(session.ActiveOrders[0].Id);
+
+            Assert.That(recorder.Single<Events.OrderDelivered>().ConsumedItems[0].Position, Is.EqualTo(At(3, 3)));
+            Assert.That(session.Board.GetItem(At(0, 0)).ItemId, Is.EqualTo(Item(Wood, 2)));
+        }
+
+        [Test]
+        public void Matches_MoveToTheNextItem_WhenTheMatchedOneIsDiscarded_AndStayThereWhenAnIdenticalOneSpawns()
+        {
+            var session = Builder(Item(Wood, 1))
+                .WithItem(0, 0, Item(Wood, 1))
+                .WithItem(3, 3, Item(Wood, 1))
+                .Build();
+
+            session.Discard(At(0, 0));
+            Assert.That(Matches(session), Is.EqualTo(new GridPosition?[] { At(3, 3) }));
+
+            session.Spawn();
+
+            Assert.That(session.Board.GetItem(At(0, 0)).ItemId, Is.EqualTo(Item(Wood, 1)));
+            Assert.That(Matches(session), Is.EqualTo(new GridPosition?[] { At(3, 3) }));
+        }
+
+        [Test]
         public void Matches_OfDifferentOrders_MayNameTheSameCell()
         {
             var generator = new ScriptedOrderGenerator(Wants(Item(Wood, 1)), Wants(Item(Stone, 2), Item(Wood, 1)));
