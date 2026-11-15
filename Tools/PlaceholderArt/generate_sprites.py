@@ -67,7 +67,6 @@ ICONS = [
     ("coin", "\U0001FA99"),
     ("lock", "\U0001F512"),
     ("home", "\U0001F3E0"),
-    ("trash", "\U0001F5D1"),
     ("sparkles", "✨"),
     ("crown", "\U0001F451"),
     ("play", "▶"),
