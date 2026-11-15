@@ -22,7 +22,8 @@ namespace MergeGame.Editor.Building
         public const float TopBarHeight = 116f;
         public const float OrdersHeight = 300f;
         public const float InfoBarHeight = 176f;
-        public const float SpawnBarHeight = 168f;
+        /// <summary>The round spawn button with its name tag below it.</summary>
+        public const float SpawnBarHeight = 200f;
 
         // Weights of the extra height on screens taller than 9:16 (only their ratios matter).
         public const float OrdersGrowth = 0.15f;

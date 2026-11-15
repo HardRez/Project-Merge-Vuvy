@@ -120,9 +120,10 @@ namespace MergeGame.Editor.Building
             var bar = Section("TopBar", column, LayoutMetrics.TopBarHeight);
             var size = LayoutMetrics.TopBarHeight;
 
-            var home = ui.Button("HomeButton", bar, ui.Theme.Secondary, cornerScale: 0.75f);
+            // The pack's glossy blue square; its bottom rim is about a tenth of its height.
+            var home = ui.ArtButton("HomeButton", bar, ui.Sprites.HomeButton, contentLift: 8f);
             home.Rect.Pin(RectLayout.Left, new Vector2(size, size));
-            ui.Icon("Icon", home.Content, "home").rectTransform.Inset(16f);
+            ui.Icon("Icon", home.Content, "home").rectTransform.Inset(18f);
 
             score = ScorePill(bar);
             homeButton = home.Button;
@@ -367,19 +368,24 @@ namespace MergeGame.Editor.Building
         private SpawnView SpawnBar(RectTransform column)
         {
             var bar = Section("SpawnBar", column, LayoutMetrics.SpawnBarHeight);
-            var button = ui.Button("SpawnButton", bar, ui.Theme.Primary);
-            button.Rect.Pin(RectLayout.Center, new Vector2(600f, LayoutMetrics.SpawnBarHeight - 8f));
+            // The game's own round "produce" button, grey while the board is full, with a whisk and spatula on it; its
+            // name sits on a tag across the bottom of the button, so the button stays round and the word stays readable.
+            const float size = 176f;
+            const float tagHeight = 58f;
+            var button = ui.ArtButton("SpawnButton", bar, ui.Sprites.SpawnButton, ui.Sprites.SpawnButtonDisabled, contentLift: 0f);
+            button.Rect.Pin(RectLayout.Top, new Vector2(size, size));
 
-            var layout = button.Content.gameObject.AddComponent<HorizontalLayoutGroup>();
-            layout.spacing = 18f;
-            layout.padding = new RectOffset(0, 10, 18, 18);
-            layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.childControlWidth = true;
-            layout.childControlHeight = true;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = true;
-            ui.Icon("Icon", button.Content, "sparkles").Prefer(width: 96f);
-            var label = ui.Text("Label", button.Content, "Üret", 76f, TextTone.Light);
+            var icon = ui.Image("Icon", button.Content, ui.Sprites.SpawnIcon, Color.white);
+            icon.rectTransform.Pin(RectLayout.Center, new Vector2(size * 0.6f, size * 0.6f), new Vector2(0f, size * 0.06f));
+
+            // Hangs from the button down to the bottom of the bar, over the lower edge of the circle.
+            var tag = ui.Image("Tag", button.Content, ui.Sprites.Pill, ui.Theme.CellLight, cornerScale: tagHeight / 128f);
+            tag.rectTransform.Pin(RectLayout.Bottom, new Vector2(210f, tagHeight), new Vector2(0f, size - LayoutMetrics.SpawnBarHeight));
+            var tagRim = ui.Image("Rim", tag.rectTransform, ui.Sprites.Ring, ui.Theme.WoodLight, cornerScale: tagHeight / 128f);
+            tagRim.rectTransform.Stretch();
+            var label = ui.Text("Label", tag.rectTransform, "Üret", 46f, TextTone.Dark);
+            label.rectTransform.Stretch(12f, 4f, 12f, 0f);
+            UiKit.ShrinkToFit(label, 30f);
 
             return bar.gameObject.AddComponent<SpawnView>()
                 .Wire("button", button.Button)

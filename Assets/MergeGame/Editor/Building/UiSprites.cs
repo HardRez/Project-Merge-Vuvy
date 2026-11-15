@@ -66,6 +66,18 @@ namespace MergeGame.Editor.Building
         /// <summary>A small glossy bubble, sprayed out when a bubble bursts; from the asset pack.</summary>
         public Sprite BubbleDroplet { get; private set; }
 
+        /// <summary>The game's own round "produce" button, its tap hand removed; from the asset pack.</summary>
+        public Sprite SpawnButton { get; private set; }
+
+        /// <summary>The same round button in grey, shown while the board is full; made from the pack's button.</summary>
+        public Sprite SpawnButtonDisabled { get; private set; }
+
+        /// <summary>A whisk and a spatula, saying the spawn button makes something; from the asset pack.</summary>
+        public Sprite SpawnIcon { get; private set; }
+
+        /// <summary>The glossy blue square the home button is drawn with; from the asset pack.</summary>
+        public Sprite HomeButton { get; private set; }
+
         /// <summary>Sand covering a closed cell, in several looks; drawn at twice the cell's resolution.</summary>
         public Sprite[] Sand { get; private set; }
 
@@ -95,6 +107,10 @@ namespace MergeGame.Editor.Building
             LockBubble = LoadShape("lock_bubble"),
             BubblePopSheet = LoadShape("bubble_pop_sheet"),
             BubbleDroplet = LoadShape("bubble_droplet"),
+            SpawnButton = LoadShape("spawn_button"),
+            SpawnButtonDisabled = LoadShape("spawn_button_disabled"),
+            SpawnIcon = LoadShape("spawn_icon"),
+            HomeButton = LoadShape("home_button"),
             Sand = new[] { LoadShape("sand_01"), LoadShape("sand_02"), LoadShape("sand_03") }
         };
 
