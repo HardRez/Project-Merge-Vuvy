@@ -7,6 +7,7 @@ using MergeGame.Data.Definitions;
 using MergeGame.Data.Visuals;
 using MergeGame.Presentation;
 using MergeGame.Presentation.Board;
+using MergeGame.Presentation.Chains;
 using MergeGame.Presentation.Events;
 using MergeGame.Presentation.Hints;
 using MergeGame.Presentation.Navigation;
@@ -17,6 +18,7 @@ using MergeGame.Presentation.Selection;
 using MergeGame.Presentation.Settings;
 using MergeGame.Presentation.Spawning;
 using MergeGame.View.Board;
+using MergeGame.View.Chains;
 using MergeGame.View.Hints;
 using MergeGame.View.Navigation;
 using MergeGame.View.Notices;
@@ -47,6 +49,7 @@ namespace MergeGame.App.Installers
         [SerializeField] private MergeHintView mergeHintView;
         [SerializeField] private OrderMatchView orderMatchView;
         [SerializeField] private SettingsView settingsView;
+        [SerializeField] private ChainsView chainsView;
 
         [Header("Tuning")]
         [Tooltip("Seconds without any player action before a possible merge is first pointed out (one short pulse).")]
@@ -99,6 +102,7 @@ namespace MergeGame.App.Installers
             Container.Bind<IMergeHintView>().FromInstance(mergeHintView);
             Container.Bind<IOrderMatchView>().FromInstance(orderMatchView);
             Container.Bind<ISettingsView>().FromInstance(settingsView);
+            Container.Bind<IChainsView>().FromInstance(chainsView);
         }
 
         private void BindPools()
@@ -123,6 +127,7 @@ namespace MergeGame.App.Installers
             Container.Bind<SpawnPresenter>().AsSingle();
             Container.Bind<GameNavigationPresenter>().AsSingle();
             Container.Bind<SettingsPresenter>().AsSingle();
+            Container.Bind<ChainsPresenter>().AsSingle();
             Container.Bind<MergeHintSettings>().FromInstance(new MergeHintSettings(mergeHintIdleSeconds, mergeHintRepeatSeconds));
             Container.Bind(typeof(MergeHintPresenter), typeof(ITimeDriven)).To<MergeHintPresenter>().AsSingle();
             Container.BindInterfacesTo<TimeDrivenTicker>().AsSingle();
@@ -145,6 +150,7 @@ namespace MergeGame.App.Installers
                 container.Resolve<SpawnPresenter>(),
                 container.Resolve<GameNavigationPresenter>(),
                 container.Resolve<SettingsPresenter>(),
+                container.Resolve<ChainsPresenter>(),
                 container.Resolve<MergeHintPresenter>()
             };
             return new PresenterLifecycle(presenters, container.Resolve<SessionEventStream>());

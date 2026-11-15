@@ -52,6 +52,24 @@ namespace MergeGame.Editor.Building
         public const float TitleArcRadiusRows = 2250f;
         public const float TitleRibbonExtraRows = 34f;
 
+        /// <summary>
+        /// The chains popup, from its window's top edge down: the tabs, the chosen chain's name, and its levels in two
+        /// rows (a level's cell holds its tile, with the number badge over its corner, and its name under it on up to two
+        /// lines; the arrow on to the next level sits in the gap between cells).
+        /// </summary>
+        public const float ChainsWindowWidth = 980f;
+        public const float ChainsWindowHeight = 990f;
+        public const float ChainTabsTop = 120f;
+        public const float ChainTabSize = 170f;
+        public const float ChainTabSpacing = 26f;
+        public const float ChainHeadingTop = 324f;
+        public const float ChainRowsTop = 384f;
+        public static readonly Vector2 ChainTileSize = new Vector2(186f, 183f);
+        public const float ChainCellHeight = 270f;
+        public const float ChainCellSpacing = 26f;
+        public const float ChainRowSpacing = 6f;
+        public const float ChainNameHeight = 66f;
+
         /// <summary>The width one repeat of the shop's wallpaper and of its parquet are drawn at.</summary>
         public const float ShopWallTileWidth = 203f;
         public const float ShopFloorTileWidth = 300f;

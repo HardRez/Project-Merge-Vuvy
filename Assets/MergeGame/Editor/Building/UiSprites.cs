@@ -100,6 +100,29 @@ namespace MergeGame.Editor.Building
         public Sprite VibrationIcon { get; private set; }
         public Sprite SwitchOff { get; private set; }
 
+        /// <summary>A white "i" with a blue outline, on the info button; from the asset pack.</summary>
+        public Sprite InfoIcon { get; private set; }
+
+        /// <summary>The blue wooden board with leaves a big window's title is written on; from the asset pack.</summary>
+        public Sprite TitleBoard { get; private set; }
+
+        /// <summary>A brown corner with a cream curl, in a big window's top right corner; from the asset pack.</summary>
+        public Sprite WindowCorner { get; private set; }
+
+        /// <summary>
+        /// A level in the chains popup, as the pack's item detail window draws one: the blue tile, the green number badge,
+        /// the small arrow on to the next level, and the lace line and curl beside a chain's name; from the asset pack.
+        /// </summary>
+        public Sprite ChainTile { get; private set; }
+        public Sprite ChainArrow { get; private set; }
+        public Sprite LevelBadge { get; private set; }
+        public Sprite LaceLine { get; private set; }
+        public Sprite LaceCurl { get; private set; }
+
+        /// <summary>A tab of the chains popup: a white square, and the glowing yellow one of the chosen tab; from the asset pack.</summary>
+        public Sprite Tab { get; private set; }
+        public Sprite TabSelected { get; private set; }
+
         /// <summary>
         /// A fan of green bills with a V on the top one, beside the score and the orders' rewards; supplied with the
         /// project (not from the asset pack).
@@ -177,6 +200,16 @@ namespace MergeGame.Editor.Building
             SoundIcon = LoadShape("sound_icon"),
             VibrationIcon = LoadShape("vibration_icon"),
             SwitchOff = LoadShape("switch_off"),
+            InfoIcon = LoadShape("info_icon"),
+            TitleBoard = LoadShape("title_board"),
+            WindowCorner = LoadShape("window_corner"),
+            ChainTile = LoadShape("chain_tile"),
+            ChainArrow = LoadShape("chain_arrow"),
+            LevelBadge = LoadShape("level_badge"),
+            LaceLine = LoadShape("lace_line"),
+            LaceCurl = LoadShape("lace_curl"),
+            Tab = LoadShape("tab"),
+            TabSelected = LoadShape("tab_selected"),
             ScoreCash = LoadShape("score_cash"),
             SelectionBrackets = LoadShape("selection_brackets"),
             BoardTray = LoadShape("board_tray"),
