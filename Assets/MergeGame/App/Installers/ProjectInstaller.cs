@@ -1,14 +1,16 @@
 using System;
 using MergeGame.App.Navigation;
+using MergeGame.App.Settings;
 using MergeGame.Core.Spawning;
 using MergeGame.Data.Authoring;
 using MergeGame.Presentation.Navigation;
+using MergeGame.Presentation.Settings;
 using UnityEngine;
 using Zenject;
 
 namespace MergeGame.App.Installers
 {
-    /// <summary>Bindings that outlive scenes: what to play, how to switch screens and the random source.</summary>
+    /// <summary>Bindings that outlive scenes: what to play, how to switch screens, the random source and the player's settings.</summary>
     public sealed class ProjectInstaller : MonoInstaller
     {
         [SerializeField] private GameConfigAsset gameConfig;
@@ -25,6 +27,8 @@ namespace MergeGame.App.Installers
             Container.Bind<GameConfigAsset>().FromInstance(gameConfig).AsSingle();
             Container.Bind<IAppNavigator>().To<SceneNavigator>().AsSingle().WithArguments(scenes);
             Container.Bind<IRandom>().FromInstance(new SystemRandom(randomSeed != 0 ? randomSeed : Environment.TickCount)).AsSingle();
+            Container.Bind<IGameSettings>().To<PlayerPrefsGameSettings>().AsSingle().WithArguments(PlayerPrefsGameSettings.DefaultKeyPrefix);
+            Container.BindInterfacesTo<SoundSwitch>().AsSingle().NonLazy();
         }
     }
 }

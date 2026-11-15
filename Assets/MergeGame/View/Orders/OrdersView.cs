@@ -5,6 +5,7 @@ using MergeGame.Data.Visuals;
 using MergeGame.Presentation.Orders;
 using MergeGame.View.Audio;
 using MergeGame.View.Board;
+using MergeGame.View.Feedback;
 using UnityEngine;
 using Zenject;
 
@@ -25,6 +26,9 @@ namespace MergeGame.View.Orders
 
         [Tooltip("Optional; without it completed orders are silent.")]
         [SerializeField] private SoundPlayer sounds;
+
+        [Tooltip("Optional; without it completed orders do not buzz the device.")]
+        [SerializeField] private Haptics haptics;
 
         private readonly List<OrderCardView> cards = new List<OrderCardView>();
         private readonly List<CustomerPortraitView> customers = new List<CustomerPortraitView>();
@@ -73,6 +77,7 @@ namespace MergeGame.View.Orders
         {
             FindCard(slotIndex)?.Celebrate(awardedPoints);
             sounds.TryPlay(SoundCue.OrderComplete);
+            haptics.TryPulse(HapticPulse.Strong);
         }
 
         public void AddCard(OrderCard card) => FindCard(card.SlotIndex)?.Show(card);

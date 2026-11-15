@@ -8,6 +8,7 @@ using MergeGame.Presentation.Board;
 using MergeGame.Presentation.Selection;
 using MergeGame.View.Audio;
 using MergeGame.View.Common;
+using MergeGame.View.Feedback;
 using MergeGame.View.Theme;
 using UnityEngine;
 using UnityEngine.UI;
@@ -53,6 +54,9 @@ namespace MergeGame.View.Board
 
         [Tooltip("Optional; without it the board is silent.")]
         [SerializeField] private SoundPlayer sounds;
+
+        [Tooltip("Optional; without it merges do not buzz the device.")]
+        [SerializeField] private Haptics haptics;
 
         [Header("Timing (seconds)")]
         [SerializeField] private float moveSeconds = 0.2f;
@@ -280,6 +284,7 @@ namespace MergeGame.View.Board
             target.MergeInto(resultItemId, visuals.GetIcon(resultItemId), catalog.IsMaxLevel(resultItemId), unlockedTarget, mergeFlightSeconds);
             source?.FlyAway(effectLayer, target.WorldCenter, mergeFlightSeconds, delay: 0f, endScale: 0.9f, () => Release(source));
             sounds.TryPlayMerge(resultItemId.Level);
+            haptics.TryPulse(HapticPulse.Light);
             // The bubble bursts when the flying item lands, so its pop is timed to that moment.
             if (unlockedTarget)
                 sounds.TryPlay(SoundCue.Unlock, mergeFlightSeconds);
