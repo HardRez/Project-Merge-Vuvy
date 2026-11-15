@@ -29,11 +29,27 @@ namespace MergeGame.View.Audio
                 PlayClip(clip, volume);
         }
 
+        /// <summary>Plays <paramref name="cue"/> after <paramref name="delaySeconds"/>, to land on a moment of an animation.</summary>
+        public void Play(SoundCue cue, float delaySeconds)
+        {
+            if (delaySeconds <= 0f || !isActiveAndEnabled)
+                Play(cue);
+            else
+                StartCoroutine(PlayLater(cue, delaySeconds));
+        }
+
         /// <param name="level">The level the merge created.</param>
         public void PlayMerge(int level)
         {
             if (library != null && library.TryGetMerge(level, out var clip, out var volume))
                 PlayClip(clip, volume);
+        }
+
+        private System.Collections.IEnumerator PlayLater(SoundCue cue, float delaySeconds)
+        {
+            for (var waited = 0f; waited < delaySeconds; waited += Time.unscaledDeltaTime)
+                yield return null;
+            Play(cue);
         }
 
         private void PlayClip(AudioClip clip, float volume)

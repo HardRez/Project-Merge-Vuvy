@@ -57,6 +57,15 @@ namespace MergeGame.Editor.Building
         /// <summary>A soft white ring that spreads out from a merge; from the asset pack.</summary>
         public Sprite MergeRing { get; private set; }
 
+        /// <summary>A clear soap bubble around a locked item; from the asset pack.</summary>
+        public Sprite LockBubble { get; private set; }
+
+        /// <summary>A 4x4 sheet of a bubble's skin tearing apart, played as a flipbook when a bubble bursts; from the asset pack.</summary>
+        public Sprite BubblePopSheet { get; private set; }
+
+        /// <summary>A small glossy bubble, sprayed out when a bubble bursts; from the asset pack.</summary>
+        public Sprite BubbleDroplet { get; private set; }
+
         /// <summary>Sand covering a closed cell, in several looks; drawn at twice the cell's resolution.</summary>
         public Sprite[] Sand { get; private set; }
 
@@ -83,6 +92,9 @@ namespace MergeGame.Editor.Building
             BoardTray = LoadShape("board_tray"),
             SparkleStar = LoadShape("sparkle_star"),
             MergeRing = LoadShape("merge_ring"),
+            LockBubble = LoadShape("lock_bubble"),
+            BubblePopSheet = LoadShape("bubble_pop_sheet"),
+            BubbleDroplet = LoadShape("bubble_droplet"),
             Sand = new[] { LoadShape("sand_01"), LoadShape("sand_02"), LoadShape("sand_03") }
         };
 

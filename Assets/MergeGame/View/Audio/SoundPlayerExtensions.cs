@@ -9,6 +9,12 @@ namespace MergeGame.View.Audio
                 player.Play(cue);
         }
 
+        public static void TryPlay(this SoundPlayer player, SoundCue cue, float delaySeconds)
+        {
+            if (player != null)
+                player.Play(cue, delaySeconds);
+        }
+
         public static void TryPlayMerge(this SoundPlayer player, int level)
         {
             if (player != null)

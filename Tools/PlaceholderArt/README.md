@@ -5,7 +5,7 @@
 | Group | Path | Size | Source |
 |---|---|---|---|
 | Items | `Items/<chainId>/<chainId>_<LL>.png` | 256×256 | Microsoft Fluent Emoji (3D), only for chain levels with an `emoji` field in `Assets/MergeGame/Editor/Seed/seed_content.json`; levels with a pack `source` are skipped (no shipped chain uses emoji) |
-| Icons | `Icons/*.png` | 256×256 | Fluent Emoji (3D); `cobweb.png` is drawn by the script |
+| Icons | `Icons/*.png` | 256×256 | Fluent Emoji (3D); `check.png` is drawn by the script |
 | UI | `UI/*.png` | see table | drawn by the script (including the sand cover variants) |
 
 Items and icons are trimmed, scaled so the longest side is 204 px, centred on a transparent 256×256 canvas and given a soft contact shadow, so every sprite has the same padding.
@@ -38,7 +38,6 @@ If anything cannot be resolved, the script exits with code 1 and lists every fai
 |---|---|---|---|
 | `star.png` | ⭐ | Star | score |
 | `coin.png` | 🪙 | Coin | currency |
-| `cobweb.png` | – | drawn by the script | semi-transparent web drawn over a locked item; clipped to a rounded square |
 | `lock.png` | 🔒 | Locked | locked state |
 | `check.png` | – | drawn by the script | order complete; a bare green tick with a white rim, no button behind it |
 | `home.png` | 🏠 | House | home / menu |
@@ -77,7 +76,7 @@ All UI shapes except `background.png` are white/grey with alpha and are meant to
 
 ## Licences
 
-- Item and icon art (except `cobweb.png`): **Microsoft Fluent Emoji**, © Microsoft Corporation, MIT licence, https://github.com/microsoft/fluentui-emoji. The images are scaled and given a drop shadow.
-- `cobweb.png` and all UI shapes: drawn by this script, part of this project.
+- Item and icon art (except `check.png`): **Microsoft Fluent Emoji**, © Microsoft Corporation, MIT licence, https://github.com/microsoft/fluentui-emoji. The images are scaled and given a drop shadow.
+- `check.png` and all UI shapes: drawn by this script, part of this project.
 
 See `THIRD-PARTY-NOTICES.md` at the repository root for the full licence texts.

@@ -7,7 +7,7 @@ This project includes the following third-party material.
 - Source: https://github.com/microsoft/fluentui-emoji (3D style PNG renders)
 - Licence: MIT
 - Used for: icons (score, coin, lock, home, trash, sparkles, crown, play, customer avatars). The renders are trimmed, scaled, centred and given a drop shadow by `Tools/PlaceholderArt/generate_sprites.py`. The script can also render item sprites for chain levels that name an `emoji` in the seed; no shipped chain does.
-- Files: `Assets/MergeGame/Content/Sprites/Icons/*.png` (except `Icons/cobweb.png` and `Icons/check.png`, which are drawn by the script).
+- Files: `Assets/MergeGame/Content/Sprites/Icons/*.png` (except `Icons/check.png`, which is drawn by the script).
 
 ```
 MIT License
@@ -58,5 +58,5 @@ SOFTWARE
 ## Licensed asset pack (item art, board tray, selection brackets, sound)
 
 - Source: an asset pack supplied by the project owner, who holds the licence to use it. The pack is not part of the repository.
-- Used for: the item sprites of all four chains, the blue board tray and the colours of its tiles, the corner brackets around the selected cell, the sparkle stars over a highlighted item, the ring that spreads out from a merge, the sound effects and the background music.
-- Files: `Assets/MergeGame/Content/Sprites/Items/**/*.png`, `Assets/MergeGame/Content/Sprites/UI/selection_brackets.png`, `Assets/MergeGame/Content/Sprites/UI/board_tray.png`, `Assets/MergeGame/Content/Sprites/UI/sparkle_star.png`, `Assets/MergeGame/Content/Sprites/UI/merge_ring.png` and `Assets/MergeGame/Content/Audio/*.ogg`. They are copied from the pack by `Tools/PackArt/import_pack_art.py`, which lists every source file; item art is trimmed, scaled, centred on a 256×256 canvas and given a contact shadow, audio is copied unchanged.
+- Used for: the item sprites of all four chains, the blue board tray and the colours of its tiles, the corner brackets around the selected cell, the sparkle stars over a highlighted item, the ring that spreads out from a merge, the bubble around a locked item and its burst (the bubble, its popping-skin sheet and the sprayed droplets), the sound effects and the background music.
+- Files: `Assets/MergeGame/Content/Sprites/Items/**/*.png`, `Assets/MergeGame/Content/Sprites/UI/selection_brackets.png`, `Assets/MergeGame/Content/Sprites/UI/board_tray.png`, `Assets/MergeGame/Content/Sprites/UI/sparkle_star.png`, `Assets/MergeGame/Content/Sprites/UI/merge_ring.png`, `Assets/MergeGame/Content/Sprites/UI/lock_bubble.png`, `Assets/MergeGame/Content/Sprites/UI/bubble_pop_sheet.png`, `Assets/MergeGame/Content/Sprites/UI/bubble_droplet.png` and `Assets/MergeGame/Content/Audio/*.ogg`. They are copied from the pack by `Tools/PackArt/import_pack_art.py`, which lists every source file; item art is trimmed, scaled, centred on a 256×256 canvas and given a contact shadow, audio is copied unchanged.

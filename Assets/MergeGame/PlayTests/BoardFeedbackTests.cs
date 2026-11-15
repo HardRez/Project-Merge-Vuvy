@@ -101,10 +101,10 @@ namespace MergeGame.PlayTests
         }
 
         [UnityTest]
-        public IEnumerator FreeingTheWebbedNeighbourOfAClosedCell_PoursTheSandOutInsideTheCell_AndRevealsAWebbedItem()
+        public IEnumerator FreeingTheBubbledNeighbourOfAClosedCell_PoursTheSandOutInsideTheCell_AndRevealsABubbledItem()
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
-            Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True, "No merge frees a webbed item next to a closed cell.");
+            Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True, "No merge frees a bubbled item next to a closed cell.");
             var closed = GameScreenDriver.Neighbours(to).First(game.IsCovered);
 
             var tile = game.Board.GetCellTile(closed);

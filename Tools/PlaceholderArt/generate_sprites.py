@@ -78,7 +78,6 @@ ICONS = [
     ("customer_05", "\U0001F467"),                    # girl
     ("customer_06", "\U0001F469‍\U0001F9B1"),    # woman, curly hair
 ]
-# `cobweb.png` is drawn procedurally (see draw_cobweb) so it works as an overlay.
 # `check.png` is drawn procedurally (see draw_check): a bare tick, with no button behind it.
 
 UI_SIZE = 128             # existing UI sprites are 128 x 128; their .meta sprite rects depend on it
@@ -210,70 +209,6 @@ def write_items(source: FluentSource, seed_path: Path, out_dir: Path) -> list[Pa
     return written
 
 
-def draw_cobweb() -> Image.Image:
-    """Semi-transparent white web, drawn over a locked item. Lines only, so the item stays visible."""
-    ss = SUPERSAMPLE
-    size = SPRITE_SIZE * ss
-    c = size / 2
-    spokes = 12
-    rings = [0.16, 0.30, 0.45, 0.61, 0.78, 0.97]
-    radius = size * 0.5
-    angles = [2 * math.pi * i / spokes + 0.13 for i in range(spokes)]
-
-    lines: list[list[tuple[float, float]]] = []
-    for a in angles:  # spokes run to the corners/edges of the cell
-        reach = radius * 1.42
-        lines.append([(c, c), (c + math.cos(a) * reach, c + math.sin(a) * reach)])
-    for r in rings:  # threads sag towards the centre between spokes
-        rr = radius * r
-        for i in range(spokes):
-            a0, a1 = angles[i], angles[(i + 1) % spokes] + (2 * math.pi if i == spokes - 1 else 0)
-            pts = []
-            for k in range(13):
-                t = k / 12
-                a = a0 + (a1 - a0) * t
-                sag = 1 - 0.13 * math.sin(math.pi * t)
-                pts.append((c + math.cos(a) * rr * sag, c + math.sin(a) * rr * sag))
-            lines.append(pts)
-
-    def stroke(width: float) -> Image.Image:
-        m = Image.new("L", (size, size), 0)
-        d = ImageDraw.Draw(m)
-        for pts in lines:
-            d.line(pts, fill=255, width=round(width * ss), joint="curve")
-        return m
-
-    dark = stroke(5.0).filter(ImageFilter.GaussianBlur(2 * ss))   # soft dark halo for legibility
-    light = stroke(2.2)
-
-    # Fade the web towards the centre a little so the item stays readable.
-    fade = Image.radial_gradient("L").resize((size, size))           # 0 centre -> 255 edge
-    fade = fade.point(lambda v: round(150 + 105 * min(1.0, v / 160)))
-
-    halo_a = ImageChops.multiply(dark, fade).point(lambda a: round(a * 0.35))
-    line_a = ImageChops.multiply(light, fade).point(lambda a: round(a * 0.92))
-
-    haze = Image.radial_gradient("L").resize((size, size)).point(lambda v: round(min(255, v) * 0.22))
-
-    # Keep everything inside a rounded square so it sits within a rounded board cell.
-    clip = Image.new("L", (size, size), 0)
-    ImageDraw.Draw(clip).rounded_rectangle((6 * ss, 6 * ss, size - 6 * ss, size - 6 * ss), radius=48 * ss, fill=255)
-    clip = clip.filter(ImageFilter.GaussianBlur(3 * ss))
-    halo_a, line_a, haze = (ImageChops.multiply(m, clip) for m in (halo_a, line_a, haze))
-
-    img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    halo = Image.new("RGBA", (size, size), (60, 60, 80, 0))
-    halo.putalpha(halo_a)
-    mist = Image.new("RGBA", (size, size), (235, 238, 245, 0))
-    mist.putalpha(haze)
-    web = Image.new("RGBA", (size, size), (250, 250, 255, 0))
-    web.putalpha(line_a)
-    img.alpha_composite(mist)
-    img.alpha_composite(halo)
-    img.alpha_composite(web)
-    return img.convert("RGBa").resize((SPRITE_SIZE, SPRITE_SIZE), Image.LANCZOS).convert("RGBA")
-
-
 def draw_check() -> Image.Image:
     """A bare green tick. The white rim and soft shadow keep it readable on top of any item, green ones included."""
     ss = SUPERSAMPLE
@@ -331,7 +266,7 @@ def write_icons(source: FluentSource, out_dir: Path) -> list[Path]:
         written.append(path)
     if errors:
         raise ResolveError("Unresolvable icon emoji:\n  " + "\n  ".join(errors))
-    for stem, draw in (("cobweb", draw_cobweb), ("check", draw_check)):
+    for stem, draw in (("check", draw_check),):
         path = icon_dir / f"{stem}.png"
         draw().save(path)
         written.append(path)

@@ -60,12 +60,14 @@ namespace MergeGame.PlayTests
         }
 
         [UnityTest]
-        public IEnumerator FreeingAWebbedItemNextToSand_PlaysUnlock_AndTheSandBreakingOnce()
+        public IEnumerator FreeingABubbledItemNextToSand_PlaysThePop_AndTheSandBreakingOnce()
         {
             yield return OpenGameAndListen();
             Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True);
 
             yield return game.DragAndDrop(from, to);
+            // The pop lands with the bubble bursting, once the other item has flown in.
+            yield return GameScreenDriver.WaitSeconds(0.4f);
 
             Assert.That(played, Has.Member(Clip(SoundCue.Unlock)));
             Assert.That(played.FindAll(clip => clip == Clip(SoundCue.SandBreak)), Has.Count.EqualTo(1),

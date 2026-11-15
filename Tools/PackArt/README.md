@@ -7,6 +7,9 @@
 | `Sprites/Items/<chainId>/<chainId>_<LL>.png` | `Board/ItemMain/Item/<source>.png`, one per chain level whose entry in `Assets/MergeGame/Editor/Seed/seed_content.json` has a `source` | Trimmed, scaled (longest side × 1.3, clamped to 160–212 px, so level 1 items stay readable while higher levels still grow), centred on a 256×256 canvas with a soft contact shadow, the same canvas as the placeholder emoji items |
 | `Sprites/UI/selection_brackets.png` | `Board/Board/item_selected.png` | Copied unchanged; the scene builder slices it 9-ways (60 px corners) |
 | `Sprites/UI/sparkle_star.png` | `Effects/Textures/t_xingxing_3.png` | Copied unchanged; the twinkling stars over a merge target or a spawned item, and the glint at a merged item's corner |
+| `Sprites/UI/bubble_pop_sheet.png` | `Effects/Textures/t_water_5.png` | Copied unchanged; a 4x4 sheet of a bubble's skin tearing apart, played as a flipbook when a bubble bursts |
+| `Sprites/UI/bubble_droplet.png` | `Effects/Textures/t_paopao1.png` | Copied unchanged; the small bubbles sprayed out of a burst |
+| `Sprites/UI/lock_bubble.png` | `Board/ItemMain/Item/Bubble.png` | Copied unchanged; the clear bubble around a locked item, which pops outwards when a merge frees it |
 | `Sprites/UI/merge_ring.png` | `Effects/Textures/t_effect_1.png` | Copied unchanged; the ring that spreads out behind a merged item |
 | `Sprites/UI/board_tray.png` | `Board/Board/board.png` | Copied unchanged; the blue tray inside the board's wooden frame, sliced 9-ways (30 px borders). The tile colours in `UiTheme` (`boardTileLight`, `boardTileDark`) are sampled from the pack's `tile_bg1.png` and `tile_bg2.png` |
 | `Audio/*.ogg` | `Audios/Effect/*.ogg`, `Audios/Music/bgmScene.ogg` | Copied unchanged under the names in the `AUDIO` table; `SoundLibrary.asset` is created from these names |

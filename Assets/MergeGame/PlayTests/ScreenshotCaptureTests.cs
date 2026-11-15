@@ -105,13 +105,46 @@ namespace MergeGame.PlayTests
         public IEnumerator CaptureMergeFrames()
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
-            GridPosition from, to;
-            for (var spawns = 0; !game.TryFindMergePair(out from, out to) && spawns < 20; spawns++)
+            for (var spawns = 0; !game.TryFindMergePair(out _, out _) && spawns < 20; spawns++)
             {
                 game.ClickSpawn();
                 yield return null;
             }
 
+            Assert.That(game.TryFindMergePair(out var from, out var to), Is.True);
+            yield return FilmMerge("14_merge", from, to);
+        }
+
+        /// <summary>A merge that frees a locked item, so its bubble swells and bursts; filmed like <see cref="CaptureMergeFrames"/>.</summary>
+        [UnityTest]
+        public IEnumerator CaptureBubblePopFrames()
+        {
+            yield return GameScreenDriver.OpenGame(driver => game = driver);
+            Assert.That(game.TryFindCoverOpeningMerge(out var from, out var to), Is.True);
+            yield return FilmMerge("15_bubble_pop", from, to);
+        }
+
+        /// <summary>A locked item's bubble breathing at rest, filmed at 10 frames per second of game time.</summary>
+        [UnityTest]
+        public IEnumerator CaptureBubbleBreathFrames()
+        {
+            yield return GameScreenDriver.OpenGame(driver => game = driver);
+            var locked = game.Cells().First(cell => game.Board.TryGetItem(cell, out var item) && item.IsLocked && !item.IsHidden);
+            Time.captureDeltaTime = 1f / 10f;
+            try
+            {
+                yield return CroppedFrames.CaptureLive(
+                    game.Camera, Snapshot.DeviceResolutions[0], directory, "16_bubble_breath", 25, () => { },
+                    () => CellNeighbourhoodInPixels(locked, 1.6f), 1);
+            }
+            finally
+            {
+                Time.captureDeltaTime = 0f;
+            }
+        }
+
+        private IEnumerator FilmMerge(string name, GridPosition from, GridPosition to)
+        {
             yield return GameScreenDriver.WaitSeconds(0.6f);
             PointerGesture held = null;
             yield return game.DragOnto(from, to, gesture => held = gesture);
@@ -121,7 +154,7 @@ namespace MergeGame.PlayTests
             try
             {
                 yield return CroppedFrames.CaptureLive(
-                    game.Camera, Snapshot.DeviceResolutions[0], directory, "14_merge", 32,
+                    game.Camera, Snapshot.DeviceResolutions[0], directory, name, 32,
                     () =>
                     {
                         held.MoveTo(game.ScreenPointOf(to));
