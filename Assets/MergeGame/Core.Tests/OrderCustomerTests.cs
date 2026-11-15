@@ -30,25 +30,77 @@ namespace MergeGame.Core.Tests
         }
 
         [Test]
-        public void Replacement_MayReuseTheDeliveredCustomerButNotTheOtherSlots()
+        public void Replacement_NeitherBringsBackTheDeliveredCustomerNorReusesTheOtherSlots()
         {
-            // construction: slot 0 -> 0, slot 1 -> 1; replacement for slot 0 rolls among [0, 2]
+            // construction: slot 0 -> 0, slot 1 -> 1; replacement for slot 0 rolls 1 among [2, 3] -> 3
             var session = new SessionBuilder()
-                .WithDefinition(DefinitionWithOrders(new ScriptedOrderGenerator(Wants(Item(Wood, 1))), OrderSetup(maxActiveOrders: 2, customerCount: 3)))
+                .WithDefinition(DefinitionWithOrders(new ScriptedOrderGenerator(Wants(Item(Wood, 1))), OrderSetup(maxActiveOrders: 2, customerCount: 4)))
                 .WithRandom(new ScriptedRandom(0, 0, 1))
                 .WithItem(0, 0, Item(Wood, 1))
                 .Build();
 
             session.DeliverOrder(session.ActiveOrders[0].Id);
 
-            Assert.That(Customers(session), Is.EqualTo(new[] { 2, 1 }));
+            Assert.That(Customers(session), Is.EqualTo(new[] { 3, 1 }));
+        }
+
+        [Test]
+        public void Replacement_WithEveryCustomerShown_StillSkipsTheDeliveredOne()
+        {
+            // construction: slot 0 -> 0, slot 1 -> 1; nobody is free, so slot 0 rolls among [1] -> 1
+            var session = new SessionBuilder()
+                .WithDefinition(DefinitionWithOrders(new ScriptedOrderGenerator(Wants(Item(Wood, 1))), OrderSetup(maxActiveOrders: 2, customerCount: 2)))
+                .WithRandom(new ScriptedRandom())
+                .WithItem(0, 0, Item(Wood, 1))
+                .Build();
+
+            session.DeliverOrder(session.ActiveOrders[0].Id);
+
+            Assert.That(Customers(session), Is.EqualTo(new[] { 1, 1 }));
+        }
+
+        [Test]
+        public void Replacement_WithASingleCustomer_BringsItBack()
+        {
+            var session = new SessionBuilder()
+                .WithDefinition(DefinitionWithOrders(new ScriptedOrderGenerator(Wants(Item(Wood, 1))), OrderSetup(maxActiveOrders: 1, customerCount: 1)))
+                .WithItem(0, 0, Item(Wood, 1))
+                .Build();
+
+            session.DeliverOrder(session.ActiveOrders[0].Id);
+
+            Assert.That(Customers(session), Is.EqualTo(new[] { 0 }));
+        }
+
+        [Test]
+        public void ManyDeliveries_NeverGiveASlotTheSameCustomerTwiceInARow()
+        {
+            for (var seed = 0; seed < 20; seed++)
+            {
+                var session = new SessionBuilder()
+                    .WithDefinition(DefinitionWithOrders(new ScriptedOrderGenerator(Wants(Item(Wood, 1))), OrderSetup(maxActiveOrders: 2, customerCount: 3)))
+                    .WithRandom(new SystemRandom(seed))
+                    .WithFullBoardOf(Item(Wood, 1))
+                    .Build();
+
+                for (var delivery = 0; delivery < 20; delivery++)
+                {
+                    var slot = delivery % 2;
+                    var leaving = session.ActiveOrders[slot].CustomerIndex;
+
+                    session.DeliverOrder(session.ActiveOrders[slot].Id);
+
+                    Assert.That(session.ActiveOrders[slot].CustomerIndex, Is.Not.EqualTo(leaving), $"seed {seed}, delivery {delivery}");
+                    Assert.That(Customers(session), Is.Unique, $"seed {seed}, delivery {delivery}");
+                }
+            }
         }
 
         [Test]
         public void Replacement_OffersOnlyTheFreeCustomersToTheRandomSource()
         {
             var session = new SessionBuilder()
-                .WithDefinition(DefinitionWithOrders(new ScriptedOrderGenerator(Wants(Item(Wood, 1))), OrderSetup(maxActiveOrders: 2, customerCount: 3)))
+                .WithDefinition(DefinitionWithOrders(new ScriptedOrderGenerator(Wants(Item(Wood, 1))), OrderSetup(maxActiveOrders: 2, customerCount: 4)))
                 .WithRandom(new ScriptedRandom(0, 0, 2))
                 .WithItem(0, 0, Item(Wood, 1))
                 .Build();

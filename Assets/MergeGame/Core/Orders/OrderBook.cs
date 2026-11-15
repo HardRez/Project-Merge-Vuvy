@@ -90,26 +90,41 @@ namespace MergeGame.Core.Orders
 
         public void Replace(int slotIndex, Order order) => slots[slotIndex] = order ?? throw new ArgumentNullException(nameof(order));
 
-        /// <summary>Uniform among customers no other slot shows; any customer once all of them are taken.</summary>
+        /// <summary>
+        /// Uniform among customers no slot shows, so the customer leaving <paramref name="slotIndex"/> never comes
+        /// straight back. Once every customer is shown, uniform among all but the leaving one; with a single customer,
+        /// that customer.
+        /// </summary>
         private int ChooseCustomer(int slotIndex)
         {
+            var leaving = slots[slotIndex]?.CustomerIndex ?? -1;
+
             customerBuffer.Clear();
             for (var customer = 0; customer < settings.CustomerCount; customer++)
             {
-                if (!IsShownByOtherSlot(customer, slotIndex))
+                if (!IsShown(customer))
                     customerBuffer.Add(customer);
             }
 
             if (customerBuffer.Count == 0)
-                return random.Next(settings.CustomerCount);
+            {
+                for (var customer = 0; customer < settings.CustomerCount; customer++)
+                {
+                    if (customer != leaving)
+                        customerBuffer.Add(customer);
+                }
+            }
+
+            if (customerBuffer.Count == 0)
+                return leaving;
             return customerBuffer[random.Next(customerBuffer.Count)];
         }
 
-        private bool IsShownByOtherSlot(int customer, int slotIndex)
+        private bool IsShown(int customer)
         {
-            for (var i = 0; i < slots.Length; i++)
+            foreach (var order in slots)
             {
-                if (i != slotIndex && slots[i] != null && slots[i].CustomerIndex == customer)
+                if (order != null && order.CustomerIndex == customer)
                     return true;
             }
 

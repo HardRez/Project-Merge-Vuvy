@@ -27,7 +27,7 @@ namespace MergeGame.Presentation.Tests
                 "Orders.CompleteOrder slot 0 +5",
                 "Score.ChangeScore 0 -> 5",
                 "Spawn.SetSpawnAvailable True",
-                "Orders.AddCard Slot 0: customer 0 wants stone:1 for 5"
+                "Orders.AddCard Slot 0: customer 1 wants stone:1 for 5"
             }));
         }
 
