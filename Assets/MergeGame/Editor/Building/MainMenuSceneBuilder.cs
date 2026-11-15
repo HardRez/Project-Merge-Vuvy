@@ -56,7 +56,7 @@ namespace MergeGame.Editor.Building
             // The shop's parquet floor; the wallpaper comes down behind the counter.
             var content = SceneScaffold.SafeContent(ui, canvas, ui.Sprites.ShopFloor, LayoutMetrics.ShopFloorTileWidth);
 
-            var plank = Shop(content);
+            var plank = Shop(content, out var customers);
             ShopScenery.Wall(ui, canvas, plank);
             Bunting(content);
             var title = Title(content);
@@ -72,6 +72,7 @@ namespace MergeGame.Editor.Building
             var sounds = SceneScaffold.Sounds(UiDataAssets.LoadOrCreateSoundLibrary());
             SceneScaffold.ClickSound(play.Button, sounds);
             SceneScaffold.ClickSound(quit.Button, sounds);
+            customers.Wire("sounds", sounds);
 
             SceneScaffold.SceneContext<MainMenuInstaller>().Wire("mainMenuView", view);
         }
@@ -122,7 +123,7 @@ namespace MergeGame.Editor.Building
         /// the best burger on a tray on it.
         /// </summary>
         /// <returns>The counter's plank, which the wall reaches down behind.</returns>
-        private RectTransform Shop(RectTransform content)
+        private RectTransform Shop(RectTransform content, out MenuCustomers menuCustomers)
         {
             var shop = UiKit.Rect("Shop", content);
             shop.anchorMin = new Vector2(0f, CounterHeightShare);
@@ -153,7 +154,7 @@ namespace MergeGame.Editor.Building
             ui.Image("Best", shop, chain.Levels[chain.Levels.Count - 1].Icon, Color.white).rectTransform
                 .Pin(RectLayout.Bottom, new Vector2(220f, 220f), new Vector2(0f, LayoutMetrics.TrayBottom - 8f));
 
-            shop.gameObject.AddComponent<MenuCustomers>()
+            menuCustomers = shop.gameObject.AddComponent<MenuCustomers>()
                 .Wire("customers", customers)
                 .Wire("portraits", portraits);
             return plank;

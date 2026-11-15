@@ -1,6 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using MergeGame.PlayTests.Support;
+using MergeGame.View.Audio;
 using MergeGame.View.MainMenu;
+using MergeGame.View.Orders;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -14,14 +17,31 @@ namespace MergeGame.PlayTests
         private const float ArrivedSeconds = 1.8f;
 
         [UnityTest]
-        public IEnumerator TheCustomersBehindTheCounter_AllArrive_AndIdleInTheirWaitingLoop()
+        public IEnumerator TheCustomersBehindTheCounter_AllArrive_EachWithAPop_AndIdleInTheirWaitingLoop()
         {
             yield return GameScreenDriver.LoadScene(GameScreenDriver.MainMenuScene);
             var shop = Object.FindAnyObjectByType<MenuCustomers>();
             Assert.That(shop, Is.Not.Null);
             Assert.That(shop.Customers, Has.Length.EqualTo(3));
+            var sounds = Object.FindAnyObjectByType<SoundPlayer>();
+            Assert.That(sounds.Library.TryGet(SoundCue.CustomerAppear, out var pop, out _), Is.True, "No clip for a customer popping in.");
+            var arrivals = new List<int>();
+            var pops = new List<int>();
+            void Arrived(CustomerPortraitView _) => arrivals.Add(Time.frameCount);
+            void Played(AudioClip clip)
+            {
+                if (clip == pop)
+                    pops.Add(Time.frameCount);
+            }
 
+            shop.Arrived += Arrived;
+            sounds.ClipPlayed += Played;
             yield return GameScreenDriver.WaitSeconds(ArrivedSeconds);
+            shop.Arrived -= Arrived;
+            sounds.ClipPlayed -= Played;
+            Assert.That(arrivals, Has.Count.EqualTo(shop.Customers.Length), "Not every customer came in while the test watched.");
+            Assert.That(pops, Is.EqualTo(arrivals), "Every customer pops in with a sound of its own, as it appears.");
+
             foreach (var customer in shop.Customers)
             {
                 Assert.That(customer.gameObject.activeInHierarchy, Is.True, $"{customer.name} never came in.");

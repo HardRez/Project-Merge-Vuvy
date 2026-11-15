@@ -66,7 +66,8 @@ namespace MergeGame.Editor.Building
                 new SoundLibrary.CueClip(SoundCue.Notice, Clip("notice"), 0.5f),
                 new SoundLibrary.CueClip(SoundCue.CashLand, Clip("cash_land"), 0.6f),
                 new SoundLibrary.CueClip(SoundCue.CashBurst, Clip("cash_burst"), 0.6f),
-                new SoundLibrary.CueClip(SoundCue.CashSwoosh, Clip("cash_swoosh"), 0.7f)
+                new SoundLibrary.CueClip(SoundCue.CashSwoosh, Clip("cash_swoosh"), 0.7f),
+                new SoundLibrary.CueClip(SoundCue.CustomerAppear, Clip("customer_appear"), 0.6f)
             };
 
         private static AudioClip Clip(string name)
