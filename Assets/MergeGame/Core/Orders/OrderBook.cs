@@ -25,6 +25,19 @@ namespace MergeGame.Core.Orders
         private int nextOrderId = 1;
 
         public OrderBook(OrderSettings settings, IOrderGenerator generator, ItemCatalog catalog, IRandom random)
+            : this(settings, generator, catalog, random, null, 1)
+        {
+        }
+
+        /// <summary>
+        /// Opens the book with <paramref name="savedOrders"/> in its slots instead of generating new ones, as a resumed
+        /// game does. Every saved order is checked against the settings and the catalog and repriced with today's
+        /// rewards, so content that changed since the save either still fits or is rejected.
+        /// </summary>
+        /// <param name="savedOrders">One order per slot; null generates fresh orders.</param>
+        /// <exception cref="ArgumentException">A saved order no longer fits the settings or the catalog.</exception>
+        public OrderBook(
+            OrderSettings settings, IOrderGenerator generator, ItemCatalog catalog, IRandom random, IReadOnlyList<Order> savedOrders, int nextOrderId)
         {
             this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
             this.generator = generator ?? throw new ArgumentNullException(nameof(generator));
@@ -32,12 +45,22 @@ namespace MergeGame.Core.Orders
             this.random = random ?? throw new ArgumentNullException(nameof(random));
 
             slots = new Order[settings.MaxActiveOrders];
-            for (var i = 0; i < slots.Length; i++)
-                slots[i] = CreateOrderFor(i);
             activeOrders = Array.AsReadOnly(slots);
+            if (savedOrders == null)
+            {
+                for (var i = 0; i < slots.Length; i++)
+                    slots[i] = CreateOrderFor(i);
+            }
+            else
+            {
+                Restore(savedOrders, nextOrderId);
+            }
         }
 
         public IReadOnlyList<Order> ActiveOrders => activeOrders;
+
+        /// <summary>The id the next generated order gets.</summary>
+        public int NextOrderId => nextOrderId;
 
         public bool TryGetSlot(int orderId, out int slotIndex)
         {
@@ -89,6 +112,38 @@ namespace MergeGame.Core.Orders
         }
 
         public void Replace(int slotIndex, Order order) => slots[slotIndex] = order ?? throw new ArgumentNullException(nameof(order));
+
+        private void Restore(IReadOnlyList<Order> savedOrders, int savedNextOrderId)
+        {
+            if (savedOrders.Count != slots.Length)
+                throw new ArgumentException(
+                    $"The save holds {savedOrders.Count} orders but the game has {slots.Length} order slots.", nameof(savedOrders));
+
+            var ids = new HashSet<int>();
+            for (var i = 0; i < slots.Length; i++)
+            {
+                var saved = savedOrders[i] ?? throw new ArgumentException($"Saved order at slot {i} is null.", nameof(savedOrders));
+                if (!ids.Add(saved.Id))
+                    throw new ArgumentException($"Two saved orders share the id {saved.Id}.", nameof(savedOrders));
+                if (saved.Id >= savedNextOrderId)
+                    throw new ArgumentException($"Saved order {saved.Id} is not below the next order id {savedNextOrderId}.", nameof(savedOrders));
+                if (saved.CustomerIndex >= settings.CustomerCount)
+                    throw new ArgumentException(
+                        $"Saved order {saved.Id} comes from customer {saved.CustomerIndex}, but there are only {settings.CustomerCount}.", nameof(savedOrders));
+                try
+                {
+                    settings.EnsureAllows(saved.Requirements, catalog);
+                }
+                catch (InvalidOperationException exception)
+                {
+                    throw new ArgumentException($"Saved order {saved.Id} no longer fits the game: {exception.Message}", nameof(savedOrders), exception);
+                }
+
+                slots[i] = new Order(saved.Id, saved.CustomerIndex, saved.Requirements, settings.RewardFor(saved.Requirements, catalog));
+            }
+
+            nextOrderId = savedNextOrderId;
+        }
 
         /// <summary>
         /// Uniform among customers no slot shows, so the customer leaving <paramref name="slotIndex"/> never comes

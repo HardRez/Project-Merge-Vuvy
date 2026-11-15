@@ -32,6 +32,12 @@ namespace MergeGame.Core.Session
 
         /// <param name="board">Used as is; the definition's initial placements are not applied to it.</param>
         internal MergeGameSession(GameDefinition definition, IRandom random, Board board)
+            : this(definition, random, board, null)
+        {
+        }
+
+        /// <param name="snapshot">The saved score and orders to carry on with; null starts with no score and new orders.</param>
+        private MergeGameSession(GameDefinition definition, IRandom random, Board board, GameSnapshot snapshot)
         {
             RequireDefinition(definition);
             this.random = random ?? throw new ArgumentNullException(nameof(random));
@@ -44,7 +50,40 @@ namespace MergeGame.Core.Session
             spawnPolicy = definition.SpawnPolicy;
             scoreCalculator = definition.ScoreCalculator;
             if (definition.HasOrders)
-                orderBook = new OrderBook(definition.OrderSettings, definition.OrderGenerator, Catalog, random);
+                orderBook = new OrderBook(
+                    definition.OrderSettings, definition.OrderGenerator, Catalog, random, snapshot?.Orders, snapshot?.NextOrderId ?? 1);
+            else if (snapshot != null && snapshot.Orders.Count > 0)
+                throw new ArgumentException("The save holds orders but the game has none.", nameof(snapshot));
+            Score = snapshot?.Score ?? 0;
+        }
+
+        /// <summary>
+        /// Carries on a saved game: the board, score and orders are exactly as <paramref name="snapshot"/> holds them, the
+        /// definition's initial placements are not applied. Construction raises no events, as for a new session.
+        /// </summary>
+        /// <exception cref="ArgumentException">
+        /// The snapshot does not fit <paramref name="definition"/>, e.g. because the content changed since it was saved:
+        /// an item outside the board or missing from the catalog, two items in one cell, or orders the game cannot have.
+        /// </exception>
+        public static MergeGameSession Resume(GameDefinition definition, IRandom random, GameSnapshot snapshot)
+        {
+            RequireDefinition(definition);
+            if (snapshot == null)
+                throw new ArgumentNullException(nameof(snapshot));
+
+            var board = new Board(definition.BoardSize);
+            foreach (var item in snapshot.Items)
+            {
+                if (!board.IsInside(item.Position))
+                    throw new ArgumentException($"Saved item {item} is outside the {definition.BoardSize} board.", nameof(snapshot));
+                if (!definition.Catalog.Contains(item.ItemId))
+                    throw new ArgumentException($"Saved item {item} is not in the item catalog.", nameof(snapshot));
+                if (!board.IsEmpty(item.Position))
+                    throw new ArgumentException($"The save puts two items in cell {item.Position}.", nameof(snapshot));
+                board.Place(item.Position, new BoardItem(item.ItemId, item.IsLocked, item.IsHidden));
+            }
+
+            return new MergeGameSession(definition, random, board, snapshot);
         }
 
         public event Action<GameEvent> EventRaised;
@@ -59,6 +98,19 @@ namespace MergeGame.Core.Session
         /// replacement takes its slot index. This is a live view of the slots.
         /// </summary>
         public IReadOnlyList<Order> ActiveOrders => orderBook?.ActiveOrders ?? Array.Empty<Order>();
+
+        /// <summary>The board, score and orders as they are now, for saving; see <see cref="Resume"/>.</summary>
+        public GameSnapshot CaptureSnapshot()
+        {
+            var items = new List<InitialPlacement>(board.Size.CellCount - board.EmptyCellCount);
+            foreach (var position in board.Positions)
+            {
+                if (board.TryGetItem(position, out var item))
+                    items.Add(new InitialPlacement(position, item.ItemId, item.IsLocked, item.IsHidden));
+            }
+
+            return new GameSnapshot(Score, items, ActiveOrders, orderBook?.NextOrderId ?? 1);
+        }
 
         public DropOutcome PreviewDrop(GridPosition from, GridPosition to) => dropResolver.Resolve(board, Catalog, from, to);
 

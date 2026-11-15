@@ -71,7 +71,9 @@ namespace MergeGame.Editor.Building
             // Last on the canvas, so the popups cover everything, dragged items included.
             var popups = new GamePopups(ui);
             var chains = popups.Chains(canvas, infoButton);
-            var settings = popups.Settings(canvas, settingsButton);
+            var settings = popups.Settings(canvas, settingsButton, out var cheatsButton);
+            // After the settings, so the cheats open over them.
+            var cheats = popups.Cheats(canvas, cheatsButton);
             var board = Board(boardArea, dragLayer);
             var mergeHint = board.gameObject.AddComponent<MergeHintView>().Wire("board", board);
             var orderMatches = board.gameObject.AddComponent<OrderMatchView>().Wire("board", board);
@@ -85,7 +87,8 @@ namespace MergeGame.Editor.Building
             orders.Wire("sounds", sounds);
             notices.Wire("sounds", sounds);
             SceneScaffold.ClickSound(home, sounds);
-            foreach (var button in new[] { settings.OpenButton, settings.CloseButton, settings.SoundButton, settings.VibrationButton, chains.OpenButton, chains.CloseButton })
+            foreach (var button in new[] { settings.OpenButton, settings.CloseButton, settings.SoundButton, settings.VibrationButton,
+                         cheats.OpenButton, cheats.CloseButton, cheats.ResetSaveButton, chains.OpenButton, chains.CloseButton })
                 SceneScaffold.ClickSound(button, sounds);
 
             var haptics = new GameObject("Haptics").AddComponent<Haptics>();
@@ -105,6 +108,7 @@ namespace MergeGame.Editor.Building
                 .Wire("orderMatchView", orderMatches)
                 .Wire("settingsView", settings)
                 .Wire("chainsView", chains)
+                .Wire("cheatsView", cheats)
                 .Wire("itemPrefab", prefabs.ItemView)
                 .Wire("pointsPopupPrefab", prefabs.PointsPopup)
                 .Wire("poolRoot", pool);

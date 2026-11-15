@@ -1,5 +1,6 @@
 using System;
 using MergeGame.App.Navigation;
+using MergeGame.App.Saving;
 using MergeGame.App.Settings;
 using MergeGame.Core.Spawning;
 using MergeGame.Data.Authoring;
@@ -10,7 +11,10 @@ using Zenject;
 
 namespace MergeGame.App.Installers
 {
-    /// <summary>Bindings that outlive scenes: what to play, how to switch screens, the random source and the player's settings.</summary>
+    /// <summary>
+    /// Bindings that outlive scenes: what to play, how to switch screens, the random source, the player's settings and
+    /// where the saved game is kept.
+    /// </summary>
     public sealed class ProjectInstaller : MonoInstaller
     {
         [SerializeField] private GameConfigAsset gameConfig;
@@ -29,6 +33,7 @@ namespace MergeGame.App.Installers
             Container.Bind<IRandom>().FromInstance(new SystemRandom(randomSeed != 0 ? randomSeed : Environment.TickCount)).AsSingle();
             Container.Bind<IGameSettings>().To<PlayerPrefsGameSettings>().AsSingle().WithArguments(PlayerPrefsGameSettings.DefaultKeyPrefix);
             Container.BindInterfacesTo<SoundSwitch>().AsSingle().NonLazy();
+            Container.Bind<IGameSaveStore>().FromMethod(_ => new JsonFileSaveStore(GameSaveLocation.Directory)).AsSingle();
         }
     }
 }

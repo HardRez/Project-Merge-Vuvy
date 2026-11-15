@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace MergeGame.App.Navigation
 {
-    /// <summary>One scene per screen; every switch loads the target scene from scratch, so a game always starts fresh.</summary>
+    /// <summary>One scene per screen; every switch loads the target scene from scratch, so the game screen reopens the saved game.</summary>
     public sealed class SceneNavigator : IAppNavigator
     {
         private readonly SceneNames scenes;
