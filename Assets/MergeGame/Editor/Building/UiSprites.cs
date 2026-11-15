@@ -24,7 +24,10 @@ namespace MergeGame.Editor.Building
             // The tray's rounded ends stay, its flat middle stretches; sliced across only, drawn at the art's height.
             ["order_tray"] = new Vector4(46, 0, 46, 0),
             // A glossy pillow-shaped button: likewise only its flat middle stretches across.
-            ["deliver_button"] = new Vector4(50, 0, 50, 0),
+            ["green_button"] = new Vector4(50, 0, 50, 0),
+            ["quit_button"] = new Vector4(60, 0, 60, 0),
+            // Only the rows inside the ribbon's red band (40 to 100) stretch, to make the band taller for the name.
+            ["title_ribbon"] = new Vector4(0, 130, 0, 40),
             // The settings popup's wooden frame and its cream panel.
             ["window_frame"] = new Vector4(70, 76, 70, 70),
             ["window_panel"] = new Vector4(60, 60, 60, 60),
@@ -64,8 +67,17 @@ namespace MergeGame.Editor.Building
         /// <summary>The white tray a customer's requested items stand on; from the asset pack.</summary>
         public Sprite OrderTray { get; private set; }
 
-        /// <summary>The glossy green button an order can be delivered with; from the asset pack.</summary>
-        public Sprite DeliverButton { get; private set; }
+        /// <summary>The glossy green button orders are delivered and the game is started with; from the asset pack.</summary>
+        public Sprite GreenButton { get; private set; }
+
+        /// <summary>The glossy orange pill the main menu's quit button is drawn with; from the asset pack.</summary>
+        public Sprite QuitButton { get; private set; }
+
+        /// <summary>A string of coloured flags hung across the top of the main menu; from the asset pack.</summary>
+        public Sprite Bunting { get; private set; }
+
+        /// <summary>The red ribbon with stars the game's name is written on; from the asset pack.</summary>
+        public Sprite TitleRibbon { get; private set; }
 
         /// <summary>A white gear with a blue core, on the settings button; from the asset pack.</summary>
         public Sprite SettingsIcon { get; private set; }
@@ -152,7 +164,10 @@ namespace MergeGame.Editor.Building
             CounterTop = LoadShape("counter_top"),
             CounterCloth = LoadShape("counter_cloth"),
             OrderTray = LoadShape("order_tray"),
-            DeliverButton = LoadShape("deliver_button"),
+            GreenButton = LoadShape("green_button"),
+            QuitButton = LoadShape("quit_button"),
+            Bunting = LoadShape("bunting"),
+            TitleRibbon = LoadShape("title_ribbon"),
             SettingsIcon = LoadShape("settings_icon"),
             WindowFrame = LoadShape("window_frame"),
             WindowPanel = LoadShape("window_panel"),

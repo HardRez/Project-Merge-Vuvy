@@ -1,43 +1,50 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using MergeGame.App.Installers;
 using MergeGame.Data.Authoring;
 using MergeGame.View.Common;
 using MergeGame.View.MainMenu;
-using UnityEditor;
+using MergeGame.View.Orders;
+using Spine.Unity;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MergeGame.Editor.Building
 {
-    /// <summary>Generates <c>MainMenu.unity</c>: the title with floating items around it, and the Play and Quit buttons.</summary>
+    /// <summary>
+    /// Generates <c>MainMenu.unity</c>: the shop's front. Bunting across the top, the game's name on a ribbon, three
+    /// customers waiting behind the counter with the best burger on a tray, and the Play and Quit buttons on the floor.
+    /// </summary>
     internal sealed class MainMenuSceneBuilder
     {
-        // Normalised positions (in the safe area) and sizes of the floating items around the hero.
-        private static readonly (Vector2 anchor, float size)[] DecorationSpots =
-        {
-            (new Vector2(0.14f, 0.93f), 150f),
-            (new Vector2(0.86f, 0.94f), 140f),
-            (new Vector2(0.11f, 0.61f), 150f),
-            (new Vector2(0.89f, 0.63f), 160f),
-            (new Vector2(0.84f, 0.41f), 120f),
-            (new Vector2(0.16f, 0.43f), 120f)
-        };
+        /// <summary>The customers behind the counter, left to right (folders under Content/Characters).</summary>
+        private static readonly string[] Customers = { "Faye", "Theron", "Elowen" };
+
+        /// <summary>Where the counter's top surface lies, as a share of the screen's height from its bottom.</summary>
+        private const float CounterHeightShare = 0.385f;
+
+        private const float CustomerSpacing = 320f;
+        private const float CustomerStageWidth = 360f;
+
+        /// <summary>The space above the counter the customers stand in; they are drawn 1.25 times as tall.</summary>
+        private const float CustomerFrameHeight = 590f;
 
         private readonly UiKit ui;
         private readonly GameConfigAsset config;
+        private readonly GamePrefabs prefabs;
 
-        private MainMenuSceneBuilder(UiKit ui, GameConfigAsset config)
+        private MainMenuSceneBuilder(UiKit ui, GameConfigAsset config, GamePrefabs prefabs)
         {
             this.ui = ui;
             this.config = config;
+            this.prefabs = prefabs;
         }
 
         public static void Build(string configPath)
         {
             var scene = SceneScaffold.NewScene();
-            new MainMenuSceneBuilder(UiKit.Load(), AssetDatabase.LoadAssetAtPath<GameConfigAsset>(configPath)).Populate();
+            new MainMenuSceneBuilder(UiKit.Load(), AssetDatabase.LoadAssetAtPath<GameConfigAsset>(configPath), GamePrefabs.Load()).Populate();
             SceneScaffold.Save(scene, BuildPaths.MainMenuScene);
         }
 
@@ -46,14 +53,15 @@ namespace MergeGame.Editor.Building
             var camera = SceneScaffold.Camera(ui.Theme.CellLight);
             SceneScaffold.EventSystem();
             var canvas = SceneScaffold.Canvas(camera);
-            // The shop's leaf wallpaper, as behind the customers in the game.
-            var content = SceneScaffold.SafeContent(ui, canvas, ui.Sprites.ShopWall, LayoutMetrics.ShopWallTileWidth);
+            // The shop's parquet floor; the wallpaper comes down behind the counter.
+            var content = SceneScaffold.SafeContent(ui, canvas, ui.Sprites.ShopFloor, LayoutMetrics.ShopFloorTileWidth);
 
-            Decorations(content);
-            Hero(content);
+            var plank = Shop(content);
+            ShopScenery.Wall(ui, canvas, plank);
+            Bunting(content);
             var title = Title(content);
-            var play = BigButton(content, "PlayButton", "Oyna", "play", ui.Theme.Primary, new Vector2(640f, 196f), 0.27f);
-            var quit = BigButton(content, "QuitButton", "Çıkış", null, ui.Theme.Danger, new Vector2(420f, 132f), 0.15f);
+            var play = GameButton(content, "PlayButton", "Oyna", ui.Sprites.GreenButton, new Vector2(600f, 180f), 0.18f, 104f);
+            var quit = GameButton(content, "QuitButton", "Çıkış", ui.Sprites.QuitButton, new Vector2(340f, 110f), 0.075f, 56f);
 
             var view = content.gameObject.AddComponent<MainMenuView>()
                 .Wire("playButton", play.Button)
@@ -68,79 +76,107 @@ namespace MergeGame.Editor.Building
             SceneScaffold.SceneContext<MainMenuInstaller>().Wire("mainMenuView", view);
         }
 
+        /// <summary>A string of coloured flags across the top of the screen.</summary>
+        private void Bunting(RectTransform content)
+        {
+            var art = ui.Sprites.Bunting;
+            var bunting = ui.Image("Bunting", content, art, Color.white);
+            bunting.preserveAspect = false;
+            bunting.rectTransform.Band(fromTop: true, LayoutMetrics.ReferenceResolution.x * art.rect.height / art.rect.width, offset: -40f);
+        }
+
+        /// <summary>The game's name on the pack's red ribbon, and what the game is about on a cream tag under it.</summary>
         private RectTransform Title(RectTransform content)
         {
-            var title = UiKit.Rect("Title", content).Span(new Vector2(0.5f, 0.8f), new Vector2(0.5f, 0.8f));
-            title.sizeDelta = new Vector2(1000f, 330f);
-            var name = ui.Text("Name", title, "Merge Vuvy", 180f, TextTone.Title);
-            name.rectTransform.Band(fromTop: true, height: 230f);
-            name.enableVertexGradient = true;
-            name.colorGradient = new VertexGradient(Color.white, Color.white, ui.Theme.Gold, ui.Theme.Gold);
-            UiKit.ShrinkToFit(name, 110f);
-            var tagline = ui.Text("Tagline", title, "Birleştir • Üret • Teslim Et", 50f, TextTone.Light);
-            tagline.rectTransform.Band(fromTop: false, height: 80f);
+            var art = ui.Sprites.TitleRibbon;
+            const float ribbonWidth = 1000f;
+            var ribbonScale = ribbonWidth / art.rect.width;
+            // Taller than the art by the stretched band rows, at the same scale, so the band holds the whole name.
+            var ribbonHeight = (art.rect.height + LayoutMetrics.TitleRibbonExtraRows) * ribbonScale;
+            const float tagHeight = 76f;
+
+            // Pivoted on its centre, so it drops in evenly.
+            var title = UiKit.Rect("Title", content)
+                .Pin(RectLayout.Top, new Vector2(ribbonWidth, ribbonHeight + tagHeight), new Vector2(0f, -170f - (ribbonHeight + tagHeight) / 2f), pivot: RectLayout.Center);
+
+            var ribbon = ui.Image("Ribbon", title, art, Color.white, cornerScale: ribbonScale);
+            ribbon.rectTransform.Pin(RectLayout.Top, new Vector2(ribbonWidth, ribbonHeight));
+            // The name is written along the ribbon's arched red band: centred on it in the middle and bent with it towards
+            // the ends (see LayoutMetrics.TitleArcRadiusRows); the descenders of g and y dip into the gold stripe under it.
+            var name = ui.Text("Name", ribbon.rectTransform, "Merge Vuvy", LayoutMetrics.TitleNameSize, TextTone.Title, TextAlignmentOptions.Baseline);
+            name.rectTransform.Pin(RectLayout.Top, new Vector2(ribbonWidth - 240f, 0f), new Vector2(0f, -LayoutMetrics.TitleBaselineRow * ribbonScale), pivot: RectLayout.Center);
+            name.color = Color.white;
+            name.gameObject.AddComponent<ArcText>().Wire("radius", LayoutMetrics.TitleArcRadiusRows * ribbonScale);
+
+            var tag = ui.Image("Tagline", title, ui.Sprites.Pill, ui.Theme.CellLight, cornerScale: tagHeight / 128f);
+            tag.rectTransform.Pin(RectLayout.Bottom, new Vector2(600f, tagHeight), new Vector2(0f, 6f));
+            ui.Image("Rim", tag.rectTransform, ui.Sprites.Ring, ui.Theme.WoodLight, cornerScale: tagHeight / 128f).rectTransform.Stretch();
+            var tagline = ui.Text("Label", tag.rectTransform, "Birleştir • Üret • Teslim Et", 40f, TextTone.Dark);
+            tagline.rectTransform.Stretch(24f, 4f, 24f, 0f);
+            UiKit.ShrinkToFit(tagline, 28f);
             return title;
         }
 
-        /// <summary>The chain's top item glowing in the middle of the screen: what the player works towards.</summary>
-        private void Hero(RectTransform content)
+        /// <summary>
+        /// The customers waiting behind the counter (the game's own customer prefab), the counter in front of them, and
+        /// the best burger on a tray on it.
+        /// </summary>
+        /// <returns>The counter's plank, which the wall reaches down behind.</returns>
+        private RectTransform Shop(RectTransform content)
         {
-            var hero = UiKit.Rect("Hero", content).Span(new Vector2(0.5f, 0.52f), new Vector2(0.5f, 0.52f));
-            hero.sizeDelta = new Vector2(420f, 420f);
-            var glow = ui.Image("Glow", hero, ui.Sprites.Glow, ui.Theme.Gold);
-            glow.rectTransform.Inset(-140f);
-            var chain = config.Chains[config.Chains.Count - 1];
-            var item = ui.Image("Item", hero, chain.Levels[chain.Levels.Count - 1].Icon, Color.white);
-            item.rectTransform.Stretch();
-            ui.Icon("Sparkles", hero, "sparkles").rectTransform.Pin(RectLayout.TopRight, new Vector2(150f, 150f), new Vector2(40f, 30f));
-            hero.gameObject.AddComponent<IdleBob>().Wire("amplitude", 10f).Wire("swayDegrees", 2f);
-        }
+            var shop = UiKit.Rect("Shop", content);
+            shop.anchorMin = new Vector2(0f, CounterHeightShare);
+            shop.anchorMax = new Vector2(1f, CounterHeightShare);
+            shop.pivot = new Vector2(0.5f, 0f);
+            shop.sizeDelta = new Vector2(0f, LayoutMetrics.CounterTop + CustomerFrameHeight);
+            shop.anchoredPosition = new Vector2(0f, -LayoutMetrics.CounterTop);
 
-        private void Decorations(RectTransform content)
-        {
-            var icons = DecorationIcons().ToList();
-            for (var i = 0; i < DecorationSpots.Length && i < icons.Count; i++)
-                Decoration(content, icons[i], DecorationSpots[i].anchor, DecorationSpots[i].size, phase: i / (float)DecorationSpots.Length);
-        }
-
-        private void Decoration(RectTransform parent, Sprite icon, Vector2 anchor, float size, float phase)
-        {
-            var image = ui.Image(icon.name, parent, icon, Color.white);
-            image.rectTransform.Pin(anchor, new Vector2(size, size), pivot: RectLayout.Center);
-            image.gameObject.AddComponent<IdleBob>().Wire("phase", phase);
-        }
-
-        /// <summary>One high-level item of each chain, so the menu previews what the game is about.</summary>
-        private IEnumerable<Sprite> DecorationIcons()
-        {
-            var levelPicks = new[] { 4, 5, 3, 6, 2 };
-            for (var i = 0; i < config.Chains.Count * 2; i++)
+            var customers = new CustomerPortraitView[Customers.Length];
+            var portraits = new SkeletonDataAsset[Customers.Length];
+            for (var i = 0; i < Customers.Length; i++)
             {
-                var chain = config.Chains[i % config.Chains.Count];
-                var level = Mathf.Min(levelPicks[i % levelPicks.Length], chain.Levels.Count);
-                yield return chain.Levels[level - 1].Icon;
+                var customer = (CustomerPortraitView)PrefabUtility.InstantiatePrefab(prefabs.CustomerStage, shop);
+                customer.name = Customers[i];
+                ((RectTransform)customer.transform).Pin(RectLayout.Bottom,
+                    new Vector2(CustomerStageWidth, LayoutMetrics.CounterTop + CustomerFrameHeight),
+                    new Vector2((i - (Customers.Length - 1) / 2f) * CustomerSpacing, 0f));
+                customers[i] = customer;
+                portraits[i] = Portrait(Customers[i]);
             }
+
+            var plank = ShopScenery.Counter(ui, shop);
+
+            var tray = ui.Image("Tray", shop, ui.Sprites.OrderTray, Color.white, cornerScale: LayoutMetrics.TrayHeight / ui.Sprites.OrderTray.rect.height);
+            tray.rectTransform.Pin(RectLayout.Bottom, new Vector2(300f, LayoutMetrics.TrayHeight), new Vector2(0f, LayoutMetrics.TrayBottom));
+            // The last chain's best item: the burger the menu has always shown.
+            var chain = config.Chains[config.Chains.Count - 1];
+            ui.Image("Best", shop, chain.Levels[chain.Levels.Count - 1].Icon, Color.white).rectTransform
+                .Pin(RectLayout.Bottom, new Vector2(220f, 220f), new Vector2(0f, LayoutMetrics.TrayBottom - 8f));
+
+            shop.gameObject.AddComponent<MenuCustomers>()
+                .Wire("customers", customers)
+                .Wire("portraits", portraits);
+            return plank;
         }
 
-        private ButtonParts BigButton(RectTransform content, string name, string label, string iconName, Color color, Vector2 size, float heightFraction)
+        private static SkeletonDataAsset Portrait(string character)
         {
-            var holder = UiKit.Rect(name + "Holder", content).Span(new Vector2(0.5f, heightFraction), new Vector2(0.5f, heightFraction));
+            var path = $"{ContentSeeder.CharactersFolder}/{character}/{character}_SkeletonData.asset";
+            return AssetDatabase.LoadAssetAtPath<SkeletonDataAsset>(path) ?? throw new InvalidOperationException($"{path} is missing.");
+        }
+
+        /// <summary>One of the pack's glossy buttons, sliced across only and drawn at its art's proportions, with its label.</summary>
+        private ButtonParts GameButton(RectTransform content, string name, string label, Sprite face, Vector2 size, float heightShare, float fontSize)
+        {
+            // The holder pops in; the button presses inside it.
+            var holder = UiKit.Rect(name + "Holder", content).Span(new Vector2(0.5f, heightShare), new Vector2(0.5f, heightShare));
             holder.sizeDelta = size;
 
-            var button = ui.Button(name, holder, color);
+            var button = ui.ArtButton(name, holder, face, contentLift: size.y * 0.1f, height: size.y);
             button.Rect.Stretch();
-            var layout = button.Content.gameObject.AddComponent<HorizontalLayoutGroup>();
-            layout.spacing = 20f;
-            layout.padding = new RectOffset(0, 0, 22, 22);
-            layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.childControlWidth = true;
-            layout.childControlHeight = true;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = true;
-
-            if (iconName != null)
-                ui.Icon("Icon", button.Content, iconName).Prefer(width: size.y * 0.55f);
-            ui.Text("Label", button.Content, label, size.y * 0.45f, TextTone.Light);
+            var text = ui.Text("Label", button.Content, label, fontSize, TextTone.Light);
+            text.rectTransform.Stretch(24f, 0f, 24f, 0f);
+            UiKit.ShrinkToFit(text, fontSize * 0.6f);
             return button;
         }
     }

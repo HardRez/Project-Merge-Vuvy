@@ -51,7 +51,8 @@ namespace MergeGame.PlayTests
         public IEnumerator CaptureMainMenu()
         {
             yield return GameScreenDriver.LoadScene(GameScreenDriver.MainMenuScene);
-            yield return GameScreenDriver.WaitSeconds(1.5f);
+            // Lets the customers come in behind the counter and settle.
+            yield return GameScreenDriver.WaitSeconds(2.2f);
             yield return Snapshot.CaptureAll(Camera.main, directory, "01_main_menu");
         }
 

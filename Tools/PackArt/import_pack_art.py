@@ -47,7 +47,11 @@ UI_SPRITES = [
     ("home_button.png", Path("Hud") / "UIRoot" / "btn_setall_edit_hud.png"),
     ("order_tray.png", Path("Board") / "Board" / "order_tray.png"),  # the customers' orders stand on it
     ("counter_cloth.png", Path("Board") / "Board" / "order_counter.png"),  # hangs down the front of the counter
-    ("deliver_button.png", Path("UI") / "Common" / "button_green_2.png"),  # appears when an order can be delivered
+    ("green_button.png", Path("UI") / "Common" / "button_green_2.png"),  # delivering an order, playing
+    # The main menu: the bunting across its top, the ribbon the game's name is written on and the orange quit button.
+    ("bunting.png", Path("UI") / "Window" / "ReturnUser" / "bg_flag.png"),
+    ("title_ribbon.png", Path("UI") / "Window" / "Level" / "level_up_banner.png"),
+    ("quit_button.png", Path("Board") / "BaseUIBoard" / "UI" / "times_main_btn_multiple4.png"),
     # The settings button's gear and the settings popup, as the pack's own settings window draws it: the wooden window,
     # half of its title tab and its close button, the small green switch button, its icons and the red slash of "off".
     ("settings_icon.png", Path("Hud") / "BaseSceneView" / "icon_settings.png"),
