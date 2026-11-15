@@ -18,6 +18,10 @@ namespace MergeGame.PlayTests
     {
         private const float AnimationSettleSeconds = 0.9f;
 
+        // The money of an order delivered last lands in the score pill this much later than the board settles: the
+        // customer pays as it leaves, then the bills fly in one after another and the pill counts them.
+        private const float PaymentSettleSeconds = 1f;
+
         private GameScreenDriver game;
 
         [UnityTest]
@@ -155,6 +159,8 @@ namespace MergeGame.PlayTests
             }
 
             Assert.That(game.Board.ItemCount, Is.EqualTo(itemCount));
+
+            yield return GameScreenDriver.WaitSeconds(PaymentSettleSeconds);
             Assert.That(game.Score.DisplayedScore, Is.EqualTo(game.Session.Score));
         }
 

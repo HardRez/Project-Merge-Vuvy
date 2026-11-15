@@ -6,6 +6,7 @@ using MergeGame.Presentation.Orders;
 using MergeGame.View.Audio;
 using MergeGame.View.Board;
 using MergeGame.View.Feedback;
+using MergeGame.View.Score;
 using UnityEngine;
 using Zenject;
 
@@ -30,6 +31,9 @@ namespace MergeGame.View.Orders
         [Tooltip("Optional; without it completed orders do not buzz the device.")]
         [SerializeField] private Haptics haptics;
 
+        [Tooltip("Optional; without it the money of a completed order goes straight into the score pill.")]
+        [SerializeField] private CashFlightView cashFlight;
+
         private readonly List<OrderCardView> cards = new List<OrderCardView>();
         private readonly List<CustomerPortraitView> customers = new List<CustomerPortraitView>();
         private IItemVisuals visuals;
@@ -45,6 +49,10 @@ namespace MergeGame.View.Orders
 
         public void ShowCards(IReadOnlyList<OrderCard> orderCards)
         {
+            // The cards that owed money are going away, so they will never pay it out.
+            if (cashFlight != null)
+                cashFlight.SettleOwed();
+
             foreach (var card in cards)
                 Destroy(card.gameObject);
             foreach (var customer in customers)
@@ -62,6 +70,7 @@ namespace MergeGame.View.Orders
                 card.Initialize(visuals, customer);
                 var slotIndex = orderCard.SlotIndex;
                 card.DeliverClicked += () => DeliverRequested?.Invoke(slotIndex);
+                card.PaidOut += origin => PayOut(slotIndex, origin);
                 card.Show(orderCard);
                 cards.Add(card);
             }
@@ -75,7 +84,11 @@ namespace MergeGame.View.Orders
 
         public void CompleteOrder(int slotIndex, IReadOnlyList<ConsumedItem> consumedItems, int awardedPoints)
         {
-            FindCard(slotIndex)?.Celebrate(awardedPoints);
+            var card = FindCard(slotIndex);
+            // Announced now, before the score changes, so the pill waits for the money; it flies when the customer pays.
+            if (cashFlight != null && card != null && card.isActiveAndEnabled)
+                cashFlight.Expect(slotIndex, awardedPoints);
+            card?.Celebrate(awardedPoints);
             sounds.TryPlay(SoundCue.OrderComplete);
             haptics.TryPulse(HapticPulse.Strong);
         }
@@ -87,6 +100,19 @@ namespace MergeGame.View.Orders
             var card = FindCard(slotIndex);
             worldPosition = card != null ? card.DeliveryTarget : default;
             return card != null && isActiveAndEnabled;
+        }
+
+        private void OnDisable()
+        {
+            // A hidden counter's cards stop celebrating, so they would never pay what they owe.
+            if (cashFlight != null)
+                cashFlight.SettleOwed();
+        }
+
+        private void PayOut(int slotIndex, Vector3 origin)
+        {
+            if (cashFlight != null)
+                cashFlight.PayOut(slotIndex, origin);
         }
 
         private OrderCardView FindCard(int slotIndex) => slotIndex >= 0 && slotIndex < cards.Count ? cards[slotIndex] : null;

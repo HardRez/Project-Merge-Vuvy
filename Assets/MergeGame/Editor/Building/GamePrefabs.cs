@@ -356,8 +356,8 @@ namespace MergeGame.Editor.Building
         }
 
         /// <summary>
-        /// The front of an order, standing on the counter: the requested items on a tray, the reward at the top left of
-        /// the slot and the deliver button on the counter's front. Its customer is a separate prefab drawn behind the
+        /// The front of an order, standing on the counter: the requested items on a tray, and on the counter's front the
+        /// reward tag with the deliver button right under it. Its customer is a separate prefab drawn behind the
         /// counter (<see cref="BuildCustomerStage"/>).
         /// </summary>
         private static OrderCardView BuildOrderCard(UiKit ui, RequirementSlotView requirementSlot)
@@ -375,8 +375,8 @@ namespace MergeGame.Editor.Building
             var contentGroup = content.gameObject.AddComponent<CanvasGroup>();
 
             var tray = BuildTray(ui, content);
-            var reward = BuildRewardPill(ui, content);
             var deliver = BuildDeliverButton(ui, content, out var deliverPulse);
+            var reward = BuildRewardTag(ui, content);
 
             var celebration = ui.Text("CelebrationLabel", body, "+0", 96f, TextTone.Title);
             celebration.rectTransform.Pin(RectLayout.Center, new Vector2(400f, 140f), new Vector2(0f, 40f));
@@ -388,6 +388,7 @@ namespace MergeGame.Editor.Building
                 .Wire("requirementContainer", tray)
                 .Wire("requirementPrefab", requirementSlot)
                 .Wire("rewardLabel", reward)
+                .Wire("payoutOrigin", reward.rectTransform.parent)
                 .Wire("deliverButton", deliver.Button)
                 .Wire("deliverPulse", deliverPulse)
                 .Wire("celebrationGlow", glow)
@@ -491,28 +492,29 @@ namespace MergeGame.Editor.Building
             return material;
         }
 
-        private static TextMeshProUGUI BuildRewardPill(UiKit ui, RectTransform card)
+        /// <summary>The reward as a tag centred right above the deliver button, a small gap apart.</summary>
+        private static TextMeshProUGUI BuildRewardTag(UiKit ui, RectTransform card)
         {
-            const float height = 76f;
+            const float height = LayoutMetrics.RewardTagHeight;
             var pill = ui.Image("RewardPill", card, ui.Sprites.Pill, ui.Theme.CellLight, cornerScale: height / 128f);
-            pill.rectTransform.Pin(RectLayout.TopLeft, new Vector2(176f, height), new Vector2(4f, -8f));
-            ui.Image("Cash", pill.rectTransform, ui.Sprites.ScoreCash, Color.white).rectTransform.Pin(RectLayout.Left, new Vector2(86f, 64f), new Vector2(-10f, 2f));
-            var label = ui.Text("Reward", pill.rectTransform, "+0", 42f, TextTone.Dark, TextAlignmentOptions.Center);
-            label.rectTransform.Stretch(72f, 4f, 10f, 0f);
-            return UiKit.ShrinkToFit(label, 28f);
+            pill.rectTransform.Pin(RectLayout.Bottom, new Vector2(146f, height), new Vector2(0f, LayoutMetrics.RewardTagCentre), pivot: RectLayout.Center);
+            ui.Image("Cash", pill.rectTransform, ui.Sprites.ScoreCash, Color.white).rectTransform.Pin(RectLayout.Left, new Vector2(64f, 48f), new Vector2(-10f, 2f));
+            var label = ui.Text("Reward", pill.rectTransform, "+0", 32f, TextTone.Dark, TextAlignmentOptions.Center);
+            label.rectTransform.Stretch(52f, 2f, 10f, 0f);
+            return UiKit.ShrinkToFit(label, 22f);
         }
 
         private static ButtonParts BuildDeliverButton(UiKit ui, RectTransform card, out RectTransform pulse)
         {
             // Pivoted on its centre so the button pops in and pulses evenly in every direction; the offset places that centre.
-            const float height = 90f;
+            const float height = LayoutMetrics.DeliverButtonHeight;
             pulse = UiKit.Rect("DeliverPulse", card)
-                .Pin(RectLayout.Bottom, new Vector2(240f, height), new Vector2(0f, LayoutMetrics.DeliverButtonCentre), pivot: RectLayout.Center);
+                .Pin(RectLayout.Bottom, new Vector2(224f, height), new Vector2(0f, LayoutMetrics.DeliverButtonCentre), pivot: RectLayout.Center);
             // The pack's glossy green button, sliced across only and drawn at its art's proportions; its darker bottom rim
             // is about a tenth of its height, so the label sits above it.
             var button = ui.ArtButton("DeliverButton", pulse, ui.Sprites.GreenButton, contentLift: height * 0.1f, height: height);
             button.Rect.Stretch();
-            var label = ui.Text("Label", button.Content, "Teslim Et", 40f, TextTone.Light);
+            var label = ui.Text("Label", button.Content, "Teslim Et", 36f, TextTone.Light);
             label.rectTransform.Stretch(8f, 0f, 8f, 0f);
             UiKit.ShrinkToFit(label, 26f);
             return button;

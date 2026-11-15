@@ -64,6 +64,10 @@ namespace MergeGame.Editor.Building
 
             var pool = UiKit.Rect("Pool", canvas).Stretch();
             var dragLayer = UiKit.Rect("DragLayer", canvas).Stretch();
+            // The money of a completed order flies from its card into the score pill, over everything but the popups.
+            var cashFlight = UiKit.Rect("CashLayer", canvas).Stretch().gameObject.AddComponent<CashFlightView>()
+                .Wire("score", score)
+                .Wire("billSprite", ui.Sprites.ScoreCash);
             // Last on the canvas, so the popups cover everything, dragged items included.
             var popups = new GamePopups(ui);
             var chains = popups.Chains(canvas, infoButton);
@@ -87,6 +91,7 @@ namespace MergeGame.Editor.Building
             var haptics = new GameObject("Haptics").AddComponent<Haptics>();
             board.Wire("haptics", haptics);
             orders.Wire("haptics", haptics);
+            orders.Wire("cashFlight", cashFlight);
 
             SceneScaffold.SceneContext<GameInstaller>()
                 .Wire("boardView", board)

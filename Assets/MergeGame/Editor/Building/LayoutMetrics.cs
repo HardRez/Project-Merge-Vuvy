@@ -103,7 +103,16 @@ namespace MergeGame.Editor.Building
         public const float TrayBottom = 150f;
         public const float TrayHeight = 84f;
 
-        /// <summary>The centre of the deliver button, on the counter's cloth.</summary>
-        public const float DeliverButtonCentre = 62f;
+        /// <summary>The centre and height of the deliver button, on the counter's cloth (it spans about 10–86).</summary>
+        public const float DeliverButtonCentre = 48f;
+        public const float DeliverButtonHeight = 76f;
+
+        /// <summary>
+        /// The centre and height of the reward tag, right above the deliver button and just under the tray (it spans
+        /// about 92–144), so the money reads as what the button pays without the two touching, even while the button
+        /// pulses; it stays there while the button is hidden.
+        /// </summary>
+        public const float RewardTagCentre = 118f;
+        public const float RewardTagHeight = 52f;
     }
 }

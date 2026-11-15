@@ -29,6 +29,9 @@ namespace MergeGame.View.Orders
         [SerializeField] private RequirementSlotView requirementPrefab;
         [SerializeField] private TMP_Text rewardLabel;
         [SerializeField] private string rewardFormat = "+{0}";
+
+        [Tooltip("Where the order's money takes off from when it is paid: the reward pill.")]
+        [SerializeField] private RectTransform payoutOrigin;
         [SerializeField] private TactileButton deliverButton;
 
         [Tooltip("Holds the deliver button: shown only while the order can be delivered, popping in and then gently pulsing.")]
@@ -65,12 +68,25 @@ namespace MergeGame.View.Orders
 
         public event Action DeliverClicked;
 
+        /// <summary>The customer pays as it starts to leave: the money takes off from this world position.</summary>
+        public event Action<Vector3> PaidOut;
+
         public OrderCard Card { get; private set; }
         public bool CanDeliver => deliverButton.interactable;
 
         /// <summary>True while the deliver button is (or is popping) on screen: only while the order can be delivered.</summary>
         public bool IsDeliverButtonShown => deliverShown;
         public Vector3 DeliveryTarget => requirementContainer.TransformPoint(requirementContainer.rect.center);
+
+        /// <summary>The centre of the reward pill, where the money of a completed order takes off.</summary>
+        public Vector3 PayoutOrigin
+        {
+            get
+            {
+                var origin = payoutOrigin != null ? payoutOrigin : body;
+                return origin.TransformPoint(origin.rect.center);
+            }
+        }
 
         /// <summary>The customer shown on this card.</summary>
         public CustomerPortraitView Customer => customer;
@@ -208,6 +224,7 @@ namespace MergeGame.View.Orders
             yield return Tween.Delay(celebrationDelaySeconds);
 
             customer.Leave();
+            PaidOut?.Invoke(PayoutOrigin);
             celebrationGlow.gameObject.SetActive(true);
             celebrationLabel.gameObject.SetActive(awardedPoints > 0);
             celebrationLabel.text = string.Format(rewardFormat, awardedPoints);

@@ -6,7 +6,11 @@ using UnityEngine;
 
 namespace MergeGame.View.Score
 {
-    /// <summary>The score pill: counts up to a new score while the pill and its icon punch.</summary>
+    /// <summary>
+    /// The score pill: counts up to a new score while the pill and its icon punch. Points can be announced as on their
+    /// way (<see cref="ExpectIncoming"/>, the bills of a completed order): the pill leaves them out until they arrive
+    /// (<see cref="ReceiveIncoming"/>), so it counts them only when the money lands in it.
+    /// </summary>
     public sealed class ScoreView : MonoBehaviour, IScoreView
     {
         private static readonly NumberFormatInfo ThousandsWithDots = new NumberFormatInfo { NumberGroupSeparator = ".", NumberDecimalDigits = 0 };
@@ -20,8 +24,16 @@ namespace MergeGame.View.Score
 
         private TweenChannel counting;
         private TweenChannel punch;
+        private int score;
+        private int incoming;
 
         public int DisplayedScore { get; private set; }
+
+        /// <summary>Points announced as on their way that have not arrived yet; the pill does not show them.</summary>
+        public int IncomingPoints => incoming;
+
+        /// <summary>Where money flying into the pill should land: its bills icon.</summary>
+        public Vector3 CashTarget => icon.position;
 
         private void Awake()
         {
@@ -31,16 +43,45 @@ namespace MergeGame.View.Score
 
         public void SetScore(int score)
         {
+            this.score = score;
+            incoming = 0;
             counting.Stop();
             Display(score);
         }
 
         public void ChangeScore(int previousScore, int score)
         {
+            this.score = score;
+            // Points still on their way are left out; when the whole change is, the pill waits for them to land.
+            if (score - incoming != DisplayedScore)
+                CountAndPunch();
+        }
+
+        /// <summary>Announces points that will arrive later; call it before the score change that awards them.</summary>
+        public void ExpectIncoming(int points)
+        {
+            if (points > 0)
+                incoming += points;
+        }
+
+        /// <summary>Some of the announced points arrived: the pill counts them and punches.</summary>
+        public void ReceiveIncoming(int points)
+        {
+            points = Mathf.Clamp(points, 0, incoming);
+            if (points == 0)
+                return;
+
+            incoming -= points;
+            CountAndPunch();
+        }
+
+        private void CountAndPunch()
+        {
             // Continue from what is on screen, so a change during a count never jumps backwards.
             var from = DisplayedScore;
-            if (!counting.Play(Tween.Run(countSeconds, Ease.OutCubic, t => Display(Mathf.RoundToInt(Mathf.Lerp(from, score, t))))))
-                Display(score);
+            var to = score - incoming;
+            if (!counting.Play(Tween.Run(countSeconds, Ease.OutCubic, t => Display(Mathf.RoundToInt(Mathf.Lerp(from, to, t))))))
+                Display(to);
 
             punch.Play(Tween.Run(punchSeconds, Ease.Linear, t =>
             {
