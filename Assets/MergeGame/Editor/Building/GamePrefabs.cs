@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.IO;
 using MergeGame.View.Board;
 using MergeGame.View.Board.Sand;
@@ -19,6 +20,11 @@ namespace MergeGame.Editor.Building
         private const string SandGrainShader = "MergeGame/UI/Sand Grains";
         private const string SandMaskShader = "MergeGame/UI/Sand Mask";
         private const string PortraitShader = "Spine/SkeletonGraphic";
+        private const string AdditiveShader = "MergeGame/UI/Additive";
+
+        /// <summary>The colours of the pack's merge glow, added as light: a deep gold and a warm white.</summary>
+        public static readonly Color GlowGold = new Color(1f, 0.74f, 0.22f, 1f);
+        public static readonly Color GlowWarm = new Color(1f, 0.93f, 0.7f, 1f);
 
         // Where the item icon sits inside its cell (normalised).
         private static readonly Vector2 IconMin = new Vector2(0.08f, 0.08f);
@@ -96,6 +102,9 @@ namespace MergeGame.Editor.Building
         }
 
         /// <summary>A material for one of the sand's own shaders; an asset, so the shader ships in builds.</summary>
+        /// <summary>Adds an image to what is under it, as light (the merge glow and burst); written once, shared.</summary>
+        public static Material AdditiveMaterial() => WriteMaterial(AdditiveShader, BuildPaths.UiAdditiveMaterial);
+
         private static Material WriteMaterial(string shaderName, string path)
         {
             var shader = Shader.Find(shaderName) ?? throw new InvalidOperationException($"Shader '{shaderName}' not found.");
@@ -123,6 +132,7 @@ namespace MergeGame.Editor.Building
             var mergeRing = ui.Image("MergeRing", root, ui.Sprites.MergeRing, Color.white);
             mergeRing.rectTransform.Inset(-6f);
             mergeRing.gameObject.SetActive(false);
+            var burst = UiKit.Rect("MergeBurst", root).Stretch();
 
             var bubblePop = BuildBubblePop(ui, root);
 
@@ -158,6 +168,7 @@ namespace MergeGame.Editor.Building
             sparkles.gameObject.SetActive(false);
 
             var accent = BuildAccent(ui, accentLayer, accentGlow);
+            var mergeBurst = BuildMergeBurst(ui, burst, UiKit.Rect("MergeBurstStars", root).Stretch());
             var orderMark = root.gameObject.AddComponent<OrderMatchMark>()
                 .Wire("halo", orderHalo)
                 .Wire("badge", orderBadge);
@@ -171,9 +182,45 @@ namespace MergeGame.Editor.Building
                 .Wire("maxLevelBadge", crown.gameObject)
                 .Wire("burstGlow", glow)
                 .Wire("burstSparkles", sparkles)
-                .Wire("mergeRing", mergeRing);
+                .Wire("mergeRing", mergeRing)
+                .Wire("mergeBurst", mergeBurst);
             return Save<ItemView>(root, BuildPaths.ItemViewPrefab);
         }
+
+        /// <summary>
+        /// The burst of a merge, from the pack's own merge glow: behind the item a warm flash, a fan of rays and a shock
+        /// wave ring; over it (in <paramref name="front"/>, the item's last layer) stars that fly out of it.
+        /// </summary>
+        private static MergeBurst BuildMergeBurst(UiKit ui, RectTransform behind, RectTransform front)
+        {
+            var light = AdditiveMaterial();
+            var flash = ui.Image("Flash", behind, ui.Sprites.MergeHalo, GlowWarm);
+            flash.rectTransform.Span(new Vector2(-0.4f, -0.4f), new Vector2(1.4f, 1.4f));
+            var rays = ui.Image("Rays", behind, ui.Sprites.MergeRays, GlowGold);
+            rays.rectTransform.Span(new Vector2(-0.6f, -0.6f), new Vector2(1.6f, 1.6f));
+            var ring = ui.Image("ShockRing", behind, ui.Sprites.MergeHaloRing, GlowWarm);
+            ring.rectTransform.Stretch();
+
+            var stars = new Image[MergeBurstStars];
+            for (var i = 0; i < stars.Length; i++)
+            {
+                stars[i] = ui.Image($"Star{i + 1}", front, ui.Sprites.GlintStar, GlowWarm);
+                stars[i].rectTransform.Span(new Vector2(0.4f, 0.3f), new Vector2(0.6f, 0.7f));
+            }
+
+            foreach (var part in stars.Append(flash).Append(rays).Append(ring))
+                part.material = light;
+
+            var component = behind.gameObject.AddComponent<MergeBurst>()
+                .Wire("flash", flash)
+                .Wire("rays", rays)
+                .Wire("shockRing", ring)
+                .Wire("stars", stars);
+            component.Rest();
+            return component;
+        }
+
+        private const int MergeBurstStars = 6;
 
         /// <summary>
         /// The burst of a locked item's bubble, over the bubble's own rect: the pack's popping-bubble sheet as a flipbook,

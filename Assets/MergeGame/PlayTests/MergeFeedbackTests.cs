@@ -8,7 +8,10 @@ using UnityEngine.TestTools;
 
 namespace MergeGame.PlayTests
 {
-    /// <summary>A merge reads as a hit: the new item pops past its size, squashes and stretches, and a ring spreads out.</summary>
+    /// <summary>
+    /// A merge reads as a hit: the new item pops past its size, squashes and stretches, a ring spreads out, and its burst
+    /// flashes, sends a shock wave out and throws its stars clear of the item.
+    /// </summary>
     public sealed class MergeFeedbackTests
     {
         private const float WatchSeconds = 1f;
@@ -16,7 +19,7 @@ namespace MergeGame.PlayTests
         private GameScreenDriver game;
 
         [UnityTest]
-        public IEnumerator AMerge_PopsTheNewItem_WithSquashStretchAndARing_ThenRestsExactly()
+        public IEnumerator AMerge_PopsTheNewItem_WithSquashStretchARingAndABurst_ThenRestsExactly()
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
             GridPosition from, to;
@@ -35,6 +38,9 @@ namespace MergeGame.PlayTests
             var peak = 0f;
             var widestSquash = 0f;
             var ringSpread = 0f;
+            var shockSpread = 0f;
+            var starFlight = 0f;
+            var cellWidth = ((RectTransform)target.transform).rect.width;
             for (var elapsed = 0f; elapsed < WatchSeconds; elapsed += Time.unscaledDeltaTime)
             {
                 var scale = target.Body.localScale;
@@ -42,15 +48,24 @@ namespace MergeGame.PlayTests
                 widestSquash = Mathf.Max(widestSquash, Mathf.Abs(scale.x - scale.y));
                 if (target.MergeRing.gameObject.activeInHierarchy && target.MergeRing.color.a > 0.05f)
                     ringSpread = Mathf.Max(ringSpread, target.MergeRing.rectTransform.localScale.x);
+                var burst = target.MergeBurst;
+                if (burst.IsPlaying && burst.ShockRing.color.a > 0.05f)
+                    shockSpread = Mathf.Max(shockSpread, burst.ShockRing.rectTransform.localScale.x);
+                if (burst.IsPlaying)
+                    foreach (var star in burst.Stars.Where(star => star.color.a > 0.05f))
+                        starFlight = Mathf.Max(starFlight, star.rectTransform.anchoredPosition.magnitude / cellWidth);
                 yield return null;
             }
 
             Assert.That(peak, Is.GreaterThan(1.15f), "The new item did not pop past its size.");
             Assert.That(widestSquash, Is.GreaterThan(0.05f), "The new item never squashed or stretched.");
             Assert.That(ringSpread, Is.GreaterThan(1.2f), "No ring spread out from the merge.");
+            Assert.That(shockSpread, Is.GreaterThan(1.8f), "No shock wave raced out of the merge.");
+            Assert.That(starFlight, Is.GreaterThan(0.6f), "The burst's stars did not fly clear of the item.");
 
             Assert.That(target.Body.localScale, Is.EqualTo(Vector3.one), "The item did not come to rest.");
             Assert.That(target.MergeRing.gameObject.activeSelf, Is.False, "The ring stayed on screen.");
+            Assert.That(target.MergeBurst.IsPlaying, Is.False, "The burst stayed on screen.");
         }
 
         [UnityTest]

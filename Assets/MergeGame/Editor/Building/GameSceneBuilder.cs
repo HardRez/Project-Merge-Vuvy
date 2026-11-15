@@ -1,3 +1,4 @@
+using System.Linq;
 using MergeGame.App.Installers;
 using MergeGame.View.Board;
 using MergeGame.View.Common;
@@ -252,21 +253,60 @@ namespace MergeGame.Editor.Building
         private DropHighlightView DropHighlight(RectTransform grid)
         {
             var root = UiKit.Rect("DropHighlight", grid).Stretch();
-            var pulsing = UiKit.Rect("Pulsing", root).Stretch();
-            var glow = ui.Image("Glow", pulsing, ui.Sprites.Glow, Color.white);
-            glow.rectTransform.Inset(-44f);
-            glow.preserveAspect = false;
-            var fill = ui.Image("Fill", pulsing, ui.Sprites.Cell, Color.white, cornerScale: 0.7f);
+            var mergeGlow = MergeGlow(root);
+            var square = UiKit.Rect("Square", root).Stretch();
+            var fill = ui.Image("Fill", square, ui.Sprites.Cell, Color.white, cornerScale: 0.7f);
             fill.rectTransform.Inset(3f);
-            var outline = ui.Image("Outline", pulsing, ui.Sprites.Ring, Color.white, cornerScale: 0.6f);
+            var outline = ui.Image("Outline", square, ui.Sprites.Ring, Color.white, cornerScale: 0.6f);
             outline.rectTransform.Inset(1f);
 
             return root.gameObject.AddComponent<DropHighlightView>()
                 .Wire("theme", ui.Theme)
-                .Wire("pulsing", pulsing)
+                .Wire("square", square)
                 .Wire("fill", fill)
                 .Wire("outline", outline)
-                .Wire("glow", glow);
+                .Wire("mergeGlow", mergeGlow);
+        }
+
+        /// <summary>
+        /// The pack's own merge glow (its effect_qipan_hc_glow) round the cell a drop would merge into: a soft golden
+        /// halo, a fan of thin rays, a bright ring and four tall stars that circle the item.
+        /// </summary>
+        private MergeTargetGlow MergeGlow(RectTransform highlight)
+        {
+            var root = UiKit.Rect("MergeGlow", highlight).Stretch();
+            var group = root.gameObject.AddComponent<CanvasGroup>();
+            group.blocksRaycasts = false;
+            group.interactable = false;
+
+            // Added as light, as the pack draws it, so the gold brightens the board instead of muddying it.
+            var light = GamePrefabs.AdditiveMaterial();
+            var halo = ui.Image("Halo", root, ui.Sprites.MergeHalo, GamePrefabs.GlowGold);
+            halo.rectTransform.Span(new Vector2(-0.6f, -0.6f), new Vector2(1.6f, 1.6f));
+            var rays = ui.Image("Rays", root, ui.Sprites.MergeRays, GamePrefabs.GlowWarm);
+            rays.rectTransform.Span(new Vector2(-0.85f, -0.85f), new Vector2(1.85f, 1.85f));
+            // Just outside a locked item's bubble, so the bubble never hides it.
+            var ring = ui.Image("Ring", root, ui.Sprites.MergeHaloRing, GamePrefabs.GlowGold);
+            ring.rectTransform.Span(new Vector2(-0.24f, -0.24f), new Vector2(1.24f, 1.24f));
+
+            var stars = new Image[4];
+            for (var i = 0; i < stars.Length; i++)
+            {
+                stars[i] = ui.Image($"Star{i + 1}", root, ui.Sprites.GlintStar, GamePrefabs.GlowWarm);
+                stars[i].rectTransform.Span(new Vector2(0.4f, 0.3f), new Vector2(0.6f, 0.7f));
+            }
+
+            foreach (var part in stars.Append(halo).Append(rays).Append(ring))
+                part.material = light;
+
+            var glow = root.gameObject.AddComponent<MergeTargetGlow>()
+                .Wire("group", group)
+                .Wire("halo", halo)
+                .Wire("rays", rays.rectTransform)
+                .Wire("ring", ring)
+                .Wire("stars", stars);
+            root.gameObject.SetActive(false);
+            return glow;
         }
 
         private SelectionMarkerView SelectionMarker(RectTransform grid)

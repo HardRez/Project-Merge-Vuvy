@@ -6,7 +6,7 @@
 |---|---|---|
 | `Sprites/Items/<chainId>/<chainId>_<LL>.png` | `Board/ItemMain/Item/<source>.png`, one per chain level whose entry in `Assets/MergeGame/Editor/Seed/seed_content.json` has a `source` | Trimmed, scaled (longest side × 1.3, clamped to 160–212 px, so level 1 items stay readable while higher levels still grow), centred on a 256×256 canvas with a soft contact shadow, the same canvas as the placeholder emoji items |
 | `Sprites/UI/selection_brackets.png` | `Board/Board/item_selected.png` | Copied unchanged; the scene builder slices it 9-ways (60 px corners) |
-| `Sprites/UI/sparkle_star.png` | `Effects/Textures/t_xingxing_3.png` | Copied unchanged; the twinkling stars over a merge target or a spawned item, and the glint at a merged item's corner |
+| `Sprites/UI/sparkle_star.png` | `Effects/Textures/t_xingxing_3.png` | Copied unchanged; the twinkling stars over a spawned item, and the glint at a merged item's corner |
 | `Sprites/UI/bubble_pop_sheet.png` | `Effects/Textures/t_water_5.png` | Copied unchanged; a 4x4 sheet of a bubble's skin tearing apart, played as a flipbook when a bubble bursts |
 | `Sprites/UI/spawn_button.png`, `Sprites/UI/spawn_button_disabled.png` | `Board/BaseUIBoard/UI/times_main_btn_emission5.png` | The game's own round "produce" button with its tap hand removed: the hand and its shadow are masked and the area is filled by diffusion from the face around it, keeping the gloss highlight. The disabled version is the same art in warm grey |
 | `Sprites/UI/spawn_icon.png` | `Hud/BaseSceneView/icon_cook.png` | Copied unchanged; the whisk and spatula on the spawn button |
@@ -28,6 +28,7 @@
 | `Sprites/UI/chain_tile.png`, `Sprites/UI/chain_arrow.png`, `Sprites/UI/level_badge.png` | `UI/Window/ItemDetail/detail_unlocked_bg.png`, `detail_unlocked_arrow.png`, `detail_num.png` | Copied unchanged; a level in the chains window: its blue tile, the arrow on to the next level and the green number badge |
 | `Sprites/UI/lace_line.png`, `Sprites/UI/lace_curl.png` | `UI/Window/Common/lace_deco2.png`, `lace_deco3.png` | Copied unchanged; the lace beside a chain's name, mirrored on its right |
 | `Sprites/UI/tab.png`, `Sprites/UI/tab_selected.png` | `Hud/UIRoot/renovate_choice_bg.png`, `renovate_choice_selected.png` | Copied unchanged; a chain's tab in the chains window, and the glowing yellow square laid over the chosen one |
+| `Sprites/UI/merge_halo.png`, `Sprites/UI/merge_rays.png`, `Sprites/UI/merge_halo_ring.png`, `Sprites/UI/glint_star.png` | `Effects/Textures/t_spot_002.png`, `t_td_8_uncompressed.png`, `t_td_7.png`, `t_xingxing_1.png` | Copied unchanged; the parts of the pack's own merge glow (`effect_qipan_hc_glow`): the halo, turning rays, bright ring and circling stars round a merge target, and the flash, rays, shock wave and flying stars of a merge, drawn as light |
 | `Sprites/UI/bubble_droplet.png` | `Effects/Textures/t_paopao1.png` | Copied unchanged; the small bubbles sprayed out of a burst |
 | `Sprites/UI/lock_bubble.png` | `Board/ItemMain/Item/Bubble.png` | Copied unchanged; the clear bubble around a locked item, which pops outwards when a merge frees it |
 | `Sprites/UI/merge_ring.png` | `Effects/Textures/t_effect_1.png` | Copied unchanged; the ring that spreads out behind a merged item |

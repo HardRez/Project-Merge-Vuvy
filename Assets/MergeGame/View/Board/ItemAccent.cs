@@ -8,7 +8,8 @@ namespace MergeGame.View.Board
 {
     /// <summary>
     /// The attention layer of an item, between its root and its body: a short shine after a spawn, a one-shot pulse
-    /// toward the partner of a suggested merge, or the eager glow, pulse and shine of a merge target under the dragged item.
+    /// toward the partner of a suggested merge, or the eager glow, pulse and shine of a merge target under the dragged item
+    /// (the board's <see cref="MergeTargetGlow"/> lights up round it, below every item).
     /// One accent at a time, by the priority of <see cref="AccentKind"/>. It only moves its own transform and visuals,
     /// so it composes with the item's other animations, and <see cref="Stop()"/> returns it to its rest pose exactly.
     /// </summary>
@@ -59,7 +60,7 @@ namespace MergeGame.View.Board
 
         [Header("Merge target")]
         [SerializeField] private Color targetGlowColor = new Color(1f, 0.86f, 0.25f, 1f);
-        [SerializeField] private float targetScale = 1.12f;
+        [SerializeField] private float targetScale = 1.16f;
         [SerializeField] private float targetEnterSeconds = 0.18f;
         [SerializeField] private float targetCycleSeconds = 0.8f;
 
@@ -126,7 +127,6 @@ namespace MergeGame.View.Board
             glow.color = targetGlowColor;
             glow.gameObject.SetActive(true);
             ShowShine(iconSprite);
-            ShowSparkles();
             loop.Play(TargetLoop());
         }
 
@@ -254,8 +254,8 @@ namespace MergeGame.View.Board
         private const float TargetGlowRest = 0.75f;
 
         /// <summary>
-        /// An eager pulse while a shine sweeps across the item; the sparkles twinkle on their own clock. Every value is
-        /// the same at the end of a cycle as at its start (the shine is outside its mask at both ends).
+        /// An eager pulse while a shine sweeps across the item. Every value is the same at the end of a cycle as at its
+        /// start (the shine is outside its mask at both ends).
         /// </summary>
         private IEnumerator TargetCycle()
         {

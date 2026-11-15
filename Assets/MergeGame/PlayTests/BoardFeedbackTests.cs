@@ -73,11 +73,17 @@ namespace MergeGame.PlayTests
             PointerGesture held = null;
             yield return game.DragOnto(from, to, gesture => held = gesture);
             Assert.That(target.Accent.Current, Is.EqualTo(AccentKind.MergeTarget));
+            Assert.That(game.Board.MergeGlow.IsShown, Is.True, "The merge glow did not light up round the target.");
+            Assert.That(game.Board.DropHighlightShowsSquare, Is.False, "A merge target is marked by its round glow, not a square.");
+            var glowRect = (RectTransform)game.Board.MergeGlow.transform;
+            var glowCentre = glowRect.TransformPoint(glowRect.rect.center);
+            Assert.That(Vector2.Distance(glowCentre, target.WorldCenter), Is.LessThan(1f), "The glow is not round the target.");
 
             held.MoveTo(game.ScreenPointOf(elsewhere));
             yield return null;
             Assert.That(target.Accent.Current, Is.EqualTo(AccentKind.None));
             Assert.That(target.Accent.transform.localScale, Is.EqualTo(Vector3.one));
+            Assert.That(game.Board.MergeGlow.IsShown, Is.False, "The merge glow stayed after the pointer left the target.");
 
             held.Release();
         }

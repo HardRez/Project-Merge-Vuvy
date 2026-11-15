@@ -46,6 +46,9 @@ namespace MergeGame.View.Board
         [Tooltip("A ring that spreads out from a merge, behind the new item.")]
         [SerializeField] private Image mergeRing;
 
+        [Tooltip("The flash, rays, shock wave and flying stars of a merge.")]
+        [SerializeField] private MergeBurst mergeBurst;
+
         [Header("Look")]
 
         [SerializeField] private float liftedScale = 1.2f;
@@ -108,6 +111,8 @@ namespace MergeGame.View.Board
         public Transform Body => body;
 
         public Image MergeRing => mergeRing;
+
+        public MergeBurst MergeBurst => mergeBurst;
 
         public BubblePop BubblePop => bubblePop;
 
@@ -309,6 +314,7 @@ namespace MergeGame.View.Board
             burstSparkles.gameObject.SetActive(false);
             mergeRing.gameObject.SetActive(false);
             mergeRing.rectTransform.localScale = Vector3.one;
+            mergeBurst.Rest();
         }
 
         private void SetRestPose()
@@ -322,7 +328,8 @@ namespace MergeGame.View.Board
 
         /// <summary>
         /// The merge as a hit: the old item squashes while the other one flies into it, then the new item pops out of it,
-        /// stretching and squeezing, overshoots and wobbles back to rest, while a ring spreads out behind it.
+        /// stretching and squeezing, overshoots and wobbles back to rest, while a ring spreads out behind it and the
+        /// <see cref="MergeBurst"/> flashes, throws its rays open and sends its stars flying.
         /// </summary>
         private IEnumerator PlayMerge(bool unlocked, float revealDelay)
         {
@@ -341,6 +348,7 @@ namespace MergeGame.View.Board
             if (unlocked)
                 bubblePop.Play();
             burstSparkles.gameObject.SetActive(true);
+            mergeBurst.Begin();
             mergeRing.gameObject.SetActive(true);
             mergeRing.color = mergeRingColor;
             var ringShare = Mathf.Min(1f, mergeRingSeconds / mergeSeconds);
@@ -355,6 +363,7 @@ namespace MergeGame.View.Board
                 SetAlpha(burstSparkles, Ease.Bump(Mathf.Min(1f, t * 1.3f)));
                 burstSparkles.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.5f, 1.35f, Ease.OutCubic(t));
                 burstSparkles.rectTransform.localRotation = Quaternion.Euler(0f, 0f, t * 40f);
+                mergeBurst.Apply(t);
             });
 
             body.localScale = Vector3.one;
