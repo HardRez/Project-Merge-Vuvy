@@ -19,6 +19,7 @@ namespace MergeGame.Core.Orders
         private readonly ItemCatalog catalog;
         private readonly IRandom random;
         private readonly Order[] slots;
+        private readonly BoardItem[][] claims;
         private readonly ReadOnlyCollection<Order> activeOrders;
         private readonly List<ConsumedItem> matchBuffer = new List<ConsumedItem>();
         private readonly List<int> customerBuffer = new List<int>();
@@ -45,6 +46,7 @@ namespace MergeGame.Core.Orders
             this.random = random ?? throw new ArgumentNullException(nameof(random));
 
             slots = new Order[settings.MaxActiveOrders];
+            claims = new BoardItem[slots.Length][];
             activeOrders = Array.AsReadOnly(slots);
             if (savedOrders == null)
             {
@@ -111,7 +113,12 @@ namespace MergeGame.Core.Orders
             return new Order(nextOrderId++, customerIndex, requirements, settings.RewardFor(requirements, catalog));
         }
 
-        public void Replace(int slotIndex, Order order) => slots[slotIndex] = order ?? throw new ArgumentNullException(nameof(order));
+        /// <summary>The new order starts with no remembered matches; see <see cref="RememberMatches"/>.</summary>
+        public void Replace(int slotIndex, Order order)
+        {
+            slots[slotIndex] = order ?? throw new ArgumentNullException(nameof(order));
+            claims[slotIndex] = null;
+        }
 
         private void Restore(IReadOnlyList<Order> savedOrders, int savedNextOrderId)
         {
@@ -187,32 +194,109 @@ namespace MergeGame.Core.Orders
         }
 
         /// <summary>
-        /// Greedy row-major matching: each requirement in order takes the first unlocked matching item no earlier
-        /// requirement took. A missing requirement takes nothing, so later picks do not depend on whether matching
-        /// stops there (<paramref name="matchedCells"/> null) or continues (<paramref name="matchedCells"/> given).
+        /// Records, for every active order, which board item each requirement is matched to now. Call after every
+        /// change to the board: a requirement then keeps its item for as long as that same item instance stays on the
+        /// board unlocked, even when an identical item appears earlier in row-major order or the item is moved.
         /// </summary>
-        private static bool Match(Order order, IReadOnlyBoard board, List<ConsumedItem> matched, GridPosition?[] matchedCells)
+        public void RememberMatches(IReadOnlyBoard board)
         {
-            matched.Clear();
-            var allFound = true;
-            for (var i = 0; i < order.Requirements.Count; i++)
+            for (var slot = 0; slot < slots.Length; slot++)
             {
+                var order = slots[slot];
+                var cells = new GridPosition?[order.Requirements.Count];
+                Match(order, board, matchBuffer, cells);
+
+                var claim = new BoardItem[cells.Length];
+                for (var i = 0; i < cells.Length; i++)
+                {
+                    if (cells[i].HasValue)
+                        claim[i] = board.GetItem(cells[i].Value);
+                }
+
+                claims[slot] = claim;
+            }
+        }
+
+        /// <summary>
+        /// First every requirement keeps the item it was matched to last time (<see cref="RememberMatches"/>) if that
+        /// item is still on the board, unlocked and unchanged. Then each requirement left in order takes the first
+        /// unlocked matching item (row-major) no other requirement took. A missing requirement takes nothing, so
+        /// later picks do not depend on whether the caller wants every cell (<paramref name="matchedCells"/> given).
+        /// <paramref name="matched"/> lists the items in requirement order when every requirement is found.
+        /// </summary>
+        private bool Match(Order order, IReadOnlyBoard board, List<ConsumedItem> matched, GridPosition?[] matchedCells)
+        {
+            var count = order.Requirements.Count;
+            var cells = matchedCells ?? new GridPosition?[count];
+            var claim = ClaimOf(order);
+
+            matched.Clear();
+            for (var i = 0; i < count; i++)
+            {
+                cells[i] = null;
+                var required = order.Requirements[i];
+                if (claim != null && TryFindClaimedItem(claim[i], required, board, matched, out var position))
+                {
+                    cells[i] = position;
+                    matched.Add(new ConsumedItem(position, required));
+                }
+            }
+
+            var allFound = true;
+            for (var i = 0; i < count; i++)
+            {
+                if (cells[i].HasValue)
+                    continue;
+
                 var required = order.Requirements[i];
                 if (TryFindFreeItem(required, board, matched, out var position))
                 {
+                    cells[i] = position;
                     matched.Add(new ConsumedItem(position, required));
-                    if (matchedCells != null)
-                        matchedCells[i] = position;
                 }
                 else
                 {
                     allFound = false;
-                    if (matchedCells == null)
-                        return false;
                 }
             }
 
-            return allFound;
+            matched.Clear();
+            if (!allFound)
+                return false;
+
+            for (var i = 0; i < count; i++)
+                matched.Add(new ConsumedItem(cells[i].Value, order.Requirements[i]));
+            return true;
+        }
+
+        private BoardItem[] ClaimOf(Order order)
+        {
+            for (var slot = 0; slot < slots.Length; slot++)
+            {
+                if (ReferenceEquals(slots[slot], order))
+                    return claims[slot];
+            }
+
+            return null;
+        }
+
+        private static bool TryFindClaimedItem(
+            BoardItem claimed, ItemId wanted, IReadOnlyBoard board, List<ConsumedItem> taken, out GridPosition position)
+        {
+            position = default;
+            if (claimed == null || claimed.IsLocked || claimed.ItemId != wanted)
+                return false;
+
+            foreach (var candidate in board.Positions)
+            {
+                if (board.TryGetItem(candidate, out var item) && ReferenceEquals(item, claimed))
+                {
+                    position = candidate;
+                    return !IsTaken(taken, candidate);
+                }
+            }
+
+            return false;
         }
 
         private static bool TryFindFreeItem(ItemId wanted, IReadOnlyBoard board, List<ConsumedItem> taken, out GridPosition position)
