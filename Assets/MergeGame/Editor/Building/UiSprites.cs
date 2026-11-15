@@ -153,6 +153,12 @@ namespace MergeGame.Editor.Building
         /// <summary>A tall four-point star, circling a merge target and flying out of a merge; from the asset pack.</summary>
         public Sprite GlintStar { get; private set; }
 
+        /// <summary>The pack's glossy red square button, the face of the discard button.</summary>
+        public Sprite RedButton { get; private set; }
+
+        /// <summary>The pack's white bin with a dark red outline, the icon of the discard button.</summary>
+        public Sprite DeleteIcon { get; private set; }
+
         /// <summary>A clear soap bubble around a locked item; from the asset pack.</summary>
         public Sprite LockBubble { get; private set; }
 
@@ -231,6 +237,8 @@ namespace MergeGame.Editor.Building
             MergeRays = LoadShape("merge_rays"),
             MergeHaloRing = LoadShape("merge_halo_ring"),
             GlintStar = LoadShape("glint_star"),
+            RedButton = LoadShape("red_button"),
+            DeleteIcon = LoadShape("delete_icon"),
             LockBubble = LoadShape("lock_bubble"),
             BubblePopSheet = LoadShape("bubble_pop_sheet"),
             BubbleDroplet = LoadShape("bubble_droplet"),

@@ -41,7 +41,6 @@ If anything cannot be resolved, the script exits with code 1 and lists every fai
 | `lock.png` | 🔒 | Locked | locked state |
 | `check.png` | – | drawn by the script | order complete; a bare green tick with a white rim, no button behind it |
 | `home.png` | 🏠 | House | home / menu |
-| `trash.png` | 🗑️ | Wastebasket | discard |
 | `sparkles.png` | ✨ | Sparkles | spawn button; no longer used |
 | `crown.png` | 👑 | Crown | max-level badge |
 | `play.png` | ▶️ | Play button | menu; no longer used: the Play button is the asset pack's green button |

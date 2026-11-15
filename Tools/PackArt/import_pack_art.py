@@ -82,6 +82,9 @@ UI_SPRITES = [
     ("merge_rays.png", Path("Effects") / "Textures" / "t_td_8_uncompressed.png"),
     ("merge_halo_ring.png", Path("Effects") / "Textures" / "t_td_7.png"),
     ("glint_star.png", Path("Effects") / "Textures" / "t_xingxing_1.png"),
+    # The discard button, as the pack's own info bar draws its remove button: the glossy red square and its bin.
+    ("red_button.png", Path("Board") / "Board" / "InfoBar" / "info_btn_red.png"),
+    ("delete_icon.png", Path("Board") / "Board" / "InfoBar" / "into_btn_delete.png"),
 ]
 
 # (published file under Content/Audio, pack file)

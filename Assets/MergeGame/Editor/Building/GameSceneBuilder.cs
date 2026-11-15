@@ -389,9 +389,11 @@ namespace MergeGame.Editor.Building
             UiKit.ShrinkToFit(coverExplanation, 26f);
             coverExplanation.gameObject.SetActive(false);
 
-            var discard = ui.Button("DiscardButton", details, ui.Theme.Danger, cornerScale: 0.7f);
-            discard.Rect.Pin(RectLayout.Right, new Vector2(116f, 116f), new Vector2(-22f - 58f, 0f), pivot: RectLayout.Center);
-            ui.Icon("Icon", discard.Content, "trash").rectTransform.Inset(16f);
+            // As the pack's own info bar draws its remove button: the glossy red square with its bin, which sits a
+            // little above the square's middle, over the face rather than its bottom shadow.
+            var discard = ui.ArtButton("DiscardButton", details, ui.Sprites.RedButton, contentLift: 10f);
+            discard.Rect.Pin(RectLayout.Right, new Vector2(122f, 119f), new Vector2(-22f - 61f, 0f), pivot: RectLayout.Center);
+            ui.Image("Icon", discard.Content, ui.Sprites.DeleteIcon, Color.white).rectTransform.Pin(RectLayout.Center, new Vector2(58f, 64f));
 
             details.gameObject.SetActive(false);
             return bar.gameObject.AddComponent<ItemInfoView>()
