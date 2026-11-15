@@ -141,6 +141,18 @@ namespace MergeGame.Editor.Building
         /// <summary>A soft white ring that spreads out from a merge; from the asset pack.</summary>
         public Sprite MergeRing { get; private set; }
 
+        /// <summary>A soft white spot of light: the halo behind a merge target and the flash of a merge; from the asset pack.</summary>
+        public Sprite MergeHalo { get; private set; }
+
+        /// <summary>A fan of thin white rays, turning behind a merge target and bursting out of a merge; from the asset pack.</summary>
+        public Sprite MergeRays { get; private set; }
+
+        /// <summary>A bright, clean white ring round a merge target, and the shock wave of a merge; from the asset pack.</summary>
+        public Sprite MergeHaloRing { get; private set; }
+
+        /// <summary>A tall four-point star, circling a merge target and flying out of a merge; from the asset pack.</summary>
+        public Sprite GlintStar { get; private set; }
+
         /// <summary>A clear soap bubble around a locked item; from the asset pack.</summary>
         public Sprite LockBubble { get; private set; }
 
@@ -215,6 +227,10 @@ namespace MergeGame.Editor.Building
             BoardTray = LoadShape("board_tray"),
             SparkleStar = LoadShape("sparkle_star"),
             MergeRing = LoadShape("merge_ring"),
+            MergeHalo = LoadShape("merge_halo"),
+            MergeRays = LoadShape("merge_rays"),
+            MergeHaloRing = LoadShape("merge_halo_ring"),
+            GlintStar = LoadShape("glint_star"),
             LockBubble = LoadShape("lock_bubble"),
             BubblePopSheet = LoadShape("bubble_pop_sheet"),
             BubbleDroplet = LoadShape("bubble_droplet"),

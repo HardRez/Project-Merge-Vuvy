@@ -100,6 +100,8 @@ namespace MergeGame.View.Board
         public int ItemCount => items.Count;
         public bool IsSelectionShown => selectionMarker.IsShown;
         public bool IsDropHighlightShown => dropHighlight.IsShown;
+        public MergeTargetGlow MergeGlow => dropHighlight.MergeGlow;
+        public bool DropHighlightShowsSquare => dropHighlight.ShowsSquare;
         public bool IsDragging => draggedItem != null;
 
         [Inject]
@@ -281,6 +283,8 @@ namespace MergeGame.View.Board
                 return;
             }
 
+            // In front of its neighbours, so the stars of its burst fly over them.
+            target.transform.SetAsLastSibling();
             target.MergeInto(resultItemId, visuals.GetIcon(resultItemId), catalog.IsMaxLevel(resultItemId), unlockedTarget, mergeFlightSeconds);
             source?.FlyAway(effectLayer, target.WorldCenter, mergeFlightSeconds, delay: 0f, endScale: 0.9f, () => Release(source));
             sounds.TryPlayMerge(resultItemId.Level);

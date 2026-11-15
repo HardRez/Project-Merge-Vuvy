@@ -76,6 +76,12 @@ UI_SPRITES = [
     # The chains popup's tabs: a white square, and the glowing yellow one of the tab that is chosen.
     ("tab.png", Path("Hud") / "UIRoot" / "renovate_choice_bg.png"),
     ("tab_selected.png", Path("Hud") / "UIRoot" / "renovate_choice_selected.png"),
+    # The pack's own merge glow (effect_qipan_hc_glow), lighting up the item a drop would merge into and bursting out
+    # of a merge: a soft spot of light, a fan of thin rays, a bright ring and a tall four-point star.
+    ("merge_halo.png", Path("Effects") / "Textures" / "t_spot_002.png"),
+    ("merge_rays.png", Path("Effects") / "Textures" / "t_td_8_uncompressed.png"),
+    ("merge_halo_ring.png", Path("Effects") / "Textures" / "t_td_7.png"),
+    ("glint_star.png", Path("Effects") / "Textures" / "t_xingxing_1.png"),
 ]
 
 # (published file under Content/Audio, pack file)
