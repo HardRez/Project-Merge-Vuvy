@@ -31,7 +31,7 @@ namespace MergeGame.View.Orders
         [SerializeField] private string rewardFormat = "+{0}";
         [SerializeField] private TactileButton deliverButton;
 
-        [Tooltip("Gently pulses while the order can be delivered.")]
+        [Tooltip("Holds the deliver button: shown only while the order can be delivered, popping in and then gently pulsing.")]
         [SerializeField] private RectTransform deliverPulse;
 
         [SerializeField] private Image celebrationGlow;
@@ -50,6 +50,8 @@ namespace MergeGame.View.Orders
 
         [SerializeField] private float swapSeconds = 0.3f;
         [SerializeField] private float pulseSeconds = 0.9f;
+        [SerializeField] private float deliverPopInSeconds = 0.32f;
+        [SerializeField] private float deliverPopOutSeconds = 0.15f;
 
         private readonly List<RequirementSlotView> requirementSlots = new List<RequirementSlotView>();
         private IItemVisuals visuals;
@@ -59,11 +61,15 @@ namespace MergeGame.View.Orders
         private OrderCard pendingCard;
         private bool isCelebrating;
         private bool customerLeft = true;
+        private bool deliverShown;
 
         public event Action DeliverClicked;
 
         public OrderCard Card { get; private set; }
         public bool CanDeliver => deliverButton.interactable;
+
+        /// <summary>True while the deliver button is (or is popping) on screen: only while the order can be delivered.</summary>
+        public bool IsDeliverButtonShown => deliverShown;
         public Vector3 DeliveryTarget => requirementContainer.TransformPoint(requirementContainer.rect.center);
 
         /// <summary>The customer shown on this card.</summary>
@@ -79,6 +85,7 @@ namespace MergeGame.View.Orders
             deliverButton.onClick.AddListener(() => DeliverClicked?.Invoke());
             celebrationGlow.gameObject.SetActive(false);
             celebrationLabel.gameObject.SetActive(false);
+            deliverPulse.gameObject.SetActive(false);
         }
 
         /// <param name="slotCustomer">The customer standing behind the counter above this card.</param>
@@ -150,14 +157,47 @@ namespace MergeGame.View.Orders
             return requirementSlots[index];
         }
 
+        /// <summary>
+        /// The deliver button is only on screen while the order can be delivered: it pops in when the order becomes
+        /// deliverable, then pulses, and shrinks away when it no longer is (or once it was delivered).
+        /// </summary>
         private void SetDeliverable(bool canDeliver)
         {
             deliverButton.interactable = canDeliver;
-            deliverPulse.localScale = Vector3.one;
+            if (canDeliver == deliverShown)
+                return;
+
+            deliverShown = canDeliver;
             if (canDeliver)
-                pulse.Play(Tween.Loop(Pulse));
-            else
-                pulse.Stop();
+            {
+                deliverPulse.gameObject.SetActive(true);
+                deliverPulse.localScale = Vector3.zero;
+                if (!pulse.Play(PopInAndPulse()))
+                    deliverPulse.localScale = Vector3.one;
+            }
+            else if (!pulse.Play(PopOut()))
+            {
+                HideDeliverButton();
+            }
+        }
+
+        private IEnumerator PopInAndPulse()
+        {
+            yield return Tween.Run(deliverPopInSeconds, Ease.OutBack, t => deliverPulse.localScale = Vector3.one * t);
+            yield return Tween.Loop(Pulse);
+        }
+
+        private IEnumerator PopOut()
+        {
+            var from = deliverPulse.localScale.x;
+            yield return Tween.Run(deliverPopOutSeconds, Ease.InQuad, t => deliverPulse.localScale = Vector3.one * (from * (1f - t)));
+            HideDeliverButton();
+        }
+
+        private void HideDeliverButton()
+        {
+            deliverPulse.localScale = Vector3.one;
+            deliverPulse.gameObject.SetActive(false);
         }
 
         private IEnumerator Pulse() =>

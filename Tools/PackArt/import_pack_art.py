@@ -47,6 +47,7 @@ UI_SPRITES = [
     ("home_button.png", Path("Hud") / "UIRoot" / "btn_setall_edit_hud.png"),
     ("order_tray.png", Path("Board") / "Board" / "order_tray.png"),  # the customers' orders stand on it
     ("counter_cloth.png", Path("Board") / "Board" / "order_counter.png"),  # hangs down the front of the counter
+    ("deliver_button.png", Path("UI") / "Common" / "button_green_2.png"),  # appears when an order can be delivered
 ]
 
 # (published file under Content/Audio, pack file)
