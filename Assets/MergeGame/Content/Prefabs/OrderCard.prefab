@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Teslim Et
+  m_text: Deliver
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: a79d096c180140c4d97b6665f68a9796, type: 2}

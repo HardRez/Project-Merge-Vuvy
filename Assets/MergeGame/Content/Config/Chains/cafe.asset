@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: cafe
   m_EditorClassIdentifier: MergeGame.Data::MergeGame.Data.Authoring.ItemChainAsset
   id: cafe
-  displayName: Kafe
+  displayName: Cafe
   spawnWeight: 3
   scoreMultiplier: 1
   levels:
-  - displayName: Karton Bardak
+  - displayName: Paper Cup
     icon: {fileID: 21300000, guid: 5e1deaad2b937774f8d330782e1aa402, type: 3}
-  - displayName: "S\u0131cak Kahve"
+  - displayName: Hot Coffee
     icon: {fileID: 21300000, guid: afe7c683069a304429fe247c8b0a46b0, type: 3}
-  - displayName: Fincan Kahve
+  - displayName: Cup of Coffee
     icon: {fileID: 21300000, guid: 02210ef94becc10429c72bca228b63e6, type: 3}
-  - displayName: "\u015Eekerli Kahve"
+  - displayName: Sweet Coffee
     icon: {fileID: 21300000, guid: f5b002846c9804743929cd6ae51e836e, type: 3}
   - displayName: Latte
     icon: {fileID: 21300000, guid: cb3a12670bd18d2458c02c0ae0724583, type: 3}

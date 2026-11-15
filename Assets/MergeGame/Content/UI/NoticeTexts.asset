@@ -14,34 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: MergeGame.View::MergeGame.View.Notices.NoticeTexts
   entries:
   - notice: 0
-    text: "Kilitli! A\xE7mak i\xE7in ayn\u0131s\u0131n\u0131 \xFCst\xFCne s\xFCr\xFCkle."
+    text: Locked! Drag a matching item onto it to unlock it.
     icon: {fileID: 21300000, guid: c66052bbddb605d4089f36c052de7a5c, type: 3}
     emphasized: 0
   - notice: 1
-    text: "Bu e\u015Fya en y\xFCksek seviyede!"
+    text: This item is already at its max level!
     icon: {fileID: 21300000, guid: 511c97b32c4f0364b8f5d10dda618b5a, type: 3}
     emphasized: 1
   - notice: 2
-    text: "Farkl\u0131 t\xFCrdeki e\u015Fyalar birle\u015Fmez."
+    text: Items of different kinds don't merge.
     icon: {fileID: 0}
     emphasized: 0
   - notice: 3
-    text: "Sadece ayn\u0131 seviyedeki e\u015Fyalar birle\u015Fir."
+    text: Only items of the same level merge.
     icon: {fileID: 0}
     emphasized: 0
   - notice: 4
-    text: "Tahta dolu! Birle\u015Ftir ya da bir e\u015Fyay\u0131 at."
+    text: The board is full! Merge or discard an item.
     icon: {fileID: 0}
     emphasized: 0
   - notice: 5
-    text: "Kilitli e\u015Fyalar at\u0131lamaz."
+    text: Locked items can't be discarded.
     icon: {fileID: 21300000, guid: c66052bbddb605d4089f36c052de7a5c, type: 3}
     emphasized: 0
   - notice: 6
-    text: "Bu sipari\u015F i\xE7in e\u015Fyalar hen\xFCz haz\u0131r de\u011Fil."
+    text: The items for this order aren't ready yet.
     icon: {fileID: 0}
     emphasized: 0
   - notice: 7
-    text: "Kumu a\xE7mak i\xE7in yan\u0131ndaki baloncu\u011Fu patlat!"
+    text: Pop the bubble next to it to free the sand!
     icon: {fileID: 21300000, guid: 4419796f3d40ba74f8649cc34321013e, type: 3}
     emphasized: 0

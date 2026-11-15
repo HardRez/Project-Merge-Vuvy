@@ -363,7 +363,7 @@ namespace MergeGame.Editor.Building
             ui.DropShadow(bar);
             ui.Image("Panel", bar, ui.Sprites.Panel, ui.Theme.Panel).rectTransform.Stretch();
 
-            var hint = ui.Text("Hint", bar, "Detayları görmek için bir eşyaya dokun", 40f, TextTone.Muted);
+            var hint = ui.Text("Hint", bar, "Tap an item to see its details", 40f, TextTone.Muted);
             hint.rectTransform.Stretch(32f, 6f, 32f, 0f);
             UiKit.ShrinkToFit(hint, 28f);
 
@@ -382,7 +382,7 @@ namespace MergeGame.Editor.Building
             var levelRow = LevelRow(details, out var level, out var maxTag, out var lockedTag);
             var next = NextItem(details, out var nextIcon);
 
-            var coverExplanation = ui.Text("CoverExplanation", details, "Yanındaki baloncuk patlayınca açılır.", 36f, TextTone.Muted, TextAlignmentOptions.TopLeft);
+            var coverExplanation = ui.Text("CoverExplanation", details, "Opens when the bubble next to it pops.", 36f, TextTone.Muted, TextAlignmentOptions.TopLeft);
             coverExplanation.rectTransform.Span(Vector2.zero, new Vector2(1f, 0.5f));
             coverExplanation.rectTransform.offsetMin = new Vector2(170f, 18f);
             coverExplanation.rectTransform.offsetMax = new Vector2(-32f, -4f);
@@ -425,8 +425,8 @@ namespace MergeGame.Editor.Building
 
             level = ui.Text("Level", row, string.Empty, 36f, TextTone.Muted, TextAlignmentOptions.Left);
             level.rectTransform.sizeDelta = new Vector2(0f, 52f);
-            maxTag = Tag(row, "MaxLevelTag", "crown", "En Yüksek", ui.Theme.Gold);
-            lockedTag = Tag(row, "LockedTag", "lock", "Kilitli", ui.Theme.TextMuted);
+            maxTag = Tag(row, "MaxLevelTag", "crown", "Max Level", ui.Theme.Gold);
+            lockedTag = Tag(row, "LockedTag", "lock", "Locked", ui.Theme.TextMuted);
             return row;
         }
 
@@ -452,7 +452,7 @@ namespace MergeGame.Editor.Building
         private GameObject NextItem(RectTransform details, out Image icon)
         {
             var next = UiKit.Rect("Next", details).Pin(RectLayout.Right, new Vector2(140f, 150f), new Vector2(-152f, 0f));
-            var label = ui.Text("Label", next, "Sonraki:", 30f, TextTone.Muted, TextAlignmentOptions.Center);
+            var label = ui.Text("Label", next, "Next:", 30f, TextTone.Muted, TextAlignmentOptions.Center);
             label.rectTransform.Band(fromTop: true, height: 40f);
             var disc = ui.Image("Disc", next, ui.Sprites.Circle, ui.Theme.CellLight);
             disc.rectTransform.Pin(RectLayout.Bottom, new Vector2(96f, 96f), new Vector2(0f, 6f));
@@ -480,7 +480,7 @@ namespace MergeGame.Editor.Building
             tag.rectTransform.Pin(RectLayout.Bottom, new Vector2(210f, tagHeight), new Vector2(0f, size - LayoutMetrics.SpawnBarHeight));
             var tagRim = ui.Image("Rim", tag.rectTransform, ui.Sprites.Ring, ui.Theme.WoodLight, cornerScale: tagHeight / 128f);
             tagRim.rectTransform.Stretch();
-            var label = ui.Text("Label", tag.rectTransform, "Üret", 46f, TextTone.Dark);
+            var label = ui.Text("Label", tag.rectTransform, "Spawn", 46f, TextTone.Dark);
             label.rectTransform.Stretch(12f, 4f, 12f, 0f);
             UiKit.ShrinkToFit(label, 30f);
 

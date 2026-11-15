@@ -15,60 +15,60 @@
   "chains": [
     {
       "id": "garden",
-      "displayName": "Bahçe",
+      "displayName": "Garden",
       "spawnWeight": 3,
       "scoreMultiplier": 1.0,
       "levels": [
         {
-          "name": "Tohum",
+          "name": "Seed",
           "source": "OrangeTree01"
         },
         {
-          "name": "Filiz",
+          "name": "Sprout",
           "source": "OrangeTree02"
         },
         {
-          "name": "Fide",
+          "name": "Seedling",
           "source": "OrangeTree03"
         },
         {
-          "name": "Çiçekli Fidan",
+          "name": "Flowering Sapling",
           "source": "OrangeTree05"
         },
         {
-          "name": "Genç Ağaç",
+          "name": "Young Tree",
           "source": "OrangeTree06"
         },
         {
-          "name": "Portakal Ağacı",
+          "name": "Orange Tree",
           "source": "OrangeTree08"
         },
         {
-          "name": "Bereketli Ağaç",
+          "name": "Bountiful Tree",
           "source": "OrangeTree10"
         }
       ]
     },
     {
       "id": "cafe",
-      "displayName": "Kafe",
+      "displayName": "Cafe",
       "spawnWeight": 3,
       "scoreMultiplier": 1.0,
       "levels": [
         {
-          "name": "Karton Bardak",
+          "name": "Paper Cup",
           "source": "Coffee01"
         },
         {
-          "name": "Sıcak Kahve",
+          "name": "Hot Coffee",
           "source": "Coffee03"
         },
         {
-          "name": "Fincan Kahve",
+          "name": "Cup of Coffee",
           "source": "Coffee05"
         },
         {
-          "name": "Şekerli Kahve",
+          "name": "Sweet Coffee",
           "source": "Coffee07"
         },
         {
@@ -87,68 +87,68 @@
     },
     {
       "id": "sea",
-      "displayName": "Deniz",
+      "displayName": "Sea",
       "spawnWeight": 2,
       "scoreMultiplier": 1.2,
       "levels": [
         {
-          "name": "Tarak Kabuğu",
+          "name": "Scallop Shell",
           "source": "Seashell03"
         },
         {
-          "name": "Kauri Kabuğu",
+          "name": "Cowrie Shell",
           "source": "Seashell04"
         },
         {
-          "name": "Boru Kabuğu",
+          "name": "Conch Shell",
           "source": "Seashell05"
         },
         {
-          "name": "Salyangoz Kabuğu",
+          "name": "Snail Shell",
           "source": "Seashell06"
         },
         {
-          "name": "Dikenli Kabuk",
+          "name": "Spiky Shell",
           "source": "Seashell08"
         },
         {
-          "name": "Benekli Kabuk",
+          "name": "Spotted Shell",
           "source": "Seashell10"
         },
         {
-          "name": "İnci",
+          "name": "Pearl",
           "source": "Seashell12"
         }
       ]
     },
     {
       "id": "bakery",
-      "displayName": "Fırın",
+      "displayName": "Bakery",
       "spawnWeight": 2,
       "scoreMultiplier": 1.2,
       "levels": [
         {
-          "name": "Un Çuvalı",
+          "name": "Flour Sack",
           "source": "Flour01"
         },
         {
-          "name": "Hamur",
+          "name": "Dough",
           "source": "Flour02"
         },
         {
-          "name": "Çörek",
+          "name": "Bun",
           "source": "Flour03"
         },
         {
-          "name": "Somun Ekmek",
+          "name": "Loaf of Bread",
           "source": "Flour05"
         },
         {
-          "name": "Sandviç",
+          "name": "Sandwich",
           "source": "Flour07"
         },
         {
-          "name": "Kulüp Sandviç",
+          "name": "Club Sandwich",
           "source": "Flour09"
         },
         {

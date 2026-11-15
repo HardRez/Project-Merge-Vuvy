@@ -27,13 +27,13 @@ namespace MergeGame.Editor.Building
         public SettingsView Settings(RectTransform canvas, Button openButton, out Button cheatsButton)
         {
             var shell = Shell(canvas, "Settings", new Vector2(640f, 540f), new Vector2(0f, 40f));
-            TitleTab(shell.Window, "Ayarlar");
+            TitleTab(shell.Window, "Settings");
 
             const float switchSpacing = 220f;
             const float switchY = 84f;
-            var sound = Switch(shell.Window, "Sound", "Ses", ui.Sprites.SoundIcon, new Vector2(61f, 52f), -switchSpacing / 2f, switchY, out var soundOff);
-            var vibration = Switch(shell.Window, "Vibration", "Titreşim", ui.Sprites.VibrationIcon, new Vector2(76f, 59f), switchSpacing / 2f, switchY, out var vibrationOff);
-            cheatsButton = TextButton(shell.Window, "CheatsButton", "Hileler", ui.Sprites.GreenButton, new Vector2(340f, 104f), new Vector2(0f, -150f), 46f);
+            var sound = Switch(shell.Window, "Sound", "Sound", ui.Sprites.SoundIcon, new Vector2(61f, 52f), -switchSpacing / 2f, switchY, out var soundOff);
+            var vibration = Switch(shell.Window, "Vibration", "Vibration", ui.Sprites.VibrationIcon, new Vector2(76f, 59f), switchSpacing / 2f, switchY, out var vibrationOff);
+            cheatsButton = TextButton(shell.Window, "CheatsButton", "Cheats", ui.Sprites.GreenButton, new Vector2(340f, 104f), new Vector2(0f, -150f), 46f);
 
             return shell.Root.gameObject.AddComponent<SettingsView>()
                 .Wire("openButton", openButton)
@@ -51,10 +51,10 @@ namespace MergeGame.Editor.Building
         public CheatsView Cheats(RectTransform canvas, Button openButton)
         {
             var shell = Shell(canvas, "Cheats", new Vector2(640f, 400f), new Vector2(0f, 40f));
-            TitleTab(shell.Window, "Hileler");
+            TitleTab(shell.Window, "Cheats");
 
-            var reset = TextButton(shell.Window, "ResetSaveButton", "Kaydı Sıfırla", ui.Sprites.QuitButton, new Vector2(400f, 120f), new Vector2(0f, 30f), 50f);
-            var note = ui.Text("ResetSaveNote", shell.Window, "İlerlemeyi siler, oyunu baştan başlatır.", 30f, TextTone.Dark);
+            var reset = TextButton(shell.Window, "ResetSaveButton", "Reset Save", ui.Sprites.QuitButton, new Vector2(400f, 120f), new Vector2(0f, 30f), 50f);
+            var note = ui.Text("ResetSaveNote", shell.Window, "Erases your progress and starts the game over.", 30f, TextTone.Dark);
             note.rectTransform.Pin(RectLayout.Center, new Vector2(520f, 50f), new Vector2(0f, -76f));
             UiKit.ShrinkToFit(note, 22f);
 
@@ -84,7 +84,7 @@ namespace MergeGame.Editor.Building
             var boardHeight = boardWidth * board.rect.height / board.rect.width;
             var title = ui.Image("Title", window, board, Color.white);
             title.rectTransform.Pin(RectLayout.Top, new Vector2(boardWidth, boardHeight), new Vector2(0f, -10f), pivot: RectLayout.Center);
-            var titleText = ui.Text("Label", title.rectTransform, "Eşya Zincirleri", 56f, TextTone.Title);
+            var titleText = ui.Text("Label", title.rectTransform, "Item Chains", 56f, TextTone.Title);
             titleText.color = Color.white;
             // On the board's blue face, between its wooden ends.
             titleText.rectTransform.Stretch(boardWidth * 0.16f, boardHeight * 0.3f, boardWidth * 0.16f, boardHeight * 0.28f);
@@ -103,7 +103,7 @@ namespace MergeGame.Editor.Building
             headingRow.childForceExpandWidth = false;
             headingRow.childForceExpandHeight = false;
             Flourish(heading, mirrored: false);
-            var chainTitle = ui.Text("Name", heading, "Zincir", 46f, TextTone.Dark);
+            var chainTitle = ui.Text("Name", heading, "Chain", 46f, TextTone.Dark);
             Flourish(heading, mirrored: true);
 
             var firstRow = Row("FirstRow", window, LayoutMetrics.ChainRowsTop, LayoutMetrics.ChainCellHeight, LayoutMetrics.ChainCellSpacing);
@@ -258,7 +258,7 @@ namespace MergeGame.Editor.Building
 
             var icon = ui.Image("Icon", tab, null, Color.white);
             icon.rectTransform.Stretch(18f, size * 0.24f, 18f, 4f);
-            var label = ui.Text("Name", tab, "Zincir", 30f, TextTone.Dark);
+            var label = ui.Text("Name", tab, "Chain", 30f, TextTone.Dark);
             label.rectTransform.Band(fromTop: false, 44f, offset: 8f);
             UiKit.ShrinkToFit(label, 20f);
 
@@ -312,7 +312,7 @@ namespace MergeGame.Editor.Building
 
             // As wide as the tile, so neighbouring names never touch: a long name wraps onto a second line instead. Every
             // name is the same size (no shrinking to fit), so the rows read evenly.
-            var name = ui.Text("Name", cell, "Eşya", 25f, TextTone.Dark, TextAlignmentOptions.Top);
+            var name = ui.Text("Name", cell, "Item", 25f, TextTone.Dark, TextAlignmentOptions.Top);
             name.textWrappingMode = TextWrappingModes.Normal;
             name.lineSpacing = -12f;
             name.rectTransform.Pin(RectLayout.Bottom, new Vector2(tileSize.x, LayoutMetrics.ChainNameHeight));

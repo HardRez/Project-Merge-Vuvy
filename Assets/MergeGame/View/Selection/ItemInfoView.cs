@@ -20,7 +20,7 @@ namespace MergeGame.View.Selection
         [SerializeField] private TMP_Text nameLabel;
         [SerializeField] private GameObject levelRow;
         [SerializeField] private TMP_Text levelLabel;
-        [SerializeField] private string levelFormat = "Seviye {0}/{1}";
+        [SerializeField] private string levelFormat = "Level {0}/{1}";
         [SerializeField] private GameObject maxLevelTag;
         [SerializeField] private GameObject lockedTag;
         [SerializeField] private GameObject next;
@@ -29,7 +29,7 @@ namespace MergeGame.View.Selection
 
         [Header("Closed cell")]
         [SerializeField] private Sprite coverIcon;
-        [SerializeField] private string coverName = "Kumla Kaplı";
+        [SerializeField] private string coverName = "Covered in Sand";
 
         [Tooltip("One line on how a closed cell opens; shown instead of the level row.")]
         [SerializeField] private GameObject coverExplanation;
