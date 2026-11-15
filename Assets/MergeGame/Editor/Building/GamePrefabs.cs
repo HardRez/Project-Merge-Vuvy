@@ -137,7 +137,7 @@ namespace MergeGame.Editor.Building
             var orderBadge = ui.Icon("OrderMatchBadge", body, "check");
             orderBadge.rectTransform.Span(new Vector2(0.58f, 0.04f), new Vector2(0.96f, 0.42f));
             orderBadge.gameObject.SetActive(false);
-            var sparkles = ui.Icon("BurstSparkles", body, "sparkles");
+            var sparkles = ui.Image("BurstSparkles", body, ui.Sprites.SparkleStar, Color.white);
             sparkles.rectTransform.Inset(-30f);
             sparkles.gameObject.SetActive(false);
 
@@ -169,8 +169,7 @@ namespace MergeGame.Editor.Building
             shine.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -22f);
             var hintRing = ui.Image("HintRing", layer, ui.Sprites.Ring, ui.Theme.Gold, cornerScale: 0.6f);
             hintRing.rectTransform.Inset(2f);
-            var sparkles = ui.Icon("AccentSparkles", layer, "sparkles");
-            sparkles.rectTransform.Span(new Vector2(-0.16f, 0.56f), new Vector2(0.44f, 1.16f));
+            var sparkles = BuildSparkleCluster(ui, layer, out var twinkles);
 
             return layer.gameObject.AddComponent<ItemAccent>()
                 .Wire("glow", glow)
@@ -178,7 +177,37 @@ namespace MergeGame.Editor.Building
                 .Wire("shineMask", shineMask)
                 .Wire("shine", shine.rectTransform)
                 .Wire("sparkles", sparkles)
+                .Wire("twinkles", twinkles)
                 .Wire("targetGlowColor", ui.Theme.Gold);
+        }
+
+        // (centre, size) of each star in the cluster, normalised to the cluster: one large star and two small ones.
+        private static readonly (Vector2 centre, float size)[] SparkleStars =
+        {
+            (new Vector2(0.46f, 0.48f), 0.78f),
+            (new Vector2(0.86f, 0.86f), 0.4f),
+            (new Vector2(0.12f, 0.14f), 0.34f)
+        };
+
+        /// <summary>A few twinkling stars over the item's top-left corner, faded as one through a canvas group.</summary>
+        private static CanvasGroup BuildSparkleCluster(UiKit ui, RectTransform layer, out Image[] twinkles)
+        {
+            var cluster = UiKit.Rect("AccentSparkles", layer).Span(new Vector2(-0.16f, 0.56f), new Vector2(0.44f, 1.16f));
+            var group = cluster.gameObject.AddComponent<CanvasGroup>();
+            group.blocksRaycasts = false;
+            group.interactable = false;
+
+            twinkles = new Image[SparkleStars.Length];
+            for (var i = 0; i < SparkleStars.Length; i++)
+            {
+                var (centre, size) = SparkleStars[i];
+                var star = ui.Image($"Star{i + 1}", cluster, ui.Sprites.SparkleStar, Color.white);
+                var half = new Vector2(size, size) * 0.5f;
+                star.rectTransform.Span(centre - half, centre + half);
+                twinkles[i] = star;
+            }
+
+            return group;
         }
 
         private static PointsPopup BuildPointsPopup(UiKit ui)

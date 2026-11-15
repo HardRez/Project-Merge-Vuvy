@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using MergeGame.View.Animation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,21 @@ namespace MergeGame.View.Board
         [SerializeField] private Image shineMask;
 
         [SerializeField] private RectTransform shine;
-        [SerializeField] private Image sparkles;
+
+        [Tooltip("Fades the whole sparkle cluster in and out; its stars twinkle inside it on a clock of their own.")]
+        [SerializeField] private CanvasGroup sparkles;
+
+        [Tooltip("The stars of the sparkle cluster; each twinkles with its own period and phase.")]
+        [SerializeField] private Image[] twinkles;
+
+        [Header("Sparkles")]
+        [Tooltip("One twinkle of the first star; the others are a little slower, so the cluster never pulses in step.")]
+        [Min(0.1f)]
+        [SerializeField] private float twinkleSeconds = 1.1f;
+
+        [Tooltip("How long the cluster takes to fade fully in or out.")]
+        [Min(0.01f)]
+        [SerializeField] private float sparkleFadeSeconds = 0.2f;
 
         [Header("Spawn shine")]
         [SerializeField] private Color spawnGlowColor = new Color(1f, 0.96f, 0.78f, 1f);
@@ -50,13 +65,21 @@ namespace MergeGame.View.Board
 
         private RectTransform rectTransform;
         private TweenChannel loop;
+        private TweenChannel twinkle;
+        private float sparkleTarget;
 
         public AccentKind Current { get; private set; }
+
+        /// <summary>The sparkle cluster and its stars, for tests that follow the animation frame by frame.</summary>
+        public CanvasGroup Sparkles => sparkles;
+
+        public IReadOnlyList<Image> Twinkles => twinkles;
 
         private void Awake()
         {
             rectTransform = (RectTransform)transform;
             loop = new TweenChannel(this);
+            twinkle = new TweenChannel(this);
             SetRest();
         }
 
@@ -72,7 +95,7 @@ namespace MergeGame.View.Board
             glow.color = spawnGlowColor;
             glow.gameObject.SetActive(true);
             ShowShine(iconSprite);
-            sparkles.gameObject.SetActive(true);
+            ShowSparkles();
             loop.Play(SpawnShine());
         }
 
@@ -103,7 +126,7 @@ namespace MergeGame.View.Board
             glow.color = targetGlowColor;
             glow.gameObject.SetActive(true);
             ShowShine(iconSprite);
-            sparkles.gameObject.SetActive(true);
+            ShowSparkles();
             loop.Play(TargetLoop());
         }
 
@@ -129,7 +152,45 @@ namespace MergeGame.View.Board
             glow.gameObject.SetActive(false);
             hintRing.gameObject.SetActive(false);
             shineMask.gameObject.SetActive(false);
+            twinkle?.Stop();
+            sparkles.alpha = 0f;
             sparkles.gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// Starts the cluster from invisible and lets it fade in, so starting or restarting an accent never pops it in.
+        /// </summary>
+        private void ShowSparkles()
+        {
+            sparkles.alpha = 0f;
+            sparkleTarget = 1f;
+            sparkles.gameObject.SetActive(true);
+            twinkle.Play(Twinkle());
+        }
+
+        /// <summary>
+        /// Runs until the accent stops, on its own clock rather than the accent's cycle: every value is a smooth periodic
+        /// function of that clock, so nothing jumps when the accent's cycle starts over.
+        /// </summary>
+        private IEnumerator Twinkle()
+        {
+            for (var clock = 0f; ; clock += Time.unscaledDeltaTime)
+            {
+                sparkles.alpha = Mathf.MoveTowards(sparkles.alpha, sparkleTarget, Time.unscaledDeltaTime / sparkleFadeSeconds);
+                for (var i = 0; i < twinkles.Length; i++)
+                {
+                    var period = twinkleSeconds * (1f + 0.27f * i);
+                    var phase = 0.37f * i;
+                    var cycle = 2f * Mathf.PI * (clock / period + phase);
+                    var bright = 0.5f - 0.5f * Mathf.Cos(cycle);
+                    var star = twinkles[i];
+                    star.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.35f, 1f, bright);
+                    star.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 14f * Mathf.Sin(cycle * 0.5f));
+                    SetAlpha(star, Mathf.Lerp(0.25f, 1f, bright));
+                }
+
+                yield return null;
+            }
         }
 
         private void ShowShine(Sprite iconSprite)
@@ -147,9 +208,8 @@ namespace MergeGame.View.Board
                 var burst = Ease.Bump(Mathf.Min(1f, t * 1.6f));
                 SetAlpha(glow, burst);
                 shine.anchoredPosition = new Vector2(Mathf.Lerp(-sweep, sweep, Ease.InOutQuad(Mathf.Clamp01((t - 0.15f) * 1.6f))), 0f);
-                sparkles.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 30f * t);
-                sparkles.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.6f, 1.1f, Ease.OutCubic(t));
-                SetAlpha(sparkles, Ease.Bump(t));
+                // Fades out in time to be gone when the shine ends.
+                sparkleTarget = t < 1f - sparkleFadeSeconds / spawnShineSeconds ? 1f : 0f;
             });
 
             // Ends on its own; the channel needs no stopping from inside its own coroutine.
@@ -185,12 +245,18 @@ namespace MergeGame.View.Board
             yield return Tween.Run(targetEnterSeconds, Ease.OutBack, t =>
             {
                 rectTransform.localScale = Vector3.one * Mathf.LerpUnclamped(1f, targetScale, t);
-                SetAlpha(glow, Mathf.Clamp01(t));
+                // Ends where the cycle starts (its pulse is 0 at both ends), so the loop never jumps.
+                SetAlpha(glow, TargetGlowRest * Mathf.Clamp01(t));
             });
             yield return Tween.Loop(TargetCycle);
         }
 
-        /// <summary>An eager pulse while a shine sweeps across the item and sparkles twinkle around it.</summary>
+        private const float TargetGlowRest = 0.75f;
+
+        /// <summary>
+        /// An eager pulse while a shine sweeps across the item; the sparkles twinkle on their own clock. Every value is
+        /// the same at the end of a cycle as at its start (the shine is outside its mask at both ends).
+        /// </summary>
         private IEnumerator TargetCycle()
         {
             var sweep = shineMask.rectTransform.rect.width;
@@ -198,11 +264,8 @@ namespace MergeGame.View.Board
             {
                 var pulse = Ease.Bump(t);
                 rectTransform.localScale = Vector3.one * (targetScale + 0.05f * pulse);
-                SetAlpha(glow, 0.75f + 0.25f * pulse);
+                SetAlpha(glow, TargetGlowRest + (1f - TargetGlowRest) * pulse);
                 shine.anchoredPosition = new Vector2(Mathf.Lerp(-sweep, sweep, Ease.InOutQuad(Mathf.Min(1f, t * 1.4f))), 0f);
-                sparkles.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 25f * t);
-                sparkles.rectTransform.localScale = Vector3.one * (0.9f + 0.2f * pulse);
-                SetAlpha(sparkles, 0.6f + 0.4f * pulse);
             });
         }
 

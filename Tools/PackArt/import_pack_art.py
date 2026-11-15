@@ -38,6 +38,7 @@ CONTACT_SHADOW_BLUR = 6
 UI_SPRITES = [
     ("selection_brackets.png", Path("Board") / "Board" / "item_selected.png"),
     ("board_tray.png", Path("Board") / "Board" / "board.png"),
+    ("sparkle_star.png", Path("Effects") / "Textures" / "t_xingxing_3.png"),
 ]
 
 # (published file under Content/Audio, pack file)

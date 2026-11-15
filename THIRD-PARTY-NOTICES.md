@@ -58,5 +58,5 @@ SOFTWARE
 ## Licensed asset pack (item art, board tray, selection brackets, sound)
 
 - Source: an asset pack supplied by the project owner, who holds the licence to use it. The pack is not part of the repository.
-- Used for: the item sprites of all four chains, the blue board tray and the colours of its tiles, the corner brackets around the selected cell, the sound effects and the background music.
-- Files: `Assets/MergeGame/Content/Sprites/Items/**/*.png`, `Assets/MergeGame/Content/Sprites/UI/selection_brackets.png`, `Assets/MergeGame/Content/Sprites/UI/board_tray.png` and `Assets/MergeGame/Content/Audio/*.ogg`. They are copied from the pack by `Tools/PackArt/import_pack_art.py`, which lists every source file; item art is trimmed, scaled, centred on a 256×256 canvas and given a contact shadow, audio is copied unchanged.
+- Used for: the item sprites of all four chains, the blue board tray and the colours of its tiles, the corner brackets around the selected cell, the sparkle stars over a highlighted item, the sound effects and the background music.
+- Files: `Assets/MergeGame/Content/Sprites/Items/**/*.png`, `Assets/MergeGame/Content/Sprites/UI/selection_brackets.png`, `Assets/MergeGame/Content/Sprites/UI/board_tray.png`, `Assets/MergeGame/Content/Sprites/UI/sparkle_star.png` and `Assets/MergeGame/Content/Audio/*.ogg`. They are copied from the pack by `Tools/PackArt/import_pack_art.py`, which lists every source file; item art is trimmed, scaled, centred on a 256×256 canvas and given a contact shadow, audio is copied unchanged.
