@@ -71,6 +71,8 @@ namespace MergeGame.View.Orders
                 var slotIndex = orderCard.SlotIndex;
                 card.DeliverClicked += () => DeliverRequested?.Invoke(slotIndex);
                 card.PaidOut += origin => PayOut(slotIndex, origin);
+                // Customers coming in together (the opening counter) pop once: the player plays a clip once per frame.
+                card.CustomerArrived += () => sounds.TryPlay(SoundCue.CustomerAppear);
                 card.Show(orderCard);
                 cards.Add(card);
             }

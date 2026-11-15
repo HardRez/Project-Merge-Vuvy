@@ -71,6 +71,9 @@ namespace MergeGame.View.Orders
         /// <summary>The customer pays as it starts to leave: the money takes off from this world position.</summary>
         public event Action<Vector3> PaidOut;
 
+        /// <summary>A new customer came in behind the counter for this card's order.</summary>
+        public event Action CustomerArrived;
+
         public OrderCard Card { get; private set; }
         public bool CanDeliver => deliverButton.interactable;
 
@@ -158,11 +161,14 @@ namespace MergeGame.View.Orders
             if (visuals.CustomerCount == 0)
             {
                 customer.Arrive(null, null, card.Mood);
-                return;
+            }
+            else
+            {
+                var index = card.CustomerIndex % visuals.CustomerCount;
+                customer.Arrive(visuals.GetCustomerPortrait(index), visuals.GetCustomerAvatar(index), card.Mood);
             }
 
-            var index = card.CustomerIndex % visuals.CustomerCount;
-            customer.Arrive(visuals.GetCustomerPortrait(index), visuals.GetCustomerAvatar(index), card.Mood);
+            CustomerArrived?.Invoke();
         }
 
         private RequirementSlotView RequirementSlot(int index)
