@@ -68,13 +68,13 @@ namespace MergeGame.Editor.Building
             return (RectTransform)canvasObject.transform;
         }
 
-        /// <summary>Full-bleed background (it may extend under notches), then the safe-area root for all content.</summary>
-        public static RectTransform SafeContent(UiKit ui, RectTransform canvas)
+        /// <summary>
+        /// A full-bleed background of <paramref name="texture"/> tiled <paramref name="tileWidth"/> units wide (it may
+        /// extend under notches), then the safe-area root for all content.
+        /// </summary>
+        public static RectTransform SafeContent(UiKit ui, RectTransform canvas, Sprite texture, float tileWidth)
         {
-            var background = ui.Image("Background", canvas, ui.Sprites.Background, Color.white);
-            var backgroundFitter = background.gameObject.AddComponent<AspectRatioFitter>();
-            backgroundFitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
-            backgroundFitter.aspectRatio = background.sprite.rect.width / background.sprite.rect.height;
+            ui.Tiled("Background", canvas, texture, tileWidth).rectTransform.Stretch();
 
             var safeArea = UiKit.Rect("SafeArea", canvas).Stretch();
             safeArea.gameObject.AddComponent<SafeAreaFitter>();

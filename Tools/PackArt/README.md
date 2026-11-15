@@ -11,6 +11,11 @@
 | `Sprites/UI/spawn_button.png`, `Sprites/UI/spawn_button_disabled.png` | `Board/BaseUIBoard/UI/times_main_btn_emission5.png` | The game's own round "produce" button with its tap hand removed: the hand and its shadow are masked and the area is filled by diffusion from the face around it, keeping the gloss highlight. The disabled version is the same art in warm grey |
 | `Sprites/UI/spawn_icon.png` | `Hud/BaseSceneView/icon_cook.png` | Copied unchanged; the whisk and spatula on the spawn button |
 | `Sprites/UI/home_button.png` | `Hud/UIRoot/btn_setall_edit_hud.png` | Copied unchanged; the home button's glossy blue square, drawn at its own proportions (not sliced) |
+| `Sprites/UI/shop_wall.png` | `Texture2D/canteenwall_3.png` | One repeat of the leaf wallpaper cut out of the texture (173×86 px, above its wooden dado; the texture's own 256 px width does not repeat cleanly); drawn tiled behind the customers and on the main menu |
+| `Sprites/UI/shop_floor.png` | `Texture2D/patiofloor_1.png` | The herringbone parquet calmed: its contrast pulled 45% towards its average colour, then tinted 35% towards a warm sand, so the board stays the busiest thing on screen; drawn tiled under the board |
+| `Sprites/UI/counter_top.png` | `UI/Window/SpecialOrder/special_order_table.png` | The table's wooden plank cut out of its empty margins (its shadow stays); stretched across the screen as the counter's top |
+| `Sprites/UI/counter_cloth.png` | `Board/Board/order_counter.png` | Copied unchanged; the teal cloth with a wavy hem hanging down the counter's front |
+| `Sprites/UI/order_tray.png` | `Board/Board/order_tray.png` | Copied unchanged; the white tray a customer's requested items stand on, sliced across only (46 px ends) |
 | `Sprites/UI/bubble_droplet.png` | `Effects/Textures/t_paopao1.png` | Copied unchanged; the small bubbles sprayed out of a burst |
 | `Sprites/UI/lock_bubble.png` | `Board/ItemMain/Item/Bubble.png` | Copied unchanged; the clear bubble around a locked item, which pops outwards when a merge frees it |
 | `Sprites/UI/merge_ring.png` | `Effects/Textures/t_effect_1.png` | Copied unchanged; the ring that spreads out behind a merged item |
@@ -19,7 +24,7 @@
 
 ## Run
 
-Needs Python 3.9+, Pillow and NumPy (`python -m pip install pillow numpy`; NumPy only removes the hand from the round button). Pass the pack's `Assets` folder:
+Needs Python 3.9+, Pillow and NumPy (`python -m pip install pillow numpy`; NumPy removes the hand from the round button and calms the floor). Pass the pack's `Assets` folder:
 
 ```bash
 python Tools/PackArt/import_pack_art.py --pack "<path to the pack>/Assets"

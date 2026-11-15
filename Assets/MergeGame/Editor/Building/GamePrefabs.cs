@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 
 namespace MergeGame.Editor.Building
 {
-    /// <summary>The prefabs the game scene instantiates at runtime: board cells, pooled items and popups, order cards.</summary>
+    /// <summary>The prefabs the game scene instantiates at runtime: board cells, pooled items and popups, order cards and customers.</summary>
     internal sealed class GamePrefabs
     {
         private const float CellCornerScale = 0.7f;
@@ -33,6 +33,7 @@ namespace MergeGame.Editor.Building
         public ItemView ItemView { get; private set; }
         public PointsPopup PointsPopup { get; private set; }
         public OrderCardView OrderCard { get; private set; }
+        public CustomerPortraitView CustomerStage { get; private set; }
 
         /// <summary>Writes every prefab; builds them in the open scene, which should be a scratch scene.</summary>
         public static void Generate(UiKit ui)
@@ -41,7 +42,8 @@ namespace MergeGame.Editor.Building
             BuildCellCover(ui, WriteMaterial(SandGrainShader, BuildPaths.SandGrainMaterial), WriteMaterial(SandMaskShader, BuildPaths.SandMaskMaterial));
             BuildItemView(ui);
             BuildPointsPopup(ui);
-            BuildOrderCard(ui, BuildRequirementSlot(ui), WritePortraitMaterial());
+            BuildOrderCard(ui, BuildRequirementSlot(ui));
+            BuildCustomerStage(ui, WritePortraitMaterial());
         }
 
         public static GamePrefabs Load() => new GamePrefabs
@@ -50,7 +52,8 @@ namespace MergeGame.Editor.Building
             CellCover = LoadPrefab<CellCover>(BuildPaths.CellCoverPrefab),
             ItemView = LoadPrefab<ItemView>(BuildPaths.ItemViewPrefab),
             PointsPopup = LoadPrefab<PointsPopup>(BuildPaths.PointsPopupPrefab),
-            OrderCard = LoadPrefab<OrderCardView>(BuildPaths.OrderCardPrefab)
+            OrderCard = LoadPrefab<OrderCardView>(BuildPaths.OrderCardPrefab),
+            CustomerStage = LoadPrefab<CustomerPortraitView>(BuildPaths.CustomerStagePrefab)
         };
 
         private static T LoadPrefab<T>(string path) where T : Component =>
@@ -291,16 +294,18 @@ namespace MergeGame.Editor.Building
             return Save<RequirementSlotView>(root, BuildPaths.RequirementSlotPrefab);
         }
 
-        private static OrderCardView BuildOrderCard(UiKit ui, RequirementSlotView requirementSlot, Material portraitMaterial)
+        /// <summary>
+        /// The front of an order, standing on the counter: the requested items on a tray, the reward at the top left of
+        /// the slot and the deliver button on the counter's front. Its customer is a separate prefab drawn behind the
+        /// counter (<see cref="BuildCustomerStage"/>).
+        /// </summary>
+        private static OrderCardView BuildOrderCard(UiKit ui, RequirementSlotView requirementSlot)
         {
             var root = UiKit.Rect("OrderCard", null).Pin(RectLayout.Center, new Vector2(500f, LayoutMetrics.OrdersHeight));
-            root.Prefer(flexibleWidth: 1f);
 
             var body = UiKit.Rect("Body", root).Stretch();
-            ui.DropShadow(body);
-            ui.Image("Panel", body, ui.Sprites.Panel, ui.Theme.Panel).rectTransform.Stretch();
 
-            // A golden flash across the card, under its content.
+            // A golden flash over the slot, under its content.
             var glow = ui.Image("CelebrationGlow", body, ui.Sprites.Glow, WithAlpha(ui.Theme.Gold, 0f));
             glow.rectTransform.Inset(-20f);
             glow.preserveAspect = false;
@@ -308,20 +313,18 @@ namespace MergeGame.Editor.Building
             var content = UiKit.Rect("Content", body).Stretch();
             var contentGroup = content.gameObject.AddComponent<CanvasGroup>();
 
-            var customer = BuildCustomer(ui, content, portraitMaterial);
-            var requirements = BuildSpeechBubble(ui, content);
+            var tray = BuildTray(ui, content);
             var reward = BuildRewardPill(ui, content);
             var deliver = BuildDeliverButton(ui, content, out var deliverPulse);
 
             var celebration = ui.Text("CelebrationLabel", body, "+0", 96f, TextTone.Title);
-            celebration.rectTransform.Pin(RectLayout.Center, new Vector2(400f, 140f), new Vector2(0f, -40f));
+            celebration.rectTransform.Pin(RectLayout.Center, new Vector2(400f, 140f), new Vector2(0f, 40f));
             celebration.color = ui.Theme.Gold;
 
             root.gameObject.AddComponent<OrderCardView>()
                 .Wire("body", body)
                 .Wire("content", contentGroup)
-                .Wire("customer", customer)
-                .Wire("requirementContainer", requirements)
+                .Wire("requirementContainer", tray)
                 .Wire("requirementPrefab", requirementSlot)
                 .Wire("rewardLabel", reward)
                 .Wire("deliverButton", deliver.Button)
@@ -332,44 +335,69 @@ namespace MergeGame.Editor.Building
         }
 
         /// <summary>
-        /// The customer on its disc: a Spine portrait whose shoulders are masked to the disc and whose head may rise above
-        /// it, with a still avatar for customers without one and a glow behind the disc while the order is ready.
-        /// The portrait's texture is straight alpha and the card fades through a CanvasGroup, so the material reads straight
-        /// alpha and is CanvasGroup compatible, and the mesh keeps its vertex colours unpremultiplied (Spine's guidance for both).
+        /// The pack's white tray on the counter top, as wide as the items on it; the items stand on it and rise above its
+        /// rim. Sliced across only, so it is drawn at its art's height.
         /// </summary>
-        private static CustomerPortraitView BuildCustomer(UiKit ui, RectTransform card, Material portraitMaterial)
+        /// <returns>The tray, which lays the requirement slots out.</returns>
+        private static RectTransform BuildTray(UiKit ui, RectTransform card)
         {
-            const float discOffsetX = 20f;
-            const float discOffsetY = -22f;
-            const float frameInset = 8f;
-            var size = LayoutMetrics.AvatarSize;
+            var art = ui.Sprites.OrderTray;
+            var tray = ui.Image("Tray", card, art, Color.white, cornerScale: LayoutMetrics.TrayHeight / art.rect.height);
+            tray.rectTransform.Pin(RectLayout.Bottom, new Vector2(0f, LayoutMetrics.TrayHeight), new Vector2(0f, LayoutMetrics.TrayBottom));
 
-            const float glowSpread = 46f;
-            var glow = ui.Image("ReadyGlow", card, ui.Sprites.Glow, WithAlpha(ui.Theme.Gold, 0f));
-            glow.rectTransform.Pin(RectLayout.TopLeft, new Vector2(size + 2f * glowSpread, size + 2f * glowSpread),
-                new Vector2(discOffsetX - glowSpread, discOffsetY + glowSpread));
+            var layout = tray.gameObject.AddComponent<HorizontalLayoutGroup>();
+            layout.padding = new RectOffset(40, 40, 0, Mathf.RoundToInt(LayoutMetrics.TrayHeight * 0.3f));
+            layout.childAlignment = TextAnchor.LowerCenter;
+            layout.spacing = 12f;
+            layout.childControlWidth = false;
+            layout.childControlHeight = false;
+            layout.childForceExpandWidth = false;
+            layout.childForceExpandHeight = false;
+            tray.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+            return tray.rectTransform;
+        }
+
+        /// <summary>
+        /// A customer behind the counter: a Spine portrait standing in the space above the counter (its frame) and
+        /// reaching down behind it, with a still avatar for customers without one and a glow behind it while the order is
+        /// ready. The portrait's texture is straight alpha and the slot fades through a CanvasGroup, so the material reads
+        /// straight alpha and is CanvasGroup compatible, and the mesh keeps its vertex colours unpremultiplied (Spine's
+        /// guidance for both).
+        /// <para>
+        /// The customer is clipped just under the plank's top face: whatever its animations do (leaving sinks it), it never
+        /// shows below the counter. The clip reaches far past the slot's sides and top, so hops and heads stay whole.
+        /// </para>
+        /// </summary>
+        private static CustomerPortraitView BuildCustomerStage(UiKit ui, Material portraitMaterial)
+        {
+            var root = UiKit.Rect("CustomerStage", null).Pin(RectLayout.Center, new Vector2(500f, LayoutMetrics.OrdersHeight));
+            var group = root.gameObject.AddComponent<CanvasGroup>();
+
+            const float clipReach = 400f;
+            var clip = UiKit.Rect("CounterClip", root).Stretch(-clipReach, LayoutMetrics.CustomerClipBottom, -clipReach, -clipReach);
+            clip.gameObject.AddComponent<RectMask2D>();
+
+            var frame = UiKit.Rect("Frame", clip)
+                .Stretch(clipReach, LayoutMetrics.CounterTop - LayoutMetrics.CustomerClipBottom, clipReach, clipReach);
+
+            const float glowSize = 480f;
+            var glow = ui.Image("ReadyGlow", frame, ui.Sprites.Glow, WithAlpha(ui.Theme.Gold, 0f));
+            glow.rectTransform.Pin(RectLayout.Center, new Vector2(glowSize, glowSize), new Vector2(0f, 20f));
             glow.preserveAspect = false;
             glow.gameObject.SetActive(false);
 
-            var disc = ui.Image("AvatarDisc", card, ui.Sprites.Circle, ui.Theme.CellDark);
-            disc.rectTransform.Pin(RectLayout.TopLeft, new Vector2(size, size), new Vector2(discOffsetX, discOffsetY));
+            // Catches taps on the customer, which make it hop.
+            var hitArea = ui.Image("HitArea", frame, null, Color.clear);
+            hitArea.rectTransform.Pin(RectLayout.Center, new Vector2(260f, 0f));
+            hitArea.rectTransform.anchorMin = new Vector2(0.5f, 0f);
+            hitArea.rectTransform.anchorMax = new Vector2(0.5f, 1f);
+            hitArea.raycastTarget = true;
 
-            var frame = UiKit.Rect("Frame", disc.rectTransform);
-            frame.Inset(frameInset);
-
-            // The frame's circle with room above it for the head; the actor's origin is the circle's centre.
-            var frameSize = size - 2f * frameInset;
-            var windowHeight = frameSize * (1f + LayoutMetrics.PortraitHeadroomAboveFrame);
-            var window = UiKit.Rect("Window", disc.rectTransform)
-                .Pin(RectLayout.Bottom, new Vector2(frameSize, windowHeight), new Vector2(0f, frameInset));
-            window.gameObject.AddComponent<PortraitWindow>().raycastTarget = true;
-            window.gameObject.AddComponent<Mask>().showMaskGraphic = false;
-
-            var actor = UiKit.Rect("Actor", window).Pin(new Vector2(0.5f, frameSize * 0.5f / windowHeight), Vector2.zero, pivot: RectLayout.Center);
+            // The actor's origin is the frame's centre; it hops.
+            var actor = UiKit.Rect("Actor", frame).Pin(RectLayout.Center, Vector2.zero);
 
             var avatar = ui.Image("Avatar", actor, null, Color.white);
-            avatar.rectTransform.Pin(RectLayout.Center, new Vector2(frameSize, frameSize));
-            avatar.raycastTarget = false;
+            avatar.rectTransform.Pin(RectLayout.Center, new Vector2(260f, 260f));
 
             var portrait = UiKit.Rect("Portrait", actor)
                 .Pin(RectLayout.Center, Vector2.zero)
@@ -379,12 +407,14 @@ namespace MergeGame.Editor.Building
             portrait.MeshGenerator.settings.pmaVertexColors = false;
             portrait.gameObject.SetActive(false);
 
-            return disc.gameObject.AddComponent<CustomerPortraitView>()
+            root.gameObject.AddComponent<CustomerPortraitView>()
+                .Wire("group", group)
                 .Wire("frame", frame)
                 .Wire("actor", actor)
                 .Wire("portrait", portrait)
                 .Wire("avatar", avatar)
                 .Wire("readyGlow", glow);
+            return Save<CustomerPortraitView>(root, BuildPaths.CustomerStagePrefab);
         }
 
         private static Material WritePortraitMaterial()
@@ -398,31 +428,11 @@ namespace MergeGame.Editor.Building
             return material;
         }
 
-        /// <returns>The row the requirement slots are laid out in.</returns>
-        private static RectTransform BuildSpeechBubble(UiKit ui, RectTransform card)
-        {
-            var left = 20f + LayoutMetrics.AvatarSize + 8f;
-            var bubble = ui.Image("SpeechBubble", card, ui.Sprites.SpeechBubble, ui.Theme.CellLight, cornerScale: 0.8f);
-            bubble.rectTransform.Band(fromTop: true, height: 156f, offset: 14f);
-            bubble.rectTransform.offsetMin = new Vector2(left, bubble.rectTransform.offsetMin.y);
-            bubble.rectTransform.offsetMax = new Vector2(-16f, bubble.rectTransform.offsetMax.y);
-
-            var row = UiKit.Rect("Requirements", bubble.rectTransform).Stretch(40f, 38f, 18f, 12f);
-            var layout = row.gameObject.AddComponent<HorizontalLayoutGroup>();
-            layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.spacing = 10f;
-            layout.childControlWidth = false;
-            layout.childControlHeight = false;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = false;
-            return row;
-        }
-
         private static TextMeshProUGUI BuildRewardPill(UiKit ui, RectTransform card)
         {
             const float height = 76f;
             var pill = ui.Image("RewardPill", card, ui.Sprites.Pill, ui.Theme.CellLight, cornerScale: height / 128f);
-            pill.rectTransform.Pin(RectLayout.BottomLeft, new Vector2(176f, height), new Vector2(20f, 20f));
+            pill.rectTransform.Pin(RectLayout.TopLeft, new Vector2(176f, height), new Vector2(4f, -8f));
             ui.Icon("Star", pill.rectTransform, "star").rectTransform.Pin(RectLayout.Left, new Vector2(70f, 70f), new Vector2(-4f, 2f));
             var label = ui.Text("Reward", pill.rectTransform, "+0", 42f, TextTone.Dark, TextAlignmentOptions.Center);
             label.rectTransform.Stretch(58f, 4f, 10f, 0f);
@@ -433,7 +443,7 @@ namespace MergeGame.Editor.Building
         {
             // Pivoted on its centre so the pulse grows evenly in every direction; the offset places that centre.
             pulse = UiKit.Rect("DeliverPulse", card)
-                .Pin(RectLayout.BottomRight, new Vector2(220f, 92f), new Vector2(-128f, 62f), pivot: RectLayout.Center);
+                .Pin(RectLayout.Bottom, new Vector2(230f, 86f), new Vector2(0f, LayoutMetrics.DeliverButtonCentre), pivot: RectLayout.Center);
             var button = ui.Button("DeliverButton", pulse, ui.Theme.Primary, cornerScale: 0.7f);
             button.Rect.Stretch();
             var label = ui.Text("Label", button.Content, "Teslim Et", 40f, TextTone.Light);

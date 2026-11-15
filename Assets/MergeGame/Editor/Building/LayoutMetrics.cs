@@ -20,7 +20,8 @@ namespace MergeGame.Editor.Building
         public const float SectionSpacing = 16f;
 
         public const float TopBarHeight = 116f;
-        public const float OrdersHeight = 300f;
+        /// <summary>The shop counter with the customers standing behind it.</summary>
+        public const float OrdersHeight = 500f;
         public const float InfoBarHeight = 176f;
         /// <summary>The round spawn button with its name tag below it.</summary>
         public const float SpawnBarHeight = 200f;
@@ -37,11 +38,39 @@ namespace MergeGame.Editor.Building
         public const float BoardFramePadding = 26f;
         public const float ToastHeight = 104f;
 
-        public const float CardSpacing = 20f;
-        public const float AvatarSize = 132f;
+        /// <summary>The width one repeat of the shop's wallpaper and of its parquet are drawn at.</summary>
+        public const float ShopWallTileWidth = 203f;
+        public const float ShopFloorTileWidth = 300f;
 
-        /// <summary>How far above the customer's round frame its head may rise, in frame heights.</summary>
-        public const float PortraitHeadroomAboveFrame = 0.32f;
+        public const float CardSpacing = 20f;
         public const float RequirementSize = 100f;
+
+        // The shop counter across the bottom of the orders strip, measured up from the strip's bottom edge. The customers
+        // stand in the space above the counter top; their trays stand on it and their deliver buttons hang on its front.
+
+        /// <summary>The counter's top surface; customers are framed above it.</summary>
+        public const float CounterTop = 196f;
+
+        /// <summary>The wooden plank drawn down from the counter top (its art includes a soft shadow under it).</summary>
+        public const float CounterPlankHeight = 100f;
+
+        /// <summary>The cloth on the counter's front hangs from here, behind the plank's front edge.</summary>
+        public const float CounterClothTop = 132f;
+
+        /// <summary>The cloth's drawn height, its wavy hem and shadow included; it hangs a little past the strip.</summary>
+        public const float CounterClothHeight = 163f;
+
+        /// <summary>
+        /// Customers are clipped here, behind the plank's top face (which spans about 126–196), so nothing of them can
+        /// show below the counter.
+        /// </summary>
+        public const float CustomerClipBottom = 150f;
+
+        /// <summary>The tray's bottom edge, on the plank's top surface, and the tray's height.</summary>
+        public const float TrayBottom = 150f;
+        public const float TrayHeight = 84f;
+
+        /// <summary>The centre of the deliver button, on the counter's cloth.</summary>
+        public const float DeliverButtonCentre = 62f;
     }
 }

@@ -21,7 +21,8 @@ namespace MergeGame.Editor.Building
             ["ring"] = new Vector4(34, 34, 34, 34),
             ["board_frame"] = new Vector4(40, 40, 40, 40),
             ["badge"] = new Vector4(24, 26, 24, 22),
-            ["speech_bubble"] = new Vector4(52, 60, 36, 36),
+            // The tray's rounded ends stay, its flat middle stretches; sliced across only, drawn at the art's height.
+            ["order_tray"] = new Vector4(46, 0, 46, 0),
             ["selection_brackets"] = new Vector4(60, 60, 60, 60),
             ["board_tray"] = new Vector4(30, 30, 30, 30),
             ["sand_01"] = new Vector4(64, 64, 64, 64),
@@ -42,8 +43,21 @@ namespace MergeGame.Editor.Building
         public Sprite Shadow { get; private set; }
         public Sprite Ring { get; private set; }
         public Sprite BoardFrame { get; private set; }
-        public Sprite SpeechBubble { get; private set; }
-        public Sprite Background { get; private set; }
+
+        /// <summary>One repeat of a peach leaf wallpaper, drawn tiled behind the customers; from the asset pack.</summary>
+        public Sprite ShopWall { get; private set; }
+
+        /// <summary>A calm herringbone parquet, drawn tiled under the board; made from the asset pack's floor.</summary>
+        public Sprite ShopFloor { get; private set; }
+
+        /// <summary>The counter's wooden plank seen from the front, with its shadow; from the asset pack.</summary>
+        public Sprite CounterTop { get; private set; }
+
+        /// <summary>The teal cloth hanging down the counter's front, with a wavy hem; from the asset pack.</summary>
+        public Sprite CounterCloth { get; private set; }
+
+        /// <summary>The white tray a customer's requested items stand on; from the asset pack.</summary>
+        public Sprite OrderTray { get; private set; }
 
         /// <summary>Four corner brackets around the selected cell, from the asset pack; drawn in its own colours.</summary>
         public Sprite SelectionBrackets { get; private set; }
@@ -81,7 +95,7 @@ namespace MergeGame.Editor.Building
         /// <summary>Sand covering a closed cell, in several looks; drawn at twice the cell's resolution.</summary>
         public Sprite[] Sand { get; private set; }
 
-        /// <summary>Unsliced shapes get no border; that includes the opaque background.</summary>
+        /// <summary>Unsliced shapes get no border; that includes the tiled shop wall and floor.</summary>
         public static Vector4 BorderOf(string shapeName) => Borders.TryGetValue(shapeName, out var border) ? border : Vector4.zero;
 
         /// <summary>The sand tiles are read at runtime: their pixels colour the grains of a pouring cover.</summary>
@@ -98,8 +112,11 @@ namespace MergeGame.Editor.Building
             Shadow = LoadShape("shadow"),
             Ring = LoadShape("ring"),
             BoardFrame = LoadShape("board_frame"),
-            SpeechBubble = LoadShape("speech_bubble"),
-            Background = LoadShape("background"),
+            ShopWall = LoadShape("shop_wall"),
+            ShopFloor = LoadShape("shop_floor"),
+            CounterTop = LoadShape("counter_top"),
+            CounterCloth = LoadShape("counter_cloth"),
+            OrderTray = LoadShape("order_tray"),
             SelectionBrackets = LoadShape("selection_brackets"),
             BoardTray = LoadShape("board_tray"),
             SparkleStar = LoadShape("sparkle_star"),

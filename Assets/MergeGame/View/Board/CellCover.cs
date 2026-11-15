@@ -44,6 +44,7 @@ namespace MergeGame.View.Board
         private int seed;
         private SandPour sandPour;
         private float pourTime;
+        private Vector2 sampledSize;
 
         private TweenChannel Motion => motion ??= new TweenChannel(this);
 
@@ -129,10 +130,13 @@ namespace MergeGame.View.Board
         /// <summary>Swaps the tile for its grains: same colours at the same spots, so the swap cannot be seen.</summary>
         private void BeginPour()
         {
-            if (sandPour != null)
+            // The grains are sampled for the cell's drawn size: the tile's rounded corners keep their size when the cell
+            // is resized, so a cell resized before any grain has moved (the screen changed) is sampled again.
+            var size = sand.rectTransform.rect.size;
+            if (sandPour != null && (size == sampledSize || pourTime > 0f))
                 return;
 
-            var size = sand.rectTransform.rect.size;
+            sampledSize = size;
             var rows = Mathf.Max(8, Mathf.RoundToInt(columns * size.y / Mathf.Max(1f, size.x)));
             var colours = new Color32[columns * rows];
             var occupied = new bool[columns * rows];

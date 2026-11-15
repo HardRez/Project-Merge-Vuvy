@@ -46,7 +46,8 @@ namespace MergeGame.Editor.Building
             var camera = SceneScaffold.Camera(ui.Theme.CellLight);
             SceneScaffold.EventSystem();
             var canvas = SceneScaffold.Canvas(camera);
-            var content = SceneScaffold.SafeContent(ui, canvas);
+            // The shop's leaf wallpaper, as behind the customers in the game.
+            var content = SceneScaffold.SafeContent(ui, canvas, ui.Sprites.ShopWall, LayoutMetrics.ShopWallTileWidth);
 
             Decorations(content);
             Hero(content);
