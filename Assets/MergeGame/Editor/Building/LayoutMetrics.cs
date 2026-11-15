@@ -38,6 +38,20 @@ namespace MergeGame.Editor.Building
         public const float BoardFramePadding = 26f;
         public const float ToastHeight = 104f;
 
+        /// <summary>
+        /// The game's name on the main menu's ribbon, in rows of the ribbon art from its top. The ribbon's red band arches:
+        /// in the 230 px art its middle runs from row 20 to row 104, and it drops towards the ends like a circle of about
+        /// 2250 px radius. The band is too narrow for the whole name, so the art's rows 40 to 100 (inside the band all
+        /// along the ribbon) are stretched by <see cref="TitleRibbonExtraRows"/>: the band then runs from row 20 to row
+        /// 138 in the middle, while its arch, gold edges and folded ends keep their shape. The name (capitals 0.61 of the
+        /// font size above the baseline, the tails of g and y 0.2 below it) stands on row 101 in the middle, so the body
+        /// of the letters is centred on the band and the tails of g and y stay on it, and bends along the circle.
+        /// </summary>
+        public const float TitleNameSize = 90f;
+        public const float TitleBaselineRow = 101f;
+        public const float TitleArcRadiusRows = 2250f;
+        public const float TitleRibbonExtraRows = 34f;
+
         /// <summary>The width one repeat of the shop's wallpaper and of its parquet are drawn at.</summary>
         public const float ShopWallTileWidth = 203f;
         public const float ShopFloorTileWidth = 300f;

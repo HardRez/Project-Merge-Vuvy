@@ -60,7 +60,7 @@ namespace MergeGame.Editor.Building
             Spacer("SpaceAboveSpawn", column, LayoutMetrics.SpaceAboveSpawnShare);
             var spawn = SpawnBar(column);
 
-            Wall(canvas, counterPlank);
+            ShopScenery.Wall(ui, canvas, counterPlank);
 
             var pool = UiKit.Rect("Pool", canvas).Stretch();
             var dragLayer = UiKit.Rect("DragLayer", canvas).Stretch();
@@ -261,7 +261,7 @@ namespace MergeGame.Editor.Building
         {
             var strip = Section("Orders", column, LayoutMetrics.OrdersHeight, LayoutMetrics.OrdersGrowth);
             var customers = SlotRow("Customers", strip);
-            counterPlank = Counter(strip);
+            counterPlank = ShopScenery.Counter(ui, strip);
             var cards = SlotRow("Cards", strip);
 
             return strip.gameObject.AddComponent<OrdersView>()
@@ -282,41 +282,6 @@ namespace MergeGame.Editor.Building
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = true;
             return row;
-        }
-
-        /// <summary>
-        /// The shop counter across the bottom of the strip, from one edge of the screen to the other: a teal cloth hanging
-        /// down its front under a wooden plank. The cloth's hem hangs a little past the strip.
-        /// </summary>
-        /// <returns>The plank.</returns>
-        private RectTransform Counter(RectTransform strip)
-        {
-            const float hemOverhang = LayoutMetrics.CounterClothHeight - LayoutMetrics.CounterClothTop;
-            var counter = UiKit.Rect("Counter", strip).Band(fromTop: false, LayoutMetrics.CounterTop + hemOverhang, offset: -hemOverhang);
-            counter.gameObject.AddComponent<CanvasWidthFitter>();
-
-            var cloth = ui.Image("Cloth", counter, ui.Sprites.CounterCloth, Color.white);
-            cloth.preserveAspect = false;
-            cloth.rectTransform.Band(fromTop: false, LayoutMetrics.CounterClothHeight);
-
-            var plank = ui.Image("Plank", counter, ui.Sprites.CounterTop, Color.white);
-            plank.preserveAspect = false;
-            plank.rectTransform.Band(fromTop: true, LayoutMetrics.CounterPlankHeight);
-            return plank.rectTransform;
-        }
-
-        /// <summary>
-        /// The shop's wallpaper behind the customers: across the whole screen, from its top down to the middle of the
-        /// counter's plank, wherever the column's layout puts the counter. It lies over the floor and under all content.
-        /// </summary>
-        private void Wall(RectTransform canvas, RectTransform counterPlank)
-        {
-            var wall = ui.Tiled("Wall", canvas, ui.Sprites.ShopWall, LayoutMetrics.ShopWallTileWidth);
-            wall.rectTransform.Stretch();
-            wall.rectTransform.SetSiblingIndex(1);
-            wall.gameObject.AddComponent<BottomEdgeFollower>()
-                .Wire("target", counterPlank)
-                .Wire("heightInTarget", 0.5f);
         }
 
         private BoardView Board(RectTransform area, RectTransform dragLayer)

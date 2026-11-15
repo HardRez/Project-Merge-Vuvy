@@ -16,7 +16,9 @@
 | `Sprites/UI/counter_top.png` | `UI/Window/SpecialOrder/special_order_table.png` | The table's wooden plank cut out of its empty margins (its shadow stays); stretched across the screen as the counter's top |
 | `Sprites/UI/counter_cloth.png` | `Board/Board/order_counter.png` | Copied unchanged; the teal cloth with a wavy hem hanging down the counter's front |
 | `Sprites/UI/order_tray.png` | `Board/Board/order_tray.png` | Copied unchanged; the white tray a customer's requested items stand on, sliced across only (46 px ends) |
-| `Sprites/UI/deliver_button.png` | `UI/Common/button_green_2.png` | Copied unchanged; the glossy green "Teslim Et" button, sliced across only (50 px ends) and drawn at its art's proportions |
+| `Sprites/UI/green_button.png` | `UI/Common/button_green_2.png` | Copied unchanged; the glossy green "Teslim Et" and "Oyna" buttons, sliced across only (50 px ends) and drawn at the art's proportions |
+| `Sprites/UI/quit_button.png` | `Board/BaseUIBoard/UI/times_main_btn_multiple4.png` | Copied unchanged; the main menu's orange "Çıkış" pill, sliced across only (60 px ends) |
+| `Sprites/UI/bunting.png`, `Sprites/UI/title_ribbon.png` | `UI/Window/ReturnUser/bg_flag.png`, `UI/Window/Level/level_up_banner.png` | Copied unchanged; the bunting across the main menu's top and the red ribbon the game's name is written on (its rows 40 to 100, inside the red band, are sliced so the band can be drawn taller) |
 | `Sprites/UI/settings_icon.png` | `Hud/BaseSceneView/icon_settings.png` | Copied unchanged; the gear on the settings button |
 | `Sprites/UI/window_frame.png`, `Sprites/UI/window_title.png`, `Sprites/UI/window_close.png` | `Hud/Window/window_bg2.png`, `window_title_bg2.png`, `button_close1.png` | Copied unchanged; the settings popup's wooden frame (sliced 9-ways), the left half of its title tab (the right half is the same art mirrored, as in the pack's own windows) and its round close button |
 | `Sprites/UI/window_panel.png` | `Hud/Window/window_bg1.png` | The popup's cream panel with its left half mirrored onto the right: the art has a small knob on its right edge that slicing would stretch into a bump |

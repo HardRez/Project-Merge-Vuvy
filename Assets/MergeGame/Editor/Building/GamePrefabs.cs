@@ -463,7 +463,7 @@ namespace MergeGame.Editor.Building
                 .Pin(RectLayout.Bottom, new Vector2(240f, height), new Vector2(0f, LayoutMetrics.DeliverButtonCentre), pivot: RectLayout.Center);
             // The pack's glossy green button, sliced across only and drawn at its art's proportions; its darker bottom rim
             // is about a tenth of its height, so the label sits above it.
-            var button = ui.ArtButton("DeliverButton", pulse, ui.Sprites.DeliverButton, contentLift: height * 0.1f, height: height);
+            var button = ui.ArtButton("DeliverButton", pulse, ui.Sprites.GreenButton, contentLift: height * 0.1f, height: height);
             button.Rect.Stretch();
             var label = ui.Text("Label", button.Content, "Teslim Et", 40f, TextTone.Light);
             label.rectTransform.Stretch(8f, 0f, 8f, 0f);
