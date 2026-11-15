@@ -28,10 +28,32 @@ namespace MergeGame.Editor.Building
 
         public static UiTheme LoadOrCreateTheme() => LoadOrCreate<UiTheme>(BuildPaths.Theme, _ => { });
 
-        /// <summary>Created with the imported pack audio; afterwards clips and volumes are the designers' to change.</summary>
-        public static SoundLibrary LoadOrCreateSoundLibrary() => LoadOrCreate<SoundLibrary>(BuildPaths.SoundLibrary, library =>
+        /// <summary>
+        /// Created with the imported pack audio; afterwards clips and volumes are the designers' to change. A cue added to
+        /// the game after the library was created gets its default clip; the cues already there are kept as they are.
+        /// </summary>
+        public static SoundLibrary LoadOrCreateSoundLibrary()
         {
-            library.Cues = new[]
+            var library = LoadOrCreate<SoundLibrary>(BuildPaths.SoundLibrary, created =>
+            {
+                created.Cues = DefaultCues();
+                created.MergeClips = Enumerable.Range(2, 6).Select(level => Clip($"merge_{level:00}")).ToList();
+                created.Music = Clip("music_main");
+            });
+
+            var missing = DefaultCues().Where(cue => library.Cues.All(entry => entry.Cue != cue.Cue)).ToArray();
+            if (missing.Length > 0)
+            {
+                library.Cues = library.Cues.Concat(missing).ToArray();
+                EditorUtility.SetDirty(library);
+                AssetDatabase.SaveAssets();
+            }
+
+            return library;
+        }
+
+        private static SoundLibrary.CueClip[] DefaultCues() =>
+            new[]
             {
                 new SoundLibrary.CueClip(SoundCue.ButtonClick, Clip("button_click"), 0.8f),
                 new SoundLibrary.CueClip(SoundCue.Spawn, Clip("spawn"), 0.8f),
@@ -41,11 +63,11 @@ namespace MergeGame.Editor.Building
                 new SoundLibrary.CueClip(SoundCue.SandBreak, Clip("sand_break"), 0.8f),
                 new SoundLibrary.CueClip(SoundCue.Discard, Clip("discard"), 0.8f),
                 new SoundLibrary.CueClip(SoundCue.OrderComplete, Clip("order_complete"), 0.9f),
-                new SoundLibrary.CueClip(SoundCue.Notice, Clip("notice"), 0.5f)
+                new SoundLibrary.CueClip(SoundCue.Notice, Clip("notice"), 0.5f),
+                new SoundLibrary.CueClip(SoundCue.CashLand, Clip("cash_land"), 0.6f),
+                new SoundLibrary.CueClip(SoundCue.CashBurst, Clip("cash_burst"), 0.6f),
+                new SoundLibrary.CueClip(SoundCue.CashSwoosh, Clip("cash_swoosh"), 0.7f)
             };
-            library.MergeClips = Enumerable.Range(2, 6).Select(level => Clip($"merge_{level:00}")).ToList();
-            library.Music = Clip("music_main");
-        });
 
         private static AudioClip Clip(string name)
         {

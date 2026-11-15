@@ -46,7 +46,7 @@ python Tools/PackArt/import_pack_art.py --pack "<path to the pack>/Assets"
 
 Options: `--seed <json>`, `--out <Content folder>`. Re-running overwrites the outputs; the `.meta` files (GUIDs) are kept.
 
-After changing item sources, run **Merge Game → Seed Content** so the chain assets pick up any new names; after adding audio, run **Merge Game → Build Scenes** (an existing `SoundLibrary.asset` is kept, so assign new clips to it in the Inspector).
+After changing item sources, run **Merge Game → Seed Content** so the chain assets pick up any new names; after adding audio, run **Merge Game → Build Scenes** (an existing `SoundLibrary.asset` is kept as it is, but a cue it has no clip for yet gets its default clip; to change a clip, assign it in the Inspector).
 
 ## Item sources
 

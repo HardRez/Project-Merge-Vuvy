@@ -85,6 +85,7 @@ namespace MergeGame.Editor.Building
             var sounds = SceneScaffold.Sounds(UiDataAssets.LoadOrCreateSoundLibrary());
             board.Wire("sounds", sounds);
             orders.Wire("sounds", sounds);
+            cashFlight.Wire("sounds", sounds);
             notices.Wire("sounds", sounds);
             SceneScaffold.ClickSound(home, sounds);
             foreach (var button in new[] { settings.OpenButton, settings.CloseButton, settings.SoundButton, settings.VibrationButton,

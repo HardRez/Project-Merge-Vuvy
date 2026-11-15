@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using MergeGame.PlayTests.Support;
+using MergeGame.View.Audio;
 using MergeGame.View.Score;
 using NUnit.Framework;
 using UnityEngine;
@@ -24,11 +26,32 @@ namespace MergeGame.PlayTests
         private GameScreenDriver game;
 
         [UnityTest]
-        public IEnumerator ADeliveredOrder_PaysIntoTheScorePill_WhichCountsTheMoneyOnlyAsTheBillsLand()
+        public IEnumerator ADeliveredOrder_PaysIntoTheScorePill_WhichCountsTheMoneyOnlyAsTheBillsLand_EachRingingAsItLands()
         {
             yield return GameScreenDriver.OpenGame(driver => game = driver);
             var cash = Object.FindAnyObjectByType<CashFlightView>();
             Assert.That(cash, Is.Not.Null, "The Game scene has no cash flight.");
+            var sounds = Object.FindAnyObjectByType<SoundPlayer>();
+            Assert.That(sounds.Library.TryGet(SoundCue.CashLand, out var ring, out _), Is.True, "No clip for a bill landing.");
+            Assert.That(sounds.Library.TryGet(SoundCue.CashBurst, out var pop, out _), Is.True, "No clip for the bills bursting out.");
+            Assert.That(sounds.Library.TryGet(SoundCue.CashSwoosh, out var swoosh, out _), Is.True, "No clip for the bills taking off.");
+            var landings = new List<int>();
+            var rings = new List<int>();
+            var pops = new List<int>();
+            var swooshes = new List<int>();
+            void Landed() => landings.Add(Time.frameCount);
+            void Played(AudioClip clip)
+            {
+                if (clip == ring)
+                    rings.Add(Time.frameCount);
+                else if (clip == pop)
+                    pops.Add(Time.frameCount);
+                else if (clip == swoosh)
+                    swooshes.Add(Time.frameCount);
+            }
+
+            cash.BillLanded += Landed;
+            sounds.ClipPlayed += Played;
             Assert.That(AutoPlayer.PlayUntilAnOrderIsDeliverable(game.Session, HighestRequestedLevel), Is.True);
             yield return GameScreenDriver.WaitSeconds(SettleSeconds);
             Assert.That(game.Score.DisplayedScore, Is.EqualTo(game.Session.Score));
@@ -63,6 +86,15 @@ namespace MergeGame.PlayTests
             Assert.That(cash.BillsInFlight, Is.Zero, "The bills are still flying.");
             Assert.That(game.Score.IncomingPoints, Is.Zero, "Some of the money never arrived.");
             Assert.That(countedWhileFlying, Is.True, "The pill did not count bill by bill.");
+            cash.BillLanded -= Landed;
+            sounds.ClipPlayed -= Played;
+            Assert.That(landings, Is.Not.Empty);
+            // Bills landing in the same frame ring once (the player never stacks a clip in one frame).
+            Assert.That(rings, Is.EqualTo(landings.Distinct().ToList()), "Not every bill rang as it landed.");
+            Assert.That(pops, Has.Count.EqualTo(1), "The bills should pop once as they burst out.");
+            Assert.That(swooshes, Has.Count.EqualTo(1), "The bills should swoosh once as they take off.");
+            Assert.That(pops[0], Is.LessThan(swooshes[0]), "The bills swooshed off before they burst out.");
+            Assert.That(swooshes[0], Is.LessThan(landings.Min()), "The first bill landed before the bills swooshed off.");
 
             yield return GameScreenDriver.WaitSeconds(CountSeconds);
             Assert.That(game.Score.DisplayedScore, Is.EqualTo(game.Session.Score));
