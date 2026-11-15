@@ -76,12 +76,14 @@ namespace MergeGame.PlayTests
                 highest = Mathf.Max(highest, scale.x);
                 Assert.That(Mathf.Abs(scale.x - previous) / Mathf.Max(Time.unscaledDeltaTime, 1f / 120f), Is.LessThan(1f), "The bubble jumped.");
                 previous = scale.x;
-                everApart |= Mathf.Abs(scale.x - bubbles[1].localScale.x) > 0.005f;
+                // Phases are random per bubble, so two may happen to be close; the board as a whole must not be in step.
+                var widths = bubbles.Select(bubble => bubble.localScale.x).ToList();
+                everApart |= widths.Max() - widths.Min() > 0.005f;
             }
 
             Assert.That(highest - lowest, Is.GreaterThan(0.03f), "The bubble does not breathe.");
             Assert.That(highest, Is.LessThan(1.1f), "The breathing is more than a gentle swell.");
-            Assert.That(everApart, Is.True, "Two bubbles breathe in step.");
+            Assert.That(everApart, Is.True, "All bubbles breathe in step.");
         }
 
         [UnityTest]

@@ -43,6 +43,8 @@ UI_SPRITES = [
     ("lock_bubble.png", Path("Board") / "ItemMain" / "Item" / "Bubble.png"),
     ("bubble_pop_sheet.png", Path("Effects") / "Textures" / "t_water_5.png"),
     ("bubble_droplet.png", Path("Effects") / "Textures" / "t_paopao1.png"),
+    ("spawn_icon.png", Path("Hud") / "BaseSceneView" / "icon_cook.png"),  # whisk and spatula: making things
+    ("home_button.png", Path("Hud") / "UIRoot" / "btn_setall_edit_hud.png"),
 ]
 
 # (published file under Content/Audio, pack file)
@@ -117,6 +119,68 @@ def import_items(pack: Path, seed_path: Path, out: Path) -> list[Path]:
     return written
 
 
+ROUND_BUTTON = Path("Board") / "BaseUIBoard" / "UI" / "times_main_btn_emission5.png"  # the game's own "produce" button
+ROUND_FACE_RADIUS = 68  # inside the red rim, in pixels of the 180 px art
+
+
+def remove_tap_hand(art: Image.Image) -> Image.Image:
+    """
+    The pack's round button has a tap hand drawn on it. The hand (pale skin, its brown outline and drop shadow) is
+    masked and the area filled by diffusion: each masked pixel repeatedly takes the average of its neighbours, so the
+    face's gloss band and its orange-to-yellow gradient flow in smoothly. The gloss highlight at the top left stays.
+    """
+    import colorsys
+
+    import numpy as np
+
+    w, h = art.size
+    rgba = np.asarray(art).astype(np.float64)
+    ys, xs = np.mgrid[0:h, 0:w]
+    inside_face = (xs - w / 2) ** 2 + (ys - h / 2) ** 2 < ROUND_FACE_RADIUS ** 2
+    sat = np.zeros((h, w))
+    val = np.zeros((h, w))
+    for y in range(h):
+        for x in range(w):
+            _, sat[y, x], val[y, x] = colorsys.rgb_to_hsv(*(rgba[y, x, :3] / 255))
+
+    skin = (sat < 0.5) & (val > 0.68)
+    darker_than_face = rgba[..., 0] < 248  # the face's red channel is 253-255 everywhere
+    hand_area = ((xs >= 58) | ((xs >= 44) & (ys >= 60))) & (xs <= 158) & (ys >= 18) & (ys <= 138)
+    mask = inside_face & hand_area & (skin | darker_than_face)
+    grown = Image.fromarray((mask * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(9))
+    mask = (np.asarray(grown) > 0) & inside_face
+
+    filled = rgba.copy()
+    filled[mask] = rgba[~mask & inside_face].mean(axis=0)
+    for _ in range(1500):
+        average = (np.roll(filled, 1, 0) + np.roll(filled, -1, 0) + np.roll(filled, 1, 1) + np.roll(filled, -1, 1)) / 4
+        filled[mask] = average[mask]
+
+    result = Image.fromarray(np.clip(filled, 0, 255).astype(np.uint8), "RGBA")
+    seam = Image.fromarray((mask * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(2))
+    return Image.composite(result, art, seam)
+
+
+def greyed(art: Image.Image) -> Image.Image:
+    """A warm grey version of coloured button art, for its disabled look; keeps its light and shade."""
+    grey = art.convert("LA").convert("RGBA")
+    tint = Image.new("RGBA", art.size, (196, 186, 172, 255))
+    grey = Image.blend(grey, Image.composite(tint, grey, grey.getchannel("A")), 0.35)
+    grey.putalpha(art.getchannel("A"))
+    return grey
+
+
+def import_round_button(pack: Path, folder: Path) -> list[Path]:
+    path = pack / ROUND_BUTTON
+    if not path.is_file():
+        raise ImportError_(f"Missing pack file: {path}")
+    face = remove_tap_hand(Image.open(path).convert("RGBA"))
+    folder.mkdir(parents=True, exist_ok=True)
+    face.save(folder / "spawn_button.png")
+    greyed(face).save(folder / "spawn_button_disabled.png")
+    return [folder / "spawn_button.png", folder / "spawn_button_disabled.png"]
+
+
 def copy_files(pack: Path, table: list[tuple[str, Path]], folder: Path) -> list[Path]:
     missing = [str(pack / source) for _, source in table if not (pack / source).is_file()]
     if missing:
@@ -139,6 +203,7 @@ def main(argv=None) -> int:
     try:
         items = import_items(args.pack, args.seed, args.out)
         ui = copy_files(args.pack, UI_SPRITES, args.out / "Sprites" / "UI")
+        ui += import_round_button(args.pack, args.out / "Sprites" / "UI")
         audio = copy_files(args.pack, AUDIO, args.out / "Audio")
     except ImportError_ as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

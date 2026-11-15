@@ -132,6 +132,38 @@ namespace MergeGame.Editor.Building
             return new ButtonParts(button, content);
         }
 
+        /// <summary>
+        /// A tactile button drawn with coloured art rather than a tinted shape: it keeps the art's own colours, shows
+        /// <paramref name="disabledFace"/> (or a grey tint without one) while disabled, and lifts its content off the
+        /// art's bottom rim by <paramref name="contentLift"/>. Art sliced only across (no top or bottom border) keeps its
+        /// proportions only at one height: pass that height as <paramref name="height"/> to draw the art scaled to it.
+        /// </summary>
+        public ButtonParts ArtButton(string name, Transform parent, Sprite face, Sprite disabledFace = null, float contentLift = 12f, float height = 0f)
+        {
+            var rect = Rect(name, parent);
+            var cornerScale = height > 0f ? height / face.rect.height : 1f;
+            var background = AddImage(rect.gameObject, face, Color.white, cornerScale);
+            background.raycastTarget = true;
+
+            var content = Rect("Content", rect).Stretch(0f, contentLift, 0f, 0f);
+            var contentGroup = content.gameObject.AddComponent<CanvasGroup>();
+            contentGroup.blocksRaycasts = false;
+
+            var button = rect.gameObject.AddComponent<TactileButton>();
+            button.transition = Selectable.Transition.None;
+            button.targetGraphic = background;
+            var navigation = button.navigation;
+            navigation.mode = Navigation.Mode.None;
+            button.navigation = navigation;
+            button.Wire("background", background)
+                .Wire("enabledColor", Color.white)
+                .Wire("disabledColor", Theme.Disabled)
+                .Wire("content", contentGroup);
+            if (disabledFace != null)
+                button.Wire("enabledSprite", face).Wire("disabledSprite", disabledFace);
+            return new ButtonParts(button, content);
+        }
+
         /// <summary>A soft drop shadow behind a panel of the same rect.</summary>
         public Image DropShadow(Transform parent, float spread = 18f, float drop = 14f)
         {

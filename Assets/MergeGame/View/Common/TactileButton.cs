@@ -6,13 +6,20 @@ namespace MergeGame.View.Common
 {
     /// <summary>
     /// A button that feels physical: it sinks while pressed and springs back, and turns grey with dimmed content when
-    /// it is not interactable. Use it with <see cref="Selectable.Transition.None"/>; it drives its own visuals.
+    /// it is not interactable. A button drawn with coloured art turns grey by showing its <see cref="disabledSprite"/>
+    /// instead of a tint. Use it with <see cref="Selectable.Transition.None"/>; it drives its own visuals.
     /// </summary>
     public sealed class TactileButton : Button
     {
         [SerializeField] private Graphic background;
         [SerializeField] private Color enabledColor = Color.white;
         [SerializeField] private Color disabledColor = new Color(0.74f, 0.71f, 0.67f, 1f);
+
+        [Tooltip("Optional: art shown instead of a tint while disabled (the background must be an Image).")]
+        [SerializeField] private Sprite disabledSprite;
+
+        [Tooltip("The art shown while enabled; needed only with a disabled sprite.")]
+        [SerializeField] private Sprite enabledSprite;
 
         [Tooltip("Icon and label; dimmed while the button is disabled.")]
         [SerializeField] private CanvasGroup content;
@@ -31,8 +38,15 @@ namespace MergeGame.View.Common
             base.DoStateTransition(state, instant);
 
             var isDisabled = state == SelectionState.Disabled;
-            if (background != null)
+            if (background is Image image && disabledSprite != null)
+            {
+                image.sprite = isDisabled ? disabledSprite : enabledSprite;
+                image.color = enabledColor;
+            }
+            else if (background != null)
+            {
                 background.color = isDisabled ? disabledColor : enabledColor;
+            }
             if (content != null)
                 content.alpha = isDisabled ? disabledContentAlpha : 1f;
 

@@ -8,6 +8,9 @@
 | `Sprites/UI/selection_brackets.png` | `Board/Board/item_selected.png` | Copied unchanged; the scene builder slices it 9-ways (60 px corners) |
 | `Sprites/UI/sparkle_star.png` | `Effects/Textures/t_xingxing_3.png` | Copied unchanged; the twinkling stars over a merge target or a spawned item, and the glint at a merged item's corner |
 | `Sprites/UI/bubble_pop_sheet.png` | `Effects/Textures/t_water_5.png` | Copied unchanged; a 4x4 sheet of a bubble's skin tearing apart, played as a flipbook when a bubble bursts |
+| `Sprites/UI/spawn_button.png`, `Sprites/UI/spawn_button_disabled.png` | `Board/BaseUIBoard/UI/times_main_btn_emission5.png` | The game's own round "produce" button with its tap hand removed: the hand and its shadow are masked and the area is filled by diffusion from the face around it, keeping the gloss highlight. The disabled version is the same art in warm grey |
+| `Sprites/UI/spawn_icon.png` | `Hud/BaseSceneView/icon_cook.png` | Copied unchanged; the whisk and spatula on the spawn button |
+| `Sprites/UI/home_button.png` | `Hud/UIRoot/btn_setall_edit_hud.png` | Copied unchanged; the home button's glossy blue square, drawn at its own proportions (not sliced) |
 | `Sprites/UI/bubble_droplet.png` | `Effects/Textures/t_paopao1.png` | Copied unchanged; the small bubbles sprayed out of a burst |
 | `Sprites/UI/lock_bubble.png` | `Board/ItemMain/Item/Bubble.png` | Copied unchanged; the clear bubble around a locked item, which pops outwards when a merge frees it |
 | `Sprites/UI/merge_ring.png` | `Effects/Textures/t_effect_1.png` | Copied unchanged; the ring that spreads out behind a merged item |
@@ -16,7 +19,7 @@
 
 ## Run
 
-Needs Python 3.9+ and Pillow (`python -m pip install pillow`). Pass the pack's `Assets` folder:
+Needs Python 3.9+, Pillow and NumPy (`python -m pip install pillow numpy`; NumPy only removes the hand from the round button). Pass the pack's `Assets` folder:
 
 ```bash
 python Tools/PackArt/import_pack_art.py --pack "<path to the pack>/Assets"
