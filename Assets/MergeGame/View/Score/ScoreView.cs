@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace MergeGame.View.Score
 {
-    /// <summary>The score pill: counts up to a new score while the pill and its star punch.</summary>
+    /// <summary>The score pill: counts up to a new score while the pill and its icon punch.</summary>
     public sealed class ScoreView : MonoBehaviour, IScoreView
     {
         private static readonly NumberFormatInfo ThousandsWithDots = new NumberFormatInfo { NumberGroupSeparator = ".", NumberDecimalDigits = 0 };
 
         [SerializeField] private TMP_Text label;
         [SerializeField] private RectTransform pill;
-        [SerializeField] private RectTransform star;
+        [SerializeField] private RectTransform icon;
         [SerializeField] private float countSeconds = 0.6f;
         [SerializeField] private float punchSeconds = 0.35f;
         [SerializeField] private float punchScale = 0.14f;
@@ -46,8 +46,8 @@ namespace MergeGame.View.Score
             {
                 var bump = Ease.Bump(t);
                 pill.localScale = Vector3.one * (1f + punchScale * bump);
-                star.localScale = Vector3.one * (1f + 2f * punchScale * bump);
-                star.localRotation = Quaternion.Euler(0f, 0f, -25f * bump);
+                icon.localScale = Vector3.one * (1f + 2f * punchScale * bump);
+                icon.localRotation = Quaternion.Euler(0f, 0f, -25f * bump);
             }));
         }
 

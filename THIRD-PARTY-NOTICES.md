@@ -55,6 +55,12 @@ SOFTWARE
 - Used for: the 13 animated customers on the order cards (Spine 3.8.99 exports: skeleton, atlas and texture).
 - Files: `Assets/MergeGame/Content/Characters/**`.
 
+## Score bills icon
+
+- Used for: the fan of green bills beside the score and the orders' rewards.
+- File: `Assets/MergeGame/Content/Sprites/UI/score_cash.png`.
+- Source: a flat bills icon supplied by the project owner; it is not from the asset pack. The dollar sign on the top bill was replaced with a white V in Baloo 2 ExtraBold, tilted with the bill, and the image was cut out of its margins. The owner is responsible for its licence; if it comes from an icon library that asks for attribution, add the credit here.
+
 ## Licensed asset pack (item art, board tray, selection brackets, sound)
 
 - Source: an asset pack supplied by the project owner, who holds the licence to use it. The pack is not part of the repository.

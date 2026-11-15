@@ -59,6 +59,12 @@ namespace MergeGame.Editor.Building
         /// <summary>The white tray a customer's requested items stand on; from the asset pack.</summary>
         public Sprite OrderTray { get; private set; }
 
+        /// <summary>
+        /// A fan of green bills with a V on the top one, beside the score and the orders' rewards; supplied with the
+        /// project (not from the asset pack).
+        /// </summary>
+        public Sprite ScoreCash { get; private set; }
+
         /// <summary>Four corner brackets around the selected cell, from the asset pack; drawn in its own colours.</summary>
         public Sprite SelectionBrackets { get; private set; }
 
@@ -117,6 +123,7 @@ namespace MergeGame.Editor.Building
             CounterTop = LoadShape("counter_top"),
             CounterCloth = LoadShape("counter_cloth"),
             OrderTray = LoadShape("order_tray"),
+            ScoreCash = LoadShape("score_cash"),
             SelectionBrackets = LoadShape("selection_brackets"),
             BoardTray = LoadShape("board_tray"),
             SparkleStar = LoadShape("sparkle_star"),

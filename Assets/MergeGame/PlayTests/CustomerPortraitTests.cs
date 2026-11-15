@@ -46,7 +46,9 @@ namespace MergeGame.PlayTests
             var card = Cards().First(view => view.CanDeliver);
             Assert.That(card.Customer.CurrentAnimation, Does.EndWith("_finished").Or.EndWith("_finished_repeat"));
 
-            var order = game.Session.ActiveOrders.First(active => game.Session.CanDeliver(active.Id));
+            // This card's own order: when two orders can be delivered, delivering the other one may take this one's items.
+            var order = game.Session.ActiveOrders[card.Card.SlotIndex];
+            Assert.That(game.Session.CanDeliver(order.Id), Is.True);
             game.Session.DeliverOrder(order.Id);
             yield return GameScreenDriver.WaitSeconds(LeaveStartsWithinSeconds);
             Assert.That(card.Customer.CurrentAnimation, Does.EndWith("_leave"));

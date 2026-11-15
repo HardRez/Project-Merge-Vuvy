@@ -283,9 +283,10 @@ namespace MergeGame.Editor.Building
             var root = UiKit.Rect("RequirementSlot", null).Pin(RectLayout.Center, new Vector2(size, size));
             root.Prefer(size, size);
             var icon = ui.Image("Icon", root, null, Color.white);
-            icon.rectTransform.Inset(2f);
+            icon.rectTransform.Stretch();
+            // On the item's lower right corner; the item art's own margin keeps it clear of the slot's edge.
             var check = ui.Icon("Check", root, "check");
-            check.rectTransform.Pin(RectLayout.BottomRight, new Vector2(48f, 48f), new Vector2(8f, -6f));
+            check.rectTransform.Pin(RectLayout.BottomRight, new Vector2(54f, 54f), new Vector2(-6f, 8f));
             check.gameObject.SetActive(false);
 
             root.gameObject.AddComponent<RequirementSlotView>()
@@ -346,9 +347,11 @@ namespace MergeGame.Editor.Building
             tray.rectTransform.Pin(RectLayout.Bottom, new Vector2(0f, LayoutMetrics.TrayHeight), new Vector2(0f, LayoutMetrics.TrayBottom));
 
             var layout = tray.gameObject.AddComponent<HorizontalLayoutGroup>();
-            layout.padding = new RectOffset(40, 40, 0, Mathf.RoundToInt(LayoutMetrics.TrayHeight * 0.3f));
+            // The items stand in the tray's dish, just above its front rim.
+            layout.padding = new RectOffset(28, 28, 0, Mathf.RoundToInt(LayoutMetrics.TrayHeight * 0.08f));
             layout.childAlignment = TextAnchor.LowerCenter;
-            layout.spacing = 12f;
+            // The items' own margins already space them apart.
+            layout.spacing = -4f;
             layout.childControlWidth = false;
             layout.childControlHeight = false;
             layout.childForceExpandWidth = false;
@@ -433,9 +436,9 @@ namespace MergeGame.Editor.Building
             const float height = 76f;
             var pill = ui.Image("RewardPill", card, ui.Sprites.Pill, ui.Theme.CellLight, cornerScale: height / 128f);
             pill.rectTransform.Pin(RectLayout.TopLeft, new Vector2(176f, height), new Vector2(4f, -8f));
-            ui.Icon("Star", pill.rectTransform, "star").rectTransform.Pin(RectLayout.Left, new Vector2(70f, 70f), new Vector2(-4f, 2f));
+            ui.Image("Cash", pill.rectTransform, ui.Sprites.ScoreCash, Color.white).rectTransform.Pin(RectLayout.Left, new Vector2(86f, 64f), new Vector2(-10f, 2f));
             var label = ui.Text("Reward", pill.rectTransform, "+0", 42f, TextTone.Dark, TextAlignmentOptions.Center);
-            label.rectTransform.Stretch(58f, 4f, 10f, 0f);
+            label.rectTransform.Stretch(72f, 4f, 10f, 0f);
             return UiKit.ShrinkToFit(label, 28f);
         }
 
