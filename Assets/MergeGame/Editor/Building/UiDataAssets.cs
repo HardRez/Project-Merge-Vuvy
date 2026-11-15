@@ -90,14 +90,14 @@ namespace MergeGame.Editor.Building
 
         private static IReadOnlyList<NoticeText> DefaultNoticeTexts(UiSprites sprites) => new[]
         {
-            new NoticeText(Notice.ItemIsLocked, "Kilitli! Açmak için aynısını üstüne sürükle.", sprites.Icon("lock")),
-            new NoticeText(Notice.MaxLevelReached, "Bu eşya en yüksek seviyede!", sprites.Icon("crown"), emphasized: true),
-            new NoticeText(Notice.DifferentChain, "Farklı türdeki eşyalar birleşmez."),
-            new NoticeText(Notice.DifferentLevel, "Sadece aynı seviyedeki eşyalar birleşir."),
-            new NoticeText(Notice.BoardFull, "Tahta dolu! Birleştir ya da bir eşyayı at."),
-            new NoticeText(Notice.LockedItemCannotBeDiscarded, "Kilitli eşyalar atılamaz.", sprites.Icon("lock")),
-            new NoticeText(Notice.OrderNotReady, "Bu sipariş için eşyalar henüz hazır değil."),
-            new NoticeText(Notice.ItemIsHidden, "Kumu açmak için yanındaki baloncuğu patlat!", sprites.Sand[0])
+            new NoticeText(Notice.ItemIsLocked, "Locked! Drag a matching item onto it to unlock it.", sprites.Icon("lock")),
+            new NoticeText(Notice.MaxLevelReached, "This item is already at its max level!", sprites.Icon("crown"), emphasized: true),
+            new NoticeText(Notice.DifferentChain, "Items of different kinds don't merge."),
+            new NoticeText(Notice.DifferentLevel, "Only items of the same level merge."),
+            new NoticeText(Notice.BoardFull, "The board is full! Merge or discard an item."),
+            new NoticeText(Notice.LockedItemCannotBeDiscarded, "Locked items can't be discarded.", sprites.Icon("lock")),
+            new NoticeText(Notice.OrderNotReady, "The items for this order aren't ready yet."),
+            new NoticeText(Notice.ItemIsHidden, "Pop the bubble next to it to free the sand!", sprites.Sand[0])
         };
 
         private static T LoadOrCreate<T>(string path, System.Action<T> initialize) where T : ScriptableObject

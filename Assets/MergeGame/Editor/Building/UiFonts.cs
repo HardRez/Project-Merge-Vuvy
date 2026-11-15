@@ -18,7 +18,7 @@ namespace MergeGame.Editor.Building
         private const int AtlasSize = 1024;
         private const string SdfShader = "TextMeshPro/Distance Field";
 
-        /// <summary>Printable ASCII, the Turkish letters and the symbols the UI texts use.</summary>
+        /// <summary>Printable ASCII, the Turkish letters (kept for designer-entered names) and the symbols the UI texts use.</summary>
         private const string GameCharacters =
             " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~" +
             "ÇçĞğİıÖöŞşÜü•×";

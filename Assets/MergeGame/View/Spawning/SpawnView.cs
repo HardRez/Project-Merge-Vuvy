@@ -10,8 +10,8 @@ namespace MergeGame.View.Spawning
     {
         [SerializeField] private TactileButton button;
         [SerializeField] private TMP_Text label;
-        [SerializeField] private string availableText = "Üret";
-        [SerializeField] private string boardFullText = "Tahta Dolu";
+        [SerializeField] private string availableText = "Spawn";
+        [SerializeField] private string boardFullText = "Board Full";
 
         public event Action SpawnRequested;
 

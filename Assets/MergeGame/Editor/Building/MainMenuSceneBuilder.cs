@@ -60,8 +60,8 @@ namespace MergeGame.Editor.Building
             ShopScenery.Wall(ui, canvas, plank);
             Bunting(content);
             var title = Title(content);
-            var play = GameButton(content, "PlayButton", "Oyna", ui.Sprites.GreenButton, new Vector2(600f, 180f), 0.18f, 104f);
-            var quit = GameButton(content, "QuitButton", "Çıkış", ui.Sprites.QuitButton, new Vector2(340f, 110f), 0.075f, 56f);
+            var play = GameButton(content, "PlayButton", "Play", ui.Sprites.GreenButton, new Vector2(600f, 180f), 0.18f, 104f);
+            var quit = GameButton(content, "QuitButton", "Quit", ui.Sprites.QuitButton, new Vector2(340f, 110f), 0.075f, 56f);
 
             var view = content.gameObject.AddComponent<MainMenuView>()
                 .Wire("playButton", play.Button)
@@ -111,7 +111,7 @@ namespace MergeGame.Editor.Building
             var tag = ui.Image("Tagline", title, ui.Sprites.Pill, ui.Theme.CellLight, cornerScale: tagHeight / 128f);
             tag.rectTransform.Pin(RectLayout.Bottom, new Vector2(600f, tagHeight), new Vector2(0f, 6f));
             ui.Image("Rim", tag.rectTransform, ui.Sprites.Ring, ui.Theme.WoodLight, cornerScale: tagHeight / 128f).rectTransform.Stretch();
-            var tagline = ui.Text("Label", tag.rectTransform, "Birleştir • Üret • Teslim Et", 40f, TextTone.Dark);
+            var tagline = ui.Text("Label", tag.rectTransform, "Merge • Spawn • Deliver", 40f, TextTone.Dark);
             tagline.rectTransform.Stretch(24f, 4f, 24f, 0f);
             UiKit.ShrinkToFit(tagline, 28f);
             return title;

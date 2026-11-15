@@ -514,7 +514,7 @@ namespace MergeGame.Editor.Building
             // is about a tenth of its height, so the label sits above it.
             var button = ui.ArtButton("DeliverButton", pulse, ui.Sprites.GreenButton, contentLift: height * 0.1f, height: height);
             button.Rect.Stretch();
-            var label = ui.Text("Label", button.Content, "Teslim Et", 36f, TextTone.Light);
+            var label = ui.Text("Label", button.Content, "Deliver", 36f, TextTone.Light);
             label.rectTransform.Stretch(8f, 0f, 8f, 0f);
             UiKit.ShrinkToFit(label, 26f);
             return button;

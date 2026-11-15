@@ -13,7 +13,7 @@ namespace MergeGame.View.Score
     /// </summary>
     public sealed class ScoreView : MonoBehaviour, IScoreView
     {
-        private static readonly NumberFormatInfo ThousandsWithDots = new NumberFormatInfo { NumberGroupSeparator = ".", NumberDecimalDigits = 0 };
+        private static readonly NumberFormatInfo ThousandsWithCommas = new NumberFormatInfo { NumberGroupSeparator = ",", NumberDecimalDigits = 0 };
 
         [SerializeField] private TMP_Text label;
         [SerializeField] private RectTransform pill;
@@ -95,7 +95,7 @@ namespace MergeGame.View.Score
         private void Display(int score)
         {
             DisplayedScore = score;
-            label.text = score.ToString("N0", ThousandsWithDots);
+            label.text = score.ToString("N0", ThousandsWithCommas);
         }
     }
 }

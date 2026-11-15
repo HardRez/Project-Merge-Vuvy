@@ -1696,7 +1696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Sonraki:'
+  m_text: 'Next:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
@@ -2266,7 +2266,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "E\u015Fya"
+  m_text: Item
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
@@ -2403,7 +2403,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0130lerlemeyi siler, oyunu ba\u015Ftan ba\u015Flat\u0131r."
+  m_text: Erases your progress and starts the game over.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
@@ -2540,7 +2540,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Detaylar\u0131 g\xF6rmek i\xE7in bir e\u015Fyaya dokun"
+  m_text: Tap an item to see its details
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
@@ -5372,7 +5372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Titre\u015Fim"
+  m_text: Vibration
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
@@ -5584,7 +5584,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xDCret"
+  m_text: Spawn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
@@ -6383,7 +6383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hileler
+  m_text: Cheats
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: a79d096c180140c4d97b6665f68a9796, type: 2}
@@ -6861,7 +6861,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hileler
+  m_text: Cheats
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: a79d096c180140c4d97b6665f68a9796, type: 2}
@@ -6998,7 +6998,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "E\u015Fya Zincirleri"
+  m_text: Item Chains
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 60200b34f31dd374d8240fdf77a4ab0d, type: 2}
@@ -7986,7 +7986,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ses
+  m_text: Sound
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
@@ -9446,14 +9446,14 @@ MonoBehaviour:
   nameLabel: {fileID: 390537329}
   levelRow: {fileID: 259895208}
   levelLabel: {fileID: 2131536825}
-  levelFormat: Seviye {0}/{1}
+  levelFormat: Level {0}/{1}
   maxLevelTag: {fileID: 594415850}
   lockedTag: {fileID: 1685526817}
   next: {fileID: 1348124484}
   nextIcon: {fileID: 109468985}
   discardButton: {fileID: 1183871418}
   coverIcon: {fileID: 21300000, guid: 4419796f3d40ba74f8649cc34321013e, type: 3}
-  coverName: "Kumla Kapl\u0131"
+  coverName: Covered in Sand
   coverExplanation: {fileID: 1781934949}
   popSeconds: 0.3
 --- !u!1 &1336977381
@@ -9774,7 +9774,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ayarlar
+  m_text: Settings
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: a79d096c180140c4d97b6665f68a9796, type: 2}
@@ -11336,7 +11336,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Kayd\u0131 S\u0131f\u0131rla"
+  m_text: Reset Save
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: a79d096c180140c4d97b6665f68a9796, type: 2}
@@ -11550,7 +11550,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "En Y\xFCksek"
+  m_text: Max Level
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: a79d096c180140c4d97b6665f68a9796, type: 2}
@@ -11737,7 +11737,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kilitli
+  m_text: Locked
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: a79d096c180140c4d97b6665f68a9796, type: 2}
@@ -11891,8 +11891,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: MergeGame.View::MergeGame.View.Spawning.SpawnView
   button: {fileID: 1519454629}
   label: {fileID: 900684223}
-  availableText: "\xDCret"
-  boardFullText: Tahta Dolu
+  availableText: Spawn
+  boardFullText: Board Full
 --- !u!1 &1681816281
 GameObject:
   m_ObjectHideFlags: 0
@@ -12620,7 +12620,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Yan\u0131ndaki baloncuk patlay\u0131nca a\xE7\u0131l\u0131r."
+  m_text: Opens when the bubble next to it pops.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
@@ -13033,7 +13033,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Zincir
+  m_text: Chain
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
@@ -14043,7 +14043,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Zincir
+  m_text: Chain
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}
   m_sharedMaterial: {fileID: 7956779277961652992, guid: ff3c2718ef7ff0149a2653d94d442871, type: 2}

@@ -13,21 +13,21 @@ MonoBehaviour:
   m_Name: garden
   m_EditorClassIdentifier: MergeGame.Data::MergeGame.Data.Authoring.ItemChainAsset
   id: garden
-  displayName: "Bah\xE7e"
+  displayName: Garden
   spawnWeight: 3
   scoreMultiplier: 1
   levels:
-  - displayName: Tohum
+  - displayName: Seed
     icon: {fileID: 21300000, guid: 9ad27e3358be43445a57d7700742180e, type: 3}
-  - displayName: Filiz
+  - displayName: Sprout
     icon: {fileID: 21300000, guid: b557f7fd7aa83b54e921f03a0e3bc40d, type: 3}
-  - displayName: Fide
+  - displayName: Seedling
     icon: {fileID: 21300000, guid: 6a13823b0da3f1442b8e0b30a3b68d59, type: 3}
-  - displayName: "\xC7i\xE7ekli Fidan"
+  - displayName: Flowering Sapling
     icon: {fileID: 21300000, guid: bb3a1bf52887fb942b0fb346cd70283b, type: 3}
-  - displayName: "Gen\xE7 A\u011Fa\xE7"
+  - displayName: Young Tree
     icon: {fileID: 21300000, guid: da485e45ab8ef8343bbb03341fc8c381, type: 3}
-  - displayName: "Portakal A\u011Fac\u0131"
+  - displayName: Orange Tree
     icon: {fileID: 21300000, guid: 7381b390d6ee78e49abba16cd3286af0, type: 3}
-  - displayName: "Bereketli A\u011Fa\xE7"
+  - displayName: Bountiful Tree
     icon: {fileID: 21300000, guid: 6f0fb5f08a36db64ab34ff9803ef4fde, type: 3}
