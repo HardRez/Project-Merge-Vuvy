@@ -48,6 +48,16 @@ UI_SPRITES = [
     ("order_tray.png", Path("Board") / "Board" / "order_tray.png"),  # the customers' orders stand on it
     ("counter_cloth.png", Path("Board") / "Board" / "order_counter.png"),  # hangs down the front of the counter
     ("deliver_button.png", Path("UI") / "Common" / "button_green_2.png"),  # appears when an order can be delivered
+    # The settings button's gear and the settings popup, as the pack's own settings window draws it: the wooden window,
+    # half of its title tab and its close button, the small green switch button, its icons and the red slash of "off".
+    ("settings_icon.png", Path("Hud") / "BaseSceneView" / "icon_settings.png"),
+    ("window_frame.png", Path("Hud") / "Window" / "window_bg2.png"),
+    ("window_title.png", Path("Hud") / "Window" / "window_title_bg2.png"),
+    ("window_close.png", Path("Hud") / "Window" / "button_close1.png"),
+    ("switch_face.png", Path("Board") / "Board" / "InfoBar" / "info_btn_green.png"),
+    ("sound_icon.png", Path("UI") / "Window" / "Setting" / "btn_icon_voice.png"),
+    ("vibration_icon.png", Path("UI") / "Window" / "Setting" / "btn_icon_vibrate.png"),
+    ("switch_off.png", Path("UI") / "Window" / "Setting" / "btn_icon_stop.png"),
 ]
 
 # (published file under Content/Audio, pack file)
@@ -225,6 +235,25 @@ def import_shop(pack: Path, folder: Path) -> list[Path]:
     return [folder / "shop_wall.png", folder / "shop_floor.png", folder / "counter_top.png"]
 
 
+# The settings popup's cream panel. Its art has a small knob on the middle of its right edge, which a 9-slice would
+# stretch into a bump along the whole side; the panel is otherwise symmetric, so its left half is mirrored onto the right.
+WINDOW_PANEL = Path("Hud") / "Window" / "window_bg1.png"
+
+
+def import_window_panel(pack: Path, folder: Path) -> list[Path]:
+    path = pack / WINDOW_PANEL
+    if not path.is_file():
+        raise ImportError_(f"Missing pack file: {path}")
+    art = Image.open(path).convert("RGBA")
+    half = art.width // 2
+    left = art.crop((0, 0, half, art.height))
+    panel = art.copy()
+    panel.paste(left.transpose(Image.FLIP_LEFT_RIGHT), (art.width - half, 0))
+    folder.mkdir(parents=True, exist_ok=True)
+    panel.save(folder / "window_panel.png")
+    return [folder / "window_panel.png"]
+
+
 def copy_files(pack: Path, table: list[tuple[str, Path]], folder: Path) -> list[Path]:
     missing = [str(pack / source) for _, source in table if not (pack / source).is_file()]
     if missing:
@@ -249,6 +278,7 @@ def main(argv=None) -> int:
         ui = copy_files(args.pack, UI_SPRITES, args.out / "Sprites" / "UI")
         ui += import_round_button(args.pack, args.out / "Sprites" / "UI")
         ui += import_shop(args.pack, args.out / "Sprites" / "UI")
+        ui += import_window_panel(args.pack, args.out / "Sprites" / "UI")
         audio = copy_files(args.pack, AUDIO, args.out / "Audio")
     except ImportError_ as exc:
         print(f"ERROR: {exc}", file=sys.stderr)

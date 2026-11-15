@@ -25,6 +25,9 @@ namespace MergeGame.Editor.Building
             ["order_tray"] = new Vector4(46, 0, 46, 0),
             // A glossy pillow-shaped button: likewise only its flat middle stretches across.
             ["deliver_button"] = new Vector4(50, 0, 50, 0),
+            // The settings popup's wooden frame and its cream panel.
+            ["window_frame"] = new Vector4(70, 76, 70, 70),
+            ["window_panel"] = new Vector4(60, 60, 60, 60),
             ["selection_brackets"] = new Vector4(60, 60, 60, 60),
             ["board_tray"] = new Vector4(30, 30, 30, 30),
             ["sand_01"] = new Vector4(64, 64, 64, 64),
@@ -63,6 +66,27 @@ namespace MergeGame.Editor.Building
 
         /// <summary>The glossy green button an order can be delivered with; from the asset pack.</summary>
         public Sprite DeliverButton { get; private set; }
+
+        /// <summary>A white gear with a blue core, on the settings button; from the asset pack.</summary>
+        public Sprite SettingsIcon { get; private set; }
+
+        /// <summary>
+        /// A popup window's wooden frame, its cream panel, the left half of its title tab (mirrored for the right half)
+        /// and its round close button; from the asset pack.
+        /// </summary>
+        public Sprite WindowFrame { get; private set; }
+        public Sprite WindowPanel { get; private set; }
+        public Sprite WindowTitle { get; private set; }
+        public Sprite WindowClose { get; private set; }
+
+        /// <summary>
+        /// A settings switch as the pack's settings window draws it: a small green square button, the white sound and
+        /// vibration icons on it and the red slash laid across an icon while that setting is off; from the asset pack.
+        /// </summary>
+        public Sprite SwitchFace { get; private set; }
+        public Sprite SoundIcon { get; private set; }
+        public Sprite VibrationIcon { get; private set; }
+        public Sprite SwitchOff { get; private set; }
 
         /// <summary>
         /// A fan of green bills with a V on the top one, beside the score and the orders' rewards; supplied with the
@@ -129,6 +153,15 @@ namespace MergeGame.Editor.Building
             CounterCloth = LoadShape("counter_cloth"),
             OrderTray = LoadShape("order_tray"),
             DeliverButton = LoadShape("deliver_button"),
+            SettingsIcon = LoadShape("settings_icon"),
+            WindowFrame = LoadShape("window_frame"),
+            WindowPanel = LoadShape("window_panel"),
+            WindowTitle = LoadShape("window_title"),
+            WindowClose = LoadShape("window_close"),
+            SwitchFace = LoadShape("switch_face"),
+            SoundIcon = LoadShape("sound_icon"),
+            VibrationIcon = LoadShape("vibration_icon"),
+            SwitchOff = LoadShape("switch_off"),
             ScoreCash = LoadShape("score_cash"),
             SelectionBrackets = LoadShape("selection_brackets"),
             BoardTray = LoadShape("board_tray"),

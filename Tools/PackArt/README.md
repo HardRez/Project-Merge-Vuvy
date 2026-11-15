@@ -17,6 +17,10 @@
 | `Sprites/UI/counter_cloth.png` | `Board/Board/order_counter.png` | Copied unchanged; the teal cloth with a wavy hem hanging down the counter's front |
 | `Sprites/UI/order_tray.png` | `Board/Board/order_tray.png` | Copied unchanged; the white tray a customer's requested items stand on, sliced across only (46 px ends) |
 | `Sprites/UI/deliver_button.png` | `UI/Common/button_green_2.png` | Copied unchanged; the glossy green "Teslim Et" button, sliced across only (50 px ends) and drawn at its art's proportions |
+| `Sprites/UI/settings_icon.png` | `Hud/BaseSceneView/icon_settings.png` | Copied unchanged; the gear on the settings button |
+| `Sprites/UI/window_frame.png`, `Sprites/UI/window_title.png`, `Sprites/UI/window_close.png` | `Hud/Window/window_bg2.png`, `window_title_bg2.png`, `button_close1.png` | Copied unchanged; the settings popup's wooden frame (sliced 9-ways), the left half of its title tab (the right half is the same art mirrored, as in the pack's own windows) and its round close button |
+| `Sprites/UI/window_panel.png` | `Hud/Window/window_bg1.png` | The popup's cream panel with its left half mirrored onto the right: the art has a small knob on its right edge that slicing would stretch into a bump |
+| `Sprites/UI/switch_face.png`, `Sprites/UI/sound_icon.png`, `Sprites/UI/vibration_icon.png`, `Sprites/UI/switch_off.png` | `Board/Board/InfoBar/info_btn_green.png`, `UI/Window/Setting/btn_icon_voice.png`, `btn_icon_vibrate.png`, `btn_icon_stop.png` | Copied unchanged; a settings switch as the pack's settings window draws it: the small green square button, its white icon and the red slash laid across the icon while the setting is off |
 | `Sprites/UI/bubble_droplet.png` | `Effects/Textures/t_paopao1.png` | Copied unchanged; the small bubbles sprayed out of a burst |
 | `Sprites/UI/lock_bubble.png` | `Board/ItemMain/Item/Bubble.png` | Copied unchanged; the clear bubble around a locked item, which pops outwards when a merge frees it |
 | `Sprites/UI/merge_ring.png` | `Effects/Textures/t_effect_1.png` | Copied unchanged; the ring that spreads out behind a merged item |

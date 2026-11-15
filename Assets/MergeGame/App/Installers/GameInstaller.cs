@@ -14,6 +14,7 @@ using MergeGame.Presentation.Notices;
 using MergeGame.Presentation.Orders;
 using MergeGame.Presentation.Score;
 using MergeGame.Presentation.Selection;
+using MergeGame.Presentation.Settings;
 using MergeGame.Presentation.Spawning;
 using MergeGame.View.Board;
 using MergeGame.View.Hints;
@@ -22,6 +23,7 @@ using MergeGame.View.Notices;
 using MergeGame.View.Orders;
 using MergeGame.View.Score;
 using MergeGame.View.Selection;
+using MergeGame.View.Settings;
 using MergeGame.View.Spawning;
 using UnityEngine;
 using Zenject;
@@ -44,6 +46,7 @@ namespace MergeGame.App.Installers
         [SerializeField] private GameMenuView gameMenuView;
         [SerializeField] private MergeHintView mergeHintView;
         [SerializeField] private OrderMatchView orderMatchView;
+        [SerializeField] private SettingsView settingsView;
 
         [Header("Tuning")]
         [Tooltip("Seconds without any player action before a possible merge is first pointed out (one short pulse).")]
@@ -95,6 +98,7 @@ namespace MergeGame.App.Installers
             Container.Bind<IGameMenuView>().FromInstance(gameMenuView);
             Container.Bind<IMergeHintView>().FromInstance(mergeHintView);
             Container.Bind<IOrderMatchView>().FromInstance(orderMatchView);
+            Container.Bind<ISettingsView>().FromInstance(settingsView);
         }
 
         private void BindPools()
@@ -118,6 +122,7 @@ namespace MergeGame.App.Installers
             Container.Bind<ScorePresenter>().AsSingle();
             Container.Bind<SpawnPresenter>().AsSingle();
             Container.Bind<GameNavigationPresenter>().AsSingle();
+            Container.Bind<SettingsPresenter>().AsSingle();
             Container.Bind<MergeHintSettings>().FromInstance(new MergeHintSettings(mergeHintIdleSeconds, mergeHintRepeatSeconds));
             Container.Bind(typeof(MergeHintPresenter), typeof(ITimeDriven)).To<MergeHintPresenter>().AsSingle();
             Container.BindInterfacesTo<TimeDrivenTicker>().AsSingle();
@@ -139,6 +144,7 @@ namespace MergeGame.App.Installers
                 container.Resolve<ScorePresenter>(),
                 container.Resolve<SpawnPresenter>(),
                 container.Resolve<GameNavigationPresenter>(),
+                container.Resolve<SettingsPresenter>(),
                 container.Resolve<MergeHintPresenter>()
             };
             return new PresenterLifecycle(presenters, container.Resolve<SessionEventStream>());

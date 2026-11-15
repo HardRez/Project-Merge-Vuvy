@@ -98,6 +98,17 @@ namespace MergeGame.PlayTests
 
             yield return FillTheBoard();
             yield return Capture("13_game_board_full");
+
+            // The settings popup, then with vibration off; the switch is put back as it was.
+            var settings = UnityEngine.Object.FindAnyObjectByType<MergeGame.View.Settings.SettingsView>();
+            GameScreenDriver.Click(settings.OpenButton);
+            yield return GameScreenDriver.WaitSeconds(0.5f);
+            yield return Capture("13b_game_settings");
+            GameScreenDriver.Click(settings.VibrationButton);
+            yield return GameScreenDriver.WaitSeconds(0.2f);
+            yield return Capture("13c_game_settings_vibration_off");
+            GameScreenDriver.Click(settings.VibrationButton);
+            GameScreenDriver.Click(settings.CloseButton);
         }
 
         /// <summary>A drag-merge filmed at 30 frames per second of game time, cropped to the target and its neighbours.</summary>
