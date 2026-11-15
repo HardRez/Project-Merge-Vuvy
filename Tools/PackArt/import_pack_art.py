@@ -62,6 +62,20 @@ UI_SPRITES = [
     ("sound_icon.png", Path("UI") / "Window" / "Setting" / "btn_icon_voice.png"),
     ("vibration_icon.png", Path("UI") / "Window" / "Setting" / "btn_icon_vibrate.png"),
     ("switch_off.png", Path("UI") / "Window" / "Setting" / "btn_icon_stop.png"),
+    # The info button's "i" and the chains popup, as the pack's item detail window draws a merge chain: its title board
+    # and corner flourish, each level on a blue tile with a green number badge and a small arrow on to the next, and the
+    # lace line and curl on both sides of a chain's name.
+    ("info_icon.png", Path("Board") / "Board" / "InfoBar" / "info_detail_normal.png"),
+    ("title_board.png", Path("UI") / "Window" / "Common" / "window_title_bg1.png"),
+    ("window_corner.png", Path("UI") / "Window" / "Common" / "window_bg3.png"),
+    ("chain_tile.png", Path("UI") / "Window" / "ItemDetail" / "detail_unlocked_bg.png"),
+    ("chain_arrow.png", Path("UI") / "Window" / "ItemDetail" / "detail_unlocked_arrow.png"),
+    ("level_badge.png", Path("UI") / "Window" / "ItemDetail" / "detail_num.png"),
+    ("lace_line.png", Path("UI") / "Window" / "Common" / "lace_deco2.png"),
+    ("lace_curl.png", Path("UI") / "Window" / "Common" / "lace_deco3.png"),
+    # The chains popup's tabs: a white square, and the glowing yellow one of the tab that is chosen.
+    ("tab.png", Path("Hud") / "UIRoot" / "renovate_choice_bg.png"),
+    ("tab_selected.png", Path("Hud") / "UIRoot" / "renovate_choice_selected.png"),
 ]
 
 # (published file under Content/Audio, pack file)

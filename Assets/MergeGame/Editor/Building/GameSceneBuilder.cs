@@ -8,7 +8,6 @@ using MergeGame.View.Notices;
 using MergeGame.View.Orders;
 using MergeGame.View.Score;
 using MergeGame.View.Selection;
-using MergeGame.View.Settings;
 using MergeGame.View.Spawning;
 using TMPro;
 using UnityEngine;
@@ -52,7 +51,7 @@ namespace MergeGame.Editor.Building
             // Orders, board and info bar form one group. Height beyond the 9:16 reference first lets the orders strip
             // and the info bar grow a little, the rest is shared between the space above the group and above the
             // spawn button; the board itself never stretches past its natural size.
-            var menu = TopBar(column, out var score, out var home, out var settingsButton);
+            var menu = TopBar(column, out var score, out var home, out var settingsButton, out var infoButton);
             Spacer("SpaceAboveGroup", column, LayoutMetrics.SpaceAboveGroupShare);
             var orders = OrdersStrip(column, out var counterPlank);
             var boardArea = UiKit.Rect("BoardArea", column);
@@ -64,8 +63,10 @@ namespace MergeGame.Editor.Building
 
             var pool = UiKit.Rect("Pool", canvas).Stretch();
             var dragLayer = UiKit.Rect("DragLayer", canvas).Stretch();
-            // Last on the canvas, so the popup covers everything, dragged items included.
-            var settings = SettingsPopup(canvas, settingsButton);
+            // Last on the canvas, so the popups cover everything, dragged items included.
+            var popups = new GamePopups(ui);
+            var chains = popups.Chains(canvas, infoButton);
+            var settings = popups.Settings(canvas, settingsButton);
             var board = Board(boardArea, dragLayer);
             var mergeHint = board.gameObject.AddComponent<MergeHintView>().Wire("board", board);
             var orderMatches = board.gameObject.AddComponent<OrderMatchView>().Wire("board", board);
@@ -79,7 +80,7 @@ namespace MergeGame.Editor.Building
             orders.Wire("sounds", sounds);
             notices.Wire("sounds", sounds);
             SceneScaffold.ClickSound(home, sounds);
-            foreach (var button in new[] { settings.OpenButton, settings.CloseButton, settings.SoundButton, settings.VibrationButton })
+            foreach (var button in new[] { settings.OpenButton, settings.CloseButton, settings.SoundButton, settings.VibrationButton, chains.OpenButton, chains.CloseButton })
                 SceneScaffold.ClickSound(button, sounds);
 
             var haptics = new GameObject("Haptics").AddComponent<Haptics>();
@@ -97,6 +98,7 @@ namespace MergeGame.Editor.Building
                 .Wire("mergeHintView", mergeHint)
                 .Wire("orderMatchView", orderMatches)
                 .Wire("settingsView", settings)
+                .Wire("chainsView", chains)
                 .Wire("itemPrefab", prefabs.ItemView)
                 .Wire("pointsPopupPrefab", prefabs.PointsPopup)
                 .Wire("poolRoot", pool);
@@ -129,7 +131,7 @@ namespace MergeGame.Editor.Building
         private static void Spacer(string name, RectTransform column, float share) =>
             UiKit.Rect(name, column).Prefer(height: 0f, flexibleHeight: share);
 
-        private GameMenuView TopBar(RectTransform column, out ScoreView score, out Button homeButton, out Button settingsButton)
+        private GameMenuView TopBar(RectTransform column, out ScoreView score, out Button homeButton, out Button settingsButton, out Button infoButton)
         {
             var bar = Section("TopBar", column, LayoutMetrics.TopBarHeight);
             var size = LayoutMetrics.TopBarHeight;
@@ -145,93 +147,16 @@ namespace MergeGame.Editor.Building
             settings.Rect.Pin(RectLayout.Right, new Vector2(size, size), new Vector2(-size / 2f, 0f), pivot: RectLayout.Center);
             ui.Image("Icon", settings.Content, ui.Sprites.SettingsIcon, Color.white).rectTransform.Inset(20f);
 
+            // And beside it the info button, which shows every item chain; the pack's "i" on the same square.
+            var info = ui.ArtButton("InfoButton", bar, ui.Sprites.HomeButton, contentLift: 8f);
+            info.Rect.Pin(RectLayout.Right, new Vector2(size, size), new Vector2(-size * 1.5f - 14f, 0f), pivot: RectLayout.Center);
+            ui.Image("Icon", info.Content, ui.Sprites.InfoIcon, Color.white).rectTransform.Pin(RectLayout.Center, new Vector2(42f, 74f));
+
             score = ScorePill(bar);
             homeButton = home.Button;
             settingsButton = settings.Button;
+            infoButton = info.Button;
             return bar.gameObject.AddComponent<GameMenuView>().Wire("backButton", home.Button);
-        }
-
-        /// <summary>
-        /// The settings popup over the whole screen, laid out like the asset pack's own settings window: a dim that closes
-        /// it when tapped, a small wooden window with a title tab across its top edge and a round close button in its top
-        /// right corner, and a row of the pack's small green switch buttons, each with its name below.
-        /// </summary>
-        private SettingsView SettingsPopup(RectTransform canvas, Button openButton)
-        {
-            var root = UiKit.Rect("Settings", canvas).Stretch();
-            var popup = UiKit.Rect("Popup", root).Stretch();
-            var group = popup.gameObject.AddComponent<CanvasGroup>();
-
-            var dim = ui.Image("Dim", popup, null, new Color(0.12f, 0.08f, 0.05f, 0.6f));
-            dim.rectTransform.Stretch();
-            dim.raycastTarget = true;
-            var dimButton = dim.gameObject.AddComponent<Button>();
-            dimButton.transition = Selectable.Transition.None;
-
-            var window = UiKit.Rect("Window", popup).Pin(RectLayout.Center, new Vector2(640f, 390f), new Vector2(0f, 40f), pivot: RectLayout.Center);
-            var frame = ui.Image("Frame", window, ui.Sprites.WindowFrame, Color.white);
-            frame.rectTransform.Stretch();
-            // Catches taps on the window, so only taps beside it close the popup.
-            frame.raycastTarget = true;
-            ui.Image("Panel", window, ui.Sprites.WindowPanel, Color.white, cornerScale: 0.8f).rectTransform.Stretch(25f, 34f, 25f, 24f);
-
-            TitleTab(window, "Ayarlar");
-
-            var close = ui.ArtButton("CloseButton", window, ui.Sprites.WindowClose, contentLift: 0f);
-            close.Rect.Pin(RectLayout.TopRight, new Vector2(82f, 82f), new Vector2(-36f - 41f, -40f - 41f), pivot: RectLayout.Center);
-
-            const float switchSpacing = 220f;
-            var sound = Switch(window, "Sound", "Ses", ui.Sprites.SoundIcon, new Vector2(61f, 52f), -switchSpacing / 2f, out var soundOff);
-            var vibration = Switch(window, "Vibration", "Titreşim", ui.Sprites.VibrationIcon, new Vector2(76f, 59f), switchSpacing / 2f, out var vibrationOff);
-
-            return root.gameObject.AddComponent<SettingsView>()
-                .Wire("openButton", openButton)
-                .Wire("popup", group)
-                .Wire("window", window)
-                .Wire("closeButton", close.Button)
-                .Wire("dimButton", dimButton)
-                .Wire("soundButton", sound)
-                .Wire("soundOffMark", soundOff)
-                .Wire("vibrationButton", vibration)
-                .Wire("vibrationOffMark", vibrationOff);
-        }
-
-        /// <summary>
-        /// The window's title on its tab. The pack draws only the left half of the tab; the right half is the same art
-        /// mirrored, as in the pack's own windows.
-        /// </summary>
-        private void TitleTab(RectTransform window, string text)
-        {
-            const float height = 80f;
-            var art = ui.Sprites.WindowTitle;
-            var halfWidth = art.rect.width * height / art.rect.height;
-            var tab = UiKit.Rect("Title", window).Pin(RectLayout.Top, new Vector2(halfWidth * 2f, height), new Vector2(0f, height / 2f + 6f));
-            ui.Image("Left", tab, art, Color.white).rectTransform
-                .Pin(RectLayout.Left, new Vector2(halfWidth, height), new Vector2(halfWidth / 2f, 0f), pivot: RectLayout.Center);
-            var right = ui.Image("Right", tab, art, Color.white).rectTransform;
-            right.Pin(RectLayout.Right, new Vector2(halfWidth, height), new Vector2(-halfWidth / 2f, 0f), pivot: RectLayout.Center);
-            right.localScale = new Vector3(-1f, 1f, 1f);
-            var label = ui.Text("Label", tab, text, 46f, TextTone.Light);
-            label.rectTransform.Stretch(24f, 8f, 24f, 4f);
-        }
-
-        /// <summary>
-        /// One switch, as the pack draws them: its small green square button with a white icon (a red slash across it
-        /// while off), and its name below.
-        /// </summary>
-        private Button Switch(RectTransform window, string name, string title, Sprite icon, Vector2 iconSize, float x, out GameObject offMark)
-        {
-            var size = new Vector2(130f, 127f);
-            var button = ui.ArtButton(name + "Button", window, ui.Sprites.SwitchFace, contentLift: 0f);
-            button.Rect.Pin(RectLayout.Center, size, new Vector2(x, 14f), pivot: RectLayout.Center);
-            ui.Image("Icon", button.Content, icon, Color.white).rectTransform.Pin(RectLayout.Center, iconSize, new Vector2(0f, 2f));
-            var off = ui.Image("Off", button.Content, ui.Sprites.SwitchOff, Color.white);
-            off.rectTransform.Pin(RectLayout.Center, new Vector2(66f, 47f));
-            offMark = off.gameObject;
-
-            var label = ui.Text(name + "Name", window, title, 36f, TextTone.Dark);
-            label.rectTransform.Pin(RectLayout.Center, new Vector2(240f, 50f), new Vector2(x, 14f - size.y / 2f - 34f));
-            return button.Button;
         }
 
         private ScoreView ScorePill(RectTransform bar)

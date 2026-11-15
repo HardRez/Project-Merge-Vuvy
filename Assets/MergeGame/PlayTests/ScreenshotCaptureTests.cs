@@ -110,6 +110,14 @@ namespace MergeGame.PlayTests
             yield return Capture("13c_game_settings_vibration_off");
             GameScreenDriver.Click(settings.VibrationButton);
             GameScreenDriver.Click(settings.CloseButton);
+            yield return GameScreenDriver.WaitSeconds(0.3f);
+
+            // The chains popup.
+            var chains = UnityEngine.Object.FindAnyObjectByType<MergeGame.View.Chains.ChainsView>();
+            GameScreenDriver.Click(chains.OpenButton);
+            yield return GameScreenDriver.WaitSeconds(0.5f);
+            yield return Capture("13d_game_chains");
+            GameScreenDriver.Click(chains.CloseButton);
         }
 
         /// <summary>A drag-merge filmed at 30 frames per second of game time, cropped to the target and its neighbours.</summary>
