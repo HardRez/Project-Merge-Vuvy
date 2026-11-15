@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Linq;
 using MergeGame.PlayTests.Support;
+using MergeGame.View.Common;
+using MergeGame.View.Orders;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -130,6 +132,38 @@ namespace MergeGame.PlayTests
             Assert.That(arrivedAfter, Is.LessThan(HandoverLimitSeconds), "The handover takes too long.");
             Assert.That(customer.Opacity, Is.EqualTo(1f), "The next customer came in faded.");
         }
+
+        [UnityTest]
+        public IEnumerator TheDeliverButton_IsOnScreenOnlyWhileItsOrderCanBeDelivered()
+        {
+            yield return GameScreenDriver.OpenGame(driver => game = driver);
+            yield return GameScreenDriver.WaitSeconds(0.5f);
+            AssertDeliverButtonsMatchOrders("at the start");
+
+            Assert.That(AutoPlayer.PlayUntilAnOrderIsDeliverable(game.Session, HighestRequestedLevel), Is.True);
+            yield return GameScreenDriver.WaitSeconds(SettleSeconds);
+            AssertDeliverButtonsMatchOrders("once an order can be delivered");
+            var slot = Enumerable.Range(0, game.Orders.CardCount).First(index => game.Orders.GetCard(index).CanDeliver);
+            var button = DeliverButton(game.Orders.GetCard(slot));
+            Assert.That(button.transform.parent.localScale.x, Is.GreaterThan(0.95f), "The deliver button did not pop all the way in.");
+
+            game.Session.DeliverOrder(game.Session.ActiveOrders[slot].Id);
+            yield return GameScreenDriver.WaitSeconds(HandoverLimitSeconds + 0.5f);
+            AssertDeliverButtonsMatchOrders("after a delivery");
+        }
+
+        private void AssertDeliverButtonsMatchOrders(string when)
+        {
+            for (var slot = 0; slot < game.Orders.CardCount; slot++)
+            {
+                var card = game.Orders.GetCard(slot);
+                Assert.That(card.IsDeliverButtonShown, Is.EqualTo(card.CanDeliver), $"Card {slot} {when}.");
+                Assert.That(DeliverButton(card).gameObject.activeInHierarchy, Is.EqualTo(card.CanDeliver),
+                    $"Card {slot}'s deliver button is on screen {when} though its order can{(card.CanDeliver ? "" : "not")} be delivered.");
+            }
+        }
+
+        private static TactileButton DeliverButton(OrderCardView card) => card.GetComponentInChildren<TactileButton>(true);
 
         [UnityTest]
         public IEnumerator ACustomer_IsFramedAgain_WhenTheCounterStripChangesHeight()

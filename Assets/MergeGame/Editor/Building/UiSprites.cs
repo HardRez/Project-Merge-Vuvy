@@ -23,6 +23,8 @@ namespace MergeGame.Editor.Building
             ["badge"] = new Vector4(24, 26, 24, 22),
             // The tray's rounded ends stay, its flat middle stretches; sliced across only, drawn at the art's height.
             ["order_tray"] = new Vector4(46, 0, 46, 0),
+            // A glossy pillow-shaped button: likewise only its flat middle stretches across.
+            ["deliver_button"] = new Vector4(50, 0, 50, 0),
             ["selection_brackets"] = new Vector4(60, 60, 60, 60),
             ["board_tray"] = new Vector4(30, 30, 30, 30),
             ["sand_01"] = new Vector4(64, 64, 64, 64),
@@ -58,6 +60,9 @@ namespace MergeGame.Editor.Building
 
         /// <summary>The white tray a customer's requested items stand on; from the asset pack.</summary>
         public Sprite OrderTray { get; private set; }
+
+        /// <summary>The glossy green button an order can be delivered with; from the asset pack.</summary>
+        public Sprite DeliverButton { get; private set; }
 
         /// <summary>
         /// A fan of green bills with a V on the top one, beside the score and the orders' rewards; supplied with the
@@ -123,6 +128,7 @@ namespace MergeGame.Editor.Building
             CounterTop = LoadShape("counter_top"),
             CounterCloth = LoadShape("counter_cloth"),
             OrderTray = LoadShape("order_tray"),
+            DeliverButton = LoadShape("deliver_button"),
             ScoreCash = LoadShape("score_cash"),
             SelectionBrackets = LoadShape("selection_brackets"),
             BoardTray = LoadShape("board_tray"),
