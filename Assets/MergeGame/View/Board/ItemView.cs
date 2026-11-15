@@ -34,6 +34,9 @@ namespace MergeGame.View.Board
         [SerializeField] private Image burstGlow;
         [SerializeField] private Image burstSparkles;
 
+        [Tooltip("A ring that spreads out from a merge, behind the new item.")]
+        [SerializeField] private Image mergeRing;
+
         [Header("Look")]
         [Tooltip("Multiplies the icon of a locked item, so it reads as inactive under the cobweb.")]
         [SerializeField] private Color lockedIconTint = new Color(0.68f, 0.68f, 0.72f, 1f);
@@ -44,7 +47,30 @@ namespace MergeGame.View.Board
         [SerializeField] private float spawnSeconds = 0.32f;
         [SerializeField] private float liftSeconds = 0.14f;
         [SerializeField] private float refuseSeconds = 0.4f;
-        [SerializeField] private float mergeSeconds = 0.42f;
+        [SerializeField] private float mergeSeconds = 0.55f;
+
+        [Header("Merge pop")]
+        [Tooltip("How far the merged item squashes while the other item flies into it.")]
+        [SerializeField] private float impactSquash = 0.1f;
+
+        [Tooltip("Scale the new item grows from.")]
+        [SerializeField] private float popFromScale = 0.5f;
+
+        [Tooltip("Scale the new item overshoots to before it settles.")]
+        [SerializeField] private float popPeakScale = 1.28f;
+
+        [Tooltip("Share of the merge time spent growing to the peak; the rest is a damped wobble back to rest.")]
+        [Range(0.1f, 0.6f)]
+        [SerializeField] private float popRiseShare = 0.24f;
+
+        [Tooltip("Stretch along one axis and squeeze along the other while it pops (0 keeps it uniform).")]
+        [SerializeField] private float popStretch = 0.12f;
+
+        [Tooltip("Wobbles before it rests.")]
+        [SerializeField] private float popWobbles = 1.25f;
+
+        [SerializeField] private Color mergeRingColor = new Color(1f, 0.9f, 0.55f, 1f);
+        [SerializeField] private float mergeRingSeconds = 0.45f;
         [SerializeField] private float vanishSeconds = 0.24f;
         [Tooltip("The small settle when the sand that covered the item has poured out.")]
         [SerializeField] private float revealSettleSeconds = 0.25f;
@@ -68,6 +94,11 @@ namespace MergeGame.View.Board
         public Vector3 WorldCenter => rectTransform.TransformPoint(rectTransform.rect.center);
 
         public ItemAccent Accent => accent;
+
+        /// <summary>The part the animations scale; for tests that follow an animation frame by frame.</summary>
+        public Transform Body => body;
+
+        public Image MergeRing => mergeRing;
         public OrderMatchMark OrderMark => orderMark;
 
         private void Awake()
@@ -262,6 +293,8 @@ namespace MergeGame.View.Board
             SetAlpha(burstGlow, 0f);
             burstGlow.rectTransform.localScale = Vector3.one;
             burstSparkles.gameObject.SetActive(false);
+            mergeRing.gameObject.SetActive(false);
+            mergeRing.rectTransform.localScale = Vector3.one;
         }
 
         private void SetRestPose()
@@ -273,17 +306,29 @@ namespace MergeGame.View.Board
             canvasGroup.alpha = 1f;
         }
 
+        /// <summary>
+        /// The merge as a hit: the old item squashes while the other one flies into it, then the new item pops out of it,
+        /// stretching and squeezing, overshoots and wobbles back to rest, while a ring spreads out behind it.
+        /// </summary>
         private IEnumerator PlayMerge(bool unlocked, float revealDelay)
         {
-            // The previous icon (and cobweb) stay visible until the consumed item lands on them.
-            yield return Tween.Delay(revealDelay);
+            // The previous icon (and cobweb) stay visible until the consumed item lands on them, braced for the hit.
+            var startScale = body.localScale.x;
+            yield return Tween.Run(revealDelay, Ease.Linear, t =>
+                body.localScale = Squashed(Mathf.Lerp(startScale, 1f - impactSquash * 0.5f, Ease.OutQuad(t)), impactSquash * Ease.OutQuad(t)));
 
             RevealIdentity();
             lockOverlay.gameObject.SetActive(unlocked);
             burstSparkles.gameObject.SetActive(true);
+            mergeRing.gameObject.SetActive(true);
+            mergeRing.color = mergeRingColor;
+            var ringShare = Mathf.Min(1f, mergeRingSeconds / mergeSeconds);
             yield return Tween.Run(mergeSeconds, Ease.Linear, t =>
             {
-                body.localScale = Vector3.one * Mathf.LerpUnclamped(0.65f, 1f, Ease.OutBack(t));
+                body.localScale = PopScale(t);
+                var ring = Mathf.Clamp01(t / ringShare);
+                mergeRing.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.55f, 1.9f, Ease.OutCubic(ring));
+                SetAlpha(mergeRing, 0.95f * (1f - Ease.OutQuad(ring)));
                 SetAlpha(burstGlow, Ease.Bump(t));
                 burstGlow.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.7f, 1.6f, Ease.OutQuad(t));
                 SetAlpha(burstSparkles, Ease.Bump(Mathf.Min(1f, t * 1.3f)));
@@ -296,9 +341,33 @@ namespace MergeGame.View.Board
                 }
             });
 
+            body.localScale = Vector3.one;
             RevealIdentity();
             ResetEffects();
         }
+
+        /// <summary>
+        /// Grows from <see cref="popFromScale"/> to <see cref="popPeakScale"/> stretched upwards, then wobbles back to 1
+        /// on a damped spring, squeezing in step; continuous throughout and exactly at rest at the end.
+        /// </summary>
+        private Vector3 PopScale(float t)
+        {
+            if (t < popRiseShare)
+            {
+                var rise = t / popRiseShare;
+                // Tall and thin while it shoots up, round again as it reaches the peak.
+                return Squashed(Mathf.Lerp(popFromScale, popPeakScale, Ease.OutQuad(rise)), -popStretch * (1f - rise));
+            }
+
+            var settle = (t - popRiseShare) / (1f - popRiseShare);
+            var damping = Mathf.Exp(-4.5f * settle) * (1f - settle);
+            var phase = 2f * Mathf.PI * popWobbles * settle;
+            var scale = 1f + (popPeakScale - 1f) * damping * Mathf.Cos(phase);
+            return Squashed(scale, popStretch * damping * Mathf.Sin(phase));
+        }
+
+        /// <summary>Positive <paramref name="squash"/> widens and flattens, negative narrows and stretches upwards.</summary>
+        private static Vector3 Squashed(float scale, float squash) => new Vector3(scale * (1f + squash), scale * (1f - squash), 1f);
 
         private IEnumerator PlayReveal(float delay)
         {

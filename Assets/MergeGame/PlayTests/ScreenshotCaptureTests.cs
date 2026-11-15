@@ -100,6 +100,41 @@ namespace MergeGame.PlayTests
             yield return Capture("13_game_board_full");
         }
 
+        /// <summary>A drag-merge filmed at 30 frames per second of game time, cropped to the target and its neighbours.</summary>
+        [UnityTest]
+        public IEnumerator CaptureMergeFrames()
+        {
+            yield return GameScreenDriver.OpenGame(driver => game = driver);
+            GridPosition from, to;
+            for (var spawns = 0; !game.TryFindMergePair(out from, out to) && spawns < 20; spawns++)
+            {
+                game.ClickSpawn();
+                yield return null;
+            }
+
+            yield return GameScreenDriver.WaitSeconds(0.6f);
+            PointerGesture held = null;
+            yield return game.DragOnto(from, to, gesture => held = gesture);
+            yield return GameScreenDriver.WaitSeconds(0.3f);
+
+            Time.captureDeltaTime = 1f / 30f;
+            try
+            {
+                yield return CroppedFrames.CaptureLive(
+                    game.Camera, Snapshot.DeviceResolutions[0], directory, "14_merge", 32,
+                    () =>
+                    {
+                        held.MoveTo(game.ScreenPointOf(to));
+                        held.Release();
+                    },
+                    () => CellNeighbourhoodInPixels(to, 2f), 1);
+            }
+            finally
+            {
+                Time.captureDeltaTime = 0f;
+            }
+        }
+
         private IEnumerator Capture(string name, Action beforeRender = null, float settleSeconds = 0f) =>
             Snapshot.CaptureAll(game.Camera, directory, name, beforeRender, settleSeconds);
 
