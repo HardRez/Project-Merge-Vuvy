@@ -265,12 +265,25 @@ namespace MergeGame.Editor.Building
             return group;
         }
 
+        /// <summary>
+        /// "+25" with the score's bills before it, so a merge shows what it earned; the two are centred together over the
+        /// merged cell, however wide the number.
+        /// </summary>
         private static PointsPopup BuildPointsPopup(UiKit ui)
         {
-            var root = UiKit.Rect("PointsPopup", null).Pin(RectLayout.Center, new Vector2(320f, 130f));
+            var root = UiKit.Rect("PointsPopup", null).Pin(RectLayout.Center, new Vector2(360f, 130f));
             root.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
+            var layout = root.gameObject.AddComponent<HorizontalLayoutGroup>();
+            layout.childAlignment = TextAnchor.MiddleCenter;
+            layout.spacing = 6f;
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = false;
+            layout.childForceExpandHeight = false;
+
+            // The bills are wider than tall (422 x 308); drawn at the label's cap height.
+            ui.Image("Cash", root, ui.Sprites.ScoreCash, Color.white).Prefer(width: 96f, height: 70f);
             var label = ui.Text("Label", root, "+10", 76f, TextTone.Light);
-            label.rectTransform.Stretch();
             label.color = ui.Theme.Gold;
 
             root.gameObject.AddComponent<PointsPopup>().Wire("label", label);

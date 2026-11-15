@@ -136,12 +136,13 @@ namespace MergeGame.Editor.Building
 
             // The pack's glossy blue square; its bottom rim is about a tenth of its height.
             var home = ui.ArtButton("HomeButton", bar, ui.Sprites.HomeButton, contentLift: 8f);
-            home.Rect.Pin(RectLayout.Left, new Vector2(size, size));
+            // Pivoted on its centre, as every tactile button is, so a press shrinks it towards its middle.
+            home.Rect.Pin(RectLayout.Left, new Vector2(size, size), new Vector2(size / 2f, 0f), pivot: RectLayout.Center);
             ui.Icon("Icon", home.Content, "home").rectTransform.Inset(18f);
 
             // The same glossy blue square on the right, with a gear: the settings.
             var settings = ui.ArtButton("SettingsButton", bar, ui.Sprites.HomeButton, contentLift: 8f);
-            settings.Rect.Pin(RectLayout.Right, new Vector2(size, size));
+            settings.Rect.Pin(RectLayout.Right, new Vector2(size, size), new Vector2(-size / 2f, 0f), pivot: RectLayout.Center);
             ui.Image("Icon", settings.Content, ui.Sprites.SettingsIcon, Color.white).rectTransform.Inset(20f);
 
             score = ScorePill(bar);
@@ -177,7 +178,7 @@ namespace MergeGame.Editor.Building
             TitleTab(window, "Ayarlar");
 
             var close = ui.ArtButton("CloseButton", window, ui.Sprites.WindowClose, contentLift: 0f);
-            close.Rect.Pin(RectLayout.TopRight, new Vector2(82f, 82f), new Vector2(-36f, -40f));
+            close.Rect.Pin(RectLayout.TopRight, new Vector2(82f, 82f), new Vector2(-36f - 41f, -40f - 41f), pivot: RectLayout.Center);
 
             const float switchSpacing = 220f;
             var sound = Switch(window, "Sound", "Ses", ui.Sprites.SoundIcon, new Vector2(61f, 52f), -switchSpacing / 2f, out var soundOff);
@@ -450,7 +451,7 @@ namespace MergeGame.Editor.Building
             coverExplanation.gameObject.SetActive(false);
 
             var discard = ui.Button("DiscardButton", details, ui.Theme.Danger, cornerScale: 0.7f);
-            discard.Rect.Pin(RectLayout.Right, new Vector2(116f, 116f), new Vector2(-22f, 0f));
+            discard.Rect.Pin(RectLayout.Right, new Vector2(116f, 116f), new Vector2(-22f - 58f, 0f), pivot: RectLayout.Center);
             ui.Icon("Icon", discard.Content, "trash").rectTransform.Inset(16f);
 
             details.gameObject.SetActive(false);
@@ -529,7 +530,8 @@ namespace MergeGame.Editor.Building
             const float size = 176f;
             const float tagHeight = 58f;
             var button = ui.ArtButton("SpawnButton", bar, ui.Sprites.SpawnButton, ui.Sprites.SpawnButtonDisabled, contentLift: 0f);
-            button.Rect.Pin(RectLayout.Top, new Vector2(size, size));
+            // Pivoted on the circle's centre, so a press shrinks it towards its middle rather than its top edge.
+            button.Rect.Pin(RectLayout.Top, new Vector2(size, size), new Vector2(0f, -size / 2f), pivot: RectLayout.Center);
 
             var icon = ui.Image("Icon", button.Content, ui.Sprites.SpawnIcon, Color.white);
             icon.rectTransform.Pin(RectLayout.Center, new Vector2(size * 0.6f, size * 0.6f), new Vector2(0f, size * 0.06f));
