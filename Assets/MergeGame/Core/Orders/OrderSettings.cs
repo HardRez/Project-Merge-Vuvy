@@ -53,6 +53,7 @@ namespace MergeGame.Core.Orders
         /// <summary>
         /// Customers available to place orders. Active orders get distinct customers while
         /// <see cref="CustomerCount"/> &gt;= <see cref="MaxActiveOrders"/>; otherwise some customers appear twice.
+        /// A replacement order never comes from the customer it replaces unless there is only one customer.
         /// </summary>
         public int CustomerCount { get; }
         public ScoreTable RewardPointsByLevel { get; }
