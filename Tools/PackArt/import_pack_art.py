@@ -102,6 +102,7 @@ AUDIO = [
     ("cash_land.ogg", Path("Audios") / "Effect" / "SfxCoinRaceDropCoin.ogg"),  # a bill lands in the score pill
     ("cash_burst.ogg", Path("Audios") / "Effect" / "sfxWindowPop.ogg"),  # an order's bills burst out of its reward
     ("cash_swoosh.ogg", Path("Audios") / "Effect" / "sfxCardFly.ogg"),  # the paper bills sweep off to the pill
+    ("customer_appear.ogg", Path("Audios") / "Effect" / "SfxMergeBubbleSpawn.ogg"),  # a menu customer pops in
 ] + [
     (f"merge_{level:02d}.ogg", Path("Audios") / "Effect" / f"SfxMergelv{level}.ogg") for level in range(2, 8)
 ]

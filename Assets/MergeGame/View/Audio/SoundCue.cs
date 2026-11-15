@@ -23,6 +23,9 @@ namespace MergeGame.View.Audio
         CashBurst,
 
         /// <summary>The bills of an order's money take off for the score pill; once per payment.</summary>
-        CashSwoosh
+        CashSwoosh,
+
+        /// <summary>A customer pops in behind the main menu's counter; each one on its own.</summary>
+        CustomerAppear
     }
 }

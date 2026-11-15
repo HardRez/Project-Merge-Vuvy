@@ -49,6 +49,9 @@ MonoBehaviour:
   - cue: 11
     clip: {fileID: 8300000, guid: a36d686aad52fc740a72fda8e0b82e97, type: 3}
     volume: 0.7
+  - cue: 12
+    clip: {fileID: 8300000, guid: 63d9f9ffc59240c429dc8c1410e02280, type: 3}
+    volume: 0.6
   mergeClips:
   - {fileID: 8300000, guid: 78704683749700f4e870d5cee6935f97, type: 3}
   - {fileID: 8300000, guid: 0fd0c6c513fb3f942b2216694e08b8d1, type: 3}
