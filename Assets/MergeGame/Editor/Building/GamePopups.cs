@@ -1,4 +1,5 @@
 using MergeGame.View.Chains;
+using MergeGame.View.Cheats;
 using MergeGame.View.Common;
 using MergeGame.View.Settings;
 using TMPro;
@@ -9,8 +10,9 @@ namespace MergeGame.Editor.Building
 {
     /// <summary>
     /// The game screen's popups, laid out like the asset pack's own windows: the settings window (after the pack's
-    /// SettingWindow) and the chains window (after its ItemDetailWindow). Both share the same shell: a dim over the
-    /// screen and the wooden window with its cream panel and round close button (<see cref="PopupWindow"/>).
+    /// SettingWindow), the cheats window opened from it, and the chains window (after its ItemDetailWindow). All share
+    /// the same shell: a dim over the screen and the wooden window with its cream panel and round close button
+    /// (<see cref="PopupWindow"/>).
     /// </summary>
     internal sealed class GamePopups
     {
@@ -18,15 +20,20 @@ namespace MergeGame.Editor.Building
 
         public GamePopups(UiKit ui) => this.ui = ui;
 
-        /// <summary>A small window with a title tab and two switches, sound and vibration.</summary>
-        public SettingsView Settings(RectTransform canvas, Button openButton)
+        /// <summary>
+        /// A small window with a title tab, two switches, sound and vibration, and under them the button that opens the
+        /// cheats (<paramref name="cheatsButton"/>).
+        /// </summary>
+        public SettingsView Settings(RectTransform canvas, Button openButton, out Button cheatsButton)
         {
-            var shell = Shell(canvas, "Settings", new Vector2(640f, 390f), new Vector2(0f, 40f));
+            var shell = Shell(canvas, "Settings", new Vector2(640f, 540f), new Vector2(0f, 40f));
             TitleTab(shell.Window, "Ayarlar");
 
             const float switchSpacing = 220f;
-            var sound = Switch(shell.Window, "Sound", "Ses", ui.Sprites.SoundIcon, new Vector2(61f, 52f), -switchSpacing / 2f, out var soundOff);
-            var vibration = Switch(shell.Window, "Vibration", "Titreşim", ui.Sprites.VibrationIcon, new Vector2(76f, 59f), switchSpacing / 2f, out var vibrationOff);
+            const float switchY = 84f;
+            var sound = Switch(shell.Window, "Sound", "Ses", ui.Sprites.SoundIcon, new Vector2(61f, 52f), -switchSpacing / 2f, switchY, out var soundOff);
+            var vibration = Switch(shell.Window, "Vibration", "Titreşim", ui.Sprites.VibrationIcon, new Vector2(76f, 59f), switchSpacing / 2f, switchY, out var vibrationOff);
+            cheatsButton = TextButton(shell.Window, "CheatsButton", "Hileler", ui.Sprites.GreenButton, new Vector2(340f, 104f), new Vector2(0f, -150f), 46f);
 
             return shell.Root.gameObject.AddComponent<SettingsView>()
                 .Wire("openButton", openButton)
@@ -35,6 +42,26 @@ namespace MergeGame.Editor.Building
                 .Wire("soundOffMark", soundOff)
                 .Wire("vibrationButton", vibration)
                 .Wire("vibrationOffMark", vibrationOff);
+        }
+
+        /// <summary>
+        /// A small window, opened from the settings and laid over them, with the cheats: for now one orange button that
+        /// throws the saved game away and starts a new one, and a line saying so.
+        /// </summary>
+        public CheatsView Cheats(RectTransform canvas, Button openButton)
+        {
+            var shell = Shell(canvas, "Cheats", new Vector2(640f, 400f), new Vector2(0f, 40f));
+            TitleTab(shell.Window, "Hileler");
+
+            var reset = TextButton(shell.Window, "ResetSaveButton", "Kaydı Sıfırla", ui.Sprites.QuitButton, new Vector2(400f, 120f), new Vector2(0f, 30f), 50f);
+            var note = ui.Text("ResetSaveNote", shell.Window, "İlerlemeyi siler, oyunu baştan başlatır.", 30f, TextTone.Dark);
+            note.rectTransform.Pin(RectLayout.Center, new Vector2(520f, 50f), new Vector2(0f, -76f));
+            UiKit.ShrinkToFit(note, 22f);
+
+            return shell.Root.gameObject.AddComponent<CheatsView>()
+                .Wire("openButton", openButton)
+                .Wire("popup", shell.Popup)
+                .Wire("resetSaveButton", reset);
         }
 
         /// <summary>
@@ -182,18 +209,30 @@ namespace MergeGame.Editor.Building
         /// One switch, as the pack draws them: its small green square button with a white icon (a red slash across it
         /// while off), and its name below.
         /// </summary>
-        private Button Switch(RectTransform window, string name, string title, Sprite icon, Vector2 iconSize, float x, out GameObject offMark)
+        private Button Switch(RectTransform window, string name, string title, Sprite icon, Vector2 iconSize, float x, float y, out GameObject offMark)
         {
             var size = new Vector2(130f, 127f);
             var button = ui.ArtButton(name + "Button", window, ui.Sprites.SwitchFace, contentLift: 0f);
-            button.Rect.Pin(RectLayout.Center, size, new Vector2(x, 14f), pivot: RectLayout.Center);
+            button.Rect.Pin(RectLayout.Center, size, new Vector2(x, y), pivot: RectLayout.Center);
             ui.Image("Icon", button.Content, icon, Color.white).rectTransform.Pin(RectLayout.Center, iconSize, new Vector2(0f, 2f));
             var off = ui.Image("Off", button.Content, ui.Sprites.SwitchOff, Color.white);
             off.rectTransform.Pin(RectLayout.Center, new Vector2(66f, 47f));
             offMark = off.gameObject;
 
             var label = ui.Text(name + "Name", window, title, 36f, TextTone.Dark);
-            label.rectTransform.Pin(RectLayout.Center, new Vector2(240f, 50f), new Vector2(x, 14f - size.y / 2f - 34f));
+            label.rectTransform.Pin(RectLayout.Center, new Vector2(240f, 50f), new Vector2(x, y - size.y / 2f - 34f));
+            return button.Button;
+        }
+
+        /// <summary>A glossy button of the pack's art with a white label, centred <paramref name="offset"/> from the window's middle.</summary>
+        private Button TextButton(RectTransform window, string name, string label, Sprite face, Vector2 size, Vector2 offset, float fontSize)
+        {
+            var button = ui.ArtButton(name, window, face, contentLift: size.y * 0.1f, height: size.y);
+            // Pivoted on its centre, as every tactile button is, so a press shrinks it towards its middle.
+            button.Rect.Pin(RectLayout.Center, size, offset, pivot: RectLayout.Center);
+            var text = ui.Text("Label", button.Content, label, fontSize, TextTone.Light);
+            text.rectTransform.Stretch(24f, 0f, 24f, 0f);
+            UiKit.ShrinkToFit(text, fontSize * 0.6f);
             return button.Button;
         }
 

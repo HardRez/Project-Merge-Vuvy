@@ -1,4 +1,5 @@
 using MergeGame.App.Lifecycle;
+using MergeGame.App.Saving;
 using MergeGame.Core.Items;
 using MergeGame.Core.Session;
 using MergeGame.Core.Spawning;
@@ -7,6 +8,7 @@ using MergeGame.Data.Definitions;
 using MergeGame.Data.Visuals;
 using MergeGame.Presentation;
 using MergeGame.Presentation.Board;
+using MergeGame.Presentation.Cheats;
 using MergeGame.Presentation.Chains;
 using MergeGame.Presentation.Events;
 using MergeGame.Presentation.Hints;
@@ -19,6 +21,7 @@ using MergeGame.Presentation.Settings;
 using MergeGame.Presentation.Spawning;
 using MergeGame.View.Board;
 using MergeGame.View.Chains;
+using MergeGame.View.Cheats;
 using MergeGame.View.Hints;
 using MergeGame.View.Navigation;
 using MergeGame.View.Notices;
@@ -33,8 +36,8 @@ using Zenject;
 namespace MergeGame.App.Installers
 {
     /// <summary>
-    /// Composition root of the game screen. The scene container lives exactly as long as the scene, so every load of
-    /// the Game scene starts a new session.
+    /// Composition root of the game screen. The scene container lives exactly as long as the scene: every load of the
+    /// Game scene opens the saved game (or a new one without a save) in a session of its own, saved as it changes.
     /// </summary>
     public sealed class GameInstaller : MonoInstaller
     {
@@ -50,6 +53,7 @@ namespace MergeGame.App.Installers
         [SerializeField] private OrderMatchView orderMatchView;
         [SerializeField] private SettingsView settingsView;
         [SerializeField] private ChainsView chainsView;
+        [SerializeField] private CheatsView cheatsView;
 
         [Header("Tuning")]
         [Tooltip("Seconds without any player action before a possible merge is first pointed out (one short pulse).")]
@@ -84,8 +88,10 @@ namespace MergeGame.App.Installers
                 .AsSingle();
             Container.Bind<ItemCatalog>().FromResolveGetter<GameDefinition>(definition => definition.Catalog).AsSingle();
             Container.Bind<MergeGameSession>()
-                .FromMethod(context => new MergeGameSession(context.Container.Resolve<GameDefinition>(), context.Container.Resolve<IRandom>()))
+                .FromMethod(context => SessionAutoSaver.LoadOrStart(
+                    context.Container.Resolve<GameDefinition>(), context.Container.Resolve<IRandom>(), context.Container.Resolve<IGameSaveStore>()))
                 .AsSingle();
+            Container.BindInterfacesAndSelfTo<SessionAutoSaver>().AsSingle();
             Container.Bind<SessionEventStream>().AsSingle();
             Container.Bind<IItemVisuals>().To<ItemVisualLibrary>().AsSingle();
         }
@@ -103,6 +109,7 @@ namespace MergeGame.App.Installers
             Container.Bind<IOrderMatchView>().FromInstance(orderMatchView);
             Container.Bind<ISettingsView>().FromInstance(settingsView);
             Container.Bind<IChainsView>().FromInstance(chainsView);
+            Container.Bind<ICheatsView>().FromInstance(cheatsView);
         }
 
         private void BindPools()
@@ -128,6 +135,7 @@ namespace MergeGame.App.Installers
             Container.Bind<GameNavigationPresenter>().AsSingle();
             Container.Bind<SettingsPresenter>().AsSingle();
             Container.Bind<ChainsPresenter>().AsSingle();
+            Container.Bind<CheatsPresenter>().AsSingle();
             Container.Bind<MergeHintSettings>().FromInstance(new MergeHintSettings(mergeHintIdleSeconds, mergeHintRepeatSeconds));
             Container.Bind(typeof(MergeHintPresenter), typeof(ITimeDriven)).To<MergeHintPresenter>().AsSingle();
             Container.BindInterfacesTo<TimeDrivenTicker>().AsSingle();
@@ -151,6 +159,7 @@ namespace MergeGame.App.Installers
                 container.Resolve<GameNavigationPresenter>(),
                 container.Resolve<SettingsPresenter>(),
                 container.Resolve<ChainsPresenter>(),
+                container.Resolve<CheatsPresenter>(),
                 container.Resolve<MergeHintPresenter>()
             };
             return new PresenterLifecycle(presenters, container.Resolve<SessionEventStream>());
