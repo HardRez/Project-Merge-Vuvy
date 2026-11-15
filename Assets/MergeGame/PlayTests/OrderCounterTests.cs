@@ -97,7 +97,9 @@ namespace MergeGame.PlayTests
             var slot = Enumerable.Range(0, game.Orders.CardCount).First(index => game.Orders.GetCard(index).CanDeliver);
             var card = game.Orders.GetCard(slot);
             var customer = card.Customer;
-            var order = game.Session.ActiveOrders.First(active => game.Session.CanDeliver(active.Id));
+            // This card's own order: when two orders can be delivered, delivering the other one may take this one's items.
+            var order = game.Session.ActiveOrders[slot];
+            Assert.That(game.Session.CanDeliver(order.Id), Is.True);
             game.Session.DeliverOrder(order.Id);
 
             var left = false;

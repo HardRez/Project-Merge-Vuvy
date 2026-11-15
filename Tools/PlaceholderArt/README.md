@@ -36,7 +36,7 @@ If anything cannot be resolved, the script exits with code 1 and lists every fai
 
 | File | Emoji | Fluent folder | Use |
 |---|---|---|---|
-| `star.png` | ⭐ | Star | score |
+| `star.png` | ⭐ | Star | score; no longer used: the score and the rewards show a fan of green bills (`Sprites/UI/score_cash.png`) |
 | `coin.png` | 🪙 | Coin | currency |
 | `lock.png` | 🔒 | Locked | locked state |
 | `check.png` | – | drawn by the script | order complete; a bare green tick with a white rim, no button behind it |

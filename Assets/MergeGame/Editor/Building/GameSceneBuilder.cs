@@ -138,8 +138,9 @@ namespace MergeGame.Editor.Building
             const float height = 100f;
             var pill = ui.Image("ScorePill", bar, ui.Sprites.Pill, ui.Theme.Panel, cornerScale: height / 128f);
             pill.rectTransform.Pin(RectLayout.Center, new Vector2(380f, height));
-            var star = ui.Icon("Star", pill.rectTransform, "star");
-            star.rectTransform.Pin(RectLayout.Left, new Vector2(128f, 128f), new Vector2(-40f, 4f));
+            // The bills are wider than tall; their rect keeps that shape so they reach over the pill's left end.
+            var cash = ui.Image("Cash", pill.rectTransform, ui.Sprites.ScoreCash, Color.white);
+            cash.rectTransform.Pin(RectLayout.Left, new Vector2(150f, 110f), new Vector2(-48f, 2f));
             var label = ui.Text("Score", pill.rectTransform, "0", 62f, TextTone.Dark);
             label.rectTransform.Stretch(80f, 8f, 28f, 0f);
             UiKit.ShrinkToFit(label, 36f);
@@ -147,7 +148,7 @@ namespace MergeGame.Editor.Building
             return pill.gameObject.AddComponent<ScoreView>()
                 .Wire("label", label)
                 .Wire("pill", pill.rectTransform)
-                .Wire("star", star.rectTransform);
+                .Wire("icon", cash.rectTransform);
         }
 
         /// <summary>

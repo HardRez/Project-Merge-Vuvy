@@ -43,7 +43,8 @@ namespace MergeGame.Editor.Building
         public const float ShopFloorTileWidth = 300f;
 
         public const float CardSpacing = 20f;
-        public const float RequirementSize = 100f;
+        /// <summary>A requested item on its tray; the item art leaves a margin round the item, so this is drawn generously.</summary>
+        public const float RequirementSize = 140f;
 
         // The shop counter across the bottom of the orders strip, measured up from the strip's bottom edge. The customers
         // stand in the space above the counter top; their trays stand on it and their deliver buttons hang on its front.
