@@ -5,7 +5,6 @@ using Zenject;
 
 namespace MergeGame.View.Feedback
 {
-    /// <summary>How strongly the device buzzes.</summary>
     public enum HapticPulse
     {
         /// <summary>A short tick: a merge.</summary>

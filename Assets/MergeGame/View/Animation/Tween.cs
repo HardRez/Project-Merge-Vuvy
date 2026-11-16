@@ -33,7 +33,6 @@ namespace MergeGame.View.Animation
                 yield return null;
         }
 
-        /// <summary>Repeats the animation until the coroutine is stopped.</summary>
         public static IEnumerator Loop(Func<IEnumerator> animation)
         {
             while (true)

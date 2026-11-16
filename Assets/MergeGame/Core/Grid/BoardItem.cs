@@ -7,7 +7,7 @@ namespace MergeGame.Core.Grid
     public sealed class BoardItem
     {
         /// <param name="isLocked">
-        /// A locked ("webbed") item cannot be dragged, discarded or delivered, but a matching free item can be merged
+        /// A locked item (shown in a bubble) cannot be dragged, discarded or delivered, but a matching free item can be merged
         /// onto it, which produces an unlocked item.
         /// </param>
         public BoardItem(ItemId itemId, bool isLocked = false)
@@ -16,7 +16,7 @@ namespace MergeGame.Core.Grid
         }
 
         /// <param name="isHidden">
-        /// A hidden item (a closed box) is locked and additionally cannot be merged onto. It is revealed as a locked item
+        /// A hidden item (shown under sand) is locked and additionally cannot be merged onto. It is revealed as a locked item
         /// when a neighbouring locked item is freed by a merge.
         /// </param>
         /// <exception cref="ArgumentException">The item is hidden but not locked.</exception>

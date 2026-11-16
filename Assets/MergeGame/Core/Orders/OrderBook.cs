@@ -61,7 +61,6 @@ namespace MergeGame.Core.Orders
 
         public IReadOnlyList<Order> ActiveOrders => activeOrders;
 
-        /// <summary>The id the next generated order gets.</summary>
         public int NextOrderId => nextOrderId;
 
         public bool TryGetSlot(int orderId, out int slotIndex)

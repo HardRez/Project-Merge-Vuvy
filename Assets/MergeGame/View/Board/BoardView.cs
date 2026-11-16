@@ -148,7 +148,6 @@ namespace MergeGame.View.Board
 
         public Vector3 GetCellWorldCenter(GridPosition position) => grid.NormalizedToWorld(geometry.GetCell(position).Center);
 
-        /// <summary>The tile of the cell, as laid out on the board.</summary>
         public RectTransform GetCellTile(GridPosition position) => cells[position.Y * geometry.Size.Width + position.X].rectTransform;
 
         public void CreateGrid(BoardSize size)

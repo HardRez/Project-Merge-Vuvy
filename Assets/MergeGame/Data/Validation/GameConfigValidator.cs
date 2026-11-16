@@ -146,8 +146,8 @@ namespace MergeGame.Data.Validation
         }
 
         /// <summary>
-        /// A box opens when a webbed item next to it is freed, and opening reveals another webbed item, so a group of
-        /// touching boxes needs at least one webbed (locked, not boxed) neighbour. Same rule as Core's.
+        /// A hidden item is revealed when a locked item next to it is freed, and it stays locked itself, so a group of
+        /// touching hidden items needs at least one locked, visible neighbour. Same rule as Core's.
         /// </summary>
         private static void CheckBoxesCanOpen(BoardLayoutAsset layout, List<string> problems)
         {

@@ -30,7 +30,6 @@ namespace MergeGame.Presentation.Selection
         public string DisplayName { get; }
         public int Level => ItemId.Level;
 
-        /// <summary>The last level of the item's chain.</summary>
         public int MaxLevel { get; }
 
         public bool IsMaxLevel => Level == MaxLevel;

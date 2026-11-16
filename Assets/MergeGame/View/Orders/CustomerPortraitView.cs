@@ -115,7 +115,6 @@ namespace MergeGame.View.Orders
         /// <summary>How visible the customer is: 1 while it is here, fading to 0 as it leaves.</summary>
         public float Opacity => group.alpha;
 
-        /// <summary>Shows a customer who just arrived with an order.</summary>
         public void Arrive(SkeletonDataAsset skeleton, Sprite still, CustomerMood customerMood)
         {
             mood = customerMood;

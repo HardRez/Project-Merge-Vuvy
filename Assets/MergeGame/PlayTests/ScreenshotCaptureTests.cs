@@ -112,7 +112,6 @@ namespace MergeGame.PlayTests
             GameScreenDriver.Click(settings.CloseButton);
             yield return GameScreenDriver.WaitSeconds(0.3f);
 
-            // The chains popup.
             var chains = UnityEngine.Object.FindAnyObjectByType<MergeGame.View.Chains.ChainsView>();
             GameScreenDriver.Click(chains.OpenButton);
             yield return GameScreenDriver.WaitSeconds(0.5f);

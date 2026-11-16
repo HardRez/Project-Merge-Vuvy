@@ -91,7 +91,6 @@ namespace MergeGame.View.Orders
             }
         }
 
-        /// <summary>The customer shown on this card.</summary>
         public CustomerPortraitView Customer => customer;
 
         /// <summary>How visible the tray, reward and deliver button are (they fade out on delivery and in for the next order).</summary>

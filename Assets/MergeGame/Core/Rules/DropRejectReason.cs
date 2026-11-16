@@ -11,7 +11,7 @@ namespace MergeGame.Core.Rules
         MaxLevel,
         SourceLocked,
 
-        /// <summary>The target is a closed box, which is not a merge target.</summary>
+        /// <summary>The target is hidden under sand, which is not a merge target.</summary>
         TargetHidden
     }
 }

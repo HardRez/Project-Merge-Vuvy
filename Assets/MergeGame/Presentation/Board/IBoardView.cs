@@ -21,10 +21,10 @@ namespace MergeGame.Presentation.Board
         void CreateGrid(BoardSize size);
         void PlaceItem(GridPosition position, ItemId itemId, bool isLocked);
 
-        /// <summary>A closed box at the start; what is inside stays unknown until <see cref="RevealItem"/>.</summary>
+        /// <summary>A sand-covered cell at the start; what is inside stays unknown until <see cref="RevealItem"/>.</summary>
         void PlaceHiddenItem(GridPosition position);
 
-        /// <summary>The box opens into a locked item, after the merge that freed its neighbour was shown.</summary>
+        /// <summary>The sand clears and a locked item appears, after the merge that freed its neighbour was shown.</summary>
         void RevealItem(GridPosition position, ItemId itemId);
 
         void SpawnItem(GridPosition position, ItemId itemId);

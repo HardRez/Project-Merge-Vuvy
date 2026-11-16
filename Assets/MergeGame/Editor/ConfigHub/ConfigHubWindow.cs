@@ -91,8 +91,6 @@ namespace MergeGame.Editor.ConfigHub
             ShowPage(currentPage);
         }
 
-        // ---- Navigation -------------------------------------------------------------------------------------------
-
         internal void ShowPage(string pageId)
         {
             var page = HubPages.All.FirstOrDefault(candidate => candidate.Id == pageId) ?? HubPages.All[0];
@@ -195,8 +193,6 @@ namespace MergeGame.Editor.ConfigHub
             }
         }
 
-        // ---- Header and footer ------------------------------------------------------------------------------------
-
         private VisualElement BuildHeader()
         {
             var header = HubUI.Box("hub-header");
@@ -233,8 +229,6 @@ namespace MergeGame.Editor.ConfigHub
             footer.Add(toggle);
             return footer;
         }
-
-        // ---- Validation -------------------------------------------------------------------------------------------
 
         /// <summary>Re-checks the config shortly after the last of a burst of edits.</summary>
         internal void RequestValidation()

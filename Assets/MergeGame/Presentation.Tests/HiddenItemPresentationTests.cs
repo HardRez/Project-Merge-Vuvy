@@ -6,10 +6,10 @@ using static MergeGame.Presentation.Tests.Support.TestContent;
 
 namespace MergeGame.Presentation.Tests
 {
-    /// <summary>Closed boxes: placed without their content, inert for the player, revealed when a neighbour is freed.</summary>
+    /// <summary>Hidden items: placed without their content, inert for the player, revealed when a neighbour is freed.</summary>
     public sealed class HiddenItemPresentationTests
     {
-        /// <summary>A free wood 1 at (0, 0) that can free the webbed wood 1 at (2, 2), next to boxes at (3, 2) and (3, 3).</summary>
+        /// <summary>A free wood 1 at (0, 0) that can free the locked wood 1 at (2, 2), next to hidden items at (3, 2) and (3, 3).</summary>
         private static GameBuilder BoardWithBoxes() =>
             new GameBuilder()
                 .WithItem(0, 0, Item(Wood, 1))

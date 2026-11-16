@@ -12,7 +12,6 @@ namespace MergeGame.Presentation.Tests.Support
             this.log = log;
         }
 
-        /// <summary>The shown hint, or null.</summary>
         public (GridPosition from, GridPosition to)? Shown { get; private set; }
 
         public int ShowCount { get; private set; }

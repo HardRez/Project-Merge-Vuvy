@@ -32,10 +32,8 @@ namespace MergeGame.View.Settings
         /// <summary>True from the moment the popup starts opening until it starts closing.</summary>
         public bool IsOpen => popup.IsOpen;
 
-        /// <summary>What the sound switch shows now.</summary>
         public bool ShowsSoundOn => !soundOffMark.activeSelf;
 
-        /// <summary>What the vibration switch shows now.</summary>
         public bool ShowsVibrationOn => !vibrationOffMark.activeSelf;
 
         public Button OpenButton => openButton;

@@ -48,7 +48,6 @@ namespace MergeGame.View.Score
         private readonly List<Image> flyingBills = new List<Image>();
         private int pointsInFlight;
 
-        /// <summary>Bills on their way to the pill right now.</summary>
         public int BillsInFlight => flyingBills.Count;
 
         /// <summary>Raised as each bill lands in the pill; lets tests follow the payment bill by bill.</summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace MergeGame.Core.Grid
 {
     /// <summary>
-    /// Opens the boxes next to a freed cell: every hidden item among its four orthogonal neighbours becomes a locked,
+    /// Uncovers the sand next to a freed cell: every hidden item among its four orthogonal neighbours becomes a locked,
     /// visible item. Revealed items stay locked, so nothing opens further until they are freed by a merge themselves.
     /// </summary>
     internal sealed class HiddenItemRevealer

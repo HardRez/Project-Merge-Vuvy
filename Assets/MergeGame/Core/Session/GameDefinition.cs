@@ -100,7 +100,7 @@ namespace MergeGame.Core.Session
         }
 
         /// <summary>
-        /// A box opens only when a neighbouring locked item is freed, so every group of orthogonally touching hidden
+        /// A hidden item is revealed only when a neighbouring locked item is freed, so every group of orthogonally touching hidden
         /// placements must touch a locked, visible placement. Whether that item can actually be matched is not checked.
         /// </summary>
         private static void EnsureHiddenPlacementsCanOpen(InitialPlacement[] placements)

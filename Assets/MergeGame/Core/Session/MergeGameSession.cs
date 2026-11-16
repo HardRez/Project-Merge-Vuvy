@@ -118,7 +118,7 @@ namespace MergeGame.Core.Session
         /// <summary>
         /// Applies the drop <see cref="PreviewDrop"/> predicts. A move raises <see cref="ItemMoved"/>; a rejection raises
         /// <see cref="DropRejected"/>. A merge raises <see cref="ItemsMerged"/>, then one <see cref="ItemRevealed"/> per
-        /// box it opened (row-major; only when it freed a locked target), then <see cref="ScoreChanged"/> (if points were
+        /// hidden item it revealed (row-major; only when it freed a locked target), then <see cref="ScoreChanged"/> (if points were
         /// awarded) and <see cref="BoardFullChanged"/> (if the board was full), in that order.
         /// </summary>
         public DropOutcome Drop(GridPosition from, GridPosition to)

@@ -11,7 +11,6 @@ namespace MergeGame.Presentation.Settings
         /// <summary>Whether the device vibrates on merges and deliveries.</summary>
         bool VibrationOn { get; }
 
-        /// <summary>Raised after a setting changed.</summary>
         event Action Changed;
 
         void SetSoundOn(bool on);

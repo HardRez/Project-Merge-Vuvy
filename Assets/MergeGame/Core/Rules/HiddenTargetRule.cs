@@ -1,6 +1,6 @@
 namespace MergeGame.Core.Rules
 {
-    /// <summary>A closed box is not a merge target; anything dropped on it returns.</summary>
+    /// <summary>A hidden item is not a merge target; anything dropped on it returns.</summary>
     public sealed class HiddenTargetRule : IDropRule
     {
         public bool TryResolve(DropContext context, out DropOutcome outcome)

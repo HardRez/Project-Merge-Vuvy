@@ -44,7 +44,7 @@ namespace MergeGame.Data.Authoring
         public int Y => y;
         public ItemChainAsset Chain => chain;
         public int Level => level;
-        /// <summary>True for webbed items and for boxes: a box is always locked.</summary>
+        /// <summary>True for locked items and for hidden ones: a hidden item is always locked.</summary>
         public bool Locked => locked || hidden;
 
         public bool Hidden => hidden;

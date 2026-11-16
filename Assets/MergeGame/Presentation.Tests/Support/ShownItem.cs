@@ -3,7 +3,7 @@ using MergeGame.Core.Items;
 
 namespace MergeGame.Presentation.Tests.Support
 {
-    /// <summary>An item as <see cref="FakeBoardView"/> currently shows it. A closed box shows no item id.</summary>
+    /// <summary>An item as <see cref="FakeBoardView"/> currently shows it. A hidden item shows no item id.</summary>
     internal readonly struct ShownItem : IEquatable<ShownItem>
     {
         public ShownItem(ItemId itemId, bool isLocked)

@@ -20,7 +20,7 @@ namespace MergeGame.Presentation.Notices
         /// <summary>Delivery was requested while the board lacks some of the order's items.</summary>
         OrderNotReady,
 
-        /// <summary>A closed box was picked up or something was dropped onto one; boxes open when a neighbouring locked item is freed.</summary>
+        /// <summary>A sand-covered cell was picked up or something was dropped onto one; the sand clears when a neighbouring locked item is freed.</summary>
         ItemIsHidden
     }
 }

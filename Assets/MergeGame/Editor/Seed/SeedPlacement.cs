@@ -11,7 +11,7 @@ namespace MergeGame.Editor.Seed
         public int level;
         public bool locked;
 
-        /// <summary>A closed box; implies locked.</summary>
+        /// <summary>Hidden under sand; implies locked.</summary>
         public bool hidden;
     }
 }

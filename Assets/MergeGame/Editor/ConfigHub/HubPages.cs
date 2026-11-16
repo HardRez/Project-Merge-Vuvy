@@ -91,8 +91,6 @@ namespace MergeGame.Editor.ConfigHub
             }
         }
 
-        // ---- Shared parts -----------------------------------------------------------------------------------------
-
         /// <summary>
         /// The asset a page edits, with a field to switch to another asset of the same type and the usual actions.
         /// </summary>
