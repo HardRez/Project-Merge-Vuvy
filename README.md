@@ -157,4 +157,4 @@ Animasyon timing'leri, renkler ve layout bilinçli olarak test edilmedi; bunlar 
 
 ## Third-party asset'ler
 
-Extenject (MIT), Spine Runtimes (Spine Runtimes License), Baloo 2 font'u (OFL 1.1), Microsoft Fluent Emoji (MIT) ve proje sahibinin lisansladığı asset pack ile müşteri karakterleri. Ayrıntılar: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+Extenject (MIT), Spine Runtimes (Spine Runtimes License), Baloo 2 font'u (OFL 1.1), Microsoft Fluent Emoji (MIT) ve Gossip Harbor karakterleri. Ayrıntılar: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).

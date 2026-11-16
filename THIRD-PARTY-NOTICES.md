@@ -51,7 +51,7 @@ SOFTWARE
 
 ## Customer characters
 
-- Source: supplied by the project owner, who holds the licence to use them.
+- Source: characters from the game Gossip Harbor, supplied by the project owner. All rights in them remain with the game's owners; the project owner is responsible for the right to use them here.
 - Used for: the 13 animated customers on the order cards (Spine 3.8.99 exports: skeleton, atlas and texture).
 - Files: `Assets/MergeGame/Content/Characters/**`.
 
